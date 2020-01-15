@@ -1,0 +1,8 @@
+cmake-build*
+.idea
+__pycache__/
+.pytest_cache/
+*.pyc
+*.so
+.ipynb_checkpoints
+docs/_*
