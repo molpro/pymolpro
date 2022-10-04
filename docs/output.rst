@@ -1,4 +1,4 @@
-:gitlab_url: https://gitlab.com/molpro/pysjef_molpro
+:gitlab_url: https://github.com/molpro/python
 
 .. _output:
 

@@ -1,4 +1,4 @@
-:gitlab_url: https://gitlab.com/molpro/pysjef_molpro
+:gitlab_url: https://github.com/molpro/python
 
 .. _project:
 
@@ -11,7 +11,7 @@ Project
 
 :todo:
 
-.. automodule:: pysjef_molpro.project
+.. automodule:: molpro.project
     :members:
 
 Parsing structured output
@@ -19,6 +19,6 @@ Parsing structured output
 
 :todo:
 
-.. automodule:: pysjef_molpro.node_xml
+.. automodule:: molpro.node_xml
     :members:
 
