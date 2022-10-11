@@ -1,9 +1,10 @@
 from setuptools import setup, find_packages
+import versioneer
 
 
 def read_version():
     version = "none-0.0.0"
-    with open("pysjef_molpro/_version.py", "r") as f:
+    with open("molpro/_version.py", "r") as f:
         for line in f.readlines():
             if "__version__" in line:
                 version = line.split("=")[-1].strip().strip(' "').strip("'")
@@ -11,9 +12,10 @@ def read_version():
 
 
 setup(
-    name="pysjef_molpro",
-    version=read_version(),
+    name="molpro",
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
     packages=find_packages(),
     license="MIT",
-    install_requires=["pysjef>=0.0.1", "numpy>=1.12", "regex"],
+    install_requires=["pysjef>=1.23.0", "numpy>=1.12", "regex"],
 )

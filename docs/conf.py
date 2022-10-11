@@ -16,7 +16,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'pysjef_molpro'
+project = 'molpro'
 copyright = '2020, Marat Sibaev'
 author = 'Marat Sibaev'
 

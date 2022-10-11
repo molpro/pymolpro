@@ -1,10 +1,10 @@
-:gitlab_url: https://gitlab.com/molpro/pysjef_molpro
+:gitlab_url: https://github.com/molpro/python
 
-=======================================
-Welcome to pysjef_molpro documentation!
-=======================================
+=====================
+Molpro python support
+=====================
 
-pysjef_molpro is an extension of `pysjef <https://molpro.gitlab.io/pysjef/>`_
+This package contains code that extends `pysjef <https://molpro.github.io/sjef/>`_
 for working with `Molpro quantum chemistry package <https://www.molpro.net/>`_.
 
 Installation
