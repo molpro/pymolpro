@@ -1,4 +1,4 @@
-:gitlab_url: https://github.com/molpro/python
+:gitlab_url: https://github.com/molpro/pymolpro
 
 =====================
 Molpro python support

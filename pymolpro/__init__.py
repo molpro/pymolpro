@@ -1,7 +1,7 @@
 import pysjef
 from pysjef import *
-from molpro.project import MProject, no_errors
-import molpro.node_xml as node_xml
+from pymolpro.project import MProject, no_errors
+import pymolpro.node_xml as node_xml
 
 Settings.set('project_default_suffix', 'molpro')
 pysjef.project_factory.PROJECT_FACTORY["molpro"] = MProject

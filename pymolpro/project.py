@@ -20,7 +20,7 @@ def no_errors(projects, ignore_warning=True):
 
 class MProject(Project):
     """
-    Python binding to molpro-project, for managing molpro jobs.
+    Python binding to sjef, for managing molpro jobs.
     Project is a node with parsed molpro output as the only child.
     """
 

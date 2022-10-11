@@ -16,7 +16,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'molpro'
+project = 'pymolpro'
 copyright = '2020, Marat Sibaev'
 author = 'Marat Sibaev'
 
