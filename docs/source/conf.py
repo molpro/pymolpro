@@ -12,21 +12,8 @@ author = 'Marat Sibaev, Peter Knowles'
 
 import sys
 from pathlib import Path
-sys.path.insert(0, Path(__file__).parent.parent.absolute())
-# import pymolpro
-import pip
-# pip.main(['install']+[Path(__file__).parent.parent.as_posix(),"--no-deps","--force-reinstall"])
-# import os.path
-# BASE_DIR = os.path.abspath(os.path.join(__file__, '../../../'))
-# BASE_DIR=Path(__file__).parent.parent.parent
-# BASE_DIR='pymolpro'
-# pip.main(['install',"--no-deps","--force-reinstall",BASE_DIR])
-# pip.main(['install'])
-# import conda.cli
+# sys.path.insert(0, Path(__file__).parent.parent.absolute())
 import subprocess
-# subprocess.check_call(['conda','install',"-c","conda-forge",'-y','versioneer'])
-# subprocess.check_call(['conda','list'])
-# import versioneer
 subprocess.check_call([sys.executable,"-m","pip","install","--no-deps", "--force-reinstall",Path(__file__).parent.parent.parent])
 import pymolpro
 release = pymolpro.__version__
@@ -39,7 +26,10 @@ extensions = []
 templates_path = ['_templates']
 exclude_patterns = []
 
-
+variables_to_export = ["release"]
+frozen_locals = dict(locals())
+rst_epilog = '\n'.join(map(lambda x: f".. |{x}| replace:: {frozen_locals[x]}", variables_to_export))
+del frozen_locals
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
