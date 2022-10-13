@@ -19,15 +19,13 @@ def tag_to_name(tag):
 class PropertyXml(RootXml):
     """
     molpro-output:property - Output about a single property of a single molecule
-    Attributes:
-        str name, any value
+    Attributes: str name, any value
     """
 
 
 class CmlMoleculeXml(RootXml):
     """cml:molecule - Output about a single molecule
-    Children:
-        cml:atomarry, cml:symmetry
+    Children: cml:atomarry, cml:symmetry
     """
 
     # cmlMolecule has 2 jobs:
@@ -61,8 +59,7 @@ class CmlAtomXml(RootXml):
 
 class InputXml(RootXml):
     """molpro-output:input - Molpro input dataset
-    Children:
-        p, include
+    Children: p, include
     """
 
     # def finalise(self, **options):
@@ -87,22 +84,15 @@ class InputXml(RootXml):
 
 class JobstepXml(RootXml):
     """molpro-output:jobstep - Output from a single job step
-    Children:
-        error, gradient, opt, property, cube, time, storage, vibrations,
-        jobstep, cml:molecule, variables, instanton
-    Attributes:
-        str command, str commandset, bool displaced
+    Children: error, gradient, opt, property, cube, time, storage, vibrations, jobstep, cml:molecule, variables, instanton
+    Attributes: str command, str commandset, bool displaced
     """
 
 
 class MoleculeXml(RootXml):
     """molpro-output:molecule - Summary output about the job
-    Children:
-        cml:molecule, basisSet, vibrations, orbitals, stm:metadataList,
-        platform
-    Attributes:
-        str id, str index, str InChI, str InChIKey, str SMILES, str title, str
-        method, str basis, str geometryMethod, str geometryBasis, double energy
+    Children: cml:molecule, basisSet, vibrations, orbitals, stm:metadataList, platform
+    Attributes: str id, str index, str InChI, str InChIKey, str SMILES, str title, str method, str basis, str geometryMethod, str geometryBasis, double energy
     """
     # <molecule> is very poorly named - it contains output about the final
     # result of the job, but the actual molecular geometry is still contained
@@ -137,17 +127,14 @@ class VariableXml(RootXml):
 
 class VariablesXml(RootXml):
     """molpro-output:variables - Container for Molpro internal variables
-    Children:
-        variable
+    Children: variable
     """
 
 
 class OrbitalsXml(RootXml):
     """molpro-output:orbitals - Container for Molpro internal orbitals
-    Children:
-        orbital
-    Attributes:
-        str basis, str angular, str spin, str method
+    Children: orbital
+    Attributes: str basis, str angular, str spin, str method
     """
 
     # The <orbitals> node contains a bunch of <orbital>s.
@@ -177,10 +164,8 @@ class OrbitalsXml(RootXml):
 
 class OrbitalXml(RootXml):
     """molpro-output:orbital - A Molpro molecular orbital
-    Children:
-        [string]
-    Attributes:
-        str symmetryID, double energy, double occupation
+    Children: [string]
+    Attributes: str symmetryID, double energy, double occupation
     """
 
 
@@ -192,47 +177,39 @@ class OrbitalXml(RootXml):
 
 class PlatformXml(RootXml):
     """molpro-output:platform - Container for metadata about the platform
-    Children:
-        version, licence, parallel, machine, dimensions
+    Children: version, licence, parallel, machine, dimensions
     """
 
 
 class VersionXml(RootXml):
     """molpro-output:version
-    Children:
-        [string], date
-    Attributes:
-        int major, int minor, str SHA, int integer_bits, str parallelism
+    Children: [string], date
+    Attributes: int major, int minor, str SHA, int integer_bits, str parallelism
     """
 
 
 class DateXml(RootXml):
     """molpro-output:date - The time of the calculation.
-    Children:
-        [string datetime]
-    Attributes:
-        int year, int month, int day, int hour, int minute, int second
+    Children: [string datetime]
+    Attributes: int year, int month, int day, int hour, int minute, int second
     """
 
 
 class LicenceXml(RootXml):
     """molpro-output:licence
-    Attributes:
-        str id
+    Attributes: str id
     """
 
 
 class ParallelXml(RootXml):
     """molpro-output:parallel
-    Attributes:
-        int processes, int nodes, int all_processes, int openmp
+    Attributes: int processes, int nodes, int all_processes, int openmp
     """
 
 
 class MachineXml(RootXml):
     """molpro-output:machine
-    Attributes:
-        str hostname
+    Attributes: str hostname
     """
 
 
@@ -245,90 +222,72 @@ class MachineXml(RootXml):
 
 class DiagnosticsXml(RootXml):
     """molpro-output:diagnostics - Diagnostic info from the job
-    Attributes:
-        int warnings
+    Attributes: int warnings
     """
 
 
 class BasisSetXml(RootXml):
     """molpro-output:basisSet - Container for a basis set
-    Children:
-        basisGroup, association
-    Attributes:
-        str id, str type, str angular, int groups, str primitives, int length,
-        int cartesianLength
+    Children: basisGroup, association
+    Attributes: str id, str type, str angular, int groups, str primitives, int length, int cartesianLength
     """
 
 
 class VibrationsXml(RootXml):
     """molpro-output:vibrations - Container for info on molecular vibrations
-    Children:
-        normalCoordinate
-    Attributes:
-        str name, str type, str units, int length
+    Children: normalCoordinate
+    Attributes: str name, str type, str units, int length
     """
 
 
 class NormalCoordinateXml(RootXml):
     """molpro-output:normalCoordinate - A normal vibrational coordinate
-    Children:
-        [list of doubles]
-    Attributes:
-        double wavenumber, str units, double IRintensity, str IRintensityunits,
-        str symmetry, str real_zero_imag
+    Children: [list of doubles]
+    Attributes: double wavenumber, str units, double IRintensity, str IRintensityunits, str symmetry, str real_zero_imag
     """
 
 
 class CubeXml(RootXml):
     """molpro-output:cube - Metadata for a cube dataset
-    Children:
-        field, dimensions, origin, axes, step
-    Attributes:
-        str method
+    Children: field, dimensions, origin, axes, step
+    Attributes: str method
     """
 
 
 class FieldXml(RootXml):
     """molpro-output:field
-    Attributes:
-        str quantity, str type, str number, str symmetry, double occupancy,
-        double energy, str file
+    Attributes: str quantity, str type, str number, str symmetry, double occupancy, double energy, str file
     """
 
 
 class DimensionsXml(RootXml):
     """molpro-output:dimensions
-    Children:
-        [list of doubles]
+    Children: [list of doubles]
     """
 
 
 class OriginXml(RootXml):
     """molpro-output:origin
-    Children:
-        [list of doubles]
+    Children: [list of doubles]
     """
 
 
 class AxesXml(RootXml):
     """molpro-output:axes
-    Children:
-        [list of doubles]
+    Children: [list of doubles]
     """
 
 
 class StepXml(RootXml):
     """molpro-output:step
-    Children:
-        [list of doubles[
+    Children: [list of doubles]
     """
 
 
 class PlotXml(RootXml):
     """molpro-output:plot - Metadata for plot from a Molpro table
-    Attributes:
-        str table, str plot, str type
-        Also attributes from http://www.w3.org/1999/xlink
+    Attributes: str table, str plot, str type
+    Also attributes from http://www.w3.org/1999/xlink
     """
 
 
