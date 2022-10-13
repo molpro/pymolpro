@@ -5,4 +5,4 @@ __pycache__/
 *.pyc
 *.so
 .ipynb_checkpoints
-docs/_*
+old-docs/_*
