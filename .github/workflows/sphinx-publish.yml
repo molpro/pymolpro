@@ -1,11 +1,20 @@
-on: [push]
-
+name: Pages
+on:
+  push:
+#    branches:
+#    - master
 jobs:
   build:
-    name: Push Sphinx Pages
     runs-on: ubuntu-latest
     steps:
-    - uses: seanzhengw/sphinx-pages@master
+    - uses: actions/setup-python@v2
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - name: Build and Commit
+      uses: sphinx-notes/pages@v2
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        create_readme: true
+        branch: gh-pages
