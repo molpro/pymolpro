@@ -1,4 +1,4 @@
-from pysjef.project import Project
+import pysjef
 from pysjef.select import select
 
 
@@ -18,7 +18,7 @@ def no_errors(projects, ignore_warning=True):
     return len(errors) == 0
 
 
-class MProject(Project):
+class Project(pysjef.project.Project):
     """
     Python binding to sjef, for managing molpro jobs.
     Project is a node with parsed molpro output as the only child.
