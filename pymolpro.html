@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pymolpro package &mdash; pymolpro 0.0.4+3.g4c78740 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pymolpro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">pymolpro package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pymolpro.node_xml">pymolpro.node_xml module</a><ul>
+<li><a class="reference internal" href="#pymolpro.node_xml.AxesXml"><code class="docutils literal notranslate"><span class="pre">AxesXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.BasisSetXml"><code class="docutils literal notranslate"><span class="pre">BasisSetXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.CmlAtomXml"><code class="docutils literal notranslate"><span class="pre">CmlAtomXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.CmlMoleculeXml"><code class="docutils literal notranslate"><span class="pre">CmlMoleculeXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.CubeXml"><code class="docutils literal notranslate"><span class="pre">CubeXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.DateXml"><code class="docutils literal notranslate"><span class="pre">DateXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.DiagnosticsXml"><code class="docutils literal notranslate"><span class="pre">DiagnosticsXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.DimensionsXml"><code class="docutils literal notranslate"><span class="pre">DimensionsXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.FieldXml"><code class="docutils literal notranslate"><span class="pre">FieldXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.InputXml"><code class="docutils literal notranslate"><span class="pre">InputXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.JobstepXml"><code class="docutils literal notranslate"><span class="pre">JobstepXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.LicenceXml"><code class="docutils literal notranslate"><span class="pre">LicenceXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.MachineXml"><code class="docutils literal notranslate"><span class="pre">MachineXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.MoleculeXml"><code class="docutils literal notranslate"><span class="pre">MoleculeXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.NormalCoordinateXml"><code class="docutils literal notranslate"><span class="pre">NormalCoordinateXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.OrbitalXml"><code class="docutils literal notranslate"><span class="pre">OrbitalXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.OrbitalsXml"><code class="docutils literal notranslate"><span class="pre">OrbitalsXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.OriginXml"><code class="docutils literal notranslate"><span class="pre">OriginXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.ParallelXml"><code class="docutils literal notranslate"><span class="pre">ParallelXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.PlatformXml"><code class="docutils literal notranslate"><span class="pre">PlatformXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.PlotXml"><code class="docutils literal notranslate"><span class="pre">PlotXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.PropertyXml"><code class="docutils literal notranslate"><span class="pre">PropertyXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.StepXml"><code class="docutils literal notranslate"><span class="pre">StepXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.VariableXml"><code class="docutils literal notranslate"><span class="pre">VariableXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.VariablesXml"><code class="docutils literal notranslate"><span class="pre">VariablesXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.VersionXml"><code class="docutils literal notranslate"><span class="pre">VersionXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.VibrationsXml"><code class="docutils literal notranslate"><span class="pre">VibrationsXml</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.node_xml.tag_to_name"><code class="docutils literal notranslate"><span class="pre">tag_to_name()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pymolpro.project">pymolpro.project module</a><ul>
+<li><a class="reference internal" href="#pymolpro.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li><a class="reference internal" href="#pymolpro.project.Project.errors"><code class="docutils literal notranslate"><span class="pre">Project.errors()</span></code></a></li>
+<li><a class="reference internal" href="#pymolpro.project.Project.properties"><code class="docutils literal notranslate"><span class="pre">Project.properties()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pymolpro.project.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pymolpro">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pymolpro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>pymolpro package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pymolpro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="pymolpro-package">
+<h1>pymolpro package<a class="headerlink" href="#pymolpro-package" title="Permalink to this heading"></a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-pymolpro.node_xml">
+<span id="pymolpro-node-xml-module"></span><h2>pymolpro.node_xml module<a class="headerlink" href="#module-pymolpro.node_xml" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.AxesXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">AxesXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.AxesXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:axes
+Children: [list of doubles]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.BasisSetXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">BasisSetXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.BasisSetXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:basisSet - Container for a basis set
+Children: basisGroup, association
+Attributes: str id, str type, str angular, int groups, str primitives, int length, int cartesianLength</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.CmlAtomXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">CmlAtomXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.CmlAtomXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>cml:atom - Output about a single atom</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.CmlMoleculeXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">CmlMoleculeXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.CmlMoleculeXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>cml:molecule - Output about a single molecule
+Children: cml:atomarry, cml:symmetry</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.CubeXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">CubeXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.CubeXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:cube - Metadata for a cube dataset
+Children: field, dimensions, origin, axes, step
+Attributes: str method</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.DateXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">DateXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.DateXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:date - The time of the calculation.
+Children: [string datetime]
+Attributes: int year, int month, int day, int hour, int minute, int second</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.DiagnosticsXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">DiagnosticsXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.DiagnosticsXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:diagnostics - Diagnostic info from the job
+Attributes: int warnings</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.DimensionsXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">DimensionsXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.DimensionsXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:dimensions
+Children: [list of doubles]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.FieldXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">FieldXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.FieldXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:field
+Attributes: str quantity, str type, str number, str symmetry, double occupancy, double energy, str file</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.InputXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">InputXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.InputXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:input - Molpro input dataset
+Children: p, include</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.JobstepXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">JobstepXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.JobstepXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:jobstep - Output from a single job step
+Children: error, gradient, opt, property, cube, time, storage, vibrations, jobstep, cml:molecule, variables, instanton
+Attributes: str command, str commandset, bool displaced</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.LicenceXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">LicenceXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.LicenceXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:licence
+Attributes: str id</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.MachineXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">MachineXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.MachineXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:machine
+Attributes: str hostname</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.MoleculeXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">MoleculeXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.MoleculeXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:molecule - Summary output about the job
+Children: cml:molecule, basisSet, vibrations, orbitals, stm:metadataList, platform
+Attributes: str id, str index, str InChI, str InChIKey, str SMILES, str title, str method, str basis, str geometryMethod, str geometryBasis, double energy</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.NormalCoordinateXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">NormalCoordinateXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.NormalCoordinateXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:normalCoordinate - A normal vibrational coordinate
+Children: [list of doubles]
+Attributes: double wavenumber, str units, double IRintensity, str IRintensityunits, str symmetry, str real_zero_imag</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.OrbitalXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">OrbitalXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.OrbitalXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:orbital - A Molpro molecular orbital
+Children: [string]
+Attributes: str symmetryID, double energy, double occupation</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.OrbitalsXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">OrbitalsXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.OrbitalsXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:orbitals - Container for Molpro internal orbitals
+Children: orbital
+Attributes: str basis, str angular, str spin, str method</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.OriginXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">OriginXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.OriginXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:origin
+Children: [list of doubles]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.ParallelXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">ParallelXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.ParallelXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:parallel
+Attributes: int processes, int nodes, int all_processes, int openmp</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.PlatformXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">PlatformXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.PlatformXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:platform - Container for metadata about the platform
+Children: version, licence, parallel, machine, dimensions</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.PlotXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">PlotXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.PlotXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:plot - Metadata for plot from a Molpro table
+Attributes: str table, str plot, str type
+Also attributes from http://www.w3.org/1999/xlink</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.PropertyXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">PropertyXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.PropertyXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:property - Output about a single property of a single molecule
+Attributes: str name, any value</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.StepXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">StepXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.StepXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:step
+Children: [list of doubles]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.VariableXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">VariableXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.VariableXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>TODO Doc</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.VariablesXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">VariablesXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.VariablesXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:variables - Container for Molpro internal variables
+Children: variable</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.VersionXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">VersionXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.VersionXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:version
+Children: [string], date
+Attributes: int major, int minor, str SHA, int integer_bits, str parallelism</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.node_xml.VibrationsXml">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">VibrationsXml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.VibrationsXml" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RootXml</span></code></p>
+<p>molpro-output:vibrations - Container for info on molecular vibrations
+Children: normalCoordinate
+Attributes: str name, str type, str units, int length</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.node_xml.tag_to_name">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">tag_to_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.tag_to_name" title="Permalink to this definition"></a></dt>
+<dd><p>Takes XML tag with namespace, outputs raw node name.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pymolpro.project">
+<span id="pymolpro-project-module"></span><h2>pymolpro.project module<a class="headerlink" href="#module-pymolpro.project" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.project.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></p>
+<p>Python binding to sjef, for managing molpro jobs.
+Project is a node with parsed molpro output as the only child.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.errors">
+<span class="sig-name descname"><span class="pre">errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.errors" title="Permalink to this definition"></a></dt>
+<dd><p>Return all error nodes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of error nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.properties">
+<span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Energy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain selected properties from the job output
+:param name: name of property
+:param principal: principal property
+:param value: return by value
+:param kwargs: any other attribute selectors for the select function
+:return: list of properties</p>
+<p>Shorthand for <cite>p.select(‘//properties[name= {}, principal ={}, … ]’)</cite></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.project.no_errors">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">no_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.no_errors" title="Permalink to this definition"></a></dt>
+<dd><p>Checks that none of the projects have any errors. Projects can by running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>projects</strong> – list of projects to check for errors</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True/False whether any projects have errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pymolpro">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pymolpro" title="Permalink to this heading"></a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marat Sibaev, Peter Knowles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
