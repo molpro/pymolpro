@@ -5,7 +5,7 @@ Molpro python support
 for working with the `Molpro quantum chemistry package <https://www.molpro.net/>`_.
 
 The principal feature is
-the :py:meth:`Project` class that provides access to a complete Molpro job, including input
+the `Project` class that provides access to a complete Molpro job, including input
 and output files together with metadata such as job status information.
 The project is stored as a bundle implemented as a directory in the file system.
 The class is a Python binding of the
@@ -13,3 +13,5 @@ The class is a Python binding of the
 and the project bundle can be accessed
 also through a command-line interface and the `gmolpro <https://www.molpro.net/manual/doku.php?id=gmolpro_graphical_user_interface>`_
 graphical user interface.
+
+Documentation at https://molpro.github.io/pymolpro.
