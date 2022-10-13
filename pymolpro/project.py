@@ -41,15 +41,17 @@ class Project(pysjef.project.Project):
 
     def properties(self, name='Energy', principal=True, *, value=False, **kwargs, ):
         """
-        Shorthand for `p.select('//properties[name= {}, principal ={}, ... ]')`
-
+        Obtain selected properties from the job output
         :param name: name of property
         :param principal: principal property
         :param value: return by value
         :param kwargs: any other attribute selectors for the select function
         :return: list of properties
+
+        Shorthand for `p.select('//properties[name= {}, principal ={}, ... ]')`
         """
-        string = f'name={name}, principal={principal}'
+        string = f'name={name}'
+        if principal: string += f', principal=true'
         for key, val in kwargs.items():
             string += f',{key}={val}'
         selector = f'//property[{string}]'

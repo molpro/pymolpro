@@ -22,7 +22,7 @@ release = pymolpro.__version__
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    # 'sphinx.ext.autodoc'
+     'sphinx.ext.autodoc',
     ]
 
 templates_path = ['_templates']
