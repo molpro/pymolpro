@@ -23,7 +23,7 @@ import pip
 # pip.main(['install',"--no-deps","--force-reinstall",BASE_DIR])
 # pip.main(['install'])
 import subprocess
-subprocess.check_call([sys.executable,"-m","pip","install","--no-deps","--force-reinstall",Path(__file__).parent.parent.parent],"versioneer")
+subprocess.check_call([sys.executable,"-m","pip","install","--no-deps","--force-reinstall",Path(__file__).parent.parent.parent,"versioneer"])
 import pymolpro
 release = pymolpro.__version__
 
