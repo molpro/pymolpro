@@ -24,7 +24,7 @@ import pip
 # pip.main(['install'])
 # import conda.cli
 import subprocess
-subprocess.check_call(['conda','install','-y','versioneer'])
+subprocess.check_call(['conda','install',"-c","conda-forge",'-y','versioneer'])
 subprocess.check_call([sys.executable,"-m","pip","install","--no-deps","--force-reinstall",Path(__file__).parent.parent.parent])
 import pymolpro
 release = pymolpro.__version__
