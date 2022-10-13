@@ -22,8 +22,10 @@ import pip
 # BASE_DIR='pymolpro'
 # pip.main(['install',"--no-deps","--force-reinstall",BASE_DIR])
 # pip.main(['install'])
+# import conda.cli
 import subprocess
-subprocess.check_call([sys.executable,"-m","pip","install","--no-deps","--force-reinstall",Path(__file__).parent.parent.parent,"versioneer"])
+subprocess.check_call(['conda','install','-y','versioneer'])
+subprocess.check_call([sys.executable,"-m","pip","install","--no-deps","--force-reinstall",Path(__file__).parent.parent.parent])
 import pymolpro
 release = pymolpro.__version__
 
