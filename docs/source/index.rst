@@ -6,10 +6,6 @@
 pymolpro (version |release|)
 ============================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
 **pymolpro** is a Python library that provides support
 for working with the `Molpro quantum chemistry package <https://www.molpro.net/>`_.
 
@@ -36,6 +32,14 @@ analysed.::
    print(p.xpath_search("//property[@name='Energy']", "value"))
    print(p.properties('Energy', value=True))
 
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+   modules
+   examples
 
 Indices and tables
 ==================

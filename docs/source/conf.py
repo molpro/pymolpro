@@ -14,16 +14,20 @@ import sys
 from pathlib import Path
 # sys.path.insert(0, Path(__file__).parent.parent.absolute())
 import subprocess
-subprocess.check_call([sys.executable,"-m","pip","install","--no-deps", "--force-reinstall",Path(__file__).parent.parent.parent])
+
+subprocess.check_call(
+    [sys.executable, "-m", "pip", "install", "--no-deps", "--force-reinstall", Path(__file__).parent.parent.parent])
 import pymolpro
+
 release = pymolpro.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-     'sphinx.ext.autodoc',
-    ]
+    'sphinx.ext.autodoc',
+    'nbsphinx',
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
