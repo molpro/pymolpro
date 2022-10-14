@@ -4,18 +4,19 @@ pymolpro package
 Submodules
 ----------
 
-pymolpro.node\_xml module
--------------------------
-
-.. automodule:: pymolpro.node_xml
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 pymolpro.project module
 -----------------------
 
 .. automodule:: pymolpro.project
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
+pymolpro.node\_xml module
+-------------------------
+
+.. automodule:: pymolpro.node_xml
    :members:
    :undoc-members:
    :show-inheritance:

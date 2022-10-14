@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 0.0.9 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 0.0.9+1.ga600ae6 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -44,6 +44,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pymolpro</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pymolpro package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.project">pymolpro.project module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.node_xml">pymolpro.node_xml module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.AxesXml"><code class="docutils literal notranslate"><span class="pre">AxesXml</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.BasisSetXml"><code class="docutils literal notranslate"><span class="pre">BasisSetXml</span></code></a></li>
@@ -73,11 +78,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.VersionXml"><code class="docutils literal notranslate"><span class="pre">VersionXml</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.VibrationsXml"><code class="docutils literal notranslate"><span class="pre">VibrationsXml</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.tag_to_name"><code class="docutils literal notranslate"><span class="pre">tag_to_name()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.project">pymolpro.project module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro">Module contents</a></li>
@@ -142,6 +142,525 @@
 <h1>pymolpro package<a class="headerlink" href="#pymolpro-package" title="Permalink to this heading"></a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-pymolpro.project">
+<span id="pymolpro-project-module"></span><h2>pymolpro.project module<a class="headerlink" href="#module-pymolpro.project" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.project.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></p>
+<p>Python binding to sjef, for managing molpro jobs.
+Project is a node with parsed molpro output as the only child.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.backend_parameter_default">
+<span class="sig-name descname"><span class="pre">backend_parameter_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_default" title="Permalink to this definition"></a></dt>
+<dd><p>Returns default value for backend parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> – name of the backend</p></li>
+<li><p><strong>param</strong> – name of parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.backend_parameter_delete">
+<span class="sig-name descname"><span class="pre">backend_parameter_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_delete" title="Permalink to this definition"></a></dt>
+<dd><p>Delete backend parameter from property file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> – name of the backend</p></li>
+<li><p><strong>param</strong> – name of parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.backend_parameter_documentation">
+<span class="sig-name descname"><span class="pre">backend_parameter_documentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_documentation" title="Permalink to this definition"></a></dt>
+<dd><p>Returns documentation for backend parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> – name of the backend</p></li>
+<li><p><strong>param</strong> – name of parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.backend_parameter_get">
+<span class="sig-name descname"><span class="pre">backend_parameter_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_get" title="Permalink to this definition"></a></dt>
+<dd><p>Gets backend parameter from property file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> – name of the backend</p></li>
+<li><p><strong>param</strong> – name of parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.backend_parameter_set">
+<span class="sig-name descname"><span class="pre">backend_parameter_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_set" title="Permalink to this definition"></a></dt>
+<dd><p>Sets backend parameter in property file. The parameter will be used by the backend
+when interacting with the current jobs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> – name of the backend</p></li>
+<li><p><strong>param</strong> – name of parameter</p></li>
+<li><p><strong>value</strong> – parameter value to set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.backend_parameters">
+<span class="sig-name descname"><span class="pre">backend_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameters" title="Permalink to this definition"></a></dt>
+<dd><p>Get all of the parameters referenced in the run_command of a backend</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> – The name of the backend</p></li>
+<li><p><strong>doc</strong> – Whether to return documentation instead of default values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary where the keys are the parameter names, and the values the defaults.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.child">
+<span class="sig-name descname"><span class="pre">child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">attributes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs_and_callables</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.child" title="Permalink to this definition"></a></dt>
+<dd><p>Utility wrapper over <cite>select</cite> routine to do a 1 level search of children and select
+a single one. If more than one child is selected, RuntimeError is thrown.</p>
+<p>Arguments are translated into selectors by attribute name ( see <cite>select</cite>).
+Key word arguements are translated into selectors by attribute name ( see <cite>select</cite>).</p>
+<dl class="simple">
+<dt>out = p.select(‘container[location, name=directory, exists(location)]’,</dt><dd><p>exists=os.path.exists)</p>
+</dd>
+</dl>
+<p>is equivalent to</p>
+<dl class="simple">
+<dt>out = p.child(‘location’, nodename=’container’, name=’directory’,  ‘exists(location)’,</dt><dd><p>exists=os.path.exists)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodename</strong> – selector for name of the node class</p></li>
+<li><p><strong>attributes</strong> – list of attributes for defining selectors by name, <cite>[attribute]</cite>
+and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cite>)</p></li>
+<li><p><strong>kwargs_and_callables</strong> – dictionary of other kwargs defining attribute selectors
+<cite>key = value</cite> and callable functions for callable selectors <cite>func = function_name</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unused</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.clean" title="Permalink to this definition"></a></dt>
+<dd><p>Remove potentially unwanted files from the project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.completed">
+<span class="sig-name descname"><span class="pre">completed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.completed" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if status is <cite>completed</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Make a copy of the project and its directory to a new path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the new project</p></li>
+<li><p><strong>location</strong> – path to the parent of the project,
+by default parent directory stays the same</p></li>
+<li><p><strong>force</strong> – whether to first remove anything already existing at the new location</p></li>
+<li><p><strong>keep_hash</strong> – whether to clone the project_hash, or allow a fresh one to be generated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>copied project</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.copy_node">
+<span class="sig-name descname"><span class="pre">copy_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.copy_node" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a copy of itself</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.erase">
+<span class="sig-name descname"><span class="pre">erase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.erase" title="Permalink to this definition"></a></dt>
+<dd><p>Delete the project under path with its directory and all files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – path to the project, defaults to current project</p>
+</dd>
+<dt class="field-even">Todo</dt>
+<dd class="field-even"><p>what should happend to attributes and children?</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.errors">
+<span class="sig-name descname"><span class="pre">errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.errors" title="Permalink to this definition"></a></dt>
+<dd><p>Return all error nodes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of error nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.export_file">
+<span class="sig-name descname"><span class="pre">export_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.export_file" title="Permalink to this definition"></a></dt>
+<dd><p>Export one or more files from the project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – name of the file in the project</p></li>
+<li><p><strong>location</strong> – The relative or absolute path to the destination directory</p></li>
+<li><p><strong>overwrite</strong> – Whether to overwrite an existing file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.filename" title="Permalink to this definition"></a></dt>
+<dd><p>Get the file name of the bundle, or a primary file of particular type, or a general file in the bundle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>suffix</strong> – If present without <code class="docutils literal notranslate"><span class="pre">name</span></code>, look for a primary file with that type.
+If absent, the file name of the bundle is instead selected</p></li>
+<li><p><strong>name</strong> – If present,  look for a file of this name, appended with <code class="docutils literal notranslate"><span class="pre">.suffix</span></code>
+if that is non-blank</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:param run</dt><dd><ul class="simple">
+<li><p>0: the currently focussed run directory</p></li>
+<li><p>other: the specified run directory</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the fully-qualified name of the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.import_file">
+<span class="sig-name descname"><span class="pre">import_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.import_file" title="Permalink to this definition"></a></dt>
+<dd><p>Import file at path <code class="docutils literal notranslate"><span class="pre">location</span></code> into the project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> – path to file</p></li>
+<li><p><strong>overwrite</strong> – if corresponding file already exists in the project, flags that it should
+be overwritten</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.import_input">
+<span class="sig-name descname"><span class="pre">import_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.import_input" title="Permalink to this definition"></a></dt>
+<dd><p>Copy file into the project as input file, or write string to input file
+:param fpath: path to input file</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.input_file_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_file_path</span></span><a class="headerlink" href="#pymolpro.project.Project.input_file_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.kill">
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.kill" title="Permalink to this definition"></a></dt>
+<dd><p>Kill the job started by <code class="docutils literal notranslate"><span class="pre">run()</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.list_files">
+<span class="sig-name descname"><span class="pre">list_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.list_files" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of files in the project directory</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.location">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#pymolpro.project.Project.location" title="Permalink to this definition"></a></dt>
+<dd><p>Local path to the project directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.move">
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.move" title="Permalink to this definition"></a></dt>
+<dd><p>Move the project bundle to a new location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – new name of the project</p></li>
+<li><p><strong>location</strong> – path to the directory where project should be moved.
+Defaults to same directory as current project.</p></li>
+<li><p><strong>force</strong> – whether to first remove anything already existing at the new location</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#pymolpro.project.Project.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the project</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.out">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out</span></span><a class="headerlink" href="#pymolpro.project.Project.out" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.output">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output</span></span><a class="headerlink" href="#pymolpro.project.Project.output" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>node with Molpro’s output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.output_file_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_file_path</span></span><a class="headerlink" href="#pymolpro.project.Project.output_file_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Parse the output file and save resultant node as a child
+:param force: reparse the output</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.properties">
+<span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Energy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain selected properties from the job output
+:param name: name of property
+:param principal: principal property
+:param value: return by value
+:param kwargs: any other attribute selectors for the select function
+:return: list of properties</p>
+<p>Shorthand for <cite>p.select(‘//properties[name= {}, principal ={}, … ]’)</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.property_delete">
+<span class="sig-name descname"><span class="pre">property_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">properties</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.property_delete" title="Permalink to this definition"></a></dt>
+<dd><p>Delete properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.property_get">
+<span class="sig-name descname"><span class="pre">property_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">properties</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.property_get" title="Permalink to this definition"></a></dt>
+<dd><p>Return a dictionary of property, value pairs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.property_names">
+<span class="sig-name descname"><span class="pre">property_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.property_names" title="Permalink to this definition"></a></dt>
+<dd><p>Return names of all assigned properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.property_set">
+<span class="sig-name descname"><span class="pre">property_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.property_set" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of a variable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.recent_find">
+<span class="sig-name descname"><span class="pre">recent_find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.recent_find" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.run" title="Permalink to this definition"></a></dt>
+<dd><p>Start a sjef job
+:param backend: name of the backend
+:param verbosity: If &gt;0, show underlying processing
+:param force: whether to force submission of job even if run_needed() reports that it’s unnecessary
+:param wait: whether to wait until the job completes instead of returning after launchin it</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.run_needed">
+<span class="sig-name descname"><span class="pre">run_needed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.run_needed" title="Permalink to this definition"></a></dt>
+<dd><p>Check weather the job has changed since the previous run and needs to be rerun
+:return: True/False</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options_and_callables</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.select" title="Permalink to this definition"></a></dt>
+<dd><p>Specialization of <code class="xref py py-func docutils literal notranslate"><span class="pre">pysjef.select()</span></code> which applies selection
+to the parsed output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of nodes that pass selection criteria</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#pymolpro.project.Project.status" title="Permalink to this definition"></a></dt>
+<dd><p>String status of the project. Can be one of: <code class="docutils literal notranslate"><span class="pre">unknown</span></code>, <code class="docutils literal notranslate"><span class="pre">running</span></code>, <code class="docutils literal notranslate"><span class="pre">waiting</span></code>,
+<code class="docutils literal notranslate"><span class="pre">completed</span></code>, <code class="docutils literal notranslate"><span class="pre">unevaluated</span></code>, <code class="docutils literal notranslate"><span class="pre">killed</span></code>, or <code class="docutils literal notranslate"><span class="pre">failed</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.synchronize">
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.synchronize" title="Permalink to this definition"></a></dt>
+<dd><p>Synchronize the project with a cached copy belonging to a backend.
+name.inp, name.xyz, Info.plist, and any files brought in with import(),
+will be pushed from the master copy to the backend, and all other
+files will be pulled from the backend.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verbosity</strong> – If &gt;0, show underlying processing</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.tree_view">
+<span class="sig-name descname"><span class="pre">tree_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.tree_view" title="Permalink to this definition"></a></dt>
+<dd><p>Build tree view from this node</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.view_input">
+<span class="sig-name descname"><span class="pre">view_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.view_input" title="Permalink to this definition"></a></dt>
+<dd><p>Opens the input file in editor as specified by ‘$EDITOR’ environment
+variable.
+Should by called from an interactive session</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.view_output">
+<span class="sig-name descname"><span class="pre">view_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.view_output" title="Permalink to this definition"></a></dt>
+<dd><p>Opens the input file in editor as specified by ‘$EDITOR’ environment
+variable.
+Should by called from an interactive session</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.wait" title="Permalink to this definition"></a></dt>
+<dd><p>Wait unconditionally for status() to return neither ‘waiting’ nor ‘running’
+:param max_epoch: maximum time to wait between checking status (seconds)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.write_file">
+<span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.write_file" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a file in the project with specified content</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – name of the file to create in the project</p></li>
+<li><p><strong>content</strong> – string content to write in the file</p></li>
+<li><p><strong>overwrite</strong> – if corresponding file already exists in the project, flags that it should be overwritten</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if file was created or overwritten, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.write_input">
+<span class="sig-name descname"><span class="pre">write_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.write_input" title="Permalink to this definition"></a></dt>
+<dd><p>Create an input file with content specified as a string
+:param content: string with content for the input file</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.project.Project.xml">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xml</span></span><a class="headerlink" href="#pymolpro.project.Project.xml" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.xpath_search">
+<span class="sig-name descname"><span class="pre">xpath_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xpath_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xpath_search" title="Permalink to this definition"></a></dt>
+<dd><p>Simple XPath search on the xml document. For each matching node found, return a string that
+contains the value of a specified attribute, or if the attribute is omitted, the node contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xpath_query</strong> – </p></li>
+<li><p><strong>attribute</strong> – </p></li>
+<li><p><strong>run</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.project.no_errors">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">no_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.no_errors" title="Permalink to this definition"></a></dt>
+<dd><p>Checks that none of the projects have any errors. Projects can by running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>projects</strong> – list of projects to check for errors</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True/False whether any projects have errors</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pymolpro.node_xml">
 <span id="pymolpro-node-xml-module"></span><h2>pymolpro.node_xml module<a class="headerlink" href="#module-pymolpro.node_xml" title="Permalink to this heading"></a></h2>
@@ -374,54 +893,6 @@ Attributes: str name, str type, str units, int length</p>
 <dt class="sig sig-object py" id="pymolpro.node_xml.tag_to_name">
 <span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">tag_to_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.tag_to_name" title="Permalink to this definition"></a></dt>
 <dd><p>Takes XML tag with namespace, outputs raw node name.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-pymolpro.project">
-<span id="pymolpro-project-module"></span><h2>pymolpro.project module<a class="headerlink" href="#module-pymolpro.project" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pymolpro.project.Project">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></p>
-<p>Python binding to sjef, for managing molpro jobs.
-Project is a node with parsed molpro output as the only child.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.project.Project.errors">
-<span class="sig-name descname"><span class="pre">errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.errors" title="Permalink to this definition"></a></dt>
-<dd><p>Return all error nodes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list of error nodes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.project.Project.properties">
-<span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Energy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties" title="Permalink to this definition"></a></dt>
-<dd><p>Obtain selected properties from the job output
-:param name: name of property
-:param principal: principal property
-:param value: return by value
-:param kwargs: any other attribute selectors for the select function
-:return: list of properties</p>
-<p>Shorthand for <cite>p.select(‘//properties[name= {}, principal ={}, … ]’)</cite></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pymolpro.project.no_errors">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">no_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.no_errors" title="Permalink to this definition"></a></dt>
-<dd><p>Checks that none of the projects have any errors. Projects can by running.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>projects</strong> – list of projects to check for errors</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True/False whether any projects have errors</p>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
