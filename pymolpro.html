@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 0.0.10 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 0.0.11 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -387,6 +387,11 @@ if that is non-blank</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.findall">
+<span class="sig-name descname"><span class="pre">findall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.findall" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.import_file">
 <span class="sig-name descname"><span class="pre">import_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.import_file" title="Permalink to this definition"></a></dt>
 <dd><p>Import file at path <code class="docutils literal notranslate"><span class="pre">location</span></code> into the project.</p>
@@ -632,6 +637,14 @@ Should by called from an interactive session</p>
 <dt class="sig sig-object py" id="pymolpro.project.Project.xml">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xml</span></span><a class="headerlink" href="#pymolpro.project.Project.xml" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.xpath">
+<span class="sig-name descname"><span class="pre">xpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xpath" title="Permalink to this definition"></a></dt>
+<dd><p>Run xpath search on the job xml, with support for default namespace
+:param query:
+:return: list of etree.Element objects</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.xpath_search">
