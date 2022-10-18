@@ -27,10 +27,11 @@ analysed.::
 
    from pymolpro import Project
    p = Project("Neon")
-   p.write_input("geometry={Ne}; rhf; rks,b3lyp")
+   p.write_input("geometry={Ne}; rhf; ccsd(t)")
    p.run(wait=True)
-   print(p.xpath_search("//property[@name='Energy']", "value"))
-   print(p.properties('Energy', value=True))
+   energies = {}
+   for node in p.xpath("//property[@name='Energy' or @name='total energy']"):
+     energies[node.xpath("@method")[0]] = float(node.xpath("@value")[0])
 
 
 
