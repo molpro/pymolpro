@@ -21,6 +21,14 @@ pymolpro.node\_xml module
    :undoc-members:
    :show-inheritance:
 
+pymolpro.grid module
+-------------------------
+
+.. automodule:: pymolpro.grid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 0.0.12 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -78,6 +78,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.VersionXml"><code class="docutils literal notranslate"><span class="pre">VersionXml</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.VibrationsXml"><code class="docutils literal notranslate"><span class="pre">VibrationsXml</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.tag_to_name"><code class="docutils literal notranslate"><span class="pre">tag_to_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.grid">pymolpro.grid module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateBasis"><code class="docutils literal notranslate"><span class="pre">evaluateBasis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateOrbitals"><code class="docutils literal notranslate"><span class="pre">evaluateOrbitals()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro">Module contents</a></li>
@@ -910,6 +915,44 @@ Attributes: str name, str type, str units, int length</p>
 <dt class="sig sig-object py" id="pymolpro.node_xml.tag_to_name">
 <span class="sig-prename descclassname"><span class="pre">pymolpro.node_xml.</span></span><span class="sig-name descname"><span class="pre">tag_to_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.node_xml.tag_to_name" title="Permalink to this definition"></a></dt>
 <dd><p>Takes XML tag with namespace, outputs raw node name.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pymolpro.grid">
+<span id="pymolpro-grid-module"></span><h2>pymolpro.grid module<a class="headerlink" href="#module-pymolpro.grid" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.evaluateBasis">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateBasis" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the orbital basis set on a grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
+<li><p><strong>points</strong> – numpy :,3 array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy :,: array, first index basis function, second index brid point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.evaluateOrbitals">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateOrbitals" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the molecular orbitals on a grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
+<li><p><strong>points</strong> – numpy :,3 array</p></li>
+<li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
