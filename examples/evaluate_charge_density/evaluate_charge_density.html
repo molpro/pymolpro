@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Potential energy surface for twisting of ethene &mdash; pymolpro 0.1.1 documentation</title>
+  <title>&lt;no title&gt; &mdash; pymolpro 0.1.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,8 +21,7 @@
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Closed shell reactions with core correlation" href="../thermochemical_benchmark_for_methods/Core_Valence_reactions.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,13 +40,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">pymolpro</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../examples.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../thermochemical_benchmark_for_methods/Core_Valence_reactions.html">Closed shell reactions with core correlation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Potential energy surface for twisting of ethene</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
@@ -65,10 +60,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../examples.html">Examples</a> &raquo;</li>
-      <li>Potential energy surface for twisting of ethene</li>
+      <li>&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/examples/c2h4_dihedral_pes/two_state_mrci.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/examples/evaluate_charge_density/evaluate_charge_density.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -354,62 +348,59 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Potential-energy-surface-for-twisting-of-ethene">
-<h1>Potential energy surface for twisting of ethene<a class="headerlink" href="#Potential-energy-surface-for-twisting-of-ethene" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project, all_completed, no_errors
-import numpy
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>root = &#39;dihedral_scan&#39;
-projects=[]
-import os
-if not os.path.isdir(root): os.mkdir(root)
-grid = numpy.linspace(0, 90, 18, endpoint=False)
-for i, D in enumerate(grid):
-    p = Project(f&#39;d{i}&#39;, location=root)
-    projects.append(p)
-    p.write_input(
-    f&quot;&quot;&quot;geometry={{
-        H1
-        C1 H1 rch
-        C2 C1 rcc H1 A
-        H2 C2 rch C1 A H1 D
-        H3 C2 rch C1 A H2 180
-        H4 C1 rch C2 A H1 180}}
-    rch = 2.05; rcc = 2.65; A = 121.5; D ={D}+.01;
-    basis = cc-pVTZ
-    rhf
-    set, mcocc=[3,2,2,2], mcclosed=[3,1,1,2], mcsym=1
-    casscf,so_sci
-    {{optg; inactive, D}}
-    set,mcsym=[1,4]
-    casscf,so_sci
-    {{mrci; wf, sym=1;}}
-    {{mrci; wf, sym=4;}}
-    put,xml&quot;&quot;&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
+p = Project(&quot;evaluate_charge_density&quot;)
+p.write_input(&#39;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rhf;put,xml&#39;)
+p.run(wait=True)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from multiprocessing.dummy import Pool
-from operator import methodcaller
-with Pool(processes=8) as pool:
-    pool.map(methodcaller(&#39;run&#39;, backend=&#39;local&#39;, wait=True),
-             projects, 1)
-print(&#39;all completed&#39;, all_completed(projects))
-print(&#39;without errors&#39;, no_errors(projects))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro.grid import evaluateOrbitals
+import numpy as np
+
+document = p.xpath(&#39;/*&#39;)[0]
+default_ns_name=&#39;molpro-output&#39;
+namespaces = {k if k is not None else default_ns_name: v for k, v in document.nsmap.items()}
+
+for answer in document.xpath(&#39;//molpro-output:variables/molpro-output:variable[@name=&quot;_ANGSTROM&quot;]/molpro-output:value&#39;,
+                             namespaces=namespaces):
+    Angstrom = np.float64(answer.text)
+
+molecule = document.xpath(&#39;//molpro-output:job/molpro-output:molecule&#39;, namespaces=namespaces)[0]
+
+print(&#39;Molecule &#39; + molecule.get(&#39;id&#39;))
+
+atoms = molecule.xpath(&#39;cml:molecule/cml:atomArray/cml:atom&#39;, namespaces=namespaces)
+points = np.zeros((len(atoms), 3), dtype=np.float64)
+print(str(len(atoms)) + &#39; atoms:&#39;)
+ids = np.empty(len((atoms)), dtype=&#39;a4&#39;)
+elementTypes = np.empty((len(atoms)), dtype=&#39;a4&#39;)
+iatom = 0
+for atom in atoms:
+    print(atom.get(&#39;id&#39;) + &#39; &#39; + atom.get(&#39;elementType&#39;) + &#39; &#39; + atom.get(&#39;x3&#39;) + &#39; &#39; + atom.get(
+        &#39;y3&#39;) + &#39; &#39; + atom.get(&#39;z3&#39;))
+    ids[iatom] = atom.get(&#39;id&#39;)
+    elementTypes[iatom] = atom.get(&#39;elementType&#39;)
+    points[iatom, :] = [np.float64(atom.get(&#39;x3&#39;)) * Angstrom, np.float64(atom.get(&#39;y3&#39;)) * Angstrom,
+                        np.float64(atom.get(&#39;z3&#39;)) * Angstrom]
+    iatom += 1
+
+orbitalsAtPoints = evaluateOrbitals(molecule, points)
+results = np.zeros(len(points), dtype=np.float64)
+for orbital in orbitalsAtPoints:
+    for ipoint in range(len(points)):
+        results[ipoint] += orbital[&#39;values&#39;][ipoint] ** 2 * orbital[&#39;occ&#39;]
+
+print(&quot;Calculated densities at the nuclei:&quot;)
+print(results)
 </pre></div>
 </div>
 </div>
@@ -418,50 +409,57 @@ print(&#39;without errors&#39;, no_errors(projects))
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-all completed True
-without errors True
+Molecule M62825DC
+2 atoms:
+a1 F 0.0 0.0 -0.461759661234695E-01
+a2 H 0.0 0.0 0.870358963160526
+Calculated densities at the nuclei:
+[4.28636645e+02 3.39348457e-01]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
-e1=[]
-e2=[]
-cc=[]
-for i in range(len(projects)):
-    energies=projects[i].select(&#39;//jobstep[command=MRCI]/property[name=Energy].value&#39;)
-    e1.append(float(projects[i].xpath_search(&quot;//jobstep[@command=&#39;MRCI&#39;]//property[@name=&#39;Energy&#39; and @stateSymmetry=&#39;1&#39;]&quot;, &quot;value&quot;)[0]))
-    e2.append(float(projects[i].xpath_search(&quot;//jobstep[@command=&#39;MRCI&#39;]//property[@name=&#39;Energy&#39; and @stateSymmetry=&#39;4&#39;]&quot;, &quot;value&quot;)[0]))
-    cc.append(float(projects[i].xpath_search(&quot;//variable[@name=&#39;RCC&#39;]/value&quot;)[0]))
-fig,ax = plt.subplots()
-ax.plot(grid, e1, grid, e2)
-ax.legend([r&#39;$X\;{}^1A_1$&#39;,r&#39;$V\;{}^1B_1$&#39;],loc=&#39;center left&#39;)
-plt.xlabel(&#39;HCCH dihedral angle (degrees)&#39;)
-ax.set_ylabel(r&#39;Energy $(E_h)$&#39;)
-ax2=ax.twinx()
-ax2.plot(grid,cc,color=&quot;black&quot;)
-ax2.set_ylabel(r&quot;C-C bond length $(\rm\AA)$&quot;)
-plt.show()
-</pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import math
+for answer in document.xpath(&#39;//molpro-output:property[contains(@name,&quot;DELTA&quot;)]&#39;, namespaces=namespaces):
+    name = answer.xpath(&#39;@name&#39;, namespaces=namespaces)[0]
+    value = answer.xpath(&#39;@value&#39;, namespaces=namespaces)[0]
+    print(&#39;From Molpro:&#39;, name, &#39;=&#39;, value)
+    closeness = 10000000000
+    for ipoint in range(len(points)):
+        distance = math.sqrt((results[ipoint] - np.float64(value)) ** 2)
+        if distance &lt; closeness:
+            closeness = distance
+            closest = ipoint
+    print(&#39;... nearest to result &#39;, closest, &#39; which differs by &#39;, closeness)
+<br/></pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_c2h4_dihedral_pes_two_state_mrci_4_0.png" src="../../_images/examples_c2h4_dihedral_pes_two_state_mrci_4_0.png" />
+<div class="highlight"><pre>
+From Molpro: DELTA(F) = 428.636645143173
+... nearest to result  0  which differs by  1.9895196601282805e-12
+From Molpro: DELTA(H) = 0.339348457217733
+... nearest to result  1  which differs by  1.1102230246251565e-16
+</pre></div></div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../thermochemical_benchmark_for_methods/Core_Valence_reactions.html" class="btn btn-neutral float-left" title="Closed shell reactions with core correlation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+          <footer>
 
   <hr/>
 
