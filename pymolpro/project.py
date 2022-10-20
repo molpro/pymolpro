@@ -58,3 +58,36 @@ class Project(pysjef.project.Project):
         if value:
             selector += '.value'
         return self.select(selector)
+
+    def geometry(self, instance=-1):
+        """
+        Obtain the geometry from the job output
+
+        :param instance: In the case of multiple geometries in the output stream, which occurence
+        :return: dictionary holding the geometry
+        """
+        return self.geometries()[instance]
+
+    def geometries(self):
+        """
+         Obtain all geometries from the job output
+
+         :return: list of dictionaries holding the geometry
+         """
+        nodes = self.xpath("//*/cml:atomArray")
+        geoms = []
+        for node in nodes:
+            atoms = []
+            for atom in node.xpath("cml:atom", namespaces={'cml': "http://www.xml-cml.org/schema"}):
+                atoms.append({
+                    'id': atom.xpath("@id")[0],
+                    'elementType': atom.xpath("@elementType")[0],
+                    'xyz': [float(atom.xpath("@x3")[0]), float(atom.xpath("@y3")[0]), float(atom.xpath("@z3")[0])]
+                })
+            geoms.append(atoms)
+        return geoms
+
+    def evaluateOrbitals(self, points, instance=-1):
+        molecule = self.xpath('//*/molecule')[instance]
+        import pymolpro.grid
+        return pymolpro.grid.evaluateOrbitals(molecule, points)
