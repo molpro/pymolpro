@@ -64,7 +64,7 @@ class Project(pysjef.project.Project):
         Obtain the geometry from the job output
 
         :param instance: In the case of multiple geometries in the output stream, which occurence
-        :return: dictionary holding the geometry
+        :return: dictionary holding the geometry. Coordinates are in bohr
         """
         return self.geometries()[instance]
 
@@ -72,9 +72,10 @@ class Project(pysjef.project.Project):
         """
          Obtain all geometries from the job output
 
-         :return: list of dictionaries holding the geometry
+         :return: list of dictionaries holding the geometry. Coordinates are in bohr
          """
         nodes = self.xpath("//*/cml:atomArray")
+        Angstrom = 1.88972612462577
         geoms = []
         for node in nodes:
             atoms = []
@@ -82,12 +83,20 @@ class Project(pysjef.project.Project):
                 atoms.append({
                     'id': atom.xpath("@id")[0],
                     'elementType': atom.xpath("@elementType")[0],
-                    'xyz': [float(atom.xpath("@x3")[0]), float(atom.xpath("@y3")[0]), float(atom.xpath("@z3")[0])]
+                    'xyz': [Angstrom*float(atom.xpath("@x3")[0]), Angstrom*float(atom.xpath("@y3")[0]), Angstrom*float(atom.xpath("@z3")[0])]
                 })
             geoms.append(atoms)
         return geoms
 
-    def evaluateOrbitals(self, points, instance=-1):
+    def evaluateOrbitals(self, points, instance=-1, minocc=1.0):
+        """
+        Evaluate molecular orbitals on a grid of points
+
+        :param points: List of geometries specified as 3-list of values in bohr
+        :param instance: Which set of orbitals
+        :param minocc: Only orbitals with at least this occupation will be returned
+        :return:
+        """
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
-        return pymolpro.grid.evaluateOrbitals(molecule, points)
+        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc)
