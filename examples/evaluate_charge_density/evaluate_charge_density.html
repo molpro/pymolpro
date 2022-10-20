@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.4 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.5 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -358,7 +358,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Evaluate-charge-density-at-the-atomic-nuclei">
 <h1>Evaluate charge density at the atomic nuclei<a class="headerlink" href="#Evaluate-charge-density-at-the-atomic-nuclei" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
@@ -370,24 +370,22 @@ p.run(wait=True)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
 
 atoms = p.geometry();
-points = []
 print(str(len(atoms)) + &#39; atoms:&#39;)
-Angstrom = 1.88972612462577
 for atom in atoms:
     print(atom[&#39;id&#39;], atom[&#39;elementType&#39;], atom[&#39;xyz&#39;])
-    points.append([a * Angstrom for a in atom[&#39;xyz&#39;]])
 
+points = [atom[&#39;xyz&#39;] for atom in atoms]
 orbitalsAtPoints = p.evaluateOrbitals(points)
 
 results = np.zeros(len(points), dtype=np.float64)
 for orbital in orbitalsAtPoints:
-    for ipoint in range(len(points)):
+    for ipoint in range(len(orbital[&#39;values&#39;])):
         results[ipoint] += orbital[&#39;values&#39;][ipoint] ** 2 * orbital[&#39;occ&#39;]
 
 print(&quot;Calculated densities at the nuclei:&quot;, results)
@@ -400,13 +398,13 @@ print(&quot;Calculated densities at the nuclei:&quot;, results)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 2 atoms:
-a1 F [0.0, 0.0, -0.0461759661234695]
-a2 H [0.0, 0.0, 0.870358963160526]
+a1 F [0.0, 0.0, -0.08725992951335484]
+a2 H [0.0, 0.0, 1.644740070486644]
 Calculated densities at the nuclei: [4.38900148e+02 4.14546918e-01]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for answer in p.xpath(&#39;//property[contains(@name,&quot;DELTA&quot;)]&#39;):
@@ -428,14 +426,6 @@ From Molpro: DELTA(F) = 438.90014827795
 From Molpro: DELTA(H) = 0.414546917881728
 ... nearest to result  1  which differs by  1.0547118733938987e-15
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </div>
 
