@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.3 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -362,6 +362,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
+
 p = Project(&quot;evaluate_charge_density&quot;)
 p.write_input(&#39;basis,cc-pVQZ;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rks,pbe0;put,xml&#39;)
 p.run(wait=True)
@@ -369,47 +370,27 @@ p.run(wait=True)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro.grid import evaluateOrbitals
-import numpy as np
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
 
-document = p.xpath(&#39;/*&#39;)[0]
-default_ns_name=&#39;molpro-output&#39;
-namespaces = {k if k is not None else default_ns_name: v for k, v in document.nsmap.items()}
-
-for answer in document.xpath(&#39;//molpro-output:variables/molpro-output:variable[@name=&quot;_ANGSTROM&quot;]/molpro-output:value&#39;,
-                             namespaces=namespaces):
-    Angstrom = np.float64(answer.text)
-
-molecule = document.xpath(&#39;//molpro-output:job/molpro-output:molecule&#39;, namespaces=namespaces)[0]
-
-print(&#39;Molecule &#39; + molecule.get(&#39;id&#39;))
-
-atoms = molecule.xpath(&#39;cml:molecule/cml:atomArray/cml:atom&#39;, namespaces=namespaces)
-points = np.zeros((len(atoms), 3), dtype=np.float64)
+atoms = p.geometry();
+points = []
 print(str(len(atoms)) + &#39; atoms:&#39;)
-ids = np.empty(len((atoms)), dtype=&#39;a4&#39;)
-elementTypes = np.empty((len(atoms)), dtype=&#39;a4&#39;)
-iatom = 0
+Angstrom = 1.88972612462577
 for atom in atoms:
-    print(atom.get(&#39;id&#39;) + &#39; &#39; + atom.get(&#39;elementType&#39;) + &#39; &#39; + atom.get(&#39;x3&#39;) + &#39; &#39; + atom.get(
-        &#39;y3&#39;) + &#39; &#39; + atom.get(&#39;z3&#39;))
-    ids[iatom] = atom.get(&#39;id&#39;)
-    elementTypes[iatom] = atom.get(&#39;elementType&#39;)
-    points[iatom, :] = [np.float64(atom.get(&#39;x3&#39;)) * Angstrom, np.float64(atom.get(&#39;y3&#39;)) * Angstrom,
-                        np.float64(atom.get(&#39;z3&#39;)) * Angstrom]
-    iatom += 1
+    print(atom[&#39;id&#39;], atom[&#39;elementType&#39;], atom[&#39;xyz&#39;])
+    points.append([a * Angstrom for a in atom[&#39;xyz&#39;]])
 
-orbitalsAtPoints = evaluateOrbitals(molecule, points)
+orbitalsAtPoints = p.evaluateOrbitals(points)
+
 results = np.zeros(len(points), dtype=np.float64)
 for orbital in orbitalsAtPoints:
     for ipoint in range(len(points)):
         results[ipoint] += orbital[&#39;values&#39;][ipoint] ** 2 * orbital[&#39;occ&#39;]
 
-print(&quot;Calculated densities at the nuclei:&quot;)
-print(results)
+print(&quot;Calculated densities at the nuclei:&quot;, results)
 </pre></div>
 </div>
 </div>
@@ -418,26 +399,23 @@ print(results)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Molecule M5D50A1F
 2 atoms:
-a1 F 0.0 0.0 -0.461759661234695E-01
-a2 H 0.0 0.0 0.870358963160526
-Calculated densities at the nuclei:
-[4.38900148e+02 4.14546918e-01]
+a1 F [0.0, 0.0, -0.0461759661234695]
+a2 H [0.0, 0.0, 0.870358963160526]
+Calculated densities at the nuclei: [4.38900148e+02 4.14546918e-01]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import math
-for answer in document.xpath(&#39;//molpro-output:property[contains(@name,&quot;DELTA&quot;)]&#39;, namespaces=namespaces):
-    name = answer.xpath(&#39;@name&#39;, namespaces=namespaces)[0]
-    value = float(answer.xpath(&#39;@value&#39;, namespaces=namespaces)[0])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for answer in p.xpath(&#39;//property[contains(@name,&quot;DELTA&quot;)]&#39;):
+    name = answer.xpath(&#39;@name&#39;)[0]
+    value = float(answer.xpath(&#39;@value&#39;)[0])
     print(&#39;From Molpro:&#39;, name, &#39;=&#39;, value)
     closest = (np.abs((results - value))).argmin()
-    print(&#39;... nearest to result &#39;, closest, &#39; which differs by &#39;, results[closest]-value)
-<br/></pre></div>
+    print(&#39;... nearest to result &#39;, closest, &#39; which differs by &#39;, results[closest] - value)
+</pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -450,6 +428,14 @@ From Molpro: DELTA(F) = 438.90014827795
 From Molpro: DELTA(H) = 0.414546917881728
 ... nearest to result  1  which differs by  1.0547118733938987e-15
 </pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </div>
 
