@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.2 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -363,7 +363,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
 p = Project(&quot;evaluate_charge_density&quot;)
-p.write_input(&#39;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rhf;put,xml&#39;)
+p.write_input(&#39;basis,cc-pVQZ;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rks,pbe0;put,xml&#39;)
 p.run(wait=True)
 </pre></div>
 </div>
@@ -418,12 +418,12 @@ print(results)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Molecule M62825DC
+Molecule M5D50A1F
 2 atoms:
 a1 F 0.0 0.0 -0.461759661234695E-01
 a2 H 0.0 0.0 0.870358963160526
 Calculated densities at the nuclei:
-[4.28636645e+02 3.39348457e-01]
+[4.38900148e+02 4.14546918e-01]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -433,15 +433,10 @@ Calculated densities at the nuclei:
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import math
 for answer in document.xpath(&#39;//molpro-output:property[contains(@name,&quot;DELTA&quot;)]&#39;, namespaces=namespaces):
     name = answer.xpath(&#39;@name&#39;, namespaces=namespaces)[0]
-    value = answer.xpath(&#39;@value&#39;, namespaces=namespaces)[0]
+    value = float(answer.xpath(&#39;@value&#39;, namespaces=namespaces)[0])
     print(&#39;From Molpro:&#39;, name, &#39;=&#39;, value)
-    closeness = 10000000000
-    for ipoint in range(len(points)):
-        distance = math.sqrt((results[ipoint] - np.float64(value)) ** 2)
-        if distance &lt; closeness:
-            closeness = distance
-            closest = ipoint
-    print(&#39;... nearest to result &#39;, closest, &#39; which differs by &#39;, closeness)
+    closest = (np.abs((results - value))).argmin()
+    print(&#39;... nearest to result &#39;, closest, &#39; which differs by &#39;, results[closest]-value)
 <br/></pre></div>
 </div>
 </div>
@@ -450,19 +445,11 @@ for answer in document.xpath(&#39;//molpro-output:property[contains(@name,&quot;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-From Molpro: DELTA(F) = 428.636645143173
-... nearest to result  0  which differs by  1.9895196601282805e-12
-From Molpro: DELTA(H) = 0.339348457217733
-... nearest to result  1  which differs by  1.1102230246251565e-16
+From Molpro: DELTA(F) = 438.90014827795
+... nearest to result  0  which differs by  -5.115907697472721e-13
+From Molpro: DELTA(H) = 0.414546917881728
+... nearest to result  1  which differs by  1.0547118733938987e-15
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </div>
 

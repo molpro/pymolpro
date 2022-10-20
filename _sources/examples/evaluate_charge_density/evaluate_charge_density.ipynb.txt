@@ -17,7 +17,7 @@
    "source": [
     "from pymolpro import Project\n",
     "p = Project(\"evaluate_charge_density\")\n",
-    "p.write_input('geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rhf;put,xml')\n",
+    "p.write_input('basis,cc-pVQZ;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rks,pbe0;put,xml')\n",
     "p.run(wait=True)"
    ]
   },
@@ -31,12 +31,12 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Molecule M62825DC\n",
+      "Molecule M5D50A1F\n",
       "2 atoms:\n",
       "a1 F 0.0 0.0 -0.461759661234695E-01\n",
       "a2 H 0.0 0.0 0.870358963160526\n",
       "Calculated densities at the nuclei:\n",
-      "[4.28636645e+02 3.39348457e-01]\n"
+      "[4.38900148e+02 4.14546918e-01]\n"
      ]
     }
    ],
@@ -91,10 +91,10 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "From Molpro: DELTA(F) = 428.636645143173\n",
-      "... nearest to result  0  which differs by  1.9895196601282805e-12\n",
-      "From Molpro: DELTA(H) = 0.339348457217733\n",
-      "... nearest to result  1  which differs by  1.1102230246251565e-16\n"
+      "From Molpro: DELTA(F) = 438.90014827795\n",
+      "... nearest to result  0  which differs by  -5.115907697472721e-13\n",
+      "From Molpro: DELTA(H) = 0.414546917881728\n",
+      "... nearest to result  1  which differs by  1.0547118733938987e-15\n"
      ]
     }
    ],
@@ -102,24 +102,11 @@
     "import math\n",
     "for answer in document.xpath('//molpro-output:property[contains(@name,\"DELTA\")]', namespaces=namespaces):\n",
     "    name = answer.xpath('@name', namespaces=namespaces)[0]\n",
-    "    value = answer.xpath('@value', namespaces=namespaces)[0]\n",
+    "    value = float(answer.xpath('@value', namespaces=namespaces)[0])\n",
     "    print('From Molpro:', name, '=', value)\n",
-    "    closeness = 10000000000\n",
-    "    for ipoint in range(len(points)):\n",
-    "        distance = math.sqrt((results[ipoint] - np.float64(value)) ** 2)\n",
-    "        if distance < closeness:\n",
-    "            closeness = distance\n",
-    "            closest = ipoint\n",
-    "    print('... nearest to result ', closest, ' which differs by ', closeness)\n"
+    "    closest = (np.abs((results - value))).argmin()\n",
+    "    print('... nearest to result ', closest, ' which differs by ', results[closest]-value)\n"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "064fdd66",
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
