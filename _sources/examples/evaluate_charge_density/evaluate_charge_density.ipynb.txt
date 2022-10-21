@@ -9,8 +9,17 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "source": [
+    "## Do an electronic structure calculation"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 1,
    "id": "22b8911d",
    "metadata": {},
    "outputs": [],
@@ -23,8 +32,17 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "source": [
+    "## Evaluate occupied orbitals then density on a grid at the nuclear positions"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 2,
    "outputs": [
     {
      "name": "stdout",
@@ -63,8 +81,17 @@
    }
   },
   {
+   "cell_type": "markdown",
+   "source": [
+    "## Check that the densities at the nuclei agree with values calculated directly in Molpro"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 3,
    "id": "ea2405df",
    "metadata": {
     "pycharm": {
