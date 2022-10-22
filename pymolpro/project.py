@@ -167,3 +167,16 @@ class Project(pysjef.project.Project):
         if len(matches) == 0: return []
         return [node.xpath('@name')[0] for node in (matches[instance].xpath('molpro-output:variable', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
+
+    def input_from_output(self, instance=-1):
+        """
+        Return a list of all defined input in the output stream
+
+        :param instance: index of occurence of input node in output
+        :return:
+        """
+        matches = self.xpath('//input')
+        if len(matches) == 0: return []
+        instance_ = matches[instance]
+        return [node.text for node in (instance_.xpath('molpro-output:p', namespaces={
+            'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
