@@ -108,8 +108,7 @@ class Project(pysjef.project.Project):
 
         :param name: The name of the variable
         :param instance: index of occurence in output
-        :param list: Whether to force returning a list. If true, a list is always returned; otherwise
-        if the result is a scalar, a scalar is returned, and if no match is found, None is returned
+        :param list: Whether to force returning a list. If true, a list is always returned; otherwise if the result is a scalar, a scalar is returned, and if no match is found, None is returned
         :return:
         """
         matches = self.xpath('//variables/variable[@name="' + name + '"]')
