@@ -83,7 +83,8 @@ class Project(pysjef.project.Project):
                 atoms.append({
                     'id': atom.xpath("@id")[0],
                     'elementType': atom.xpath("@elementType")[0],
-                    'xyz': [Angstrom*float(atom.xpath("@x3")[0]), Angstrom*float(atom.xpath("@y3")[0]), Angstrom*float(atom.xpath("@z3")[0])]
+                    'xyz': [Angstrom * float(atom.xpath("@x3")[0]), Angstrom * float(atom.xpath("@y3")[0]),
+                            Angstrom * float(atom.xpath("@z3")[0])]
                 })
             geoms.append(atoms)
         return geoms
@@ -100,3 +101,69 @@ class Project(pysjef.project.Project):
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
         return pymolpro.grid.evaluateOrbitals(molecule, points, minocc)
+
+    def variable(self, name, instance=-1, list=False):
+        """
+        Return the value of a variable in the output xml stream
+
+        :param name: The name of the variable
+        :param instance: index of occurence in output
+        :param list: Whether to force returning a list. If true, a list is always returned; otherwise
+        if the result is a scalar, a scalar is returned, and if no match is found, None is returned
+        :return:
+        """
+        matches = self.xpath('//variables/variable[@name="' + name + '"]')
+        if len(matches) == 0:
+            matches = self.xpath('//variables/variable[@name="_' + name + '"]')
+        if len(matches) == 0:
+            matches = self.xpath('//variables/variable[@name="!' + name + '"]')
+        if len(matches) == 0 or len(matches) <= instance or len(matches) < abs(instance):
+            if list:
+                return []
+            return None
+        value_nodes = matches[instance].xpath('molpro-output:value', namespaces={
+            'molpro-output': 'http://www.molpro.net/schema/molpro-output'})
+        values = [node.text for node in value_nodes]
+        type = 'xsd:string'
+        if len(matches[instance].xpath('@type')) > 0: type = matches[instance].xpath('@type')[0]
+        length = 1
+        if len(matches[instance].xpath('@length')) > 0: length = int(matches[instance].xpath('@length')[0])
+        if list or length > 1:
+            if type == 'xsd:double':
+                return [float(k) for k in values]
+            return values
+        else:
+            if type == 'xsd:double':
+                return float(values[0])
+            return values[0]
+
+    def variable_units(self, name, instance=-1):
+        """
+        Return the value of the units of a variable in the output xml stream
+
+        :param name:  The name of the variable
+        :param instance: index of occurence in output
+        :return:
+        """
+        matches = self.xpath('//variables/variable[@name="' + name + '"]')
+        if len(matches) == 0:
+            matches = self.xpath('//variables/variable[@name="_' + name + '"]')
+        if len(matches) == 0:
+            matches = self.xpath('//variables/variable[@name="!' + name + '"]')
+        if len(matches) == 0 or len(matches) <= instance or len(matches) < abs(instance):
+            return None
+        units_nodes = matches[instance].xpath('@units')
+        if len(units_nodes) == 0: return None
+        return units_nodes[0]
+
+    def variables(self, instance=-1):
+        """
+        Return a list of all defined variables
+
+        :param instance: index of occurence of variables node in output
+        :return:
+        """
+        matches = self.xpath('//variables')
+        if len(matches) == 0: return []
+        return [node.xpath('@name')[0] for node in (matches[instance].xpath('molpro-output:variable', namespaces={
+            'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
