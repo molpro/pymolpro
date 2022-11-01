@@ -28,7 +28,8 @@
     "\n",
     "p = Project(\"evaluate_charge_density\")\n",
     "p.write_input('basis,cc-pVQZ;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rks,pbe0;put,xml')\n",
-    "p.run(wait=True)"
+    "p.run(wait=True)\n",
+    "assert p.status == 'completed'"
    ]
   },
   {

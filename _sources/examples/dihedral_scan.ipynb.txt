@@ -15,7 +15,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 20,
    "outputs": [],
    "source": [
     "from pymolpro import Project, all_completed, no_errors\n",
@@ -30,7 +30,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -65,7 +65,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -74,13 +74,12 @@
     "with Pool(processes=8) as pool:\n",
     "    pool.map(methodcaller('run', backend='local', wait=True),\n",
     "             projects, 1)\n",
-    "if not (all_completed(projects) and no_errors(projects)):\n",
-    "    assert False"
+    "assert all_completed(projects) and no_errors(projects)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 23,
    "metadata": {
     "pycharm": {
      "name": "#%%\n"

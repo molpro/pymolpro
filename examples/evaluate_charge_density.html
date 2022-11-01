@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.14 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 0.1.15 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -376,6 +376,7 @@ div.rendered_html tbody tr:hover {
 p = Project(&quot;evaluate_charge_density&quot;)
 p.write_input(&#39;basis,cc-pVQZ;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rks,pbe0;put,xml&#39;)
 p.run(wait=True)
+assert p.status == &#39;completed&#39;
 </pre></div>
 </div>
 </div>
