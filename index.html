@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 0.1.15) &mdash; pymolpro 0.1.15 documentation</title>
+  <title>pymolpro (version 0.1.16) &mdash; pymolpro 0.1.16 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>pymolpro (version 0.1.15)</li>
+      <li>pymolpro (version 0.1.16)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,7 +94,7 @@
 }
 </style>
 <div class="section" id="pymolpro-version-release">
-<h1>pymolpro (version 0.1.15)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
+<h1>pymolpro (version 0.1.16)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -118,6 +118,18 @@ analysed.:</p>
 <span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//property[@name=&#39;Energy&#39; or @name=&#39;total energy&#39;]&quot;</span><span class="p">):</span>
   <span class="n">energies</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;@method&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;@value&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Simply running Molpro and inspecting the output can be achieved as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymolpro</span> <span class="kn">import</span> <span class="n">Project</span>
+<span class="n">p</span><span class="o">=</span><span class="n">Project</span><span class="p">(</span><span class="s2">&quot;Neon&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">geometry=</span><span class="si">{Ne}</span><span class="s2"></span>
+<span class="s2">rhf</span>
+<span class="s2">ccsd(t)</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="toctree-wrapper compound">

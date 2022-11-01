@@ -33,7 +33,17 @@ analysed.::
    for node in p.xpath("//property[@name='Energy' or @name='total energy']"):
      energies[node.xpath("@method")[0]] = float(node.xpath("@value")[0])
 
+Simply running Molpro and inspecting the output can be achieved as::
 
+  from pymolpro import Project
+  p=Project("Neon")
+  p.write_input("""
+  geometry={Ne}
+  rhf
+  ccsd(t)
+  """)
+  p.run()
+  print(p.out)
 
 .. toctree::
    :maxdepth: 2
