@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Closed shell reactions with core correlation &mdash; pymolpro 0.1.13 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>Closed shell reactions with core correlation &mdash; pymolpro 0.1.14 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
+    <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Potential energy surface for twisting of ethene" href="../c2h4_dihedral_pes/two_state_mrci.html" />
-    <link rel="prev" title="Examples" href="../../examples.html" /> 
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Potential energy surface for twisting of ethene" href="dihedral_scan.html" />
+    <link rel="prev" title="Examples" href="../examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,10 +31,10 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> pymolpro
+            <a href="../index.html" class="icon icon-home"> pymolpro
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -43,8 +43,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">pymolpro</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Closed shell reactions with core correlation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Extrapolation">Extrapolation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Calculated-enthalpy-changes">Calculated enthalpy changes</a></li>
@@ -58,12 +58,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../c2h4_dihedral_pes/two_state_mrci.html">Potential energy surface for twisting of ethene</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../evaluate_charge_density/evaluate_charge_density.html">Evaluate charge density at the atomic nuclei</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../pair_correlation_energies/pair_correlation_energies.html">Extract pair correlation energies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dihedral_scan.html">Potential energy surface for twisting of ethene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate_charge_density.html">Evaluate charge density at the atomic nuclei</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../examples.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
         </div>
@@ -72,18 +73,18 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">pymolpro</a>
+          <a href="../index.html">pymolpro</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../examples.html">Examples</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../examples.html">Examples</a> &raquo;</li>
       <li>Closed shell reactions with core correlation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/examples/thermochemical_benchmark_for_methods/Core_Valence_reactions.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/thermochemical_benchmark_for_methods.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -373,23 +374,20 @@ div.rendered_html tbody tr:hover {
 <h1>Closed shell reactions with core correlation<a class="headerlink" href="#Closed-shell-reactions-with-core-correlation" title="Permalink to this heading"></a></h1>
 <p>Bak et al., <a class="reference external" href="https://doi.org/10.1063/1.1357225">doi:10.1063/1.1357225</a> and <a class="reference external" href="https://doi.org/10.1063/1.481544">doi:10.1063/1.481544</a></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
 import pandas as pd
-import scipy.stats as stats
 import matplotlib.pyplot as plt
 from pysjef import all_completed, DirectoryNode
-from pysjef_molpro import no_errors, Project
-from shutil import rmtree
-from os.path import exists
+from pymolpro import no_errors, Project
 pd.set_option(&quot;display.precision&quot;,2)
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>backend = &#39;local&#39; # If preferred, change this to one of the backends in your ~/.sjef/molpro/backends.xml that is ssh-accessible
@@ -399,7 +397,7 @@ parallel = 7 # how many jobs to run at once
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = [&#39;HF&#39;,&#39;MP2&#39;,&#39;MP3&#39;,&#39;PAPT2&#39;,&#39;PAPT3&#39;, &#39;CCSD&#39;,&#39;MP4&#39;,&#39;PAPT4&#39;, &#39;CCSD(T)&#39;]
@@ -408,7 +406,7 @@ bases = [&#39;cc-pCVDZ&#39;,&#39;cc-pCVTZ&#39;,&#39;cc-pCVQZ&#39;, &#39;cc-pCV5Z
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>closed_shell_methods={&#39;B3LYP&#39; : &quot;ks, b3lyp&quot;, &quot;HF&quot; : &quot;hf&quot;, &quot;MP2&quot;:&quot;mp2&quot;,&quot;MP3&quot;:&quot;mp3&quot;,&quot;MP4&quot;:&quot;mp4&quot;,&quot;CCSD&quot;:&quot;ccsd&quot;,&quot;CCSD(T)&quot;:&quot;ccsd(t)&quot;, &quot;PAPT2&quot;:&quot;papt;mp2&quot;, &quot;PAPT3&quot;:&quot;papt;mp3&quot;, &quot;PAPT4&quot;:&quot;papt;mp4&quot;}
@@ -416,7 +414,7 @@ bases = [&#39;cc-pCVDZ&#39;,&#39;cc-pCVTZ&#39;,&#39;cc-pCVQZ&#39;, &#39;cc-pCV5Z
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>molecules={}
@@ -440,7 +438,7 @@ molecules[&quot;C2H4&quot;] = {&quot;De_exp&quot; : 2359.82, &quot;De_calc&quot;
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def proj(molecule,method,basis):
@@ -449,7 +447,7 @@ molecules[&quot;C2H4&quot;] = {&quot;De_exp&quot; : 2359.82, &quot;De_calc&quot;
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>projects=[]
@@ -472,8 +470,8 @@ rhf;{&quot;{mp2;core}&quot; if method != &quot;HF&quot; else &quot;&quot;}
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from multiprocessing.dummy import Pool
@@ -481,8 +479,6 @@ from operator import methodcaller
 with Pool(processes=parallel) as pool:
     pool.map(methodcaller(&#39;run&#39;, backend=backend, wait=True),
              projects, 1)
-print(&#39;all completed&#39;, all_completed(projects))
-print(&#39;without errors&#39;, no_errors(projects))
 
 for method in methods:
     for basis in bases:
@@ -495,36 +491,30 @@ if not (all_completed(projects) and no_errors(projects)):
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-all completed True
-without errors True
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[99]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def get_energy(proj):
-    return ([None]+proj.select(&#39;//jobstep/property[name=Energy].value&#39;) + proj.select(&#39;//jobstep/property[name=total energy].value&#39;))[-1]
+    result = proj.xpath(&#39;//jobstep/property[@name=&quot;Energy&quot; or @name=&quot;total energy&quot;]/@value&#39;)
+    if len(result) == 0:
+        assert False
+    return float(result[-1])
 
-energies={}
+energies = {}
 for method in methods:
-    energies[method]={}
+    energies[method] = {}
     for basis in bases:
-        energies[method][basis]={}
+        energies[method][basis] = {}
         for name, molecule in (molecules).items():
-            energies[method][basis][name]=get_energy(proj(name,method,basis))
+            energies[method][basis][name] = get_energy(proj(name, method, basis))
 </pre></div>
 </div>
 </div>
 <div class="section" id="Extrapolation">
 <h2>Extrapolation<a class="headerlink" href="#Extrapolation" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[100]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>extrapolations={}
@@ -554,7 +544,7 @@ for extr in extrapolations:
 <div class="section" id="Calculated-enthalpy-changes">
 <h2>Calculated enthalpy changes<a class="headerlink" href="#Calculated-enthalpy-changes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[101]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>reactions={}
@@ -575,7 +565,7 @@ reactions[&quot;13&quot;] = {&quot;CH2&quot; : -2, &quot;C2H4&quot; : +1}
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[102]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Molpro_enthalpy={}
@@ -596,7 +586,7 @@ for method in methods:
 <div class="section" id="Reference-experimental-and-calculated-reaction-enthalpy-changes">
 <h2>Reference experimental and calculated reaction enthalpy changes<a class="headerlink" href="#Reference-experimental-and-calculated-reaction-enthalpy-changes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[103]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Exp_enthalpy={}
@@ -609,7 +599,7 @@ for name in reactions:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[104]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Calc_enthalpy={}
@@ -625,7 +615,7 @@ for name in reactions:
 <div class="section" id="Statistical-analysis-of-calculated-enthalpy-changes">
 <h2>Statistical analysis of calculated enthalpy changes<a class="headerlink" href="#Statistical-analysis-of-calculated-enthalpy-changes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[105]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def collect_errors(reference_data):
@@ -643,7 +633,7 @@ error_with_respect_to_calculated_enthalpy=collect_errors(Calc_enthalpy)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[106]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods_pruned = methods[1:]
@@ -666,13 +656,13 @@ plt.savefig(project_name+&quot;.violin.pdf&quot;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_thermochemical_benchmark_for_methods_Core_Valence_reactions_21_0.png" src="../../_images/examples_thermochemical_benchmark_for_methods_Core_Valence_reactions_21_0.png" />
+<img alt="../_images/examples_thermochemical_benchmark_for_methods_21_0.png" src="../_images/examples_thermochemical_benchmark_for_methods_21_0.png" />
 </div>
 </div>
 <div class="section" id="Mean-error">
 <h3>Mean error<a class="headerlink" href="#Mean-error" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[107]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def error(method, basis, name):
@@ -704,7 +694,7 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[108]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_exp_reaction_meanerror=pd.DataFrame(data=lit_exp_molpro_meanerror)
@@ -713,112 +703,112 @@ df_exp_reaction_meanerror.style.set_caption(&quot;Mean error&quot;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[108]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style type="text/css">
 </style>
-<table id="T_87dbe">
+<table id="T_385cb">
   <caption>Mean error</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_87dbe_level0_col0" class="col_heading level0 col0" >HF</th>
-      <th id="T_87dbe_level0_col1" class="col_heading level0 col1" >MP2</th>
-      <th id="T_87dbe_level0_col2" class="col_heading level0 col2" >MP3</th>
-      <th id="T_87dbe_level0_col3" class="col_heading level0 col3" >PAPT2</th>
-      <th id="T_87dbe_level0_col4" class="col_heading level0 col4" >PAPT3</th>
-      <th id="T_87dbe_level0_col5" class="col_heading level0 col5" >CCSD</th>
-      <th id="T_87dbe_level0_col6" class="col_heading level0 col6" >MP4</th>
-      <th id="T_87dbe_level0_col7" class="col_heading level0 col7" >PAPT4</th>
-      <th id="T_87dbe_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
+      <th id="T_385cb_level0_col0" class="col_heading level0 col0" >HF</th>
+      <th id="T_385cb_level0_col1" class="col_heading level0 col1" >MP2</th>
+      <th id="T_385cb_level0_col2" class="col_heading level0 col2" >MP3</th>
+      <th id="T_385cb_level0_col3" class="col_heading level0 col3" >PAPT2</th>
+      <th id="T_385cb_level0_col4" class="col_heading level0 col4" >PAPT3</th>
+      <th id="T_385cb_level0_col5" class="col_heading level0 col5" >CCSD</th>
+      <th id="T_385cb_level0_col6" class="col_heading level0 col6" >MP4</th>
+      <th id="T_385cb_level0_col7" class="col_heading level0 col7" >PAPT4</th>
+      <th id="T_385cb_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_87dbe_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
-      <td id="T_87dbe_row0_col0" class="data row0 col0" >14.954478</td>
-      <td id="T_87dbe_row0_col1" class="data row0 col1" >22.200433</td>
-      <td id="T_87dbe_row0_col2" class="data row0 col2" >8.575777</td>
-      <td id="T_87dbe_row0_col3" class="data row0 col3" >22.267072</td>
-      <td id="T_87dbe_row0_col4" class="data row0 col4" >22.849594</td>
-      <td id="T_87dbe_row0_col5" class="data row0 col5" >25.402670</td>
-      <td id="T_87dbe_row0_col6" class="data row0 col6" >35.419057</td>
-      <td id="T_87dbe_row0_col7" class="data row0 col7" >32.630359</td>
-      <td id="T_87dbe_row0_col8" class="data row0 col8" >33.394146</td>
+      <th id="T_385cb_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
+      <td id="T_385cb_row0_col0" class="data row0 col0" >14.954478</td>
+      <td id="T_385cb_row0_col1" class="data row0 col1" >22.200433</td>
+      <td id="T_385cb_row0_col2" class="data row0 col2" >8.575777</td>
+      <td id="T_385cb_row0_col3" class="data row0 col3" >22.267072</td>
+      <td id="T_385cb_row0_col4" class="data row0 col4" >22.849594</td>
+      <td id="T_385cb_row0_col5" class="data row0 col5" >25.402670</td>
+      <td id="T_385cb_row0_col6" class="data row0 col6" >35.419057</td>
+      <td id="T_385cb_row0_col7" class="data row0 col7" >32.630359</td>
+      <td id="T_385cb_row0_col8" class="data row0 col8" >33.394146</td>
     </tr>
     <tr>
-      <th id="T_87dbe_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
-      <td id="T_87dbe_row1_col0" class="data row1 col0" >13.322459</td>
-      <td id="T_87dbe_row1_col1" class="data row1 col1" >0.327119</td>
-      <td id="T_87dbe_row1_col2" class="data row1 col2" >-11.892328</td>
-      <td id="T_87dbe_row1_col3" class="data row1 col3" >1.374548</td>
-      <td id="T_87dbe_row1_col4" class="data row1 col4" >3.034337</td>
-      <td id="T_87dbe_row1_col5" class="data row1 col5" >4.473136</td>
-      <td id="T_87dbe_row1_col6" class="data row1 col6" >14.121807</td>
-      <td id="T_87dbe_row1_col7" class="data row1 col7" >9.731302</td>
-      <td id="T_87dbe_row1_col8" class="data row1 col8" >11.312945</td>
+      <th id="T_385cb_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
+      <td id="T_385cb_row1_col0" class="data row1 col0" >13.322459</td>
+      <td id="T_385cb_row1_col1" class="data row1 col1" >0.327119</td>
+      <td id="T_385cb_row1_col2" class="data row1 col2" >-11.892328</td>
+      <td id="T_385cb_row1_col3" class="data row1 col3" >1.374548</td>
+      <td id="T_385cb_row1_col4" class="data row1 col4" >3.034337</td>
+      <td id="T_385cb_row1_col5" class="data row1 col5" >4.473136</td>
+      <td id="T_385cb_row1_col6" class="data row1 col6" >14.121807</td>
+      <td id="T_385cb_row1_col7" class="data row1 col7" >9.731302</td>
+      <td id="T_385cb_row1_col8" class="data row1 col8" >11.312945</td>
     </tr>
     <tr>
-      <th id="T_87dbe_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
-      <td id="T_87dbe_row2_col0" class="data row2 col0" >10.726128</td>
-      <td id="T_87dbe_row2_col1" class="data row2 col1" >-7.638902</td>
-      <td id="T_87dbe_row2_col2" class="data row2 col2" >-18.943071</td>
-      <td id="T_87dbe_row2_col3" class="data row2 col3" >-6.035254</td>
-      <td id="T_87dbe_row2_col4" class="data row2 col4" >-4.216551</td>
-      <td id="T_87dbe_row2_col5" class="data row2 col5" >-3.319223</td>
-      <td id="T_87dbe_row2_col6" class="data row2 col6" >5.858537</td>
-      <td id="T_87dbe_row2_col7" class="data row2 col7" >1.457899</td>
-      <td id="T_87dbe_row2_col8" class="data row2 col8" >3.021306</td>
+      <th id="T_385cb_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
+      <td id="T_385cb_row2_col0" class="data row2 col0" >10.726128</td>
+      <td id="T_385cb_row2_col1" class="data row2 col1" >-7.638902</td>
+      <td id="T_385cb_row2_col2" class="data row2 col2" >-18.943071</td>
+      <td id="T_385cb_row2_col3" class="data row2 col3" >-6.035254</td>
+      <td id="T_385cb_row2_col4" class="data row2 col4" >-4.216551</td>
+      <td id="T_385cb_row2_col5" class="data row2 col5" >-3.319223</td>
+      <td id="T_385cb_row2_col6" class="data row2 col6" >5.858537</td>
+      <td id="T_385cb_row2_col7" class="data row2 col7" >1.457899</td>
+      <td id="T_385cb_row2_col8" class="data row2 col8" >3.021306</td>
     </tr>
     <tr>
-      <th id="T_87dbe_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
-      <td id="T_87dbe_row3_col0" class="data row3 col0" >9.248854</td>
-      <td id="T_87dbe_row3_col1" class="data row3 col1" >-10.493184</td>
-      <td id="T_87dbe_row3_col2" class="data row3 col2" >-21.000155</td>
-      <td id="T_87dbe_row3_col3" class="data row3 col3" >-8.265233</td>
-      <td id="T_87dbe_row3_col4" class="data row3 col4" >-6.373969</td>
-      <td id="T_87dbe_row3_col5" class="data row3 col5" >-5.780421</td>
-      <td id="T_87dbe_row3_col6" class="data row3 col6" >3.064909</td>
-      <td id="T_87dbe_row3_col7" class="data row3 col7" >-1.120281</td>
-      <td id="T_87dbe_row3_col8" class="data row3 col8" >0.386272</td>
+      <th id="T_385cb_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
+      <td id="T_385cb_row3_col0" class="data row3 col0" >9.248854</td>
+      <td id="T_385cb_row3_col1" class="data row3 col1" >-10.493184</td>
+      <td id="T_385cb_row3_col2" class="data row3 col2" >-21.000155</td>
+      <td id="T_385cb_row3_col3" class="data row3 col3" >-8.265233</td>
+      <td id="T_385cb_row3_col4" class="data row3 col4" >-6.373969</td>
+      <td id="T_385cb_row3_col5" class="data row3 col5" >-5.780421</td>
+      <td id="T_385cb_row3_col6" class="data row3 col6" >3.064909</td>
+      <td id="T_385cb_row3_col7" class="data row3 col7" >-1.120281</td>
+      <td id="T_385cb_row3_col8" class="data row3 col8" >0.386272</td>
     </tr>
     <tr>
-      <th id="T_87dbe_level0_row4" class="row_heading level0 row4" >DT</th>
-      <td id="T_87dbe_row4_col0" class="data row4 col0" >13.322459</td>
-      <td id="T_87dbe_row4_col1" class="data row4 col1" >-8.195532</td>
-      <td id="T_87dbe_row4_col2" class="data row4 col2" >-19.823311</td>
-      <td id="T_87dbe_row4_col3" class="data row4 col3" >-6.735138</td>
-      <td id="T_87dbe_row4_col4" class="data row4 col4" >-4.621762</td>
-      <td id="T_87dbe_row4_col5" class="data row4 col5" >-3.652133</td>
-      <td id="T_87dbe_row4_col6" class="data row4 col6" >5.841709</td>
-      <td id="T_87dbe_row4_col7" class="data row4 col7" >0.776760</td>
-      <td id="T_87dbe_row4_col8" class="data row4 col8" >2.702763</td>
+      <th id="T_385cb_level0_row4" class="row_heading level0 row4" >DT</th>
+      <td id="T_385cb_row4_col0" class="data row4 col0" >13.322459</td>
+      <td id="T_385cb_row4_col1" class="data row4 col1" >-8.195532</td>
+      <td id="T_385cb_row4_col2" class="data row4 col2" >-19.823311</td>
+      <td id="T_385cb_row4_col3" class="data row4 col3" >-6.735138</td>
+      <td id="T_385cb_row4_col4" class="data row4 col4" >-4.621762</td>
+      <td id="T_385cb_row4_col5" class="data row4 col5" >-3.652133</td>
+      <td id="T_385cb_row4_col6" class="data row4 col6" >5.841709</td>
+      <td id="T_385cb_row4_col7" class="data row4 col7" >0.776760</td>
+      <td id="T_385cb_row4_col8" class="data row4 col8" >2.702763</td>
     </tr>
     <tr>
-      <th id="T_87dbe_level0_row5" class="row_heading level0 row5" >TQ</th>
-      <td id="T_87dbe_row5_col0" class="data row5 col0" >10.726128</td>
-      <td id="T_87dbe_row5_col1" class="data row5 col1" >-11.557325</td>
-      <td id="T_87dbe_row5_col2" class="data row5 col2" >-22.193589</td>
-      <td id="T_87dbe_row5_col3" class="data row5 col3" >-9.547787</td>
-      <td id="T_87dbe_row5_col4" class="data row5 col4" >-7.613121</td>
-      <td id="T_87dbe_row5_col5" class="data row5 col5" >-7.110920</td>
-      <td id="T_87dbe_row5_col6" class="data row5 col6" >1.723203</td>
-      <td id="T_87dbe_row5_col7" class="data row5 col7" >-2.684830</td>
-      <td id="T_87dbe_row5_col8" class="data row5 col8" >-1.134730</td>
+      <th id="T_385cb_level0_row5" class="row_heading level0 row5" >TQ</th>
+      <td id="T_385cb_row5_col0" class="data row5 col0" >10.726128</td>
+      <td id="T_385cb_row5_col1" class="data row5 col1" >-11.557325</td>
+      <td id="T_385cb_row5_col2" class="data row5 col2" >-22.193589</td>
+      <td id="T_385cb_row5_col3" class="data row5 col3" >-9.547787</td>
+      <td id="T_385cb_row5_col4" class="data row5 col4" >-7.613121</td>
+      <td id="T_385cb_row5_col5" class="data row5 col5" >-7.110920</td>
+      <td id="T_385cb_row5_col6" class="data row5 col6" >1.723203</td>
+      <td id="T_385cb_row5_col7" class="data row5 col7" >-2.684830</td>
+      <td id="T_385cb_row5_col8" class="data row5 col8" >-1.134730</td>
     </tr>
     <tr>
-      <th id="T_87dbe_level0_row6" class="row_heading level0 row6" >Q5</th>
-      <td id="T_87dbe_row6_col0" class="data row6 col0" >9.248854</td>
-      <td id="T_87dbe_row6_col1" class="data row6 col1" >-11.937913</td>
-      <td id="T_87dbe_row6_col2" class="data row6 col2" >-21.608479</td>
-      <td id="T_87dbe_row6_col3" class="data row6 col3" >-9.054957</td>
-      <td id="T_87dbe_row6_col4" class="data row6 col4" >-7.087563</td>
-      <td id="T_87dbe_row6_col5" class="data row6 col5" >-6.812735</td>
-      <td id="T_87dbe_row6_col6" class="data row6 col6" >1.683817</td>
-      <td id="T_87dbe_row6_col7" class="data row6 col7" >-2.275329</td>
-      <td id="T_87dbe_row6_col8" class="data row6 col8" >-0.828425</td>
+      <th id="T_385cb_level0_row6" class="row_heading level0 row6" >Q5</th>
+      <td id="T_385cb_row6_col0" class="data row6 col0" >9.248854</td>
+      <td id="T_385cb_row6_col1" class="data row6 col1" >-11.937913</td>
+      <td id="T_385cb_row6_col2" class="data row6 col2" >-21.608479</td>
+      <td id="T_385cb_row6_col3" class="data row6 col3" >-9.054957</td>
+      <td id="T_385cb_row6_col4" class="data row6 col4" >-7.087563</td>
+      <td id="T_385cb_row6_col5" class="data row6 col5" >-6.812735</td>
+      <td id="T_385cb_row6_col6" class="data row6 col6" >1.683817</td>
+      <td id="T_385cb_row6_col7" class="data row6 col7" >-2.275329</td>
+      <td id="T_385cb_row6_col8" class="data row6 col8" >-0.828425</td>
     </tr>
   </tbody>
 </table></div>
@@ -827,7 +817,7 @@ df_exp_reaction_meanerror.style.set_caption(&quot;Mean error&quot;)
 <div class="section" id="Mean-absolute-error">
 <h3>Mean absolute error<a class="headerlink" href="#Mean-absolute-error" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[109]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lit_exp_molpro_abserror={}
@@ -857,7 +847,7 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[110]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_exp_reaction_meanabserror=pd.DataFrame(data=lit_exp_molpro_meanabserror)
@@ -866,112 +856,112 @@ df_exp_reaction_meanabserror.style.set_caption(&quot;Mean absolute error&quot;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[110]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style type="text/css">
 </style>
-<table id="T_297f0">
+<table id="T_2e819">
   <caption>Mean absolute error</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_297f0_level0_col0" class="col_heading level0 col0" >HF</th>
-      <th id="T_297f0_level0_col1" class="col_heading level0 col1" >MP2</th>
-      <th id="T_297f0_level0_col2" class="col_heading level0 col2" >MP3</th>
-      <th id="T_297f0_level0_col3" class="col_heading level0 col3" >PAPT2</th>
-      <th id="T_297f0_level0_col4" class="col_heading level0 col4" >PAPT3</th>
-      <th id="T_297f0_level0_col5" class="col_heading level0 col5" >CCSD</th>
-      <th id="T_297f0_level0_col6" class="col_heading level0 col6" >MP4</th>
-      <th id="T_297f0_level0_col7" class="col_heading level0 col7" >PAPT4</th>
-      <th id="T_297f0_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
+      <th id="T_2e819_level0_col0" class="col_heading level0 col0" >HF</th>
+      <th id="T_2e819_level0_col1" class="col_heading level0 col1" >MP2</th>
+      <th id="T_2e819_level0_col2" class="col_heading level0 col2" >MP3</th>
+      <th id="T_2e819_level0_col3" class="col_heading level0 col3" >PAPT2</th>
+      <th id="T_2e819_level0_col4" class="col_heading level0 col4" >PAPT3</th>
+      <th id="T_2e819_level0_col5" class="col_heading level0 col5" >CCSD</th>
+      <th id="T_2e819_level0_col6" class="col_heading level0 col6" >MP4</th>
+      <th id="T_2e819_level0_col7" class="col_heading level0 col7" >PAPT4</th>
+      <th id="T_2e819_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_297f0_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
-      <td id="T_297f0_row0_col0" class="data row0 col0" >29.772647</td>
-      <td id="T_297f0_row0_col1" class="data row0 col1" >30.990673</td>
-      <td id="T_297f0_row0_col2" class="data row0 col2" >17.228731</td>
-      <td id="T_297f0_row0_col3" class="data row0 col3" >29.134130</td>
-      <td id="T_297f0_row0_col4" class="data row0 col4" >29.668345</td>
-      <td id="T_297f0_row0_col5" class="data row0 col5" >30.847099</td>
-      <td id="T_297f0_row0_col6" class="data row0 col6" >38.415537</td>
-      <td id="T_297f0_row0_col7" class="data row0 col7" >36.650477</td>
-      <td id="T_297f0_row0_col8" class="data row0 col8" >36.734393</td>
+      <th id="T_2e819_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
+      <td id="T_2e819_row0_col0" class="data row0 col0" >29.772647</td>
+      <td id="T_2e819_row0_col1" class="data row0 col1" >30.990673</td>
+      <td id="T_2e819_row0_col2" class="data row0 col2" >17.228731</td>
+      <td id="T_2e819_row0_col3" class="data row0 col3" >29.134130</td>
+      <td id="T_2e819_row0_col4" class="data row0 col4" >29.668345</td>
+      <td id="T_2e819_row0_col5" class="data row0 col5" >30.847099</td>
+      <td id="T_2e819_row0_col6" class="data row0 col6" >38.415537</td>
+      <td id="T_2e819_row0_col7" class="data row0 col7" >36.650477</td>
+      <td id="T_2e819_row0_col8" class="data row0 col8" >36.734393</td>
     </tr>
     <tr>
-      <th id="T_297f0_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
-      <td id="T_297f0_row1_col0" class="data row1 col0" >28.674379</td>
-      <td id="T_297f0_row1_col1" class="data row1 col1" >13.738105</td>
-      <td id="T_297f0_row1_col2" class="data row1 col2" >12.199806</td>
-      <td id="T_297f0_row1_col3" class="data row1 col3" >8.108017</td>
-      <td id="T_297f0_row1_col4" class="data row1 col4" >8.763968</td>
-      <td id="T_297f0_row1_col5" class="data row1 col5" >7.859615</td>
-      <td id="T_297f0_row1_col6" class="data row1 col6" >16.361433</td>
-      <td id="T_297f0_row1_col7" class="data row1 col7" >11.236887</td>
-      <td id="T_297f0_row1_col8" class="data row1 col8" >12.047097</td>
+      <th id="T_2e819_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
+      <td id="T_2e819_row1_col0" class="data row1 col0" >28.674379</td>
+      <td id="T_2e819_row1_col1" class="data row1 col1" >13.738105</td>
+      <td id="T_2e819_row1_col2" class="data row1 col2" >12.199806</td>
+      <td id="T_2e819_row1_col3" class="data row1 col3" >8.108017</td>
+      <td id="T_2e819_row1_col4" class="data row1 col4" >8.763968</td>
+      <td id="T_2e819_row1_col5" class="data row1 col5" >7.859615</td>
+      <td id="T_2e819_row1_col6" class="data row1 col6" >16.361433</td>
+      <td id="T_2e819_row1_col7" class="data row1 col7" >11.236887</td>
+      <td id="T_2e819_row1_col8" class="data row1 col8" >12.047097</td>
     </tr>
     <tr>
-      <th id="T_297f0_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
-      <td id="T_297f0_row2_col0" class="data row2 col0" >29.135419</td>
-      <td id="T_297f0_row2_col1" class="data row2 col1" >13.486257</td>
-      <td id="T_297f0_row2_col2" class="data row2 col2" >18.943071</td>
-      <td id="T_297f0_row2_col3" class="data row2 col3" >9.835248</td>
-      <td id="T_297f0_row2_col4" class="data row2 col4" >9.373149</td>
-      <td id="T_297f0_row2_col5" class="data row2 col5" >7.361378</td>
-      <td id="T_297f0_row2_col6" class="data row2 col6" >9.359350</td>
-      <td id="T_297f0_row2_col7" class="data row2 col7" >3.146428</td>
-      <td id="T_297f0_row2_col8" class="data row2 col8" >3.704045</td>
+      <th id="T_2e819_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
+      <td id="T_2e819_row2_col0" class="data row2 col0" >29.135419</td>
+      <td id="T_2e819_row2_col1" class="data row2 col1" >13.486257</td>
+      <td id="T_2e819_row2_col2" class="data row2 col2" >18.943071</td>
+      <td id="T_2e819_row2_col3" class="data row2 col3" >9.835248</td>
+      <td id="T_2e819_row2_col4" class="data row2 col4" >9.373149</td>
+      <td id="T_2e819_row2_col5" class="data row2 col5" >7.361378</td>
+      <td id="T_2e819_row2_col6" class="data row2 col6" >9.359350</td>
+      <td id="T_2e819_row2_col7" class="data row2 col7" >3.146428</td>
+      <td id="T_2e819_row2_col8" class="data row2 col8" >3.704045</td>
     </tr>
     <tr>
-      <th id="T_297f0_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
-      <td id="T_297f0_row3_col0" class="data row3 col0" >29.056404</td>
-      <td id="T_297f0_row3_col1" class="data row3 col1" >14.456410</td>
-      <td id="T_297f0_row3_col2" class="data row3 col2" >21.000155</td>
-      <td id="T_297f0_row3_col3" class="data row3 col3" >11.505386</td>
-      <td id="T_297f0_row3_col4" class="data row3 col4" >10.922044</td>
-      <td id="T_297f0_row3_col5" class="data row3 col5" >9.371626</td>
-      <td id="T_297f0_row3_col6" class="data row3 col6" >7.308601</td>
-      <td id="T_297f0_row3_col7" class="data row3 col7" >1.378161</td>
-      <td id="T_297f0_row3_col8" class="data row3 col8" >1.304581</td>
+      <th id="T_2e819_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
+      <td id="T_2e819_row3_col0" class="data row3 col0" >29.056404</td>
+      <td id="T_2e819_row3_col1" class="data row3 col1" >14.456410</td>
+      <td id="T_2e819_row3_col2" class="data row3 col2" >21.000155</td>
+      <td id="T_2e819_row3_col3" class="data row3 col3" >11.505386</td>
+      <td id="T_2e819_row3_col4" class="data row3 col4" >10.922044</td>
+      <td id="T_2e819_row3_col5" class="data row3 col5" >9.371626</td>
+      <td id="T_2e819_row3_col6" class="data row3 col6" >7.308601</td>
+      <td id="T_2e819_row3_col7" class="data row3 col7" >1.378161</td>
+      <td id="T_2e819_row3_col8" class="data row3 col8" >1.304581</td>
     </tr>
     <tr>
-      <th id="T_297f0_level0_row4" class="row_heading level0 row4" >DT</th>
-      <td id="T_297f0_row4_col0" class="data row4 col0" >28.674379</td>
-      <td id="T_297f0_row4_col1" class="data row4 col1" >12.390998</td>
-      <td id="T_297f0_row4_col2" class="data row4 col2" >19.823311</td>
-      <td id="T_297f0_row4_col3" class="data row4 col3" >10.435913</td>
-      <td id="T_297f0_row4_col4" class="data row4 col4" >9.908778</td>
-      <td id="T_297f0_row4_col5" class="data row4 col5" >7.616045</td>
-      <td id="T_297f0_row4_col6" class="data row4 col6" >10.281158</td>
-      <td id="T_297f0_row4_col7" class="data row4 col7" >4.105216</td>
-      <td id="T_297f0_row4_col8" class="data row4 col8" >4.374121</td>
+      <th id="T_2e819_level0_row4" class="row_heading level0 row4" >DT</th>
+      <td id="T_2e819_row4_col0" class="data row4 col0" >28.674379</td>
+      <td id="T_2e819_row4_col1" class="data row4 col1" >12.390998</td>
+      <td id="T_2e819_row4_col2" class="data row4 col2" >19.823311</td>
+      <td id="T_2e819_row4_col3" class="data row4 col3" >10.435913</td>
+      <td id="T_2e819_row4_col4" class="data row4 col4" >9.908778</td>
+      <td id="T_2e819_row4_col5" class="data row4 col5" >7.616045</td>
+      <td id="T_2e819_row4_col6" class="data row4 col6" >10.281158</td>
+      <td id="T_2e819_row4_col7" class="data row4 col7" >4.105216</td>
+      <td id="T_2e819_row4_col8" class="data row4 col8" >4.374121</td>
     </tr>
     <tr>
-      <th id="T_297f0_level0_row5" class="row_heading level0 row5" >TQ</th>
-      <td id="T_297f0_row5_col0" class="data row5 col0" >29.135419</td>
-      <td id="T_297f0_row5_col1" class="data row5 col1" >14.762806</td>
-      <td id="T_297f0_row5_col2" class="data row5 col2" >22.193589</td>
-      <td id="T_297f0_row5_col3" class="data row5 col3" >11.999932</td>
-      <td id="T_297f0_row5_col4" class="data row5 col4" >11.396504</td>
-      <td id="T_297f0_row5_col5" class="data row5 col5" >9.940689</td>
-      <td id="T_297f0_row5_col6" class="data row5 col6" >6.929504</td>
-      <td id="T_297f0_row5_col7" class="data row5 col7" >2.774753</td>
-      <td id="T_297f0_row5_col8" class="data row5 col8" >1.327139</td>
+      <th id="T_2e819_level0_row5" class="row_heading level0 row5" >TQ</th>
+      <td id="T_2e819_row5_col0" class="data row5 col0" >29.135419</td>
+      <td id="T_2e819_row5_col1" class="data row5 col1" >14.762806</td>
+      <td id="T_2e819_row5_col2" class="data row5 col2" >22.193589</td>
+      <td id="T_2e819_row5_col3" class="data row5 col3" >11.999932</td>
+      <td id="T_2e819_row5_col4" class="data row5 col4" >11.396504</td>
+      <td id="T_2e819_row5_col5" class="data row5 col5" >9.940689</td>
+      <td id="T_2e819_row5_col6" class="data row5 col6" >6.929504</td>
+      <td id="T_2e819_row5_col7" class="data row5 col7" >2.774753</td>
+      <td id="T_2e819_row5_col8" class="data row5 col8" >1.327139</td>
     </tr>
     <tr>
-      <th id="T_297f0_level0_row6" class="row_heading level0 row6" >Q5</th>
-      <td id="T_297f0_row6_col0" class="data row6 col0" >29.056404</td>
-      <td id="T_297f0_row6_col1" class="data row6 col1" >15.418960</td>
-      <td id="T_297f0_row6_col2" class="data row6 col2" >21.608479</td>
-      <td id="T_297f0_row6_col3" class="data row6 col3" >11.714145</td>
-      <td id="T_297f0_row6_col4" class="data row6 col4" >11.103542</td>
-      <td id="T_297f0_row6_col5" class="data row6 col5" >9.934693</td>
-      <td id="T_297f0_row6_col6" class="data row6 col6" >7.034897</td>
-      <td id="T_297f0_row6_col7" class="data row6 col7" >2.275329</td>
-      <td id="T_297f0_row6_col8" class="data row6 col8" >1.185635</td>
+      <th id="T_2e819_level0_row6" class="row_heading level0 row6" >Q5</th>
+      <td id="T_2e819_row6_col0" class="data row6 col0" >29.056404</td>
+      <td id="T_2e819_row6_col1" class="data row6 col1" >15.418960</td>
+      <td id="T_2e819_row6_col2" class="data row6 col2" >21.608479</td>
+      <td id="T_2e819_row6_col3" class="data row6 col3" >11.714145</td>
+      <td id="T_2e819_row6_col4" class="data row6 col4" >11.103542</td>
+      <td id="T_2e819_row6_col5" class="data row6 col5" >9.934693</td>
+      <td id="T_2e819_row6_col6" class="data row6 col6" >7.034897</td>
+      <td id="T_2e819_row6_col7" class="data row6 col7" >2.275329</td>
+      <td id="T_2e819_row6_col8" class="data row6 col8" >1.185635</td>
     </tr>
   </tbody>
 </table></div>
@@ -980,7 +970,7 @@ df_exp_reaction_meanabserror.style.set_caption(&quot;Mean absolute error&quot;)
 <div class="section" id="Maximum-error">
 <h3>Maximum error<a class="headerlink" href="#Maximum-error" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[111]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lit_exp_molpro_maxerror={}
@@ -997,7 +987,7 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[112]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_exp_reaction_maxerror=pd.DataFrame(data=lit_exp_molpro_maxerror)
@@ -1006,112 +996,112 @@ df_exp_reaction_maxerror.style.set_caption(&quot;Maximum error&quot;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[112]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style type="text/css">
 </style>
-<table id="T_58294">
+<table id="T_e24c7">
   <caption>Maximum error</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_58294_level0_col0" class="col_heading level0 col0" >HF</th>
-      <th id="T_58294_level0_col1" class="col_heading level0 col1" >MP2</th>
-      <th id="T_58294_level0_col2" class="col_heading level0 col2" >MP3</th>
-      <th id="T_58294_level0_col3" class="col_heading level0 col3" >PAPT2</th>
-      <th id="T_58294_level0_col4" class="col_heading level0 col4" >PAPT3</th>
-      <th id="T_58294_level0_col5" class="col_heading level0 col5" >CCSD</th>
-      <th id="T_58294_level0_col6" class="col_heading level0 col6" >MP4</th>
-      <th id="T_58294_level0_col7" class="col_heading level0 col7" >PAPT4</th>
-      <th id="T_58294_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
+      <th id="T_e24c7_level0_col0" class="col_heading level0 col0" >HF</th>
+      <th id="T_e24c7_level0_col1" class="col_heading level0 col1" >MP2</th>
+      <th id="T_e24c7_level0_col2" class="col_heading level0 col2" >MP3</th>
+      <th id="T_e24c7_level0_col3" class="col_heading level0 col3" >PAPT2</th>
+      <th id="T_e24c7_level0_col4" class="col_heading level0 col4" >PAPT3</th>
+      <th id="T_e24c7_level0_col5" class="col_heading level0 col5" >CCSD</th>
+      <th id="T_e24c7_level0_col6" class="col_heading level0 col6" >MP4</th>
+      <th id="T_e24c7_level0_col7" class="col_heading level0 col7" >PAPT4</th>
+      <th id="T_e24c7_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_58294_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
-      <td id="T_58294_row0_col0" class="data row0 col0" >115.100379</td>
-      <td id="T_58294_row0_col1" class="data row0 col1" >76.538149</td>
-      <td id="T_58294_row0_col2" class="data row0 col2" >-34.352163</td>
-      <td id="T_58294_row0_col3" class="data row0 col3" >48.968055</td>
-      <td id="T_58294_row0_col4" class="data row0 col4" >48.412690</td>
-      <td id="T_58294_row0_col5" class="data row0 col5" >51.596283</td>
-      <td id="T_58294_row0_col6" class="data row0 col6" >85.940386</td>
-      <td id="T_58294_row0_col7" class="data row0 col7" >64.510810</td>
-      <td id="T_58294_row0_col8" class="data row0 col8" >65.916791</td>
+      <th id="T_e24c7_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
+      <td id="T_e24c7_row0_col0" class="data row0 col0" >115.100379</td>
+      <td id="T_e24c7_row0_col1" class="data row0 col1" >76.538149</td>
+      <td id="T_e24c7_row0_col2" class="data row0 col2" >-34.352163</td>
+      <td id="T_e24c7_row0_col3" class="data row0 col3" >48.968055</td>
+      <td id="T_e24c7_row0_col4" class="data row0 col4" >48.412690</td>
+      <td id="T_e24c7_row0_col5" class="data row0 col5" >51.596283</td>
+      <td id="T_e24c7_row0_col6" class="data row0 col6" >85.940386</td>
+      <td id="T_e24c7_row0_col7" class="data row0 col7" >64.510810</td>
+      <td id="T_e24c7_row0_col8" class="data row0 col8" >65.916791</td>
     </tr>
     <tr>
-      <th id="T_58294_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
-      <td id="T_58294_row1_col0" class="data row1 col0" >112.330648</td>
-      <td id="T_58294_row1_col1" class="data row1 col1" >-44.426818</td>
-      <td id="T_58294_row1_col2" class="data row1 col2" >-26.223071</td>
-      <td id="T_58294_row1_col3" class="data row1 col3" >24.635398</td>
-      <td id="T_58294_row1_col4" class="data row1 col4" >29.197598</td>
-      <td id="T_58294_row1_col5" class="data row1 col5" >24.350267</td>
-      <td id="T_58294_row1_col6" class="data row1 col6" >41.332397</td>
-      <td id="T_58294_row1_col7" class="data row1 col7" >19.441841</td>
-      <td id="T_58294_row1_col8" class="data row1 col8" >21.327717</td>
+      <th id="T_e24c7_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
+      <td id="T_e24c7_row1_col0" class="data row1 col0" >112.330648</td>
+      <td id="T_e24c7_row1_col1" class="data row1 col1" >-44.426818</td>
+      <td id="T_e24c7_row1_col2" class="data row1 col2" >-26.223071</td>
+      <td id="T_e24c7_row1_col3" class="data row1 col3" >24.635398</td>
+      <td id="T_e24c7_row1_col4" class="data row1 col4" >29.197598</td>
+      <td id="T_e24c7_row1_col5" class="data row1 col5" >24.350267</td>
+      <td id="T_e24c7_row1_col6" class="data row1 col6" >41.332397</td>
+      <td id="T_e24c7_row1_col7" class="data row1 col7" >19.441841</td>
+      <td id="T_e24c7_row1_col8" class="data row1 col8" >21.327717</td>
     </tr>
     <tr>
-      <th id="T_58294_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
-      <td id="T_58294_row2_col0" class="data row2 col0" >113.180763</td>
-      <td id="T_58294_row2_col1" class="data row2 col1" >-48.754143</td>
-      <td id="T_58294_row2_col2" class="data row2 col2" >-37.370032</td>
-      <td id="T_58294_row2_col3" class="data row2 col3" >18.575804</td>
-      <td id="T_58294_row2_col4" class="data row2 col4" >23.542680</td>
-      <td id="T_58294_row2_col5" class="data row2 col5" >19.282486</td>
-      <td id="T_58294_row2_col6" class="data row2 col6" >26.725887</td>
-      <td id="T_58294_row2_col7" class="data row2 col7" >-5.960171</td>
-      <td id="T_58294_row2_col8" class="data row2 col8" >6.971901</td>
+      <th id="T_e24c7_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
+      <td id="T_e24c7_row2_col0" class="data row2 col0" >113.180763</td>
+      <td id="T_e24c7_row2_col1" class="data row2 col1" >-48.754143</td>
+      <td id="T_e24c7_row2_col2" class="data row2 col2" >-37.370032</td>
+      <td id="T_e24c7_row2_col3" class="data row2 col3" >18.575804</td>
+      <td id="T_e24c7_row2_col4" class="data row2 col4" >23.542680</td>
+      <td id="T_e24c7_row2_col5" class="data row2 col5" >19.282486</td>
+      <td id="T_e24c7_row2_col6" class="data row2 col6" >26.725887</td>
+      <td id="T_e24c7_row2_col7" class="data row2 col7" >-5.960171</td>
+      <td id="T_e24c7_row2_col8" class="data row2 col8" >6.971901</td>
     </tr>
     <tr>
-      <th id="T_58294_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
-      <td id="T_58294_row3_col0" class="data row3 col0" >113.659947</td>
-      <td id="T_58294_row3_col1" class="data row3 col1" >-50.009164</td>
-      <td id="T_58294_row3_col2" class="data row3 col2" >-41.355025</td>
-      <td id="T_58294_row3_col3" class="data row3 col3" >-22.475486</td>
-      <td id="T_58294_row3_col4" class="data row3 col4" >21.642531</td>
-      <td id="T_58294_row3_col5" class="data row3 col5" >17.724047</td>
-      <td id="T_58294_row3_col6" class="data row3 col6" >20.766190</td>
-      <td id="T_58294_row3_col7" class="data row3 col7" >-5.072136</td>
-      <td id="T_58294_row3_col8" class="data row3 col8" >2.999326</td>
+      <th id="T_e24c7_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
+      <td id="T_e24c7_row3_col0" class="data row3 col0" >113.659947</td>
+      <td id="T_e24c7_row3_col1" class="data row3 col1" >-50.009164</td>
+      <td id="T_e24c7_row3_col2" class="data row3 col2" >-41.355025</td>
+      <td id="T_e24c7_row3_col3" class="data row3 col3" >-22.475486</td>
+      <td id="T_e24c7_row3_col4" class="data row3 col4" >21.642531</td>
+      <td id="T_e24c7_row3_col5" class="data row3 col5" >17.724047</td>
+      <td id="T_e24c7_row3_col6" class="data row3 col6" >20.766190</td>
+      <td id="T_e24c7_row3_col7" class="data row3 col7" >-5.072136</td>
+      <td id="T_e24c7_row3_col8" class="data row3 col8" >2.999326</td>
     </tr>
     <tr>
-      <th id="T_58294_level0_row4" class="row_heading level0 row4" >DT</th>
-      <td id="T_58294_row4_col0" class="data row4 col0" >112.330648</td>
-      <td id="T_58294_row4_col1" class="data row4 col1" >-49.478559</td>
-      <td id="T_58294_row4_col2" class="data row4 col2" >-41.352669</td>
-      <td id="T_58294_row4_col3" class="data row4 col3" >-21.804489</td>
-      <td id="T_58294_row4_col4" class="data row4 col4" >24.214225</td>
-      <td id="T_58294_row4_col5" class="data row4 col5" >19.850477</td>
-      <td id="T_58294_row4_col6" class="data row4 col6" >24.174609</td>
-      <td id="T_58294_row4_col7" class="data row4 col7" >11.947065</td>
-      <td id="T_58294_row4_col8" class="data row4 col8" >10.788612</td>
+      <th id="T_e24c7_level0_row4" class="row_heading level0 row4" >DT</th>
+      <td id="T_e24c7_row4_col0" class="data row4 col0" >112.330648</td>
+      <td id="T_e24c7_row4_col1" class="data row4 col1" >-49.478559</td>
+      <td id="T_e24c7_row4_col2" class="data row4 col2" >-41.352669</td>
+      <td id="T_e24c7_row4_col3" class="data row4 col3" >-21.804489</td>
+      <td id="T_e24c7_row4_col4" class="data row4 col4" >24.214225</td>
+      <td id="T_e24c7_row4_col5" class="data row4 col5" >19.850477</td>
+      <td id="T_e24c7_row4_col6" class="data row4 col6" >24.174609</td>
+      <td id="T_e24c7_row4_col7" class="data row4 col7" >11.947065</td>
+      <td id="T_e24c7_row4_col8" class="data row4 col8" >10.788612</td>
     </tr>
     <tr>
-      <th id="T_58294_level0_row5" class="row_heading level0 row5" >TQ</th>
-      <td id="T_58294_row5_col0" class="data row5 col0" >113.180763</td>
-      <td id="T_58294_row5_col1" class="data row5 col1" >-52.532276</td>
-      <td id="T_58294_row5_col2" class="data row5 col2" >-41.498754</td>
-      <td id="T_58294_row5_col3" class="data row5 col3" >-22.640761</td>
-      <td id="T_58294_row5_col4" class="data row5 col4" >-19.891997</td>
-      <td id="T_58294_row5_col5" class="data row5 col5" >-17.214768</td>
-      <td id="T_58294_row5_col6" class="data row5 col6" >20.390657</td>
-      <td id="T_58294_row5_col7" class="data row5 col7" >-6.881558</td>
-      <td id="T_58294_row5_col8" class="data row5 col8" >-3.147673</td>
+      <th id="T_e24c7_level0_row5" class="row_heading level0 row5" >TQ</th>
+      <td id="T_e24c7_row5_col0" class="data row5 col0" >113.180763</td>
+      <td id="T_e24c7_row5_col1" class="data row5 col1" >-52.532276</td>
+      <td id="T_e24c7_row5_col2" class="data row5 col2" >-41.498754</td>
+      <td id="T_e24c7_row5_col3" class="data row5 col3" >-22.640761</td>
+      <td id="T_e24c7_row5_col4" class="data row5 col4" >-19.891997</td>
+      <td id="T_e24c7_row5_col5" class="data row5 col5" >-17.214768</td>
+      <td id="T_e24c7_row5_col6" class="data row5 col6" >20.390657</td>
+      <td id="T_e24c7_row5_col7" class="data row5 col7" >-6.881558</td>
+      <td id="T_e24c7_row5_col8" class="data row5 col8" >-3.147673</td>
     </tr>
     <tr>
-      <th id="T_58294_level0_row6" class="row_heading level0 row6" >Q5</th>
-      <td id="T_58294_row6_col0" class="data row6 col0" >113.659947</td>
-      <td id="T_58294_row6_col1" class="data row6 col1" >-51.828657</td>
-      <td id="T_58294_row6_col2" class="data row6 col2" >-41.439529</td>
-      <td id="T_58294_row6_col3" class="data row6 col3" >-22.759090</td>
-      <td id="T_58294_row6_col4" class="data row6 col4" >-20.037758</td>
-      <td id="T_58294_row6_col5" class="data row6 col5" >-17.750383</td>
-      <td id="T_58294_row6_col6" class="data row6 col6" >-18.711710</td>
-      <td id="T_58294_row6_col7" class="data row6 col7" >-4.336995</td>
-      <td id="T_58294_row6_col8" class="data row6 col8" >-3.490838</td>
+      <th id="T_e24c7_level0_row6" class="row_heading level0 row6" >Q5</th>
+      <td id="T_e24c7_row6_col0" class="data row6 col0" >113.659947</td>
+      <td id="T_e24c7_row6_col1" class="data row6 col1" >-51.828657</td>
+      <td id="T_e24c7_row6_col2" class="data row6 col2" >-41.439529</td>
+      <td id="T_e24c7_row6_col3" class="data row6 col3" >-22.759090</td>
+      <td id="T_e24c7_row6_col4" class="data row6 col4" >-20.037758</td>
+      <td id="T_e24c7_row6_col5" class="data row6 col5" >-17.750383</td>
+      <td id="T_e24c7_row6_col6" class="data row6 col6" >-18.711710</td>
+      <td id="T_e24c7_row6_col7" class="data row6 col7" >-4.336995</td>
+      <td id="T_e24c7_row6_col8" class="data row6 col8" >-3.490838</td>
     </tr>
   </tbody>
 </table></div>
@@ -1120,7 +1110,7 @@ df_exp_reaction_maxerror.style.set_caption(&quot;Maximum error&quot;)
 <div class="section" id="Standard-deviation">
 <h3>Standard deviation<a class="headerlink" href="#Standard-deviation" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[113]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lit_exp_molpro_std={}
@@ -1139,7 +1129,7 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[114]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_exp_reaction_std=pd.DataFrame(data=lit_exp_molpro_std)
@@ -1148,118 +1138,118 @@ df_exp_reaction_std.style.set_caption(&quot;Standard deviation of errors&quot;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[114]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style type="text/css">
 </style>
-<table id="T_2c1d1">
+<table id="T_c38be">
   <caption>Standard deviation of errors</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_2c1d1_level0_col0" class="col_heading level0 col0" >HF</th>
-      <th id="T_2c1d1_level0_col1" class="col_heading level0 col1" >MP2</th>
-      <th id="T_2c1d1_level0_col2" class="col_heading level0 col2" >MP3</th>
-      <th id="T_2c1d1_level0_col3" class="col_heading level0 col3" >PAPT2</th>
-      <th id="T_2c1d1_level0_col4" class="col_heading level0 col4" >PAPT3</th>
-      <th id="T_2c1d1_level0_col5" class="col_heading level0 col5" >CCSD</th>
-      <th id="T_2c1d1_level0_col6" class="col_heading level0 col6" >MP4</th>
-      <th id="T_2c1d1_level0_col7" class="col_heading level0 col7" >PAPT4</th>
-      <th id="T_2c1d1_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
+      <th id="T_c38be_level0_col0" class="col_heading level0 col0" >HF</th>
+      <th id="T_c38be_level0_col1" class="col_heading level0 col1" >MP2</th>
+      <th id="T_c38be_level0_col2" class="col_heading level0 col2" >MP3</th>
+      <th id="T_c38be_level0_col3" class="col_heading level0 col3" >PAPT2</th>
+      <th id="T_c38be_level0_col4" class="col_heading level0 col4" >PAPT3</th>
+      <th id="T_c38be_level0_col5" class="col_heading level0 col5" >CCSD</th>
+      <th id="T_c38be_level0_col6" class="col_heading level0 col6" >MP4</th>
+      <th id="T_c38be_level0_col7" class="col_heading level0 col7" >PAPT4</th>
+      <th id="T_c38be_level0_col8" class="col_heading level0 col8" >CCSD(T)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_2c1d1_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
-      <td id="T_2c1d1_row0_col0" class="data row0 col0" >39.456751</td>
-      <td id="T_2c1d1_row0_col1" class="data row0 col1" >31.145927</td>
-      <td id="T_2c1d1_row0_col2" class="data row0 col2" >18.676899</td>
-      <td id="T_2c1d1_row0_col3" class="data row0 col3" >23.014348</td>
-      <td id="T_2c1d1_row0_col4" class="data row0 col4" >23.160847</td>
-      <td id="T_2c1d1_row0_col5" class="data row0 col5" >22.608315</td>
-      <td id="T_2c1d1_row0_col6" class="data row0 col6" >30.928521</td>
-      <td id="T_2c1d1_row0_col7" class="data row0 col7" >26.504015</td>
-      <td id="T_2c1d1_row0_col8" class="data row0 col8" >25.921443</td>
+      <th id="T_c38be_level0_row0" class="row_heading level0 row0" >cc-pCVDZ</th>
+      <td id="T_c38be_row0_col0" class="data row0 col0" >39.456751</td>
+      <td id="T_c38be_row0_col1" class="data row0 col1" >31.145927</td>
+      <td id="T_c38be_row0_col2" class="data row0 col2" >18.676899</td>
+      <td id="T_c38be_row0_col3" class="data row0 col3" >23.014348</td>
+      <td id="T_c38be_row0_col4" class="data row0 col4" >23.160847</td>
+      <td id="T_c38be_row0_col5" class="data row0 col5" >22.608315</td>
+      <td id="T_c38be_row0_col6" class="data row0 col6" >30.928521</td>
+      <td id="T_c38be_row0_col7" class="data row0 col7" >26.504015</td>
+      <td id="T_c38be_row0_col8" class="data row0 col8" >25.921443</td>
     </tr>
     <tr>
-      <th id="T_2c1d1_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
-      <td id="T_2c1d1_row1_col0" class="data row1 col0" >39.034716</td>
-      <td id="T_2c1d1_row1_col1" class="data row1 col1" >19.528758</td>
-      <td id="T_2c1d1_row1_col2" class="data row1 col2" >9.119990</td>
-      <td id="T_2c1d1_row1_col3" class="data row1 col3" >10.514403</td>
-      <td id="T_2c1d1_row1_col4" class="data row1 col4" >11.225939</td>
-      <td id="T_2c1d1_row1_col5" class="data row1 col5" >9.027575</td>
-      <td id="T_2c1d1_row1_col6" class="data row1 col6" >14.497921</td>
-      <td id="T_2c1d1_row1_col7" class="data row1 col7" >8.457648</td>
-      <td id="T_2c1d1_row1_col8" class="data row1 col8" >8.067539</td>
+      <th id="T_c38be_level0_row1" class="row_heading level0 row1" >cc-pCVTZ</th>
+      <td id="T_c38be_row1_col0" class="data row1 col0" >39.034716</td>
+      <td id="T_c38be_row1_col1" class="data row1 col1" >19.528758</td>
+      <td id="T_c38be_row1_col2" class="data row1 col2" >9.119990</td>
+      <td id="T_c38be_row1_col3" class="data row1 col3" >10.514403</td>
+      <td id="T_c38be_row1_col4" class="data row1 col4" >11.225939</td>
+      <td id="T_c38be_row1_col5" class="data row1 col5" >9.027575</td>
+      <td id="T_c38be_row1_col6" class="data row1 col6" >14.497921</td>
+      <td id="T_c38be_row1_col7" class="data row1 col7" >8.457648</td>
+      <td id="T_c38be_row1_col8" class="data row1 col8" >8.067539</td>
     </tr>
     <tr>
-      <th id="T_2c1d1_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
-      <td id="T_2c1d1_row2_col0" class="data row2 col0" >40.602684</td>
-      <td id="T_2c1d1_row2_col1" class="data row2 col1" >18.267680</td>
-      <td id="T_2c1d1_row2_col2" class="data row2 col2" >10.140804</td>
-      <td id="T_2c1d1_row2_col3" class="data row2 col3" >9.835798</td>
-      <td id="T_2c1d1_row2_col4" class="data row2 col4" >10.617218</td>
-      <td id="T_2c1d1_row2_col5" class="data row2 col5" >8.654956</td>
-      <td id="T_2c1d1_row2_col6" class="data row2 col6" >10.441652</td>
-      <td id="T_2c1d1_row2_col7" class="data row2 col7" >3.303437</td>
-      <td id="T_2c1d1_row2_col8" class="data row2 col8" >2.880693</td>
+      <th id="T_c38be_level0_row2" class="row_heading level0 row2" >cc-pCVQZ</th>
+      <td id="T_c38be_row2_col0" class="data row2 col0" >40.602684</td>
+      <td id="T_c38be_row2_col1" class="data row2 col1" >18.267680</td>
+      <td id="T_c38be_row2_col2" class="data row2 col2" >10.140804</td>
+      <td id="T_c38be_row2_col3" class="data row2 col3" >9.835798</td>
+      <td id="T_c38be_row2_col4" class="data row2 col4" >10.617218</td>
+      <td id="T_c38be_row2_col5" class="data row2 col5" >8.654956</td>
+      <td id="T_c38be_row2_col6" class="data row2 col6" >10.441652</td>
+      <td id="T_c38be_row2_col7" class="data row2 col7" >3.303437</td>
+      <td id="T_c38be_row2_col8" class="data row2 col8" >2.880693</td>
     </tr>
     <tr>
-      <th id="T_2c1d1_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
-      <td id="T_2c1d1_row3_col0" class="data row3 col0" >41.238203</td>
-      <td id="T_2c1d1_row3_col1" class="data row3 col1" >18.168890</td>
-      <td id="T_2c1d1_row3_col2" class="data row3 col2" >11.048318</td>
-      <td id="T_2c1d1_row3_col3" class="data row3 col3" >10.112304</td>
-      <td id="T_2c1d1_row3_col4" class="data row3 col4" >10.884534</td>
-      <td id="T_2c1d1_row3_col5" class="data row3 col5" >9.204159</td>
-      <td id="T_2c1d1_row3_col6" class="data row3 col6" >9.145103</td>
-      <td id="T_2c1d1_row3_col7" class="data row3 col7" >1.833756</td>
-      <td id="T_2c1d1_row3_col8" class="data row3 col8" >1.508516</td>
+      <th id="T_c38be_level0_row3" class="row_heading level0 row3" >cc-pCV5Z</th>
+      <td id="T_c38be_row3_col0" class="data row3 col0" >41.238203</td>
+      <td id="T_c38be_row3_col1" class="data row3 col1" >18.168890</td>
+      <td id="T_c38be_row3_col2" class="data row3 col2" >11.048318</td>
+      <td id="T_c38be_row3_col3" class="data row3 col3" >10.112304</td>
+      <td id="T_c38be_row3_col4" class="data row3 col4" >10.884534</td>
+      <td id="T_c38be_row3_col5" class="data row3 col5" >9.204159</td>
+      <td id="T_c38be_row3_col6" class="data row3 col6" >9.145103</td>
+      <td id="T_c38be_row3_col7" class="data row3 col7" >1.833756</td>
+      <td id="T_c38be_row3_col8" class="data row3 col8" >1.508516</td>
     </tr>
     <tr>
-      <th id="T_2c1d1_level0_row4" class="row_heading level0 row4" >DT</th>
-      <td id="T_2c1d1_row4_col0" class="data row4 col0" >39.034716</td>
-      <td id="T_2c1d1_row4_col1" class="data row4 col1" >16.854376</td>
-      <td id="T_2c1d1_row4_col2" class="data row4 col2" >12.314934</td>
-      <td id="T_2c1d1_row4_col3" class="data row4 col3" >11.300724</td>
-      <td id="T_2c1d1_row4_col4" class="data row4 col4" >11.888249</td>
-      <td id="T_2c1d1_row4_col5" class="data row4 col5" >9.305779</td>
-      <td id="T_2c1d1_row4_col6" class="data row4 col6" >10.616360</td>
-      <td id="T_2c1d1_row4_col7" class="data row4 col7" >5.928093</td>
-      <td id="T_2c1d1_row4_col8" class="data row4 col8" >4.828084</td>
+      <th id="T_c38be_level0_row4" class="row_heading level0 row4" >DT</th>
+      <td id="T_c38be_row4_col0" class="data row4 col0" >39.034716</td>
+      <td id="T_c38be_row4_col1" class="data row4 col1" >16.854376</td>
+      <td id="T_c38be_row4_col2" class="data row4 col2" >12.314934</td>
+      <td id="T_c38be_row4_col3" class="data row4 col3" >11.300724</td>
+      <td id="T_c38be_row4_col4" class="data row4 col4" >11.888249</td>
+      <td id="T_c38be_row4_col5" class="data row4 col5" >9.305779</td>
+      <td id="T_c38be_row4_col6" class="data row4 col6" >10.616360</td>
+      <td id="T_c38be_row4_col7" class="data row4 col7" >5.928093</td>
+      <td id="T_c38be_row4_col8" class="data row4 col8" >4.828084</td>
     </tr>
     <tr>
-      <th id="T_2c1d1_level0_row5" class="row_heading level0 row5" >TQ</th>
-      <td id="T_2c1d1_row5_col0" class="data row5 col0" >40.602684</td>
-      <td id="T_2c1d1_row5_col1" class="data row5 col1" >18.420419</td>
-      <td id="T_2c1d1_row5_col2" class="data row5 col2" >10.969529</td>
-      <td id="T_2c1d1_row5_col3" class="data row5 col3" >9.620094</td>
-      <td id="T_2c1d1_row5_col4" class="data row5 col4" >10.357727</td>
-      <td id="T_2c1d1_row5_col5" class="data row5 col5" >8.747805</td>
-      <td id="T_2c1d1_row5_col6" class="data row5 col6" >9.586242</td>
-      <td id="T_2c1d1_row5_col7" class="data row5 col7" >1.925383</td>
-      <td id="T_2c1d1_row5_col8" class="data row5 col8" >1.228557</td>
+      <th id="T_c38be_level0_row5" class="row_heading level0 row5" >TQ</th>
+      <td id="T_c38be_row5_col0" class="data row5 col0" >40.602684</td>
+      <td id="T_c38be_row5_col1" class="data row5 col1" >18.420419</td>
+      <td id="T_c38be_row5_col2" class="data row5 col2" >10.969529</td>
+      <td id="T_c38be_row5_col3" class="data row5 col3" >9.620094</td>
+      <td id="T_c38be_row5_col4" class="data row5 col4" >10.357727</td>
+      <td id="T_c38be_row5_col5" class="data row5 col5" >8.747805</td>
+      <td id="T_c38be_row5_col6" class="data row5 col6" >9.586242</td>
+      <td id="T_c38be_row5_col7" class="data row5 col7" >1.925383</td>
+      <td id="T_c38be_row5_col8" class="data row5 col8" >1.228557</td>
     </tr>
     <tr>
-      <th id="T_2c1d1_level0_row6" class="row_heading level0 row6" >Q5</th>
-      <td id="T_2c1d1_row6_col0" class="data row6 col0" >41.238203</td>
-      <td id="T_2c1d1_row6_col1" class="data row6 col1" >18.701941</td>
-      <td id="T_2c1d1_row6_col2" class="data row6 col2" >10.989039</td>
-      <td id="T_2c1d1_row6_col3" class="data row6 col3" >9.599705</td>
-      <td id="T_2c1d1_row6_col4" class="data row6 col4" >10.372099</td>
-      <td id="T_2c1d1_row6_col5" class="data row6 col5" >9.036057</td>
-      <td id="T_2c1d1_row6_col6" class="data row6 col6" >9.135722</td>
-      <td id="T_2c1d1_row6_col7" class="data row6 col7" >1.254658</td>
-      <td id="T_2c1d1_row6_col8" class="data row6 col8" >1.217626</td>
+      <th id="T_c38be_level0_row6" class="row_heading level0 row6" >Q5</th>
+      <td id="T_c38be_row6_col0" class="data row6 col0" >41.238203</td>
+      <td id="T_c38be_row6_col1" class="data row6 col1" >18.701941</td>
+      <td id="T_c38be_row6_col2" class="data row6 col2" >10.989039</td>
+      <td id="T_c38be_row6_col3" class="data row6 col3" >9.599705</td>
+      <td id="T_c38be_row6_col4" class="data row6 col4" >10.372099</td>
+      <td id="T_c38be_row6_col5" class="data row6 col5" >9.036057</td>
+      <td id="T_c38be_row6_col6" class="data row6 col6" >9.135722</td>
+      <td id="T_c38be_row6_col7" class="data row6 col7" >1.254658</td>
+      <td id="T_c38be_row6_col8" class="data row6 col8" >1.217626</td>
     </tr>
   </tbody>
 </table></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[115]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with open(project_name+&#39;.tex&#39;,&#39;w&#39;) as tf:
@@ -1271,6 +1261,14 @@ df_exp_reaction_std.style.set_caption(&quot;Standard deviation of errors&quot;)
 </pre></div>
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[115]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1279,8 +1277,8 @@ df_exp_reaction_std.style.set_caption(&quot;Standard deviation of errors&quot;)
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../c2h4_dihedral_pes/two_state_mrci.html" class="btn btn-neutral float-right" title="Potential energy surface for twisting of ethene" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dihedral_scan.html" class="btn btn-neutral float-right" title="Potential energy surface for twisting of ethene" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
