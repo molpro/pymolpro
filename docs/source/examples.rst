@@ -9,10 +9,11 @@ Examples
 .. toctree::
    :maxdepth: 1
 
-   examples/thermochemical_benchmark_for_methods/Core_Valence_reactions.ipynb
-   examples/c2h4_dihedral_pes/two_state_mrci.ipynb
-   examples/evaluate_charge_density/evaluate_charge_density.ipynb
-   examples/pair_correlation_energies/pair_correlation_energies.ipynb
+   examples/thermochemical_benchmark_for_methods.ipynb
+   examples/dihedral_scan.ipynb
+   examples/evaluate_charge_density.ipynb
+   examples/pair_correlation_energies.ipynb
+   examples/geometry_optimisation.ipynb
 
 
 Indices and tables

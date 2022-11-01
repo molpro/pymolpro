@@ -1,0 +1,4 @@
+*.molpro
+*.tex
+*.pdf
+.ipynb_checkpoints
