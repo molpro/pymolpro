@@ -45,6 +45,8 @@ Simply running Molpro and inspecting the output can be achieved as::
   p.run()
   print(p.out)
 
+pymolpro is on `conda forge <https://conda-forge.org>`_ and can be installed on most systems using ``conda install -c conda-forge pymolpro``.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
