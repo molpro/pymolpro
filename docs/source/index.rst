@@ -36,7 +36,7 @@ Simply running Molpro and inspecting the output can be achieved as::
   print(p.out)
 
 Normally, :py:meth:`pymolpro.project.Project.run()` launches the job in the background, potentially on a remote machine via a suitably configured `backend <https://molpro.github.io/sjef/md____w_sjef_sjef_src_sjef_backends.html>`_,
-and its status is available through the :py:meth:`pymolpro.project.Project.status` attribute.
+and its status is available through the :py:attr:`pymolpro.project.Project.status` attribute.
 Additionally, the job launching request is ignored if the project has already run the job successfully using the same input; this introduces the convenience of being able to re-run an entire workflow, for example in a Jupyter notebook, without needless recomputation.
 
 Molpro produces an xml file that contains all the essential results, using the `molpro-output <https://www.molpro.net/schema/molpro-output>`_ schema.
