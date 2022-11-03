@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 0.1.16 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 0.1.17 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -751,10 +751,19 @@ Should by called from an interactive session</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.xpath">
-<span class="sig-name descname"><span class="pre">xpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xpath" title="Permalink to this definition"></a></dt>
-<dd><p>Run xpath search on the job xml, with support for default namespace
-:param query:
-:return: list of etree.Element objects</p>
+<span class="sig-name descname"><span class="pre">xpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xpath" title="Permalink to this definition"></a></dt>
+<dd><p>Run xpath search on an element in the job xml, with support for default namespace</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> – Any xpath search expression supported by lxml.etree.Element</p></li>
+<li><p><strong>element</strong> – The root element for the search, defaulting to the job xml root element</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of etree.Element objects or of strings, depending on whether the xpath expression results in an attribute</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
