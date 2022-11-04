@@ -39,9 +39,15 @@ Normally, :py:meth:`pymolpro.project.Project.run()` launches the job in the back
 and its status is available through the :py:attr:`pymolpro.project.Project.status` attribute.
 Additionally, the job launching request is ignored if the project has already run the job successfully using the same input; this introduces the convenience of being able to re-run an entire workflow, for example in a Jupyter notebook, without needless recomputation.
 
-Molpro produces an xml file that contains all the essential results, using the `molpro-output <https://www.molpro.net/schema/molpro-output>`_ schema.
+Molpro produces an xml file that contains all the essential results, marked up using the `molpro-output <https://www.molpro.net/schema/molpro-output>`_ schema.
 The pymolpro Project class contains functions that interpret that output, and at the lowest level this can be
 achieved through a suitable `XPath <https://www.w3.org/TR/1999/REC-xpath-19991116/>`_ search.
+For extracting calculated properties, including energies, convenience functions
+:py:meth:`pymolpro.project.Project.properties()`,
+:py:meth:`pymolpro.project.Project.energies()`,
+that wrap
+suitable XPath searches, are provided.
+These functions can return either a Python dictionary containing all information about the property, or just its value.
 The following is a simple example where a job is created, run and
 analysed.::
 
@@ -53,6 +59,9 @@ analysed.::
    energies = {}
    for node in p.xpath("//property[@name='Energy' or @name='total energy']"):
      energies[node.xpath("@method")[0]] = float(node.xpath("@value")[0])
+   energy_values = p.energies(value=True)
+   all_principal_properties_dict = p.properties(principal=True)
+   final_energy = p.energy(method='CCSD(T)',value=True)
 
 Installation
 ------------
