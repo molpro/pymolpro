@@ -60,7 +60,7 @@ analysed.::
    for node in p.xpath("//property[@name='Energy' or @name='total energy']"):
      energies[node.xpath("@method")[0]] = float(node.xpath("@value")[0])
    energy_values = p.energies()
-   all_principal_properties_dict = p.properties(principal=True, value=False)
+   all_principal_properties_dict = p.properties(principal=True, dict=True)
    final_energy = p.energy(method='CCSD(T)')
 
 Installation

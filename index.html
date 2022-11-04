@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 0.1.20) &mdash; pymolpro 0.1.20 documentation</title>
+  <title>pymolpro (version 0.1.21) &mdash; pymolpro 0.1.21 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 0.1.20)</li>
+      <li class="breadcrumb-item active">pymolpro (version 0.1.21)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,7 +94,7 @@
 }
 </style>
 <div class="section" id="pymolpro-version-release">
-<h1>pymolpro (version 0.1.20)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
+<h1>pymolpro (version 0.1.21)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -145,7 +145,7 @@ analysed.:</p>
 <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//property[@name=&#39;Energy&#39; or @name=&#39;total energy&#39;]&quot;</span><span class="p">):</span>
   <span class="n">energies</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;@method&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;@value&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">energy_values</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">energies</span><span class="p">()</span>
-<span class="n">all_principal_properties_dict</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">principal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">all_principal_properties_dict</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">principal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">final_energy</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;CCSD(T)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>

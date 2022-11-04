@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Potential energy surface for twisting of ethene &mdash; pymolpro 0.1.20 documentation</title>
+  <title>Potential energy surface for twisting of ethene &mdash; pymolpro 0.1.21 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -362,7 +362,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Potential-energy-surface-for-twisting-of-ethene">
 <h1>Potential energy surface for twisting of ethene<a class="headerlink" href="#Potential-energy-surface-for-twisting-of-ethene" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project, all_completed, no_errors
@@ -371,19 +371,20 @@ import numpy
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>root = &#39;dihedral_scan&#39;
-projects=[]
+projects = []
 import os
+
 if not os.path.isdir(root): os.mkdir(root)
 grid = numpy.linspace(0, 90, 18, endpoint=False)
 for i, D in enumerate(grid):
     p = Project(f&#39;d{i}&#39;, location=root)
     projects.append(p)
     p.write_input(
-    f&quot;&quot;&quot;geometry={{
+        f&quot;&quot;&quot;geometry={{
         H1
         C1 H1 rch
         C2 C1 rcc H1 A
@@ -405,11 +406,12 @@ for i, D in enumerate(grid):
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from multiprocessing.dummy import Pool
 from operator import methodcaller
+
 with Pool(processes=8) as pool:
     pool.map(methodcaller(&#39;run&#39;, backend=&#39;local&#39;, wait=True),
              projects, 1)
@@ -418,24 +420,21 @@ assert all_completed(projects) and no_errors(projects)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
-e1=[]
-e2=[]
-cc=[]
-for i in range(len(projects)):
-    e1.append(float(projects[i].xpath(&quot;//jobstep[@command=&#39;MRCI&#39;]//property[@name=&#39;Energy&#39; and @stateSymmetry=&#39;1&#39;]/@value&quot;)[0]))
-    e2.append(float(projects[i].xpath(&quot;//jobstep[@command=&#39;MRCI&#39;]//property[@name=&#39;Energy&#39; and @stateSymmetry=&#39;4&#39;]/@value&quot;)[0]))
-    cc.append(float(projects[i].xpath(&quot;//variable[@name=&#39;RCC&#39;]/value&quot;)[0].text))
-fig,ax = plt.subplots()
+
+e1 = [p.energy(command=&#39;MRCI&#39;, stateSymmetry=&#39;1&#39;) for p in projects]
+e2 = [p.energy(command=&#39;MRCI&#39;, stateSymmetry=&#39;4&#39;) for p in projects]
+cc = [p.variable(&#39;RCC&#39;) for p in projects]
+fig, ax = plt.subplots()
 ax.plot(grid, e1, grid, e2)
-ax.legend([r&#39;$X\;{}^1A_1$&#39;,r&#39;$V\;{}^1B_1$&#39;],loc=&#39;center left&#39;)
+ax.legend([r&#39;$X\;{}^1A_1$&#39;, r&#39;$V\;{}^1B_1$&#39;], loc=&#39;center left&#39;)
 plt.xlabel(&#39;HCCH dihedral angle (degrees)&#39;)
 ax.set_ylabel(r&#39;Energy $(E_h)$&#39;)
-ax2=ax.twinx()
-ax2.plot(grid,cc,color=&quot;black&quot;)
+ax2 = ax.twinx()
+ax2.plot(grid, cc, color=&quot;black&quot;)
 ax2.set_ylabel(r&quot;C-C bond length $(\rm\AA)$&quot;)
 plt.show()
 </pre></div>
