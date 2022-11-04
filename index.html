@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 0.1.17) &mdash; pymolpro 0.1.17 documentation</title>
+  <title>pymolpro (version 0.1.18) &mdash; pymolpro 0.1.18 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -58,8 +58,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>pymolpro (version 0.1.17)</li>
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">pymolpro (version 0.1.18)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,7 +94,7 @@
 }
 </style>
 <div class="section" id="pymolpro-version-release">
-<h1>pymolpro (version 0.1.17)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
+<h1>pymolpro (version 0.1.18)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -123,7 +123,7 @@ Simply running Molpro and inspecting the output can be achieved as:</p>
 </pre></div>
 </div>
 <p>Normally, <a class="reference internal" href="pymolpro.html#pymolpro.project.Project.run" title="pymolpro.project.Project.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pymolpro.project.Project.run()</span></code></a> launches the job in the background, potentially on a remote machine via a suitably configured <a class="reference external" href="https://molpro.github.io/sjef/md____w_sjef_sjef_src_sjef_backends.html">backend</a>,
-and its status is available through the <a class="reference internal" href="pymolpro.html#pymolpro.project.Project.status" title="pymolpro.project.Project.status"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pymolpro.project.Project.status()</span></code></a> attribute.
+and its status is available through the <a class="reference internal" href="pymolpro.html#pymolpro.project.Project.status" title="pymolpro.project.Project.status"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pymolpro.project.Project.status</span></code></a> attribute.
 Additionally, the job launching request is ignored if the project has already run the job successfully using the same input; this introduces the convenience of being able to re-run an entire workflow, for example in a Jupyter notebook, without needless recomputation.</p>
 <p>Molpro produces an xml file that contains all the essential results, using the <a class="reference external" href="https://www.molpro.net/schema/molpro-output">molpro-output</a> schema.
 The pymolpro Project class contains functions that interpret that output, and at the lowest level this can be

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 0.1.17 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 0.1.18 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -46,6 +46,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.project">pymolpro.project module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.element_to_dict"><code class="docutils literal notranslate"><span class="pre">element_to_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
 </ul>
 </li>
@@ -107,9 +108,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">pymolpro</a> &raquo;</li>
-      <li>pymolpro package</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">pymolpro</a></li>
+      <li class="breadcrumb-item active">pymolpro package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/pymolpro.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -321,6 +322,40 @@ by default parent directory stays the same</p></li>
 <dt class="sig sig-object py" id="pymolpro.project.Project.copy_node">
 <span class="sig-name descname"><span class="pre">copy_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.copy_node" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a copy of itself</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.energies">
+<span class="sig-name descname"><span class="pre">energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.energies" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#pymolpro.project.Project.properties" title="pymolpro.project.Project.properties"><code class="xref py py-meth docutils literal notranslate"><span class="pre">properties()</span></code></a> that restricts to energy values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.energy">
+<span class="sig-name descname"><span class="pre">energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.energy" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#pymolpro.project.Project.energies" title="pymolpro.project.Project.energies"><code class="xref py py-meth docutils literal notranslate"><span class="pre">energies()</span></code></a> that returns a single value as a scalar. An exception is thrown if more than one value is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -549,14 +584,61 @@ Defaults to same directory as current project.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.properties">
-<span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Energy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties" title="Permalink to this definition"></a></dt>
-<dd><p>Obtain selected properties from the job output
-:param name: name of property
-:param principal: principal property
-:param value: return by value
-:param kwargs: any other attribute selectors for the select function
-:return: list of properties</p>
+<span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain selected properties from the job output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – any trailing XPath qualifier, for example <code class="docutils literal notranslate"><span class="pre">'[&#64;StateSymmetry</span> <span class="pre">=</span> <span class="pre">&quot;1&quot;</span> <span class="pre">or</span> <span class="pre">&#64;StateSymmetry</span> <span class="pre">=</span> <span class="pre">&quot;4&quot;]'</span></code>. For restrictions that should be combined with <code class="docutils literal notranslate"><span class="pre">and</span></code>, it’s simpler to instead use a kwarg argument, eg <code class="docutils literal notranslate"><span class="pre">StateSymmetry=1</span></code></p></li>
+<li><p><strong>kwargs</strong> – any attribute selectors for the select function, including the following</p></li>
+<li><p><strong>name</strong> – name of property</p></li>
+<li><p><strong>principal</strong> – restrict to principal property</p></li>
+<li><p><strong>preamble</strong> – XPath expression to prepend the search for the property node</p></li>
+<li><p><strong>command</strong> – restrict to properties contained in a jobstep with this command</p></li>
+<li><p><strong>value</strong> – return property value, scalar float or list of floats as appropriate. Otherwise, a dictionary containing all the data in the property node is returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of properties</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.properties_old">
+<span class="sig-name descname"><span class="pre">properties_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Energy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties_old" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain selected properties from the job output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of property</p></li>
+<li><p><strong>principal</strong> – principal property</p></li>
+<li><p><strong>value</strong> – return by value</p></li>
+<li><p><strong>kwargs</strong> – any other attribute selectors for the select function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of properties</p>
+</dd>
+</dl>
 <p>Shorthand for <cite>p.select(‘//properties[name= {}, principal ={}, … ]’)</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.property">
+<span class="sig-name descname"><span class="pre">property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.property" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#pymolpro.project.Project.properties" title="pymolpro.project.Project.properties"><code class="xref py py-meth docutils literal notranslate"><span class="pre">properties()</span></code></a> that returns a single value as a scalar. An exception is thrown if more than one value is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -622,23 +704,6 @@ to the parsed output</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#pymolpro.project.Project.status" title="Permalink to this definition"></a></dt>
 <dd><p>String status of the project. Can be one of: <code class="docutils literal notranslate"><span class="pre">unknown</span></code>, <code class="docutils literal notranslate"><span class="pre">running</span></code>, <code class="docutils literal notranslate"><span class="pre">waiting</span></code>,
 <code class="docutils literal notranslate"><span class="pre">completed</span></code>, <code class="docutils literal notranslate"><span class="pre">unevaluated</span></code>, <code class="docutils literal notranslate"><span class="pre">killed</span></code>, or <code class="docutils literal notranslate"><span class="pre">failed</span></code>.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.project.Project.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.synchronize" title="Permalink to this definition"></a></dt>
-<dd><p>Synchronize the project with a cached copy belonging to a backend.
-name.inp, name.xyz, Info.plist, and any files brought in with import(),
-will be pushed from the master copy to the backend, and all other
-files will be pulled from the backend.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>verbosity</strong> – If &gt;0, show underlying processing</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -782,6 +847,12 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.project.element_to_dict">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">element_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.element_to_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Convert an lxml.etree node tree into a dict.</p>
 </dd></dl>
 
 <dl class="py function">
