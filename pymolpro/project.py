@@ -98,13 +98,13 @@ class Project(pysjef.project.Project):
         :param principal: restrict to principal property
         :param preamble: XPath expression to prepend the search for the property node
         :param command: restrict to properties contained in a jobstep with this command
-        :param value: return property value, scalar float or list of floats as appropriate. Otherwise, a dictionary containing all the data in the property node is returned
+        :param value: return property value, scalar float or list of floats as appropriate, if ``True`` or omitted. Otherwise, a dictionary containing all the data in the property node is returned
         :return: list of properties
         """
 
         query = 'property'
         preamble = '//'
-        value = False
+        value = True
         for v in args:
             query += v
         for k, v in kwargs.items():
@@ -129,6 +129,48 @@ class Project(pysjef.project.Project):
                     r.append(float(v))
                 result.append(r[0] if len(r) == 1 else r)
             return result
+    def properties(self, *args, **kwargs):
+        """
+        Obtain selected properties from the job output
+
+        :param args: any trailing XPath qualifier, for example ``'[@StateSymmetry = "1" or @StateSymmetry = "4"]'``. For restrictions that should be combined with ``and``, it's simpler to instead use a kwarg argument, eg ``StateSymmetry=1``
+        :param kwargs: any attribute selectors for the select function, including the following
+        :param name: name of property
+        :param principal: restrict to principal property
+        :param preamble: XPath expression to prepend the search for the property node
+        :param command: restrict to properties contained in a jobstep with this command
+        :param value: return property value, scalar float or list of floats as appropriate, if ``True`` or omitted. Otherwise, a dictionary containing all the data in the property node is returned
+        :return: list of properties
+        """
+
+        query = 'property'
+        preamble = '//'
+        value = True
+        for v in args:
+            query += v
+        for k, v in kwargs.items():
+            if k == 'command':
+                preamble = '//jobstep[@command="' + v + '"]/'
+            elif k == 'preamble':
+                preamble = v
+            elif k == 'value':
+                value = v
+            elif k == 'principal':
+                query += '[@principal="true"]' if v else '[@principal="false"]'
+            else:
+                query += '[@' + k + '="' + v + '"]'
+        dictarray = [element_to_dict(node) for node in self.xpath(preamble + query)]
+        if not value:
+            return dictarray
+        else:
+            result = []
+            for k in range(len(dictarray)):
+                r = []
+                for v in dictarray[k]['value'].split():
+                    r.append(float(v))
+                result.append(r[0] if len(r) == 1 else r)
+            return result
+
 
     def energies(self, *args, **kwargs):
         """
@@ -224,11 +266,11 @@ class Project(pysjef.project.Project):
         :param list: Whether to force returning a list. If true, a list is always returned; otherwise if the result is a scalar, a scalar is returned, and if no match is found, `None` is returned
         :return:
         """
-        matches = self.xpath('//variables/variable[@name="' + name + '"]')
+        matches = self.xpath('//variables/variable[@name="' + name.upper() + '"]')
         if len(matches) == 0:
-            matches = self.xpath('//variables/variable[@name="_' + name + '"]')
+            matches = self.xpath('//variables/variable[@name="_' + name.upper() + '"]')
         if len(matches) == 0:
-            matches = self.xpath('//variables/variable[@name="!' + name + '"]')
+            matches = self.xpath('//variables/variable[@name="!' + name.upper() + '"]')
         if len(matches) == 0 or len(matches) <= instance or len(matches) < abs(instance):
             if list:
                 return []
@@ -257,11 +299,11 @@ class Project(pysjef.project.Project):
         :param instance: index of occurence in output
         :return:
         """
-        matches = self.xpath('//variables/variable[@name="' + name + '"]')
+        matches = self.xpath('//variables/variable[@name="' + name.upper() + '"]')
         if len(matches) == 0:
-            matches = self.xpath('//variables/variable[@name="_' + name + '"]')
+            matches = self.xpath('//variables/variable[@name="_' + name.upper() + '"]')
         if len(matches) == 0:
-            matches = self.xpath('//variables/variable[@name="!' + name + '"]')
+            matches = self.xpath('//variables/variable[@name="!' + name.upper() + '"]')
         if len(matches) == 0 or len(matches) <= instance or len(matches) < abs(instance):
             return None
         units_nodes = matches[instance].xpath('@units')
