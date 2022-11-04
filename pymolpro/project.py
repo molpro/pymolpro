@@ -18,6 +18,34 @@ def no_errors(projects, ignore_warning=True):
     return len(errors) == 0
 
 
+def element_to_dict(node, attributes=True):
+    """
+    Convert an lxml.etree node tree into a dict.
+    """
+    result = {}
+    if attributes:
+        for item in node.attrib.items():
+            key, result[key] = item
+
+    for element in node.iterchildren():
+        # Remove namespace prefix
+        key = element.tag.split('}')[1] if '}' in element.tag else element.tag
+
+        # Process element as tree element if the inner XML contains non-whitespace content
+        if element.text and element.text.strip():
+            value = element.text
+        else:
+            value = element_to_dict(element)
+        if key in result:
+            if type(result[key]) is list:
+                result[key].append(value)
+            else:
+                result[key] = [result[key], value]
+        else:
+            result[key] = value
+    return result
+
+
 class Project(pysjef.project.Project):
     """
     Python binding to sjef, for managing molpro jobs.
@@ -39,9 +67,10 @@ class Project(pysjef.project.Project):
                       not ('type' in x.attributes and x.attributes['type'].lower() == 'warning')]
         return errors
 
-    def properties(self, name='Energy', principal=True, *, value=False, **kwargs, ):
+    def properties_old(self, name='Energy', principal=True, *, value=False, **kwargs, ):
         """
         Obtain selected properties from the job output
+
         :param name: name of property
         :param principal: principal property
         :param value: return by value
@@ -58,6 +87,90 @@ class Project(pysjef.project.Project):
         if value:
             selector += '.value'
         return self.select(selector)
+
+    def properties(self, *args, **kwargs):
+        """
+        Obtain selected properties from the job output
+
+        :param args: any trailing XPath qualifier, for example ``'[@StateSymmetry = "1" or @StateSymmetry = "4"]'``. For restrictions that should be combined with ``and``, it's simpler to instead use a kwarg argument, eg ``StateSymmetry=1``
+        :param kwargs: any attribute selectors for the select function, including the following
+        :param name: name of property
+        :param principal: restrict to principal property
+        :param preamble: XPath expression to prepend the search for the property node
+        :param command: restrict to properties contained in a jobstep with this command
+        :param value: return property value, scalar float or list of floats as appropriate. Otherwise, a dictionary containing all the data in the property node is returned
+        :return: list of properties
+        """
+
+        query = 'property'
+        preamble = '//'
+        value = False
+        for v in args:
+            query += v
+        for k, v in kwargs.items():
+            if k == 'command':
+                preamble = '//jobstep[@command="' + v + '"]/'
+            elif k == 'preamble':
+                preamble = v
+            elif k == 'value':
+                value = v
+            elif k == 'principal':
+                query += '[@principal="true"]' if v else '[@principal="false"]'
+            else:
+                query += '[@' + k + '="' + v + '"]'
+        dictarray = [element_to_dict(node) for node in self.xpath(preamble + query)]
+        if not value:
+            return dictarray
+        else:
+            result = []
+            for k in range(len(dictarray)):
+                r = []
+                for v in dictarray[k]['value'].split():
+                    r.append(float(v))
+                result.append(r[0] if len(r) == 1 else r)
+            return result
+
+    def energies(self, *args, **kwargs):
+        """
+        Wrapper for :py:meth:`properties()` that restricts to energy values
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        return self.properties('[@name="Energy" or @name="total energy"]', *args, **kwargs)
+
+    def property(self, *args, **kwargs):
+        """
+        Wrapper for :py:meth:`properties()` that returns a single value as a scalar. An exception is thrown if more than one value is found.
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        result = self.properties(*args, **kwargs)
+        if len(result) == 1:
+            return result[0]
+        elif len(result) == 0:
+            return None
+        else:
+            raise ValueError('property() has found more than one result; use properties() instead')
+
+    def energy(self, *args, **kwargs):
+        """
+        Wrapper for :py:meth:`energies()` that returns a single value as a scalar. An exception is thrown if more than one value is found.
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        result = self.energies(*args, **kwargs)
+        if len(result) == 1:
+            return result[0]
+        elif len(result) == 0:
+            return None
+        else:
+            raise ValueError('energy() has found more than one result; use energies() instead')
 
     def geometry(self, instance=-1):
         """
