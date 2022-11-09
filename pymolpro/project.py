@@ -212,13 +212,14 @@ class Project(pysjef.project.Project):
         import pymolpro.grid
         return pymolpro.grid.evaluateOrbitals(molecule, points, minocc)
 
-    def variable(self, name, instance=-1, list=False):
+    def variable(self, name, instance=-1, list=False, dict=False):
         """
         Return the value of a variable in the output xml stream
 
         :param name: The name of the variable
         :param instance: index of occurence in output
         :param list: Whether to force returning a list. If true, a list is always returned; otherwise if the result is a scalar, a scalar is returned, and if no match is found, `None` is returned
+        :param dict: return property value, scalar float or list of floats as appropriate, if ``False`` or omitted. Otherwise, a dictionary containing all the data in the property node is returned
         :return:
         """
         matches = self.xpath('//variables/variable[@name="' + name.upper() + '"]')
@@ -237,14 +238,16 @@ class Project(pysjef.project.Project):
         if len(matches[instance].xpath('@type')) > 0: type = matches[instance].xpath('@type')[0]
         length = 1
         if len(matches[instance].xpath('@length')) > 0: length = int(matches[instance].xpath('@length')[0])
-        if list or length > 1:
-            if type == 'xsd:double':
-                return [float(k) for k in values]
-            return values
+        if type == 'xsd:double':
+            values = [float(k) for k in values] if list or length > 1 else float(values[0])
+        if dict:
+            result = element_to_dict(matches[instance])
+            del result['type']
+            del result['length']
+            result['value'] = values
+            return result
         else:
-            if type == 'xsd:double':
-                return float(values[0])
-            return values[0]
+            return values
 
     def variable_units(self, name, instance=-1):
         """
