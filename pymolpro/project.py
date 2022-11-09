@@ -239,11 +239,15 @@ class Project(pysjef.project.Project):
         length = 1
         if len(matches[instance].xpath('@length')) > 0: length = int(matches[instance].xpath('@length')[0])
         if type == 'xsd:double':
-            values = [float(k) for k in values]
-        if list or length > 1:
-            return values
+            values = [float(k) for k in values] if list or length > 1 else float(values[0])
+        if dict:
+            result = element_to_dict(matches[instance])
+            del result['type']
+            del result['length']
+            result['value'] = values
+            return result
         else:
-            return values[0]
+            return values
 
     def variable_units(self, name, instance=-1):
         """
