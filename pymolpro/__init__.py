@@ -1,6 +1,6 @@
 import pysjef
 from pysjef import *
-from pymolpro.project import no_errors
+from pymolpro.project import no_errors, element_to_dict
 import pymolpro.node_xml as node_xml
 
 Settings.set('project_default_suffix', 'molpro')

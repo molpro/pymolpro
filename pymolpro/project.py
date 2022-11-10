@@ -199,18 +199,19 @@ class Project(pysjef.project.Project):
             geoms.append(atoms)
         return geoms
 
-    def evaluateOrbitals(self, points, instance=-1, minocc=1.0):
+    def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None):
         """
         Evaluate molecular orbitals on a grid of points
 
         :param points: List of geometries specified as 3-list of values in bohr
         :param instance: Which set of orbitals
         :param minocc: Only orbitals with at least this occupation will be returned
-        :return:
+        :param ID: Only the orbital whose ID attribute matches this will be selected
+        :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary
         """
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
-        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc)
+        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID)
 
     def variable(self, name, instance=-1, list=False, dict=False):
         """
