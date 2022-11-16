@@ -66,6 +66,8 @@ analysed.::
 Installation
 ------------
 pymolpro is on `conda forge <https://conda-forge.org>`_ and can be installed on most systems using ``conda install -c conda-forge pymolpro``.
+On Microsoft Windows, you need to also install `msys2 <https://www.msys2.org>`_,
+and then, in an msys command window, ``pacman -S rsync``.
 
 .. toctree::
    :maxdepth: 2
