@@ -250,25 +250,6 @@ class Project(pysjef.project.Project):
         else:
             return values
 
-    def variable_units(self, name, instance=-1):
-        """
-        Return the value of the units of a variable in the output xml stream
-
-        :param name:  The name of the variable
-        :param instance: index of occurence in output
-        :return:
-        """
-        matches = self.xpath('//variables/variable[@name="' + name.upper() + '"]')
-        if len(matches) == 0:
-            matches = self.xpath('//variables/variable[@name="_' + name.upper() + '"]')
-        if len(matches) == 0:
-            matches = self.xpath('//variables/variable[@name="!' + name.upper() + '"]')
-        if len(matches) == 0 or len(matches) <= instance or len(matches) < abs(instance):
-            return None
-        units_nodes = matches[instance].xpath('@units')
-        if len(units_nodes) == 0: return None
-        return units_nodes[0]
-
     def variables(self, instance=-1):
         """
         Return a list of all defined variables
