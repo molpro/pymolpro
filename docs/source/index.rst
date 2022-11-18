@@ -67,7 +67,16 @@ Installation
 ------------
 pymolpro is on `conda forge <https://conda-forge.org>`_ and can be installed on most systems using ``conda install -c conda-forge pymolpro``.
 On Microsoft Windows, you need to also install `msys2 <https://www.msys2.org>`_,
-and then, in an msys command window, ``pacman -S rsync``.
+and then, in an msys command window, ``pacman -S rsync openssh``.
+
+For a complete set-up of pymolpro within Jupyter notebooks on Windows,
+
+* Install `Molpro <https://www.molpro.net>`_, and msys2 as described above.
+* Install `Anaconda3 <https://www.anaconda.com>`_
+* Open Anaconda Navigator
+* Select the ``Environments`` tab and press the ``Create`` button. Give your new conda environment a name, e.g. ``pymolpro-jupyter``.
+* With the ``Channels`` button, add the ``conda-forge`` channel, and then select ``Not installed`` and search for, and install ``pymolpro``, ``jupyter``, ``nb_conda_kernels``, as well as any other packages you might want, such as ``matplotlib``.
+* Select the ``Home`` tab and run the Jupyter Notebook application, ensuring that the selected environment is ``pymolpro-jupyter``.
 
 .. toctree::
    :maxdepth: 2
