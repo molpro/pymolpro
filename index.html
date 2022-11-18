@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 0.2.0) &mdash; pymolpro 0.2.0 documentation</title>
+  <title>pymolpro (version 0.2.1) &mdash; pymolpro 0.2.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 0.2.0)</li>
+      <li class="breadcrumb-item active">pymolpro (version 0.2.1)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,7 +94,7 @@
 }
 </style>
 <div class="section" id="pymolpro-version-release">
-<h1>pymolpro (version 0.2.0)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
+<h1>pymolpro (version 0.2.1)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -153,7 +153,16 @@ analysed.:</p>
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>pymolpro is on <a class="reference external" href="https://conda-forge.org">conda forge</a> and can be installed on most systems using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">pymolpro</span></code>.
 On Microsoft Windows, you need to also install <a class="reference external" href="https://www.msys2.org">msys2</a>,
-and then, in an msys command window, <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">rsync</span></code>.</p>
+and then, in an msys command window, <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">rsync</span> <span class="pre">openssh</span></code>.</p>
+<p>For a complete set-up of pymolpro within Jupyter notebooks on Windows,</p>
+<ul class="simple">
+<li><p>Install <a class="reference external" href="https://www.molpro.net">Molpro</a>, and msys2 as described above.</p></li>
+<li><p>Install <a class="reference external" href="https://www.anaconda.com">Anaconda3</a></p></li>
+<li><p>Open Anaconda Navigator</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Environments</span></code> tab and press the <code class="docutils literal notranslate"><span class="pre">Create</span></code> button. Give your new conda environment a name, e.g. <code class="docutils literal notranslate"><span class="pre">pymolpro-jupyter</span></code>.</p></li>
+<li><p>With the <code class="docutils literal notranslate"><span class="pre">Channels</span></code> button, add the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel, and then select <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">installed</span></code> and search for, and install <code class="docutils literal notranslate"><span class="pre">pymolpro</span></code>, <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>, <code class="docutils literal notranslate"><span class="pre">nb_conda_kernels</span></code>, as well as any other packages you might want, such as <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Home</span></code> tab and run the Jupyter Notebook application, ensuring that the selected environment is <code class="docutils literal notranslate"><span class="pre">pymolpro-jupyter</span></code>.</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
