@@ -76,6 +76,7 @@ For a complete set-up of pymolpro within Jupyter notebooks on Windows,
 * Open Anaconda Navigator
 * Select the ``Environments`` tab and press the ``Create`` button. Give your new conda environment a name, e.g. ``pymolpro-jupyter``.
 * With the ``Channels`` button, add the ``conda-forge`` channel, and then select ``Not installed`` and search for, and install ``pymolpro``, ``jupyter``, ``nb_conda_kernels``, as well as any other packages you might want, such as ``matplotlib``.
+* If you intend to run Molpro jobs on a remote machine, from the command menu run ``MSYS2``, and (a) create a password-free ssh key by running ``ssh-keygen``; (b) authorize that key for login on the desired remote machine: ``ssh-copy-id`` user@host; (c) edit the file ``.sjef\molpro\backends.xml`` (relative to your Windows home directory) to `specify the backend <https://molpro.github.io/sjef/md____w_sjef_sjef_src_sjef_backends.html>`_.
 * Select the ``Home`` tab and run the Jupyter Notebook application, ensuring that the selected environment is ``pymolpro-jupyter``.
 
 .. toctree::
