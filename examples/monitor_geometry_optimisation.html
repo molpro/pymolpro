@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Potential energy surface for twisting of ethene &mdash; pymolpro 1.0.1 documentation</title>
+  <title>Monitor progress of geometry optimisation &mdash; pymolpro 1.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,9 +21,7 @@
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Evaluate charge density at the atomic nuclei" href="evaluate_charge_density.html" />
-    <link rel="prev" title="Closed shell reactions with core correlation" href="thermochemical_benchmark_for_methods.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,17 +40,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_for_methods.html">Closed shell reactions with core correlation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Potential energy surface for twisting of ethene</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluate_charge_density.html">Evaluate charge density at the atomic nuclei</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molpro_variables.html">Extract results held in Molpro variables</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
@@ -70,10 +60,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
-      <li class="breadcrumb-item active">Potential energy surface for twisting of ethene</li>
+      <li class="breadcrumb-item active">Monitor progress of geometry optimisation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/examples/dihedral_scan.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/monitor_geometry_optimisation.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -360,84 +349,56 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Potential-energy-surface-for-twisting-of-ethene">
-<h1>Potential energy surface for twisting of ethene<a class="headerlink" href="#Potential-energy-surface-for-twisting-of-ethene" title="Permalink to this heading"></a></h1>
+<div class="section" id="Monitor-progress-of-geometry-optimisation">
+<h1>Monitor progress of geometry optimisation<a class="headerlink" href="#Monitor-progress-of-geometry-optimisation" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project, all_completed, no_errors
-import numpy
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>root = &#39;dihedral_scan&#39;
-projects = []
-import os
-
-if not os.path.isdir(root): os.mkdir(root)
-grid = numpy.linspace(0, 90, 18, endpoint=False)
-for i, D in enumerate(grid):
-    p = Project(f&#39;d{i}&#39;, location=root)
-    projects.append(p)
-    p.write_input(
-        f&quot;&quot;&quot;geometry={{
-        H1
-        C1 H1 rch
-        C2 C1 rcc H1 A
-        H2 C2 rch C1 A H1 D
-        H3 C2 rch C1 A H2 180
-        H4 C1 rch C2 A H1 180}}
-    rch = 2.05; rcc = 2.65; A = 121.5; D ={D}+.01;
-    basis = cc-pVTZ
-    rhf
-    set, mcocc=[3,2,2,2], mcclosed=[3,1,1,2], mcsym=1
-    casscf,so_sci
-    {{optg; inactive, D}}
-    set,mcsym=[1,4]
-    casscf,so_sci
-    {{mrci; wf, sym=1;}}
-    {{mrci; wf, sym=4;}}
-    put,xml&quot;&quot;&quot;)
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from multiprocessing.dummy import Pool
-from operator import methodcaller
-
-with Pool(processes=8) as pool:
-    pool.map(methodcaller(&#39;run&#39;, backend=&#39;local&#39;, wait=True),
-             projects, 1)
-assert all_completed(projects) and no_errors(projects)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import pymolpro
+acrolein=pymolpro.Project(&quot;acrolein&quot;)
+acrolein.import_file(&quot;monitor_geometry_optimisation/acrolein.xyz&quot;)
+method=&quot;basis,cc-pVDZ;df-hf;df-mp2&quot;
+acrolein.write_input(f&quot;&quot;&quot;
+geometry=acrolein.xyz
+{method}
+optg
+put,xyz,opt.xyz
+&quot;&quot;&quot; )
+acrolein.run(force=True)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
-
-e1 = [p.energy(command=&#39;MRCI&#39;, stateSymmetry=&#39;1&#39;) for p in projects]
-e2 = [p.energy(command=&#39;MRCI&#39;, stateSymmetry=&#39;4&#39;) for p in projects]
-cc = [p.variable(&#39;RCC&#39;) for p in projects]
-fig, ax = plt.subplots()
-ax.plot(grid, e1, grid, e2)
-ax.legend([r&#39;$X\;{}^1A_1$&#39;, r&#39;$V\;{}^1B_1$&#39;], loc=&#39;center left&#39;)
-plt.xlabel(&#39;HCCH dihedral angle (degrees)&#39;)
-ax.set_ylabel(r&#39;Energy $(E_h)$&#39;)
-ax2 = ax.twinx()
-ax2.plot(grid, cc, color=&quot;black&quot;)
-ax2.set_ylabel(r&quot;C-C bond length $(\rm\AA)$&quot;)
-plt.show()
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import time
+from IPython.display import clear_output
+import matplotlib.pyplot as plt
+import ase
+from ase.visualize.plot import plot_atoms
+oldenergies=[]
+while acrolein.status != &#39;completed&#39; and acrolein.status != &#39;killed&#39; and acrolein.status != &#39;running&#39;: time.sleep(1)
+time.sleep(0.3)
+while True:
+    energies = acrolein.energies(preamble=&#39;//jobstep[@command=&quot;OPTG&quot;]//&#39;,method=&quot;MP2&quot;)
+    if energies != oldenergies:
+        oldenergies = energies
+        clear_output(wait=True)
+        with open(&quot;acrolein_current.xyz&quot;,&quot;w&quot;) as file:
+            file.write(acrolein.xyz())
+        fig, ax = plt.subplots(1,4, figsize=(15,5))
+        atoms = ase.io.read(&quot;acrolein_current.xyz&quot;)
+        plot_atoms(atoms, ax[1])
+        plot_atoms(atoms,ax[2], rotation=&#39;90z,90x&#39;)
+        plot_atoms(atoms,ax[3], rotation=&#39;90x,90z&#39;)
+        ax[0].plot(energies)
+        plt.sca(ax[0])
+        plt.xticks(range(len(energies)),[])
+        plt.show()
+    if acrolein.status == &#39;completed&#39; or acrolein.status == &#39;killed&#39;: break
+    time.sleep(1)
 </pre></div>
 </div>
 </div>
@@ -445,18 +406,226 @@ plt.show()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_dihedral_scan_4_0.png" src="../_images/examples_dihedral_scan_4_0.png" />
+<img alt="../_images/examples_monitor_geometry_optimisation_2_0.png" src="../_images/examples_monitor_geometry_optimisation_2_0.png" />
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import ase
+from ase.visualize import view
+with open(&quot;acrolein_current.xyz&quot;,&quot;w&quot;) as file:
+    file.write(acrolein.xyz())
+view(ase.io.read(&quot;acrolein_current.xyz&quot;),viewer=&#39;x3d&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<html>
+
+ <head>
+
+  <title>ASE atomic visualization</title>
+
+  <link rel="stylesheet" type="text/css"
+
+   href="https://www.x3dom.org/x3dom/release/x3dom.css">
+
+  </link>
+
+  <script type="text/javascript"
+
+   src="https://www.x3dom.org/x3dom/release/x3dom.js">
+
+  </script>
+
+ </head>
+
+ <body>
+
+  <X3D>
+
+   <Scene>
+
+    <Transform translation="-2.27 1.70 1.17">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="0.565 0.565 0.565" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.76">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-1.58 3.11 -0.84">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="0.565 0.565 0.565" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.76">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-3.70 -0.70 0.82">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="0.565 0.565 0.565" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.76">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-4.33 -1.54 -1.24">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="1.000 0.051 0.051" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.66">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-4.19 -1.73 2.60">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.31">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-1.81 2.28 3.10">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.31">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-2.08 2.47 -2.75">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.31">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+    <Transform translation="-0.53 4.88 -0.63">
+
+     <Shape>
+
+      <Appearance>
+
+       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
+
+       </Material>
+
+      </Appearance>
+
+      <Sphere radius="0.31">
+
+      </Sphere>
+
+     </Shape>
+
+    </Transform>
+
+   </Scene>
+
+  </X3D>
+
+ </body>
+
+</html></div>
 </div>
 </div>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="thermochemical_benchmark_for_methods.html" class="btn btn-neutral float-left" title="Closed shell reactions with core correlation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="evaluate_charge_density.html" class="btn btn-neutral float-right" title="Evaluate charge density at the atomic nuclei" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

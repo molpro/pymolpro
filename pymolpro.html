@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.0.0 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -452,22 +452,28 @@ if that is non-blank</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.geometries">
-<span class="sig-name descname"><span class="pre">geometries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.geometries" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">geometries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.geometries" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain all geometries from the job output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list of dictionaries holding the geometry. Coordinates are in bohr</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of dictionaries holding the geometry. Coordinates are in bohr</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.geometry">
-<span class="sig-name descname"><span class="pre">geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.geometry" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.geometry" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain the geometry from the job output</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instance</strong> – In the case of multiple geometries in the output stream, which occurence</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p></li>
+<li><p><strong>instance</strong> – In the case of multiple geometries in the output stream, which occurence</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>dictionary holding the geometry. Coordinates are in bohr</p>
@@ -828,6 +834,41 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <li><p><strong>attribute</strong> – </p></li>
 <li><p><strong>run</strong> – </p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.xyz">
+<span class="sig-name descname"><span class="pre">xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xyz" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain a geometry in xyz file format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> – In the case of multiple geometries in the output stream, which occurence</p></li>
+<li><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p></li>
+<li><p><strong>title</strong> – A title to be injected into the second line</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string containing the xyz representation of the geometry</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.xyzs">
+<span class="sig-name descname"><span class="pre">xyzs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xyzs" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain a set of geometries in xyz file format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p></li>
+<li><p><strong>title</strong> – A title to be injected into the second line</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of strings containing the xyz representation of the geometry</p>
 </dd>
 </dl>
 </dd></dl>
