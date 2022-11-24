@@ -7,5 +7,5 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     packages=find_packages(),
     license="MIT",
-    install_requires=["pysjef>=1.25.1", "numpy>=1.12", "regex"],
+    install_requires=["pysjef>=1.29.5", "numpy>=1.12", "regex"],
 )
