@@ -169,22 +169,25 @@ class Project(pysjef.project.Project):
         else:
             raise ValueError('energy() has found more than one result; use energies() instead')
 
-    def geometry(self, instance=-1):
+    def geometry(self, preamble='//', instance=-1):
         """
         Obtain the geometry from the job output
 
+        :param preamble: Prepend this to the xpath search expression to locate the geometry
         :param instance: In the case of multiple geometries in the output stream, which occurence
         :return: dictionary holding the geometry. Coordinates are in bohr
         """
-        return self.geometries()[instance]
+        return self.geometries(preamble=preamble)[instance]
 
-    def geometries(self):
+    def geometries(self, preamble='//'):
         """
          Obtain all geometries from the job output
 
+         :param preamble: Prepend this to the xpath search expression to locate the geometry
          :return: list of dictionaries holding the geometry. Coordinates are in bohr
          """
-        nodes = self.xpath("//*/cml:atomArray")
+        search = preamble + "*/cml:atomArray"
+        nodes = self.xpath(search)
         Angstrom = 1.88972612462577
         geoms = []
         for node in nodes:
@@ -198,6 +201,45 @@ class Project(pysjef.project.Project):
                 })
             geoms.append(atoms)
         return geoms
+
+    def xyz(self, preamble='//', instance=-1, title=''):
+        """
+        Obtain a geometry in xyz file format
+
+        :param instance: In the case of multiple geometries in the output stream, which occurence
+        :param preamble: Prepend this to the xpath search expression to locate the geometry
+        :param title:  A title to be injected into the second line
+        :return:  A string containing the xyz representation of the geometry
+        """
+        geom = self.geometry(preamble=preamble, instance=instance)
+        result = str(len(geom)) + '\n' + title + '\n'
+        for atom in geom:
+            result += atom['elementType']
+            for i in range(3):
+                result += ' ' + str(atom['xyz'][i])
+            result += '\n'
+        return result
+
+
+    def xyzs(self, preamble='//', title=''):
+        """
+        Obtain a set of geometries in xyz file format
+
+        :param preamble: Prepend this to the xpath search expression to locate the geometry
+        :param title:  A title to be injected into the second line
+        :return:  A list of strings containing the xyz representation of the geometry
+        """
+        geoms = self.geometries(preamble=preamble)
+        result = []
+        for geom in geoms:
+            result.append(str(len(geom)) + '\n' + title + '\n')
+            for atom in geom:
+                result[-1] += atom['elementType']
+                for i in range(3):
+                    result[-1] += ' ' + str(atom['xyz'][i])
+                result[-1] += '\n'
+        return result
+
 
     def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None):
         """
