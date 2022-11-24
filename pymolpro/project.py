@@ -187,9 +187,7 @@ class Project(pysjef.project.Project):
          :return: list of dictionaries holding the geometry. Coordinates are in bohr
          """
         search = preamble + "*/cml:atomArray"
-        print("search="+search)
         nodes = self.xpath(search)
-        print("number of matches:",len(nodes))
         Angstrom = 1.88972612462577
         geoms = []
         for node in nodes:
