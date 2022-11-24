@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monitor progress of geometry optimisation &mdash; pymolpro 1.0.2 documentation</title>
+  <title>Monitor progress of geometry optimisation &mdash; pymolpro 1.0.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,9 @@
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extract results held in Molpro variables" href="molpro_variables.html" />
+    <link rel="prev" title="Optimise and view the structure of ammonia dimer" href="geometry_optimisation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,9 +42,18 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_for_methods.html">Closed shell reactions with core correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dihedral_scan.html">Potential energy surface for twisting of ethene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate_charge_density.html">Evaluate charge density at the atomic nuclei</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Monitor progress of geometry optimisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molpro_variables.html">Extract results held in Molpro variables</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
@@ -60,6 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
       <li class="breadcrumb-item active">Monitor progress of geometry optimisation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/monitor_geometry_optimisation.ipynb.txt" rel="nofollow"> View page source</a>
@@ -625,7 +637,10 @@ view(ase.io.read(&quot;acrolein_current.xyz&quot;),viewer=&#39;x3d&#39;)
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="geometry_optimisation.html" class="btn btn-neutral float-left" title="Optimise and view the structure of ammonia dimer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="molpro_variables.html" class="btn btn-neutral float-right" title="Extract results held in Molpro variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

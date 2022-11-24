@@ -14,6 +14,7 @@ Examples
    examples/evaluate_charge_density.ipynb
    examples/pair_correlation_energies.ipynb
    examples/geometry_optimisation.ipynb
+   examples/monitor_geometry_optimisation.ipynb
    examples/molpro_variables.ipynb
 
 
