@@ -69,6 +69,14 @@ pymolpro is on `conda forge <https://conda-forge.org>`_ and can be installed on 
 On Microsoft Windows, you need to also install `msys2 <https://www.msys2.org>`_,
 and then, in an msys command window, ``pacman -S rsync openssh``.
 
+For a complete set-up of pymolpro within Jupyter notebooks driven from the comand line on linux or macOS,
+
+* Install `Molpro <https://www.molpro.net>`_
+* Install `Miniconda <https://www.anaconda.com>`_. On macOS with homebrew, this can be done with ``brew install miniconda``. You may need to then type ``conda init`` and restart the shell.
+* Create a conda environment to contain at least these packages; of course you can add any others you need, e.g. ``matplotlib``: ``conda create -n pymolpro-jupyter -c conda-forge pymolpro jupyter nb_conda_kernels``.
+* If you intend to run Molpro jobs on a remote machine, set up password-free ssh access to it, using the following or otherwise:  ``ssh-keygen; ssh-copy-id`` user@host. Then edit the file ``~/.sjef/molpro/backends.xml``  to `specify the backend <https://molpro.github.io/sjef/md____w_sjef_sjef_src_sjef_backends.html>`_.
+* To create a new notebook, ``jupyter notebook``; to open an existing notebook ``jupyter notebook existing_file.ipynb``
+
 For a complete set-up of pymolpro within Jupyter notebooks on Windows,
 
 * Install `Molpro <https://www.molpro.net>`_, and msys2 as described above.
