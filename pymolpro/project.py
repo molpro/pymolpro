@@ -7,6 +7,7 @@ def no_errors(projects, ignore_warning=True):
     Checks that none of the projects have any errors. Projects can by running.
 
     :param projects: list of projects to check for errors
+    :param ignore_warning: Whether to count warnings as well as errors.
     :return: True/False whether any projects have errors
     """
     for p in projects:
