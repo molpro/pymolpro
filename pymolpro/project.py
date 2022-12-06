@@ -242,7 +242,7 @@ class Project(pysjef.project.Project):
         return result
 
 
-    def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None):
+    def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None, values=False):
         """
         Evaluate molecular orbitals on a grid of points
 
@@ -250,11 +250,12 @@ class Project(pysjef.project.Project):
         :param instance: Which set of orbitals
         :param minocc: Only orbitals with at least this occupation will be returned
         :param ID: Only the orbital whose ID attribute matches this will be selected
-        :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary
+        :param values:
+        :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
         """
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
-        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID)
+        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values)
 
     def variable(self, name, instance=-1, list=False, dict=False):
         """

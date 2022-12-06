@@ -20,6 +20,7 @@ class Orbital:
         second_moments_matrix[1][1] = global_second_moments[1]
         second_moments_matrix[1][2] = second_moments_matrix[2][1] = global_second_moments[5]
         second_moments_matrix[2][2] = global_second_moments[2]
+        # print("raw second moments matrix", second_moments_matrix)
         second_moments_matrix -= np.outer(self.centroid, self.centroid)
         return second_moments_matrix
 
@@ -39,8 +40,18 @@ class Orbital:
                          global_coordinates - np.array([self.centroid for k in global_coordinates[0, :]]).transpose())
 
     def local_to_global(self, local_coordinates):
+        # print("local_to_global centroid shift", np.array([self.centroid for k in local_coordinates[0, :]]).transpose())
+        # print("local_coordinates", local_coordinates)
+        # print("local_coordinates rotated", np.matmul(
+        #     self.second_moment_eigenvectors, local_coordinates))
+        # print("local_coordinates rotated and shifted",
+        #       np.array([self.centroid for k in local_coordinates[0, :]]).transpose() + np.matmul(
+        #           self.second_moment_eigenvectors.transpose(), local_coordinates))
+        # print("local_coordinates rotated and shifted",
+        #       np.array([self.centroid for k in local_coordinates[0, :]]).transpose() + np.matmul(
+        #           self.second_moment_eigenvectors, local_coordinates))
         return np.array([self.centroid for k in local_coordinates[0, :]]).transpose() + np.matmul(
-            self.second_moment_eigenvectors.transpose(), local_coordinates)
+            self.second_moment_eigenvectors, local_coordinates)
 
     def grid(self, npt, method='erfinv', integration_weights=False, scale=1.0):
         if type(npt) != list:
@@ -60,7 +71,7 @@ class Orbital:
                 weights.append([math.exp(x[k] * x[k]) * w[k] * betamh for k in range(npt[i])])
         else:
             assert False
-        # print("points", points)
+        # print("local frame 1D points", points)
         # print("weights", weights)
         points3d = np.empty([3, npt[0] * npt[1] * npt[2]])
         weights3d = np.ones(npt[0] * npt[1] * npt[2])
@@ -71,8 +82,10 @@ class Orbital:
                     points3d[1, j + npt[0] * (k + npt[1] * l)] = points[1][k]
                     points3d[2, j + npt[0] * (k + npt[1] * l)] = points[2][l]
                     weights3d[j + npt[0] * (k + npt[1] * l)] = weights[0][j] * weights[1][k] * weights[2][l]
+        # print("local frame 3D points", points3d)
         global_points = self.local_to_global(points3d)
-        result = [[global_points[i,j] for i in range(3)] for j in range(len(weights3d))]
+        # print("global frame 3D points", global_points)
+        result = [[global_points[i, j] for i in range(3)] for j in range(len(weights3d))]
         return [result, [w for w in weights3d]] if integration_weights else result
 
     def __init__(self, node):
@@ -84,6 +97,7 @@ class Orbital:
         self.node = node
         self.occupation = float(self.attribute('occupation'))
         self.centroid = [float(self.attribute('moments').split()[k]) for k in range(3)]
+        print("centroid in orbital.__init__", self.centroid)
         self.second_moment_eigenvalues, self.second_moment_eigenvectors = np.linalg.eigh(self.local_second_moments)
         self.coefficients = self.node.text.split()
         self.coefficients = [float(c) for c in self.coefficients]
