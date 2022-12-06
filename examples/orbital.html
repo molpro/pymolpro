@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extract results held in Molpro variables &mdash; pymolpro 1.1.3 documentation</title>
+  <title>Generation and use of an orbital-based grid &mdash; pymolpro 1.1.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -22,8 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Generation and use of an orbital-based grid" href="orbital.html" />
-    <link rel="prev" title="Monitor progress of geometry optimisation" href="monitor_geometry_optimisation.html" /> 
+    <link rel="prev" title="Extract results held in Molpro variables" href="molpro_variables.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,8 +50,8 @@
 <li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="monitor_geometry_optimisation.html">Monitor progress of geometry optimisation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Extract results held in Molpro variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="orbital.html">Generation and use of an orbital-based grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molpro_variables.html">Extract results held in Molpro variables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Generation and use of an orbital-based grid</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html#indices-and-tables">Indices and tables</a></li>
@@ -73,9 +72,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
-      <li class="breadcrumb-item active">Extract results held in Molpro variables</li>
+      <li class="breadcrumb-item active">Generation and use of an orbital-based grid</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/examples/molpro_variables.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/orbital.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -362,13 +361,16 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Extract-results-held-in-Molpro-variables">
-<h1>Extract results held in Molpro variables<a class="headerlink" href="#Extract-results-held-in-Molpro-variables" title="Permalink to this heading"></a></h1>
+<div class="section" id="Generation-and-use-of-an-orbital-based-grid">
+<h1>Generation and use of an orbital-based grid<a class="headerlink" href="#Generation-and-use-of-an-orbital-based-grid" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import pymolpro
+p = pymolpro.Project(&quot;orbital&quot;)
+p.write_input(&quot;symmetry,nosym;geometry={o;h,o,r;h,o,r,h,theta};r=1 angstrom, theta=104 degree; rhf;locali,pipek,thrpip=1e-10;put,xml&quot;)
+p.run(wait=True)
 </pre></div>
 </div>
 </div>
@@ -376,36 +378,22 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>p=Project(&quot;molpro_variables&quot;)
-p.write_input(&quot;&quot;&quot;
-do i=1,73
-x(i)=i*10, cosine(i)=cos(x(i)), sine(i)=sin(x(i))
-enddo
-put,xml
-&quot;&quot;&quot;)
-p.run(wait=True)
-assert p.status==&#39;completed&#39; and not p.errors()
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>values={}
-for name in [&#39;x&#39;,&#39;sine&#39;,&#39;cosine&#39;]:
-    # values[name]=[float(v.text) for v in p.xpath(&#39;//variable[@name=&quot;&#39;+name.upper()+&#39;&quot;]/value&#39;)]
-    values[name]=p.variable(name)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>orbitals = p.orbitals(minocc=1.0)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
-plt.plot(values[&#39;x&#39;],values[&#39;sine&#39;],values[&#39;x&#39;],values[&#39;cosine&#39;])
-plt.legend([&#39;Sine&#39;,&#39;Cosine&#39;]);
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import pandas
+for orbital in orbitals:
+    points = orbital.grid(4)
+    values = p.evaluateOrbitals(points, ID=orbital.ID, values=True)
+    values = p.evaluateOrbitals(points, ID=orbital.ID)[&#39;values&#39;]
+    print(orbital.ID, orbital.centroid, orbital.second_moment_eigenvalues)
+    print(pandas.DataFrame(points).transpose())
+    print(pandas.DataFrame(values).transpose())
 </pre></div>
 </div>
 </div>
@@ -413,8 +401,143 @@ plt.legend([&#39;Sine&#39;,&#39;Cosine&#39;]);
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_molpro_variables_4_0.png" src="../_images/examples_molpro_variables_4_0.png" />
-</div>
+<div class="highlight"><pre>
+1.1 [4.36189315945102e-17, -5.65839184589554e-18, -0.129953086882215] [0.01772806 0.01772858 0.01772861]
+         0         1         2         3         4         5         6   \
+0 -0.079239 -0.079239 -0.079239 -0.079239 -0.079239 -0.079239 -0.079239
+1 -0.079238 -0.023852  0.023852  0.079238 -0.079238 -0.023852  0.023852
+2 -0.209192 -0.209192 -0.209192 -0.209192 -0.153806 -0.153806 -0.153806
+
+         7         8         9   ...        54        55        56        57  \
+0 -0.079239 -0.079239 -0.079239  ...  0.079239  0.079239  0.079239  0.079239
+1  0.079238 -0.079238 -0.023852  ...  0.023852  0.079238 -0.079238 -0.023852
+2 -0.153806 -0.106100 -0.106100  ... -0.153806 -0.153806 -0.106100 -0.106100
+
+         58        59        60        61        62        63
+0  0.079239  0.079239  0.079239  0.079239  0.079239  0.079239
+1  0.023852  0.079238 -0.079238 -0.023852  0.023852  0.079238
+2 -0.106100 -0.106100 -0.050714 -0.050714 -0.050714 -0.050714
+
+[3 rows x 64 columns]
+         0         1         2         3         4         5         6   \
+0  4.148478  4.946117  4.946117  4.148478  4.942366  6.162791  6.162791
+
+         7         8         9   ...        54        55        56        57  \
+0  4.942366  4.939117  6.157083  ...  6.162791  4.942366  4.939117  6.157083
+
+         58        59        60        61        62        63
+0  6.157083  4.939117  4.141304  4.935324  4.935324  4.141304
+
+[1 rows x 64 columns]
+2.1 [-2.23133341860535e-12, -0.78317178943009, 0.524537657987677] [0.44530382 0.45564982 0.9098715 ]
+         0         1         2         3         4         5         6   \
+0 -0.397127 -0.119544  0.119544  0.397127 -0.397127 -0.119544  0.119544
+1 -0.543217 -0.543217 -0.543217 -0.543217 -0.384056 -0.384056 -0.384056
+2 -0.128179 -0.128179 -0.128179 -0.128179  0.103144  0.103144  0.103144
+
+         7         8         9   ...        54        55        56        57  \
+0  0.397127 -0.397127 -0.119544  ...  0.119544  0.397127 -0.397127 -0.119544
+1 -0.384056 -0.246967 -0.246967  ... -1.319376 -1.319376 -1.182288 -1.182288
+2  0.103144  0.302388  0.302388  ...  0.746687  0.746687  0.945931  0.945931
+
+         58        59        60        61        62        63
+0  0.119544  0.397127 -0.397127 -0.119544  0.119544  0.397127
+1 -1.182288 -1.182288 -1.023127 -1.023127 -1.023127 -1.023127
+2  0.945931  0.945931  1.177254  1.177254  1.177254  1.177254
+
+[3 rows x 64 columns]
+         0         1         2         3         4         5         6   \
+0  0.399322  0.491339  0.491339  0.399322  0.478133  0.601712  0.601712
+
+         7       8        9   ...        54       55        56        57  \
+0  0.478133  0.4647  0.57949  ...  0.386079  0.33094  0.332005  0.388807
+
+         58        59        60       61       62        63
+0  0.388807  0.332005  0.293541  0.33224  0.33224  0.293541
+
+[1 rows x 64 columns]
+3.1 [8.26672974408137e-13, 9.77485020009494e-13, -0.732716827889661] [0.46977397 0.49098249 0.50177496]
+         0         1         2         3         4         5         6   \
+0 -0.416999 -0.416999 -0.416999 -0.416999 -0.125526 -0.125526 -0.125526
+1  0.421557  0.421557  0.421557  0.421557  0.421557  0.421557  0.421557
+2 -1.140610 -0.855502 -0.609932 -0.324824 -1.140610 -0.855502 -0.609932
+
+         7         8         9   ...        54        55        56        57  \
+0 -0.125526  0.125526  0.125526  ... -0.125526 -0.125526  0.125526  0.125526
+1  0.421557  0.421557  0.421557  ... -0.421557 -0.421557 -0.421557 -0.421557
+2 -0.324824 -1.140610 -0.855502  ... -0.609932 -0.324824 -1.140610 -0.855502
+
+         58        59        60        61        62        63
+0  0.125526  0.125526  0.416999  0.416999  0.416999  0.416999
+1 -0.421557 -0.421557 -0.421557 -0.421557 -0.421557 -0.421557
+2 -0.609932 -0.324824 -1.140610 -0.855502 -0.609932 -0.324824
+
+[3 rows x 64 columns]
+        0         1         2         3         4         5        6   \
+0  0.33011  0.423587  0.471397  0.413244  0.371277  0.490078  0.55193
+
+         7         8         9   ...       54        55        56        57  \
+0  0.439186  0.371277  0.490078  ...  0.55193  0.439186  0.371277  0.490078
+
+        58        59       60        61        62        63
+0  0.55193  0.439186  0.33011  0.423587  0.471397  0.413244
+
+[1 rows x 64 columns]
+4.1 [1.64073810474965e-12, -5.72458747072346e-17, -0.0876418809415855] [0.43603925 0.45045416 1.25108042]
+         0         1         2         3         4         5         6   \
+0  0.665647  0.665647  0.665647  0.665647  0.665647  0.665647  0.665647
+1 -0.399417 -0.399417 -0.399417 -0.399417 -0.120234 -0.120234 -0.120234
+2  0.305333  0.030652 -0.205936 -0.480616  0.305333  0.030652 -0.205936
+
+         7         8         9   ...        54        55        56        57  \
+0  0.665647  0.665647  0.665647  ... -0.665647 -0.665647 -0.665647 -0.665647
+1 -0.120234  0.120234  0.120234  ... -0.120234 -0.120234  0.120234  0.120234
+2 -0.480616  0.305333  0.030652  ... -0.205936 -0.480616  0.305333  0.030652
+
+         58        59        60        61        62        63
+0 -0.665647 -0.665647 -0.665647 -0.665647 -0.665647 -0.665647
+1  0.120234  0.120234  0.399417  0.399417  0.399417  0.399417
+2 -0.205936 -0.480616  0.305333  0.030652 -0.205936 -0.480616
+
+[3 rows x 64 columns]
+         0         1         2         3         4         5         6   \
+0  0.344496  0.425771  0.433015  0.358141  0.420137  0.541173  0.554417
+
+         7         8         9   ...        54        55        56        57  \
+0  0.445447  0.420137  0.541173  ... -0.554417 -0.445447 -0.420137 -0.541173
+
+         58        59        60        61        62        63
+0 -0.554417 -0.445447 -0.344496 -0.425771 -0.433015 -0.358141
+
+[1 rows x 64 columns]
+5.1 [-2.37023848286065e-13, 0.783171789429109, 0.524537657987883] [0.44530382 0.45564982 0.9098715 ]
+         0         1         2         3         4         5         6   \
+0 -0.397127 -0.119544  0.119544  0.397127 -0.397127 -0.119544  0.119544
+1  0.087806  0.087806  0.087806  0.087806  0.246967  0.246967  0.246967
+2  0.533711  0.533711  0.533711  0.533711  0.302388  0.302388  0.302388
+
+         7         8         9   ...        54        55        56        57  \
+0  0.397127 -0.397127 -0.119544  ...  0.119544  0.397127 -0.397127 -0.119544
+1  0.246967  0.384056  0.384056  ...  1.182288  1.182288  1.319376  1.319376
+2  0.302388  0.103144  0.103144  ...  0.945931  0.945931  0.746687  0.746687
+
+         58        59        60        61        62        63
+0  0.119544  0.397127 -0.397127 -0.119544  0.119544  0.397127
+1  1.319376  1.319376  1.478537  1.478537  1.478537  1.478537
+2  0.746687  0.746687  0.515364  0.515364  0.515364  0.515364
+
+[3 rows x 64 columns]
+         0         1         2         3       4        5        6       7   \
+0  0.371588  0.447572  0.447572  0.371588  0.4647  0.57949  0.57949  0.4647
+
+         8         9   ...        54        55       56        57        58  \
+0  0.478133  0.601712  ...  0.388807  0.332005  0.33094  0.386079  0.386079
+
+        59        60        61        62        63
+0  0.33094  0.291293  0.328718  0.328718  0.291293
+
+[1 rows x 64 columns]
+</pre></div></div>
 </div>
 </div>
 
@@ -422,8 +545,7 @@ plt.legend([&#39;Sine&#39;,&#39;Cosine&#39;]);
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="monitor_geometry_optimisation.html" class="btn btn-neutral float-left" title="Monitor progress of geometry optimisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="orbital.html" class="btn btn-neutral float-right" title="Generation and use of an orbital-based grid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="molpro_variables.html" class="btn btn-neutral float-left" title="Extract results held in Molpro variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.1.2 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.1.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -48,6 +48,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.element_to_dict"><code class="docutils literal notranslate"><span class="pre">element_to_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.orbital">pymolpro.orbital module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.orbital.Orbital"><code class="docutils literal notranslate"><span class="pre">Orbital</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.node_xml">pymolpro.node_xml module</a><ul>
@@ -915,6 +919,46 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dd class="field-even"><p>True/False whether any projects have errors</p>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pymolpro.orbital">
+<span id="pymolpro-orbital-module"></span><h2>pymolpro.orbital module<a class="headerlink" href="#module-pymolpro.orbital" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.orbital.</span></span><span class="sig-name descname"><span class="pre">Orbital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for an orbital (usually molecular).</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.ID">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ID</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.ID" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.attribute">
+<span class="sig-name descname"><span class="pre">attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.attribute" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integration_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.grid" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.kinetic_energy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kinetic_energy</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.kinetic_energy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.local_second_moments">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">local_second_moments</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.local_second_moments" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.local_to_global">
+<span class="sig-name descname"><span class="pre">local_to_global</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_coordinates</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.local_to_global" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
