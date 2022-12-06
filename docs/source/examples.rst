@@ -16,6 +16,7 @@ Examples
    examples/geometry_optimisation.ipynb
    examples/monitor_geometry_optimisation.ipynb
    examples/molpro_variables.ipynb
+   examples/orbital.ipynb
 
 
 Indices and tables

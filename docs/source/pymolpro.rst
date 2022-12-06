@@ -13,6 +13,15 @@ pymolpro.project module
    :show-inheritance:
    :inherited-members:
 
+pymolpro.orbital module
+-----------------------
+
+.. automodule:: pymolpro.orbital
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
 pymolpro.node\_xml module
 -------------------------
 

@@ -56,7 +56,8 @@ class Orbital:
         weights = []
         if method == 'erfinv':
             points = [
-                [sp.special.erfinv(k / float(npt[i] + 1) - 0.5) * scale * math.sqrt(self.second_moment_eigenvalues[i])
+                [sp.special.erfinv(2 * (k + 1) / float(npt[i] + 1) - 1) * scale * math.sqrt(
+                    self.second_moment_eigenvalues[i])
                  for k in range(npt[i])] for i in range(3)]
             weights = [[1.0 / npt[i] for k in range(npt[i])] for i in range(3)]
         elif method == 'Gauss-Hermite':
