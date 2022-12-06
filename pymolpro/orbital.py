@@ -40,7 +40,7 @@ class Orbital:
 
     def local_to_global(self, local_coordinates):
         return np.array([self.centroid for k in local_coordinates[0, :]]).transpose() + np.matmul(
-            self.second_moment_eigenvectors, local_coordinates)
+            self.second_moment_eigenvectors.transpose(), local_coordinates)
 
     def grid(self, npt, method='erfinv', integration_weights=False, scale=1.0):
         if type(npt) != list:
@@ -49,17 +49,15 @@ class Orbital:
         weights = []
         if method == 'erfinv':
             points = [
-                [sp.special.erfinv(k / float(npt[i] + 1) - 0.5) * scale * math.sqrt(self.second_moment_eigenvalues[i]) for k in
-                 range(npt[i])] for i in range(3)]
+                [sp.special.erfinv(k / float(npt[i] + 1) - 0.5) * scale * math.sqrt(self.second_moment_eigenvalues[i])
+                 for k in range(npt[i])] for i in range(3)]
             weights = [[1.0 / npt[i] for k in range(npt[i])] for i in range(3)]
-        elif method == 'gauss-hermite':
+        elif method == 'Gauss-Hermite':
             for i in range(3):
                 x, w = scipy.special.roots_hermite(npt[i])
-                beta = 1 / math.sqrt(2 * scale * self.second_moment_eigenvalues[i])
-                points.append(
-                    [x[k] / beta for k in
-                     range(npt[i])])
-                weights.append([math.exp(x[k] * x[k]) * w[k] / beta for k in range(npt[i])])
+                betamh = scale * math.sqrt(2 * self.second_moment_eigenvalues[i])
+                points.append([x[k] * betamh for k in range(npt[i])])
+                weights.append([math.exp(x[k] * x[k]) * w[k] * betamh for k in range(npt[i])])
         else:
             assert False
         # print("points", points)
@@ -73,9 +71,9 @@ class Orbital:
                     points3d[1, j + npt[0] * (k + npt[1] * l)] = points[1][k]
                     points3d[2, j + npt[0] * (k + npt[1] * l)] = points[2][l]
                     weights3d[j + npt[0] * (k + npt[1] * l)] = weights[0][j] * weights[1][k] * weights[2][l]
-        # print("points3d", points3d)
-        result = self.local_to_global(points3d)
-        return [result, weights3d] if integration_weights else result
+        global_points = self.local_to_global(points3d)
+        result = [[global_points[i,j] for i in range(3)] for j in range(len(weights3d))]
+        return [result, [w for w in weights3d]] if integration_weights else result
 
     def __init__(self, node):
         """
