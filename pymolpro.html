@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.0.4 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.1.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -385,7 +385,7 @@ by default parent directory stays the same</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.evaluateOrbitals">
-<span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.evaluateOrbitals" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.evaluateOrbitals" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate molecular orbitals on a grid of points</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -394,10 +394,11 @@ by default parent directory stays the same</p></li>
 <li><p><strong>instance</strong> – Which set of orbitals</p></li>
 <li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
 <li><p><strong>ID</strong> – Only the orbital whose ID attribute matches this will be selected</p></li>
+<li><p><strong>values</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary</p>
+<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -560,6 +561,24 @@ Defaults to same directory as current project.</p></li>
 <dt class="sig sig-object py" id="pymolpro.project.Project.name">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#pymolpro.project.Project.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.orbitals">
+<span class="sig-name descname"><span class="pre">orbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.orbitals" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain some or all of the orbitals in the job output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> – Which set of orbitals</p></li>
+<li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
+<li><p><strong>ID</strong> – Only the orbital whose ID attribute matches this will be selected</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of Orbital objects</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -887,7 +906,10 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dd><p>Checks that none of the projects have any errors. Projects can by running.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>projects</strong> – list of projects to check for errors</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>projects</strong> – list of projects to check for errors</p></li>
+<li><p><strong>ignore_warning</strong> – Whether to count warnings as well as errors.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True/False whether any projects have errors</p>
@@ -1151,7 +1173,7 @@ Attributes: str name, str type, str units, int length</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.grid.evaluateOrbitals">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateOrbitals" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateOrbitals" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate the molecular orbitals on a grid</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1160,10 +1182,11 @@ Attributes: str name, str type, str units, int length</p>
 <li><p><strong>points</strong> – numpy :,3 array</p></li>
 <li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
 <li><p><strong>ID</strong> – Only the orbital whose ID attribute matches this will be selected</p></li>
+<li><p><strong>values</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary</p>
+<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
 </dd>
 </dl>
 </dd></dl>

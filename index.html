@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 1.0.4) &mdash; pymolpro 1.0.4 documentation</title>
+  <title>pymolpro (version 1.1.2) &mdash; pymolpro 1.1.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 1.0.4)</li>
+      <li class="breadcrumb-item active">pymolpro (version 1.1.2)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,7 +94,7 @@
 }
 </style>
 <div class="section" id="pymolpro-version-release">
-<h1>pymolpro (version 1.0.4)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
+<h1>pymolpro (version 1.1.2)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -160,7 +160,7 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <li><p>Install <a class="reference external" href="https://www.anaconda.com">Miniconda</a>. On macOS with homebrew, this can be done with <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">miniconda</span></code>. You may need to then type <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span></code> and restart the shell.</p></li>
 <li><p>Create a conda environment to contain at least these packages; of course you can add any others you need, e.g. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">pymolpro-jupyter</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">pymolpro</span> <span class="pre">jupyter</span> <span class="pre">nb_conda_kernels</span></code>.</p></li>
 <li><p>If you intend to run Molpro jobs on a remote machine, set up password-free ssh access to it, using the following or otherwise:  <code class="docutils literal notranslate"><span class="pre">ssh-keygen;</span> <span class="pre">ssh-copy-id</span></code> <a class="reference external" href="mailto:user&#37;&#52;&#48;host">user<span>&#64;</span>host</a>. Then edit the file <code class="docutils literal notranslate"><span class="pre">~/.sjef/molpro/backends.xml</span></code>  to <a class="reference external" href="https://molpro.github.io/sjef/md____w_sjef_sjef_src_sjef_backends.html">specify the backend</a>.</p></li>
-<li><p>To create a new notebook, <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code>; to open an existing notebook <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span> <span class="pre">existing_file.ipynb</span></code></p></li>
+<li><p>Activate the environment: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">pymolpro-jupyter</span></code>. To create a new notebook, <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code>; to open an existing notebook <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span> <span class="pre">existing_file.ipynb</span></code></p></li>
 </ul>
 <p>For a complete set-up of pymolpro within Jupyter notebooks on Windows,</p>
 <ul class="simple">
