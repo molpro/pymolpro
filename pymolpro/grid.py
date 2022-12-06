@@ -147,7 +147,7 @@ def evaluateBasis(molecule, points):
     return basisAtPoints  # end basis evaluation
 
 
-def evaluateOrbitals(molecule, points, minocc=1.0, ID=None):
+def evaluateOrbitals(molecule, points, minocc=1.0, ID=None, values=False):
     """
     Evaluate the molecular orbitals on a grid
 
@@ -155,7 +155,8 @@ def evaluateOrbitals(molecule, points, minocc=1.0, ID=None):
     :param points: numpy :,3 array
     :param minocc: Only orbitals with at least this occupation will be returned
     :param ID: Only the orbital whose ID attribute matches this will be selected
-    :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary
+    :param values:
+    :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
     """
     basisAtPoints = evaluateBasis(molecule, points)  # evaluate the basis set at the nuclei
     orbitalSets = molecule.xpath('molpro-output:orbitals', namespaces=namespaces)
@@ -178,7 +179,10 @@ def evaluateOrbitals(molecule, points, minocc=1.0, ID=None):
             orbdict['occ'] = occ
             result.append(orbdict)
     assert not ID or len(result) == 1
-    return result[0] if ID else result
+    if values:
+        return np.array(result[0]['values']) if ID else np.array([res['values'] for res in results])
+    else:
+        return result[0] if ID else result
 
 
 # example main program

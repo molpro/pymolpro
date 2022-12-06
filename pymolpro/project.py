@@ -221,7 +221,6 @@ class Project(pysjef.project.Project):
             result += '\n'
         return result
 
-
     def xyzs(self, preamble='//', title=''):
         """
         Obtain a set of geometries in xyz file format
@@ -241,8 +240,30 @@ class Project(pysjef.project.Project):
                 result[-1] += '\n'
         return result
 
+    def orbitals(self, instance=-1, minocc=1.0, ID=None):
+        """
+        Obtain some or all of the orbitals in the job output
 
-    def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None):
+        :param instance: Which set of orbitals
+        :param minocc: Only orbitals with at least this occupation will be returned
+        :param ID: Only the orbital whose ID attribute matches this will be selected
+        :return: a list of Orbital objects
+        """
+        molecule = self.xpath('//*/molecule')[instance]
+        orbitalSets = self.xpath('orbitals', molecule)
+        if len(orbitalSets) != 1:
+            raise Exception('something is wrong: there should be just one orbital set')
+        result = []
+        search = 'orbital'
+        if ID: search += '[@ID="' + ID + '"]'
+        from pymolpro import Orbital
+        for orbital in self.xpath(search, orbitalSets[0]):
+            if float(orbital.get('occupation')) >= minocc:
+                result.append(Orbital(orbital))
+        assert not ID or len(result) == 1
+        return result
+
+    def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None, values=False):
         """
         Evaluate molecular orbitals on a grid of points
 
@@ -250,11 +271,12 @@ class Project(pysjef.project.Project):
         :param instance: Which set of orbitals
         :param minocc: Only orbitals with at least this occupation will be returned
         :param ID: Only the orbital whose ID attribute matches this will be selected
-        :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary
+        :param values:
+        :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
         """
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
-        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID)
+        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values)
 
     def variable(self, name, instance=-1, list=False, dict=False):
         """

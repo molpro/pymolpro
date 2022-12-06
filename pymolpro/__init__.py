@@ -2,6 +2,7 @@ import pysjef
 from pysjef import *
 from pymolpro.project import no_errors, element_to_dict
 import pymolpro.node_xml as node_xml
+from pymolpro.orbital import Orbital
 
 Settings.set('project_default_suffix', 'molpro')
 pysjef.project_factory.PROJECT_FACTORY["molpro"] = project.Project
