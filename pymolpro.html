@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.1.3 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.1.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -940,9 +940,40 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate orbital on a grid of points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> – List of geometries specified as 3-list of values in bohr</p></li>
+<li><p><strong>values</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.orbital.Orbital.grid">
 <span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integration_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.grid" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Generate a grid centred on the orbital.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>npt</strong> – Number of desired points in each coordinate. If a single number is specified, it is used for all three directions.</p></li>
+<li><p><strong>method</strong> – Algorithm for grid generation.</p></li>
+<li><p><strong>integration_weights</strong> – Whether integration weights are required.</p></li>
+<li><p><strong>scale</strong> – Scale the grid by this factor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>if integration_weights, a tuple containing the points (numpy array [det(npt),3]) and weights (numpy array). Otherwise, just the points.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.orbital.Orbital.kinetic_energy">
@@ -952,11 +983,6 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.orbital.Orbital.local_second_moments">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">local_second_moments</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.local_second_moments" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.local_to_global">
-<span class="sig-name descname"><span class="pre">local_to_global</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_coordinates</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.local_to_global" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

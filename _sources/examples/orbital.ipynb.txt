@@ -190,8 +190,9 @@
     "import pandas\n",
     "for orbital in orbitals:\n",
     "    points = orbital.grid(4)\n",
-    "    values = p.evaluateOrbitals(points, ID=orbital.ID, values=True)\n",
-    "    values = p.evaluateOrbitals(points, ID=orbital.ID)['values']\n",
+    "    # values = p.evaluateOrbitals(points, ID=orbital.ID, values=True)\n",
+    "    # values = p.evaluateOrbitals(points, ID=orbital.ID)['values']\n",
+    "    values = orbital.evaluate(points, values=True)\n",
     "    print(orbital.ID, orbital.centroid, orbital.second_moment_eigenvalues)\n",
     "    print(pandas.DataFrame(points).transpose())\n",
     "    print(pandas.DataFrame(values).transpose())"
