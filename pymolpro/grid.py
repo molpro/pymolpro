@@ -180,7 +180,7 @@ def evaluateOrbitals(molecule, points, minocc=1.0, ID=None, values=False):
             result.append(orbdict)
     assert not ID or len(result) == 1
     if values:
-        return np.array(result[0]['values']) if ID else np.array([res['values'] for res in results])
+        return np.array(result[0]['values']) if ID else np.array([res['values'] for res in result])
     else:
         return result[0] if ID else result
 
