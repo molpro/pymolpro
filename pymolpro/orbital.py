@@ -33,33 +33,61 @@ class Orbital:
         :return: if integration_weights, a tuple containing the points (numpy array [det(npt),3]) and weights (numpy array). Otherwise, just the points.
         """
         if type(npt) != list:
-            npt = [npt for k in range(3)]
+            _npt = [npt for k in range(3)]
+        else:
+            _npt = npt
         points = []
         weights = []
+        # grids for second moment eigenvalues unity
         if method == 'erfinv':
             points = [
-                [sp.special.erfinv(2 * (k + 1) / float(npt[i] + 1) - 1) * scale * math.sqrt(
-                    self.second_moment_eigenvalues[i])
-                 for k in range(npt[i])] for i in range(3)]
-            weights = [[1.0 / npt[i] for k in range(npt[i])] for i in range(3)]
+                [sp.special.erfinv(2 * (k + 1) / float(_npt[i] + 1) - 1)
+                 for k in range(_npt[i])] for i in range(3)]
+            weights = [[1.0 / _npt[i] for k in range(_npt[i])] for i in range(3)]
         elif method == 'Gauss-Hermite':
             for i in range(3):
-                x, w = scipy.special.roots_hermite(npt[i])
-                betamh = scale * math.sqrt(2 * self.second_moment_eigenvalues[i])
-                points.append([x[k] * betamh for k in range(npt[i])])
-                weights.append([math.exp(x[k] * x[k]) * w[k] * betamh for k in range(npt[i])])
+                x, w = scipy.special.roots_hermite(_npt[i])
+                points.append([x[k] * math.sqrt(2) for k in range(_npt[i])])
+                weights.append([math.exp(x[k] * x[k]) * w[k] * math.sqrt(2) for k in range(_npt[i])])
+        elif method == 'Gauss-Laguerre-Lebedev':
+            import scipy.special
+            nptang = self.__lebedev_select(_npt[1], True)
+            import numgrid
+            gridang = numgrid.get_angular_grid(nptang)
+            npt3 = _npt[0] * nptang
+            # print("radial size:", _npt[0], " angular size:", nptang, " total:", npt3)
+            points3d = np.empty([npt3, 3])
+            weights3d = np.ones(npt3)
+            radial_points, radial_weights = scipy.special.roots_laguerre(_npt[0])
+            for i in range(len(radial_weights)):
+                radial_weights[i] *= pow(radial_points[i], 2) * math.exp(radial_points[i]) * 0.5 * np.pi
+            radial_points *= 0.5
+            for j in range(_npt[0]):
+                for k in range(nptang):
+                    for i in range(3):
+                        points3d[j + _npt[0] * k, i] = radial_points[j] * gridang[i][k]
+                    weights3d[j + _npt[0] * k] = radial_weights[j] * gridang[3][k]
         else:
             assert False
-        points3d = np.empty([npt[0] * npt[1] * npt[2], 3])
-        weights3d = np.ones(npt[0] * npt[1] * npt[2])
-        for j in range(npt[0]):
-            for k in range(npt[1]):
-                for l in range(npt[2]):
-                    points3d[j + npt[0] * (k + npt[1] * l), 0] = points[0][j]
-                    points3d[j + npt[0] * (k + npt[1] * l), 1] = points[1][k]
-                    points3d[j + npt[0] * (k + npt[1] * l), 2] = points[2][l]
-                    weights3d[j + npt[0] * (k + npt[1] * l)] = weights[0][j] * weights[1][k] * weights[2][l]
-        global_points = self.__local_to_global(points3d)
+
+        if len(points) > 0:
+            # expand outer product grid to three dimensions
+            npt3 = _npt[0] * _npt[1] * _npt[2]
+            points3d = np.empty([npt3, 3])
+            weights3d = np.ones(npt3)
+            for j in range(_npt[0]):
+                for k in range(_npt[1]):
+                    for l in range(_npt[2]):
+                        points3d[j + _npt[0] * (k + _npt[1] * l), 0] = points[0][j]
+                        points3d[j + _npt[0] * (k + _npt[1] * l), 1] = points[1][k]
+                        points3d[j + _npt[0] * (k + _npt[1] * l), 2] = points[2][l]
+                        weights3d[j + _npt[0] * (k + _npt[1] * l)] = weights[0][j] * weights[1][k] * weights[2][l]
+
+        coordinate_scaling = np.array([scale * math.sqrt(e) for e in self.second_moment_eigenvalues])
+        # print("coordinate scaling:", coordinate_scaling)
+        jacobian = coordinate_scaling[0] * coordinate_scaling[1] * coordinate_scaling[2]
+        weights3d = jacobian * weights3d
+        global_points = self.__local_to_global(points3d, coordinate_scaling)
         return [global_points, weights3d] if integration_weights else global_points
 
     def evaluate(self, points, values=False):
@@ -72,6 +100,7 @@ class Orbital:
         """
         return pymolpro.grid.evaluateOrbitals(self.node.xpath('./parent::*/parent::*')[-1], points, ID=self.ID,
                                               values=values)
+
     def __init__(self, node):
         """
         Initialise from a node on a Molpro output xml tree
@@ -95,10 +124,18 @@ class Orbital:
         second_moments_matrix[1][1] = global_second_moments[1]
         second_moments_matrix[1][2] = second_moments_matrix[2][1] = global_second_moments[5]
         second_moments_matrix[2][2] = global_second_moments[2]
-        # print("raw second moments matrix", second_moments_matrix)
         second_moments_matrix -= np.outer(self.centroid, self.centroid)
         return second_moments_matrix
 
-    def __local_to_global(self, local_coordinates):
+    def __local_to_global(self, local_coordinates, scaling=[1., 1., 1.]):
         return np.array([self.centroid for k in local_coordinates[:, 0]]) + np.matmul(
-            self.second_moment_eigenvectors, local_coordinates.transpose()).transpose()
+            np.matmul(self.second_moment_eigenvectors, np.diagflat(scaling)), local_coordinates.transpose()).transpose()
+
+    def __lebedev_select(self, l, size=False):
+        lebedev = {3: 6, 5: 14, 7: 26, 9: 38, 11: 50, 13: 74, 15: 86, 17: 110, 19: 146,
+                   21: 170, 23: 194, 25: 230, 27: 266, 29: 302, 31: 350, 35: 434, 41: 590, 47: 770,
+                   53: 974, 59: 1202, 65: 1454, 71: 1730, 77: 2030, 83: 2354, 89: 2702, 95: 3074, 101: 3470,
+                   107: 3890, 113: 4334, 119: 4802, 125: 5294, 131: 5810}
+        for k, v in lebedev.items():
+            if l <= k: return v if size else k
+        return lebedev[131] if size else 131
