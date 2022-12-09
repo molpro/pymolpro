@@ -185,6 +185,62 @@ def evaluateOrbitals(molecule, points, minocc=1.0, ID=None, values=False):
         return result[0] if ID else result
 
 
+def spherical_grid(radial_points, radial_weights, l):
+    """
+    Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.
+
+    :param radial_points:
+    :param radial_weights:
+    :param l: Largest rank of spherical harmonic for which exact quadrature is wanted.
+    :return: tuple of points(numpy array [npt,3]), weights
+    """
+    import numgrid
+    nptang = __lebedev_select(l, True)
+    gridang = numgrid.get_angular_grid(nptang)
+    nptrad = len(radial_points)
+    npt3 = nptrad * nptang
+    points3d = np.empty([npt3, 3])
+    weights3d = np.empty(npt3)
+    for j in range(nptrad):
+        for k in range(nptang):
+            for i in range(3):
+                points3d[k + j * nptang, i] = radial_points[j] * gridang[i][k]
+            weights3d[k + j * nptang] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * gridang[3][k]
+    return [points3d, weights3d]
+
+
+def __lebedev_select(l, size=False):
+    lebedev = {3: 6, 5: 14, 7: 26, 9: 38, 11: 50, 13: 74, 15: 86, 17: 110, 19: 146,
+               21: 170, 23: 194, 25: 230, 27: 266, 29: 302, 31: 350, 35: 434, 41: 590, 47: 770,
+               53: 974, 59: 1202, 65: 1454, 71: 1730, 77: 2030, 83: 2354, 89: 2702, 95: 3074, 101: 3470,
+               107: 3890, 113: 4334, 119: 4802, 125: 5294, 131: 5810}
+    for k, v in lebedev.items():
+        if l <= k: return v if size else k
+    return lebedev[131] if size else 131
+
+
+def cubical_grid(points1d, weights1d):
+    """
+    Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid
+
+    :param points1d:
+    :param weights1d:
+    :return: tuple of points(numpy array [npt,3]), weights
+    """
+    npt1 = len(points1d)
+    npt3 = pow(npt1, 3)
+    points3d = np.empty([npt3, 3], np.double)
+    weights3d = np.empty(npt3, np.double)
+    for j in range(npt1):
+        for k in range(npt1):
+            for l in range(npt1):
+                points3d[l + npt1 * (k + npt1 * j), 0] = points1d[j]
+                points3d[l + npt1 * (k + npt1 * j), 1] = points1d[k]
+                points3d[l + npt1 * (k + npt1 * j), 2] = points1d[l]
+                weights3d[l + npt1 * (k + npt1 * j)] = weights1d[j] * weights1d[k] * weights1d[l]
+    return [points3d, weights3d]
+
+
 # example main program
 if __name__ == "__main__":
 
