@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.1.5 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.1.6 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -86,8 +86,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.grid">pymolpro.grid module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.cubical_grid"><code class="docutils literal notranslate"><span class="pre">cubical_grid()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateBasis"><code class="docutils literal notranslate"><span class="pre">evaluateBasis()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateOrbitals"><code class="docutils literal notranslate"><span class="pre">evaluateOrbitals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.spherical_grid"><code class="docutils literal notranslate"><span class="pre">spherical_grid()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro">Module contents</a></li>
@@ -963,7 +965,7 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>npt</strong> – Number of desired points in each coordinate. If a single number is specified, it is used for all three directions.</p></li>
+<li><p><strong>npt</strong> – Number of desired points in each coordinate.</p></li>
 <li><p><strong>method</strong> – Algorithm for grid generation.</p></li>
 <li><p><strong>integration_weights</strong> – Whether integration weights are required.</p></li>
 <li><p><strong>scale</strong> – Scale the grid by this factor.</p></li>
@@ -1225,6 +1227,23 @@ Attributes: str name, str type, str units, int length</p>
 <div class="section" id="module-pymolpro.grid">
 <span id="pymolpro-grid-module"></span><h2>pymolpro.grid module<a class="headerlink" href="#module-pymolpro.grid" title="Permalink to this heading"></a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.cubical_grid">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">cubical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights1d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.cubical_grid" title="Permalink to this definition"></a></dt>
+<dd><p>Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points1d</strong> – </p></li>
+<li><p><strong>weights1d</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple of points(numpy array [npt,3]), weights</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.grid.evaluateBasis">
 <span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateBasis" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate the orbital basis set on a grid</p>
@@ -1257,6 +1276,24 @@ Attributes: str name, str type, str units, int length</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.spherical_grid">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">spherical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radial_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.spherical_grid" title="Permalink to this definition"></a></dt>
+<dd><p>Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radial_points</strong> – </p></li>
+<li><p><strong>radial_weights</strong> – </p></li>
+<li><p><strong>l</strong> – Largest rank of spherical harmonic for which exact quadrature is wanted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple of points(numpy array [npt,3]), weights</p>
 </dd>
 </dl>
 </dd></dl>
