@@ -30,6 +30,6 @@ jobs:
       - name: Test with pytest
         run: |
           conda update -n base -c defaults conda
-          conda install -y -c conda-forge pysjef
+          conda install -y -c conda-forge pysjef pytest
           conda list
           pytest
