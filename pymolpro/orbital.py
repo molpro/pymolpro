@@ -22,7 +22,8 @@ class Orbital:
     def ID(self):
         return self.attribute('ID')
 
-    def grid(self, npt, method='erfinv', integration_weights=False, scale=1.0):
+    def grid(self, npt, method='erfinv', integration_weights=False, scale=1.0, grid_parameters=[],
+             spherical_average=False):
         """
         Generate a grid centred on the orbital.
 
@@ -45,15 +46,21 @@ class Orbital:
             points = [x[k] * math.sqrt(2) for k in range(npt)]
             weights = [math.exp(x[k] * x[k]) * w[k] * math.sqrt(2) for k in range(npt)]
             points3d, weights3d = pymolpro.grid.cubical_grid(points, weights)
-        elif 'Gauss-Lebedev' in method:
+        elif 'Lebedev' in method:
             import scipy.special
-            if method == 'Gauss-Lebedev-Laguerre':
+            if 'Laguerre' in method:
                 radial_points, radial_weights = scipy.special.roots_laguerre(npt[0] if type(npt) == list else npt)
                 for i in range(len(radial_weights)):
                     radial_weights[i] *= math.exp(radial_points[i]) / 2
+                radial_points *= 0.5  # why?
+            elif 'Mura' in method:
+                n1 = npt[0] if type(npt) == list else npt
+                m = grid_parameters[0] if len(grid_parameters) > 1 else 3
+                xpoints = [(float(i) + 0.5) / n1 for i in range(n1)]
+                radial_weights = [m * scale * pow(x, m - 1) / (1 - pow(x, m)) / n1 for x in xpoints]
+                radial_points = np.array([- scale * math.log(1 - pow(x, m)) for x in xpoints])
             else:
                 assert False
-            radial_points *= 0.5
             points3d, weights3d = pymolpro.grid.spherical_grid(radial_points, radial_weights,
                                                                npt[1] if type(npt) == list and len(npt) > 1 else len(
                                                                    radial_weights))
@@ -61,6 +68,12 @@ class Orbital:
             assert False
 
         coordinate_scaling = np.array([scale * math.sqrt(e) for e in self.second_moment_eigenvalues])
+        if spherical_average and 'Lebedev' in method:
+            coordinate_scaling[:] = scale * pow(
+                self.second_moment_eigenvalues[0] * self.second_moment_eigenvalues[1] * self.second_moment_eigenvalues[
+                    2],
+                1.0 / 6.0)
+        # print("before __local_to_global points3d", points3d)
         weights3d = coordinate_scaling[0] * coordinate_scaling[1] * coordinate_scaling[2] * weights3d
         global_points = self.__local_to_global(points3d, coordinate_scaling)
         return tuple([global_points, weights3d]) if integration_weights else global_points
