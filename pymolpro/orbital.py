@@ -22,30 +22,29 @@ class Orbital:
     def ID(self):
         return self.attribute('ID')
 
-    def grid(self, npt, method='erfinv', integration_weights=False, scale=1.0, grid_parameters=[],
+    def grid(self, npt, method='erfinv', scale=1.0, grid_parameters=[],
              spherical_average=False):
         """
         Generate a grid centred on the orbital.
 
         :param npt: Number of desired points in each coordinate.
         :param method: Algorithm for grid generation.
-        :param integration_weights: Whether integration weights are required.
         :param scale: Scale the grid by this factor.
-        :return: if integration_weights, a tuple containing the points (numpy array [det(npt),3]) and weights (numpy array). Otherwise, just the points.
+        :return: points and weights (numpy array [npt,4])
         """
         # grids for second moment eigenvalues unity
         if method == 'erfinv':
             assert type(npt) != list
             points = [sp.special.erfinv(2 * (k + 1) / float(npt + 1) - 1) for k in range(npt)]
             weights = [1.0 / npt for k in range(npt)]
-            points3d, weights3d = pymolpro.grid.cubical_grid(points, weights)
+            points3d = pymolpro.grid.cubical_grid(points, weights)
         elif method == 'Gauss-Hermite':
             assert type(npt) != list
             import scipy.special
             x, w = scipy.special.roots_hermite(npt)
             points = [x[k] * math.sqrt(2) for k in range(npt)]
             weights = [math.exp(x[k] * x[k]) * w[k] * math.sqrt(2) for k in range(npt)]
-            points3d, weights3d = pymolpro.grid.cubical_grid(points, weights)
+            points3d = pymolpro.grid.cubical_grid(points, weights)
         elif 'Lebedev' in method:
             import scipy.special
             if 'Laguerre' in method:
@@ -61,9 +60,9 @@ class Orbital:
                 radial_points = np.array([- scale * math.log(1 - pow(x, m)) for x in xpoints])
             else:
                 assert False
-            points3d, weights3d = pymolpro.grid.spherical_grid(radial_points, radial_weights,
-                                                               npt[1] if type(npt) == list and len(npt) > 1 else len(
-                                                                   radial_weights))
+            points3d = pymolpro.grid.spherical_grid(radial_points, radial_weights,
+                                                    npt[1] if type(npt) == list and len(npt) > 1 else len(
+                                                        radial_weights))
         else:
             assert False
 
@@ -74,9 +73,9 @@ class Orbital:
                     2],
                 1.0 / 6.0)
         # print("before __local_to_global points3d", points3d)
-        weights3d = coordinate_scaling[0] * coordinate_scaling[1] * coordinate_scaling[2] * weights3d
-        global_points = self.__local_to_global(points3d, coordinate_scaling)
-        return tuple([global_points, weights3d]) if integration_weights else global_points
+        points3d[:, 3] = coordinate_scaling[0] * coordinate_scaling[1] * coordinate_scaling[2] * points3d[:, 3]
+        points3d[:, :3] = self.__local_to_global(points3d, coordinate_scaling)
+        return points3d
 
     def evaluate(self, points, values=False):
         """
@@ -117,4 +116,5 @@ class Orbital:
 
     def __local_to_global(self, local_coordinates, scaling=[1., 1., 1.]):
         return np.array([self.centroid for k in local_coordinates[:, 0]]) + np.matmul(
-            np.matmul(self.second_moment_eigenvectors, np.diagflat(scaling)), local_coordinates.transpose()).transpose()
+            np.matmul(self.second_moment_eigenvectors, np.diagflat(scaling)),
+            local_coordinates[:, :3].transpose()).transpose()
