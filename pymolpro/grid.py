@@ -197,6 +197,7 @@ def spherical_grid(radial_points, radial_weights, l):
     import numgrid
     nptang = __lebedev_select(l, True)
     gridang = numgrid.get_angular_grid(nptang)
+    # print("gridang:",gridang)
     nptrad = len(radial_points)
     npt3 = nptrad * nptang
     points3d = np.empty([npt3, 3])
@@ -206,6 +207,7 @@ def spherical_grid(radial_points, radial_weights, l):
             for i in range(3):
                 points3d[k + j * nptang, i] = radial_points[j] * gridang[i][k]
             weights3d[k + j * nptang] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * gridang[3][k]
+    # print("in spherical_grid points3d",points3d)
     return [points3d, weights3d]
 
 
