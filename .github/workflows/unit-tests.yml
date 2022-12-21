@@ -31,4 +31,5 @@ jobs:
         run: |
           conda update -n base -c defaults conda
           conda install -y -c conda-forge pysjef
+          conda list
           pytest
