@@ -33,9 +33,8 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 variables_to_export = ["release"]
-frozen_locals = dict(locals())
-rst_epilog = '\n'.join(map(lambda x: f".. |{x}| replace:: {frozen_locals[x]}", variables_to_export))
-del frozen_locals
+__frozen_locals = dict(locals())
+rst_epilog = '\n'.join(map(lambda x: f".. |{x}| replace:: {__frozen_locals[x]}", variables_to_export))
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

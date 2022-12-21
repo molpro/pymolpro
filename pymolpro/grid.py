@@ -128,7 +128,7 @@ def evaluateBasis(molecule, points):
                         # print primitivesc[:,:,ip]
                         # print sphtran[lquant].shape
                         # print primitivesc[:,:,ip].shape
-                        primitives[:, :, ip] = dot(sphtran[lquant], primitivesc[:, :, ip])
+                        primitives[:, :, ip] = np.dot(sphtran[lquant], primitivesc[:, :, ip])
                     # print "primitives",primitives
                 else:
                     primitives = primitivesc

@@ -27,11 +27,11 @@ class TestOrbital(unittest.TestCase):
     def test_large_grid(self):
         self.assertEqual(self.orbital.ID, '1.1')
         for grid in ['Gauss-Hermite', 'Lebedev-Mura', 'Lebedev-Gauss-Laguerre']:
-            points, weights = self.orbital.grid(55, grid, True,scale=2.0 if 'Mura' in grid else 1.0)
+            points, weights = self.orbital.grid(55, grid, True, scale=2.0 if 'Mura' in grid else 1.0)
             integral = 0.0
             for i in range(len(points)):
                 # integral += weights[i] * math.exp(-np.linalg.norm(points[i, :])) / 4 / math.pi
-                integral += weights[i] * math.exp(-pow(np.linalg.norm(points[i, :]), 2))/pow(math.pi,1.5)
+                integral += weights[i] * math.exp(-pow(np.linalg.norm(points[i, :]), 2)) / pow(math.pi, 1.5)
             self.assertAlmostEqual(integral, 1.0, 12, msg=grid)
 
 

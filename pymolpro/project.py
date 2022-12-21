@@ -81,7 +81,7 @@ class Project(pysjef.project.Project):
         Shorthand for `p.select('//properties[name= {}, principal ={}, ... ]')`
         """
         string = f'name={name}'
-        if principal: string += f', principal=true'
+        if principal: string += ', principal=true'
         for key, val in kwargs.items():
             string += f',{key}={val}'
         selector = f'//property[{string}]'
