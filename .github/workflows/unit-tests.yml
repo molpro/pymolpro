@@ -1,6 +1,8 @@
 name: Python unit tests
 
-on: [ push, pull-request ]
+on:
+  push:
+  pull-request:
 
 jobs:
   build:
