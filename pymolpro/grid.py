@@ -98,7 +98,7 @@ def evaluateBasis(molecule, points):
                 primitivesc = np.empty((ncompc, len(alpha), len(points)))
                 lqbase = (lquant * (lquant + 1) * (lquant + 2)) // 6
                 for ip in range(len(points)):
-                    xyz = np.subtract(points[ip], nuclearCoordinates)
+                    xyz = np.subtract(points[ip, :3], nuclearCoordinates)
                     r2 = np.dot(xyz, xyz)
                     for ia in range(len(alpha)):
                         alph = alpha[ia]
@@ -192,7 +192,7 @@ def spherical_grid(radial_points, radial_weights, l):
     :param radial_points:
     :param radial_weights:
     :param l: Largest rank of spherical harmonic for which exact quadrature is wanted.
-    :return: tuple of points(numpy array [npt,3]), weights
+    :return: points and weights (numpy array [npt,4])
     """
     import numgrid
     nptang = __lebedev_select(l, True)
@@ -200,15 +200,14 @@ def spherical_grid(radial_points, radial_weights, l):
     # print("gridang:",gridang)
     nptrad = len(radial_points)
     npt3 = nptrad * nptang
-    points3d = np.empty([npt3, 3])
-    weights3d = np.empty(npt3)
+    points3d = np.empty([npt3, 4])
     for j in range(nptrad):
         for k in range(nptang):
             for i in range(3):
                 points3d[k + j * nptang, i] = radial_points[j] * gridang[i][k]
-            weights3d[k + j * nptang] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * gridang[3][k]
+            points3d[k + j * nptang, 3] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * gridang[3][k]
     # print("in spherical_grid points3d",points3d)
-    return [points3d, weights3d]
+    return points3d
 
 
 def __lebedev_select(l, size=False):
@@ -227,20 +226,19 @@ def cubical_grid(points1d, weights1d):
 
     :param points1d:
     :param weights1d:
-    :return: tuple of points(numpy array [npt,3]), weights
+    :return: points and weights (numpy array [npt,4])
     """
     npt1 = len(points1d)
     npt3 = pow(npt1, 3)
-    points3d = np.empty([npt3, 3], np.double)
-    weights3d = np.empty(npt3, np.double)
+    points3d = np.empty([npt3, 4], np.double)
     for j in range(npt1):
         for k in range(npt1):
             for l in range(npt1):
                 points3d[l + npt1 * (k + npt1 * j), 0] = points1d[j]
                 points3d[l + npt1 * (k + npt1 * j), 1] = points1d[k]
                 points3d[l + npt1 * (k + npt1 * j), 2] = points1d[l]
-                weights3d[l + npt1 * (k + npt1 * j)] = weights1d[j] * weights1d[k] * weights1d[l]
-    return [points3d, weights3d]
+                points3d[l + npt1 * (k + npt1 * j), 3] = weights1d[j] * weights1d[k] * weights1d[l]
+    return points3d
 
 
 # example main program
