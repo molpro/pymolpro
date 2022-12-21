@@ -42,5 +42,4 @@ jobs:
           conda create --name pymolpro-test pysjef pytest scipy numpy
           conda activate pymolpro-test || true
           pip install numgrid
-          conda list
           pytest
