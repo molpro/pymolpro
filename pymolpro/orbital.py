@@ -53,11 +53,12 @@ class Orbital:
                     radial_weights[i] *= math.exp(radial_points[i]) / 2
                 radial_points *= 0.5  # why?
             elif 'Mura' in method:
+                scalem = grid_parameters[1] if len(grid_parameters) > 1 else 10
                 n1 = npt[0] if type(npt) == list else npt
-                m = grid_parameters[0] if len(grid_parameters) > 1 else 3
+                m = grid_parameters[0] if len(grid_parameters) > 0 else 3
                 xpoints = [(float(i) + 0.5) / n1 for i in range(n1)]
-                radial_weights = [m * scale * pow(x, m - 1) / (1 - pow(x, m)) / n1 for x in xpoints]
-                radial_points = np.array([- scale * math.log(1 - pow(x, m)) for x in xpoints])
+                radial_weights = [m * scalem * pow(x, m - 1) / (1 - pow(x, m)) / n1 for x in xpoints]
+                radial_points = np.array([- scalem * math.log(1 - pow(x, m)) for x in xpoints])
             else:
                 assert False
             points3d = pymolpro.grid.spherical_grid(radial_points, radial_weights,
