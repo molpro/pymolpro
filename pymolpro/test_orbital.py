@@ -52,7 +52,7 @@ class TestOrbital(unittest.TestCase):
             integrals.append(integral002 / factorial2(2 * power - 1) / pow(2 * math.pi, 1.5))
             integrals.append(integral022 / pow(factorial2(2 * power - 1), 2) / pow(2 * math.pi, 1.5))
         for integral in integrals:
-            self.assertAlmostEquals(integral, 1, 13, msg=integrals)
+            self.assertAlmostEqual(integral, 1, 13, msg=integrals)
 
     def test_mura(self):
         integrals = []
@@ -77,7 +77,7 @@ class TestOrbital(unittest.TestCase):
                 integrals.append(integral)
                 integrals.append(integralx)
         for integral in integrals:
-            self.assertAlmostEquals(integral, 1, 12, msg=integrals)
+            self.assertAlmostEqual(integral, 1, 12, msg=integrals)
 
     def test_mura_exponential(self):
         beta = 2 * math.sqrt(3.0)
