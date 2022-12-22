@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.1.7 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.1.8 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -259,8 +259,7 @@ when interacting with the current jobs.</p>
 a single one. If more than one child is selected, RuntimeError is thrown.</p>
 <p>Arguments are translated into selectors by attribute name ( see <cite>select</cite>).
 Key word arguements are translated into selectors by attribute name ( see <cite>select</cite>).</p>
-<div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
+<p>Example:</p>
 <dl class="simple">
 <dt>out = p.select(‘container[location, name=directory, exists(location)]’,</dt><dd><p>exists=os.path.exists)</p>
 </dd>
@@ -271,21 +270,19 @@ Key word arguements are translated into selectors by attribute name ( see <cite>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">param nodename</dt>
-<dd class="field-odd"><p>selector for name of the node class</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodename</strong> – selector for name of the node class</p></li>
+<li><p><strong>attributes</strong> – list of attributes for defining selectors by name, <cite>[attribute]</cite>
+and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cite>)</p></li>
+<li><p><strong>kwargs_and_callables</strong> – dictionary of other kwargs defining attribute selectors
+<cite>key = value</cite> and callable functions for callable selectors <cite>func = function_name</cite></p></li>
+</ul>
 </dd>
-<dt class="field-even">param attributes</dt>
-<dd class="field-even"><p>list of attributes for defining selectors by name, <cite>[attribute]</cite>
-and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cite>)</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
 </dd>
-<dt class="field-odd">param kwargs_and_callables</dt>
-<dd class="field-odd"><p>dictionary of other kwargs defining attribute selectors
-<cite>key = value</cite> and callable functions for callable selectors <cite>func = function_name</cite></p>
-</dd>
-<dt class="field-even">return</dt>
-<dd class="field-even"><p></p></dd>
 </dl>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -431,23 +428,17 @@ by default parent directory stays the same</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>suffix</strong> – If present without <code class="docutils literal notranslate"><span class="pre">name</span></code>, look for a primary file with that type.
-If absent, the file name of the bundle is instead selected</p></li>
-<li><p><strong>name</strong> – If present,  look for a file of this name, appended with <code class="docutils literal notranslate"><span class="pre">.suffix</span></code>
-if that is non-blank</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>:param run</dt><dd><ul class="simple">
+<li><p><strong>suffix</strong> – If present without <code class="docutils literal notranslate"><span class="pre">name</span></code>, look for a primary file with that type. If absent, the file name of the bundle is instead selected</p></li>
+<li><p><strong>name</strong> – If present,  look for a file of this name, appended with <code class="docutils literal notranslate"><span class="pre">.suffix</span></code> if that is non-blank</p></li>
+<li><p><strong>run</strong> – <ul>
 <li><p>0: the currently focussed run directory</p></li>
 <li><p>other: the specified run directory</p></li>
 </ul>
+</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the fully-qualified name of the file</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the fully-qualified name of the file</p>
 </dd>
 </dl>
 </dd></dl>
