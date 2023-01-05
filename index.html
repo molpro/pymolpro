@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 1.1.8) &mdash; pymolpro 1.1.8 documentation</title>
+  <title>pymolpro (version 1.1.9) &mdash; pymolpro 1.1.9 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -11,9 +12,6 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -59,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 1.1.8)</li>
+      <li class="breadcrumb-item active">pymolpro (version 1.1.9)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,8 +91,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="pymolpro-version-release">
-<h1>pymolpro (version 1.1.8)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
+<section id="pymolpro-version-release">
+<h1>pymolpro (version 1.1.9)<a class="headerlink" href="#pymolpro-version-release" title="Permalink to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -114,7 +112,7 @@ Simply running Molpro and inspecting the output can be achieved as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymolpro</span> <span class="kn">import</span> <span class="n">Project</span>
 <span class="n">p</span><span class="o">=</span><span class="n">Project</span><span class="p">(</span><span class="s2">&quot;Neon&quot;</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">geometry=</span><span class="si">{Ne}</span><span class="s2"></span>
+<span class="s2">geometry=</span><span class="si">{Ne}</span>
 <span class="s2">rhf</span>
 <span class="s2">ccsd(t)</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
@@ -149,7 +147,7 @@ analysed.:</p>
 <span class="n">final_energy</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;CCSD(T)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="installation">
+<section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>pymolpro is on <a class="reference external" href="https://conda-forge.org">conda forge</a> and can be installed on most systems using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">pymolpro</span></code>.
 On Microsoft Windows, you need to also install <a class="reference external" href="https://www.msys2.org">msys2</a>,
@@ -193,16 +191,16 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <li class="toctree-l1"><a class="reference internal" href="examples.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </div>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
+</section>
+</section>
+<section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-</div>
+</section>
 
 
            </div>

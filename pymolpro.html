@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.1.8 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.1.9 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -11,9 +12,6 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -150,12 +148,12 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="pymolpro-package">
+<section id="pymolpro-package">
 <h1>pymolpro package<a class="headerlink" href="#pymolpro-package" title="Permalink to this heading"></a></h1>
-<div class="section" id="submodules">
+<section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
-</div>
-<div class="section" id="module-pymolpro.project">
+</section>
+<section id="module-pymolpro.project">
 <span id="pymolpro-project-module"></span><h2>pymolpro.project module<a class="headerlink" href="#module-pymolpro.project" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.project.Project">
@@ -168,7 +166,7 @@ Project is a node with parsed molpro output as the only child.</p>
 <span class="sig-name descname"><span class="pre">backend_parameter_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_default" title="Permalink to this definition"></a></dt>
 <dd><p>Returns default value for backend parameter</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> – name of the backend</p></li>
 <li><p><strong>param</strong> – name of parameter</p></li>
@@ -182,7 +180,7 @@ Project is a node with parsed molpro output as the only child.</p>
 <span class="sig-name descname"><span class="pre">backend_parameter_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_delete" title="Permalink to this definition"></a></dt>
 <dd><p>Delete backend parameter from property file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> – name of the backend</p></li>
 <li><p><strong>param</strong> – name of parameter</p></li>
@@ -196,7 +194,7 @@ Project is a node with parsed molpro output as the only child.</p>
 <span class="sig-name descname"><span class="pre">backend_parameter_documentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_documentation" title="Permalink to this definition"></a></dt>
 <dd><p>Returns documentation for backend parameter</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> – name of the backend</p></li>
 <li><p><strong>param</strong> – name of parameter</p></li>
@@ -210,7 +208,7 @@ Project is a node with parsed molpro output as the only child.</p>
 <span class="sig-name descname"><span class="pre">backend_parameter_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameter_get" title="Permalink to this definition"></a></dt>
 <dd><p>Gets backend parameter from property file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> – name of the backend</p></li>
 <li><p><strong>param</strong> – name of parameter</p></li>
@@ -225,7 +223,7 @@ Project is a node with parsed molpro output as the only child.</p>
 <dd><p>Sets backend parameter in property file. The parameter will be used by the backend
 when interacting with the current jobs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> – name of the backend</p></li>
 <li><p><strong>param</strong> – name of parameter</p></li>
@@ -240,13 +238,13 @@ when interacting with the current jobs.</p>
 <span class="sig-name descname"><span class="pre">backend_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.backend_parameters" title="Permalink to this definition"></a></dt>
 <dd><p>Get all of the parameters referenced in the run_command of a backend</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> – The name of the backend</p></li>
 <li><p><strong>doc</strong> – Whether to return documentation instead of default values</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary where the keys are the parameter names, and the values the defaults.</p>
 </dd>
 </dl>
@@ -270,7 +268,7 @@ Key word arguements are translated into selectors by attribute name ( see <cite>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nodename</strong> – selector for name of the node class</p></li>
 <li><p><strong>attributes</strong> – list of attributes for defining selectors by name, <cite>[attribute]</cite>
@@ -279,7 +277,7 @@ and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cit
 <cite>key = value</cite> and callable functions for callable selectors <cite>func = function_name</cite></p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -295,7 +293,7 @@ and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cit
 <dt class="sig sig-object py" id="pymolpro.project.Project.completed">
 <span class="sig-name descname"><span class="pre">completed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.completed" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if status is <cite>completed</cite></p>
 </dd>
 </dl>
@@ -306,7 +304,7 @@ and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cit
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.copy" title="Permalink to this definition"></a></dt>
 <dd><p>Make a copy of the project and its directory to a new path.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – name of the new project</p></li>
 <li><p><strong>location</strong> – path to the parent of the project,
@@ -315,7 +313,7 @@ by default parent directory stays the same</p></li>
 <li><p><strong>keep_hash</strong> – whether to clone the project_hash, or allow a fresh one to be generated</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>copied project</p>
 </dd>
 </dl>
@@ -332,13 +330,13 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.energies" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#pymolpro.project.Project.properties" title="pymolpro.project.Project.properties"><code class="xref py py-meth docutils literal notranslate"><span class="pre">properties()</span></code></a> that restricts to energy values</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> – </p></li>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -349,13 +347,13 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.energy" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#pymolpro.project.Project.energies" title="pymolpro.project.Project.energies"><code class="xref py py-meth docutils literal notranslate"><span class="pre">energies()</span></code></a> that returns a single value as a scalar. An exception is thrown if more than one value is found.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> – </p></li>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -366,10 +364,10 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">erase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.erase" title="Permalink to this definition"></a></dt>
 <dd><p>Delete the project under path with its directory and all files.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> – path to the project, defaults to current project</p>
 </dd>
-<dt class="field-even">Todo</dt>
+<dt class="field-even">Todo<span class="colon">:</span></dt>
 <dd class="field-even"><p>what should happend to attributes and children?</p>
 </dd>
 </dl>
@@ -380,7 +378,7 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.errors" title="Permalink to this definition"></a></dt>
 <dd><p>Return all error nodes</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of error nodes</p>
 </dd>
 </dl>
@@ -391,7 +389,7 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.evaluateOrbitals" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate molecular orbitals on a grid of points</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>points</strong> – List of geometries specified as 3-list of values in bohr</p></li>
 <li><p><strong>instance</strong> – Which set of orbitals</p></li>
@@ -400,7 +398,7 @@ by default parent directory stays the same</p></li>
 <li><p><strong>values</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
 </dd>
 </dl>
@@ -411,7 +409,7 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">export_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.export_file" title="Permalink to this definition"></a></dt>
 <dd><p>Export one or more files from the project.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – name of the file in the project</p></li>
 <li><p><strong>location</strong> – The relative or absolute path to the destination directory</p></li>
@@ -426,7 +424,7 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.filename" title="Permalink to this definition"></a></dt>
 <dd><p>Get the file name of the bundle, or a primary file of particular type, or a general file in the bundle</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>suffix</strong> – If present without <code class="docutils literal notranslate"><span class="pre">name</span></code>, look for a primary file with that type. If absent, the file name of the bundle is instead selected</p></li>
 <li><p><strong>name</strong> – If present,  look for a file of this name, appended with <code class="docutils literal notranslate"><span class="pre">.suffix</span></code> if that is non-blank</p></li>
@@ -437,7 +435,7 @@ by default parent directory stays the same</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the fully-qualified name of the file</p>
 </dd>
 </dl>
@@ -453,10 +451,10 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">geometries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.geometries" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain all geometries from the job output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of dictionaries holding the geometry. Coordinates are in bohr</p>
 </dd>
 </dl>
@@ -467,13 +465,13 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.geometry" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain the geometry from the job output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p></li>
 <li><p><strong>instance</strong> – In the case of multiple geometries in the output stream, which occurence</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>dictionary holding the geometry. Coordinates are in bohr</p>
 </dd>
 </dl>
@@ -484,7 +482,7 @@ by default parent directory stays the same</p></li>
 <span class="sig-name descname"><span class="pre">import_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.import_file" title="Permalink to this definition"></a></dt>
 <dd><p>Import file at path <code class="docutils literal notranslate"><span class="pre">location</span></code> into the project.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>location</strong> – path to file</p></li>
 <li><p><strong>overwrite</strong> – if corresponding file already exists in the project, flags that it should
@@ -511,10 +509,10 @@ be overwritten</p></li>
 <span class="sig-name descname"><span class="pre">input_from_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.input_from_output" title="Permalink to this definition"></a></dt>
 <dd><p>Return a list of all defined input in the output stream</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> – index of occurence of input node in output</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -543,7 +541,7 @@ be overwritten</p></li>
 <span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.move" title="Permalink to this definition"></a></dt>
 <dd><p>Move the project bundle to a new location</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – new name of the project</p></li>
 <li><p><strong>location</strong> – path to the directory where project should be moved.
@@ -565,14 +563,14 @@ Defaults to same directory as current project.</p></li>
 <span class="sig-name descname"><span class="pre">orbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.orbitals" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain some or all of the orbitals in the job output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> – Which set of orbitals</p></li>
 <li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
 <li><p><strong>ID</strong> – Only the orbital whose ID attribute matches this will be selected</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a list of Orbital objects</p>
 </dd>
 </dl>
@@ -587,7 +585,7 @@ Defaults to same directory as current project.</p></li>
 <dt class="sig sig-object py" id="pymolpro.project.Project.output">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output</span></span><a class="headerlink" href="#pymolpro.project.Project.output" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>node with Molpro’s output</p>
 </dd>
 </dl>
@@ -610,7 +608,7 @@ Defaults to same directory as current project.</p></li>
 <span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain selected properties from the job output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> – any trailing XPath qualifier, for example <code class="docutils literal notranslate"><span class="pre">'[&#64;StateSymmetry</span> <span class="pre">=</span> <span class="pre">&quot;1&quot;</span> <span class="pre">or</span> <span class="pre">&#64;StateSymmetry</span> <span class="pre">=</span> <span class="pre">&quot;4&quot;]'</span></code>. For restrictions that should be combined with <code class="docutils literal notranslate"><span class="pre">and</span></code>, it’s simpler to instead use a kwarg argument, eg <code class="docutils literal notranslate"><span class="pre">StateSymmetry=1</span></code></p></li>
 <li><p><strong>kwargs</strong> – any attribute selectors for the select function, including the following</p></li>
@@ -621,7 +619,7 @@ Defaults to same directory as current project.</p></li>
 <li><p><strong>dict</strong> – return property value, scalar float or list of floats as appropriate, if <code class="docutils literal notranslate"><span class="pre">False</span></code> or omitted. Otherwise, a dictionary containing all the data in the property node is returned</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of properties</p>
 </dd>
 </dl>
@@ -632,7 +630,7 @@ Defaults to same directory as current project.</p></li>
 <span class="sig-name descname"><span class="pre">properties_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Energy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.properties_old" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain selected properties from the job output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – name of property</p></li>
 <li><p><strong>principal</strong> – principal property</p></li>
@@ -640,7 +638,7 @@ Defaults to same directory as current project.</p></li>
 <li><p><strong>kwargs</strong> – any other attribute selectors for the select function</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of properties</p>
 </dd>
 </dl>
@@ -652,13 +650,13 @@ Defaults to same directory as current project.</p></li>
 <span class="sig-name descname"><span class="pre">property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.property" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#pymolpro.project.Project.properties" title="pymolpro.project.Project.properties"><code class="xref py py-meth docutils literal notranslate"><span class="pre">properties()</span></code></a> that returns a single value as a scalar. An exception is thrown if more than one value is found.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> – </p></li>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -716,7 +714,7 @@ Defaults to same directory as current project.</p></li>
 <dd><p>Specialization of <code class="xref py py-func docutils literal notranslate"><span class="pre">pysjef.select()</span></code> which applies selection
 to the parsed output</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of nodes that pass selection criteria</p>
 </dd>
 </dl>
@@ -740,7 +738,7 @@ to the parsed output</p>
 <span class="sig-name descname"><span class="pre">variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.variable" title="Permalink to this definition"></a></dt>
 <dd><p>Return the value of a variable in the output xml stream</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – The name of the variable</p></li>
 <li><p><strong>instance</strong> – index of occurence in output</p></li>
@@ -748,7 +746,7 @@ to the parsed output</p>
 <li><p><strong>dict</strong> – return property value, scalar float or list of floats as appropriate, if <code class="docutils literal notranslate"><span class="pre">False</span></code> or omitted. Otherwise, a dictionary containing all the data in the property node is returned</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -759,10 +757,10 @@ to the parsed output</p>
 <span class="sig-name descname"><span class="pre">variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.variables" title="Permalink to this definition"></a></dt>
 <dd><p>Return a list of all defined variables</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> – index of occurence of variables node in output</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -796,14 +794,14 @@ Should by called from an interactive session</p>
 <span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.write_file" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a file in the project with specified content</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – name of the file to create in the project</p></li>
 <li><p><strong>content</strong> – string content to write in the file</p></li>
 <li><p><strong>overwrite</strong> – if corresponding file already exists in the project, flags that it should be overwritten</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if file was created or overwritten, otherwise False</p>
 </dd>
 </dl>
@@ -826,13 +824,13 @@ Should by called from an interactive session</p>
 <span class="sig-name descname"><span class="pre">xpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xpath" title="Permalink to this definition"></a></dt>
 <dd><p>Run xpath search on an element in the job xml, with support for default namespace</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>query</strong> – Any xpath search expression supported by lxml.etree.Element</p></li>
 <li><p><strong>element</strong> – The root element for the search, defaulting to the job xml root element</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of etree.Element objects or of strings, depending on whether the xpath expression results in an attribute</p>
 </dd>
 </dl>
@@ -844,7 +842,7 @@ Should by called from an interactive session</p>
 <dd><p>Simple XPath search on the xml document. For each matching node found, return a string that
 contains the value of a specified attribute, or if the attribute is omitted, the node contents.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>xpath_query</strong> – </p></li>
 <li><p><strong>attribute</strong> – </p></li>
@@ -859,14 +857,14 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <span class="sig-name descname"><span class="pre">xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xyz" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain a geometry in xyz file format</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> – In the case of multiple geometries in the output stream, which occurence</p></li>
 <li><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p></li>
 <li><p><strong>title</strong> – A title to be injected into the second line</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A string containing the xyz representation of the geometry</p>
 </dd>
 </dl>
@@ -877,13 +875,13 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <span class="sig-name descname"><span class="pre">xyzs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preamble</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'//'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.xyzs" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain a set of geometries in xyz file format</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>preamble</strong> – Prepend this to the xpath search expression to locate the geometry</p></li>
 <li><p><strong>title</strong> – A title to be injected into the second line</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of strings containing the xyz representation of the geometry</p>
 </dd>
 </dl>
@@ -902,20 +900,20 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">no_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.no_errors" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that none of the projects have any errors. Projects can by running.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>projects</strong> – list of projects to check for errors</p></li>
 <li><p><strong>ignore_warning</strong> – Whether to count warnings as well as errors.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True/False whether any projects have errors</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-pymolpro.orbital">
+</section>
+<section id="module-pymolpro.orbital">
 <span id="pymolpro-orbital-module"></span><h2>pymolpro.orbital module<a class="headerlink" href="#module-pymolpro.orbital" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.orbital.Orbital">
@@ -937,13 +935,13 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.evaluate" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate orbital on a grid of points</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>points</strong> – List of geometries specified as 3-list of values in bohr</p></li>
 <li><p><strong>values</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
 </dd>
 </dl>
@@ -954,14 +952,14 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.grid" title="Permalink to this definition"></a></dt>
 <dd><p>Generate a grid centred on the orbital.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>npt</strong> – Number of desired points in each coordinate.</p></li>
 <li><p><strong>method</strong> – Algorithm for grid generation.</p></li>
 <li><p><strong>scale</strong> – Scale the grid by this factor.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
 </dd>
 </dl>
@@ -979,8 +977,8 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-pymolpro.node_xml">
+</section>
+<section id="module-pymolpro.node_xml">
 <span id="pymolpro-node-xml-module"></span><h2>pymolpro.node_xml module<a class="headerlink" href="#module-pymolpro.node_xml" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.node_xml.AxesXml">
@@ -1213,21 +1211,21 @@ Attributes: str name, str type, str units, int length</p>
 <dd><p>Takes XML tag with namespace, outputs raw node name.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="module-pymolpro.grid">
+</section>
+<section id="module-pymolpro.grid">
 <span id="pymolpro-grid-module"></span><h2>pymolpro.grid module<a class="headerlink" href="#module-pymolpro.grid" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.grid.cubical_grid">
 <span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">cubical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights1d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.cubical_grid" title="Permalink to this definition"></a></dt>
 <dd><p>Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>points1d</strong> – </p></li>
 <li><p><strong>weights1d</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
 </dd>
 </dl>
@@ -1238,13 +1236,13 @@ Attributes: str name, str type, str units, int length</p>
 <span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateBasis" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate the orbital basis set on a grid</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
 <li><p><strong>points</strong> – numpy :,3 array</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>numpy :,: array, first index basis function, second index brid point</p>
 </dd>
 </dl>
@@ -1255,7 +1253,7 @@ Attributes: str name, str type, str units, int length</p>
 <span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateOrbitals" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate the molecular orbitals on a grid</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
 <li><p><strong>points</strong> – numpy :,3 array</p></li>
@@ -1264,7 +1262,7 @@ Attributes: str name, str type, str units, int length</p>
 <li><p><strong>values</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
 </dd>
 </dl>
@@ -1275,24 +1273,24 @@ Attributes: str name, str type, str units, int length</p>
 <span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">spherical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radial_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.spherical_grid" title="Permalink to this definition"></a></dt>
 <dd><p>Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>radial_points</strong> – </p></li>
 <li><p><strong>radial_weights</strong> – </p></li>
 <li><p><strong>l</strong> – Largest rank of spherical harmonic for which exact quadrature is wanted.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-pymolpro">
+</section>
+<section id="module-pymolpro">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pymolpro" title="Permalink to this heading"></a></h2>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
