@@ -28,12 +28,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          conda create --name pymolpro-test -c conda-forge 'pysjef>=1.32.0' pytest scipy numpy
+          conda create --name pymolpro-test -c conda-forge --file=requirements.txt
           conda activate pymolpro-test || true
+          python -m pip install --upgrade pip
           pip install numgrid
           pip install flake8 pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+#          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names

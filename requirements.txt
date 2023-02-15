@@ -4,4 +4,4 @@ regex
 lxml
 scipy>=1.9.3
 numpy
-sphinx-rtd-theme==1.0.0
+sphinx-rtd-theme>=1.0.0
