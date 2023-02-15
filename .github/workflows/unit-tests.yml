@@ -39,7 +39,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-          conda create --name pymolpro-test 'pysjef>=1.31.0' pytest scipy numpy
+          conda create --name pymolpro-test 'pysjef>=1.32.0' pytest scipy numpy
           conda activate pymolpro-test || true
           pip install numgrid
           pytest
