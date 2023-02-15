@@ -286,7 +286,7 @@ class Project(pysjef.project.Project):
         :param instance: Which set of pairs
         :return: a list of Pair objects
         """
-        jobsteps = self.xpath('//*/jobstep[pair]') #TODO use this instead of following when pysjef.xpath() supports default namespace in []
+        # jobsteps = self.xpath('//*/jobstep[pair]') #TODO use this instead of following when pysjef.xpath() supports default namespace in []
         jobsteps = self.xpath('//*/jobstep[@commandset="CCSD"]')
         if len(jobsteps) == 0:
             raise Exception('No orbital pairs found')
@@ -304,7 +304,7 @@ class Project(pysjef.project.Project):
         :param instance: Which set of singles
         :return: a list of Single objects
         """
-        jobsteps = self.xpath('//*/jobstep[single]') #TODO use this instead of following when pysjef.xpath() supports default namespace in []
+        # jobsteps = self.xpath('//*/jobstep[single]') #TODO use this instead of following when pysjef.xpath() supports default namespace in []
         jobsteps = self.xpath('//*/jobstep[@commandset="CCSD"]')
         if len(jobsteps) == 0:
             raise Exception('No orbital singles found')

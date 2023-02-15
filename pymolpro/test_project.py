@@ -1,10 +1,11 @@
 import unittest
 import pymolpro
+import os
 
 
 class TestProject(unittest.TestCase):
     def setUp(self):
-        self.project = pymolpro.Project("TestProject")
+        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)))
 
     def test_pairs_discovery(self):
         pair_energies = 0.0
