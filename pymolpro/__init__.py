@@ -3,6 +3,7 @@ from pysjef import *
 from pymolpro.project import no_errors, element_to_dict
 import pymolpro.node_xml as node_xml
 from pymolpro.orbital import Orbital
+from pymolpro.tuple import Tuple, Single, Pair
 from . import _version
 
 Settings.set('project_default_suffix', 'molpro')
@@ -13,3 +14,4 @@ RootXml.SPECIAL_NODES['molpro'] = {'property': node_xml.PropertyXml,
                                    'plot': node_xml.PlotXml}
 
 __version__ = _version.get_versions()['version']
+

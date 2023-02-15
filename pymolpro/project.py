@@ -278,6 +278,42 @@ class Project(pysjef.project.Project):
         import pymolpro.grid
         return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values)
 
+
+    def pairs(self, instance=-1):
+        """
+        Obtain some or all of the correlation pairs in the job output
+
+        :param instance: Which set of pairs
+        :return: a list of Pair objects
+        """
+        # jobsteps = self.xpath('//*/jobstep[pair]') #TODO use this instead of following when pysjef.xpath() supports default namespace in []
+        jobsteps = self.xpath('//*/jobstep[@commandset="CCSD"]')
+        if len(jobsteps) == 0:
+            raise Exception('No orbital pairs found')
+        if (instance >=0 and len(jobsteps) <= instance) or len(jobsteps) < abs(instance):
+            raise Exception('Not enough pair-containing jobsteps found')
+        from pymolpro import Pair
+        return [Pair(pair) for pair in self.xpath('pair', jobsteps[instance])]
+
+
+
+    def singles(self, instance=-1):
+        """
+        Obtain some or all of the correlation singles in the job output
+
+        :param instance: Which set of singles
+        :return: a list of Single objects
+        """
+        # jobsteps = self.xpath('//*/jobstep[single]') #TODO use this instead of following when pysjef.xpath() supports default namespace in []
+        jobsteps = self.xpath('//*/jobstep[@commandset="CCSD"]')
+        if len(jobsteps) == 0:
+            raise Exception('No orbital singles found')
+        if (instance >=0 and len(jobsteps) <= instance) or len(jobsteps) < abs(instance):
+            raise Exception('Not enough single-containing jobsteps found')
+        from pymolpro import Single
+        return [Single(single) for single in self.xpath('single', jobsteps[instance])]
+
+
     def variable(self, name, instance=-1, list=False, dict=False):
         """
         Return the value of a variable in the output xml stream
