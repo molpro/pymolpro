@@ -1,0 +1,6 @@
+symmetry,x,y
+geometry={He;He,He,3}
+rhf
+mp2
+ccsd
+put,xml

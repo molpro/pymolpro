@@ -1,23 +1,18 @@
 import numpy as np
-import scipy as sp
-import math
-import scipy.special
-from lxml import etree
-
-import pymolpro
+from pysjef import xpath
 from pymolpro.orbital import Orbital
 
 
 class Tuple:
     """
-    Container for a pair of orbitals
+    Container for a tuple of orbitals
     """
 
     def __init__(self, node):
         """
         Initialise from a node on a Molpro output xml tree
 
-        :param node: lxml.etree.Element holding a single orbital
+        :param node: lxml.etree.Element holding a correlation single or pair descriptor
         """
         self.node = node
         self.spins = [1]
@@ -42,9 +37,10 @@ class Tuple:
                 self.spins[-1] = -1
                 orbital3 = orbital3[1:]
         # TODO UHF case
-        self.orbitals = [Orbital(node) for node in pymolpro.xpath(self.node,
-                                                                  '/molpro//orbitals/orbital[@ID="' + orbital1 + '" or @ID="' + orbital2 + '" or @ID="' + orbital3 + '"]')]
-        self.energy = float(self.node.get('energy'))
+        self.orbitals = [Orbital(node) for node in xpath(self.node,
+                                                         '/molpro//orbitals/orbital[@ID="' + orbital1 + '" or @ID="' + orbital2 + '" or @ID="' + orbital3 + '"]')]
+        if orbital2 == orbital1: self.orbitals.append(self.orbitals[0])
+        self.energy = None if self.node.get('energy') is None else float(self.node.get('energy'))
 
     def data(self, grid=2):
         """

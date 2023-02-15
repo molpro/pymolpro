@@ -39,7 +39,5 @@ class TestPair(unittest.TestCase):
         print(self.pair.data())
 
 
-
-
 if __name__ == '__main__':
     unittest.main()
