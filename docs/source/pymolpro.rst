@@ -38,6 +38,14 @@ pymolpro.grid module
    :undoc-members:
    :show-inheritance:
 
+pymolpro.tuple module
+-------------------------
+
+.. automodule:: pymolpro.tuple
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
