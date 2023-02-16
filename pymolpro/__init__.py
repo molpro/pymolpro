@@ -6,6 +6,8 @@ from pymolpro.orbital import Orbital
 from pymolpro.tuple import Tuple, Single, Pair
 from . import _version
 
+__all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict']
+
 Settings.set('project_default_suffix', 'molpro')
 pysjef.project_factory.PROJECT_FACTORY["molpro"] = project.Project
 
@@ -14,4 +16,3 @@ RootXml.SPECIAL_NODES['molpro'] = {'property': node_xml.PropertyXml,
                                    'plot': node_xml.PlotXml}
 
 __version__ = _version.get_versions()['version']
-
