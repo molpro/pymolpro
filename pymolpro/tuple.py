@@ -1,6 +1,7 @@
 import numpy as np
 from pysjef import xpath
 from pymolpro.orbital import Orbital
+from lxml import etree
 
 
 class Tuple:
@@ -15,56 +16,44 @@ class Tuple:
         :param node: lxml.etree.Element holding a correlation single or pair descriptor
         """
         self.node = node
-        self.spins = [1]
-        orbital1 = node.get("orbital1") if node.get("orbital") is None else node.get("orbital")
-        if orbital1[0] == '-':
-            self.spins[0] = -1
-            orbital1 = orbital1[1:]
+        orbital_labels = [(node.get("orbital1") if node.get("orbital") is None else node.get("orbital"))]
         orbital2 = node.get("orbital2")
-        if orbital2 is None:
-            orbital2 = "nomatch"
-        else:
-            self.spins.append(1)
-            if orbital2[0] == '-':
-                self.spins[-1] = -1
-                orbital2 = orbital2[1:]
+        if orbital2 is not None:
+            orbital_labels.append(orbital2)
         orbital3 = node.get("orbital3")
-        if orbital3 is None:
-            orbital3 = "nomatch"
-        else:
-            self.spins.append(1)
-            if orbital3[0] == '-':
-                self.spins[-1] = -1
-                orbital3 = orbital3[1:]
+        if orbital3 is not None:
+            orbital_labels.append(orbital3)
+        self.len_ = len(orbital_labels)
+        self.spins = [1 for orbital in orbital_labels]
+        for particle in range(self.len_):
+            if orbital_labels[particle][0] == '-':
+                self.spins[particle] = -1
+                orbital_labels[particle] = orbital_labels[particle][1:]
         # TODO UHF case
-        self.orbitals = [Orbital(node) for node in xpath(self.node,
-                                                         '/molpro//orbitals/orbital[@ID="' + orbital1 + '" or @ID="' + orbital2 + '" or @ID="' + orbital3 + '"]')]
-        if orbital2 == orbital1: self.orbitals.append(self.orbitals[0])
+
+        # look for orbitals preceding
+        self.orbitals = []
+        for orbital_label in orbital_labels:
+            xpath_results = xpath(self.node,
+                                  '../preceding-sibling::molecule/orbitals/orbital[@ID="' + orbital_label + '"]')
+            if len(xpath_results) == 0:
+                break
+            self.orbitals.append(Orbital(xpath_results[-1]))
+
+        if len(self.orbitals) < self.len_:
+            # look for orbitals following
+            self.orbitals = []
+            for orbital_label in orbital_labels:
+                xpath_results = xpath(self.node,
+                                      '../following-sibling::molecule/orbitals/orbital[@ID="' + orbital_label + '"]')
+                if len(xpath_results) == 0:
+                    raise Exception("xml output does not contain orbitals for pair")
+                self.orbitals.append(Orbital(xpath_results[0]))
+
         self.energy = None if self.node.get('energy') is None else float(self.node.get('energy'))
 
-    def data(self, grid=2):
-        """
-        Construct a set of floating point data describing the orbital tuple together with the tuple energy
-
-        :param grid: Number of orbital grid points in each direction
-        :return: flat numpy array
-        """
-        result = np.array([], dtype=float)
-        for particle in range(len(self.spins)):
-            result = np.append(result, self.spins[particle])
-            orbital = self.orbitals[particle]
-            orbital_grid = np.reshape(orbital.grid(grid), (-1, 4))[:, :3]
-            print("orbital_grid: ", orbital_grid)
-            result = np.append(result, orbital_grid)
-            for other_particle in range(particle + 1, len(self.spins)):
-                other_orbital = self.orbitals[other_particle]
-                other_orbital_grid = np.reshape(other_orbital.grid(grid), (-1, 4))[:, :3]
-                for point in orbital_grid:
-                    for other_point in other_orbital_grid:
-                        dist = np.linalg.norm(point - other_point)
-                        result = np.append(result, 1 / dist)
-        return [result, self.energy]
-
+    def __len__(self):
+        return self.len_
 
 class Pair(Tuple):
     """
