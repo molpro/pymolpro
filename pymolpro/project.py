@@ -22,6 +22,13 @@ def no_errors(projects, ignore_warning=True):
 def element_to_dict(node, attributes=True):
     """
     Convert an lxml.etree node tree into a dict.
+
+    :param node: A node in an lxml tree
+    :type node: lxml.etree.ElementTree
+    :param attributes: whether to include attributes in the result
+    :type attributes: bool, optional
+    :return: A dictionary representing the tree
+    :rtype: dict
     """
     result = {}
     if attributes:

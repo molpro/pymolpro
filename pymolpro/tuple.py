@@ -17,7 +17,7 @@ class Tuple:
 
         """
         self.node = node
-        self.spins = [1] #: 1(alpha) or -1(beta) for each orbitala
+        self.spins = [1] #: 1(alpha) or -1(beta) for each orbital
         orbital1 = node.get("orbital1") if node.get("orbital") is None else node.get("orbital")
         if orbital1[0] == '-':
             self.spins[0] = -1
