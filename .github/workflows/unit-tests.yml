@@ -28,6 +28,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          conda search 'pysjef'
+          conda search 'pysjef>=1.29'
           conda search 'pysjef>=1.32'
           conda install -c conda-forge --no-channel-priority --override-channels --no-pin --file=requirements.txt -v -v -v
           python -m pip install --upgrade pip
