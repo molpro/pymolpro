@@ -30,9 +30,11 @@ jobs:
         run: |
           conda info
           uname -a
-          conda create --name pymolpro-test -c conda-forge --file=requirements.txt
+#          conda create --name pymolpro-test -c conda-forge --file=requirements.txt
+          conda create --name pymolpro-test -c conda-forge 'pysjef>=1.32'
           conda activate pymolpro-test || true
-          conda upgrade pysjef
+          conda install --file=requirements.txt
+#          conda upgrade pysjef
           python -m pip install --upgrade pip
           pip install numgrid
           pip install flake8 pytest
@@ -41,6 +43,7 @@ jobs:
 #          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
         run: |
+          conda activate pymolpro-test
           conda list
           # stop the build if there are Python syntax errors or undefined names
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
