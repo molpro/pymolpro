@@ -28,12 +28,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          conda info
-          uname -a
-          conda create --override-channels --name pymolpro-test -c conda-forge 'pysjef' mamba
-          conda search -c conda-forge pysjef
-          conda activate pymolpro-test || true
-          mamba update pysjef
+          conda install mamba
           mamba install --file=requirements.txt
           python -m pip install --upgrade pip
           pip install numgrid
@@ -43,8 +38,6 @@ jobs:
 #          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
         run: |
-          conda activate pymolpro-test
-          conda list
           # stop the build if there are Python syntax errors or undefined names
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
