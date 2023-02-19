@@ -30,8 +30,9 @@ jobs:
         run: |
           conda info
           uname -a
-          conda create --name pymolpro-test -c conda-forge 'pysjef>=1.32'
+          conda create --name pymolpro-test -c conda-forge pysjef>=1.32
           conda activate pymolpro-test || true
+          consta install --update-all
           conda install --file=requirements.txt
           python -m pip install --upgrade pip
           pip install numgrid
