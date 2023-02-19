@@ -30,10 +30,11 @@ jobs:
         run: |
           conda info
           uname -a
-          conda create --override-channels --name pymolpro-test -c conda-forge 'pysjef'
+          conda create --override-channels --name pymolpro-test -c conda-forge 'pysjef' mamba
+          conda search -c conda-forge pysjef
           conda activate pymolpro-test || true
-          conda install --update-all
-          conda install --file=requirements.txt
+          mamba update pysjef
+          mamba install --file=requirements.txt
           python -m pip install --upgrade pip
           pip install numgrid
           pip install flake8 pytest
