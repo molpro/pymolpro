@@ -28,8 +28,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          conda install mamba
-          mamba install -c conda-forge --override-channels --file=requirements.txt
+          conda install -c conda-forge --no-channel-priority --override-channels --file=requirements.txt
           python -m pip install --upgrade pip
           pip install numgrid
           pip install flake8 pytest
