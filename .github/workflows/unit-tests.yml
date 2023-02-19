@@ -28,6 +28,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          conda update conda
           conda install -c conda-forge --no-channel-priority --override-channels --file=requirements.txt
           python -m pip install --upgrade pip
           pip install numgrid
