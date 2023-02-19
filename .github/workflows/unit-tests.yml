@@ -30,11 +30,9 @@ jobs:
         run: |
           conda info
           uname -a
-#           conda create --name pymolpro-test -c conda-forge --file=requirements.txt
           conda create --name pymolpro-test -c conda-forge 'pysjef>=1.32'
           conda activate pymolpro-test || true
           conda install --file=requirements.txt
-#          conda upgrade pysjef
           python -m pip install --upgrade pip
           pip install numgrid
           pip install flake8 pytest
