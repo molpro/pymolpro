@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.1.9 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.2.5 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> pymolpro
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pymolpro
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -41,6 +46,16 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pymolpro</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pymolpro package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.Orbital"><code class="docutils literal notranslate"><span class="pre">Orbital</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.Pair"><code class="docutils literal notranslate"><span class="pre">Pair</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.Project"><code class="docutils literal notranslate"><span class="pre">Project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.Single"><code class="docutils literal notranslate"><span class="pre">Single</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.Tuple"><code class="docutils literal notranslate"><span class="pre">Tuple</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.element_to_dict"><code class="docutils literal notranslate"><span class="pre">element_to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.project">pymolpro.project module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a></li>
@@ -48,8 +63,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.project.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.orbital">pymolpro.orbital module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.orbital.Orbital"><code class="docutils literal notranslate"><span class="pre">Orbital</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.grid">pymolpro.grid module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.cubical_grid"><code class="docutils literal notranslate"><span class="pre">cubical_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateBasis"><code class="docutils literal notranslate"><span class="pre">evaluateBasis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateOrbitals"><code class="docutils literal notranslate"><span class="pre">evaluateOrbitals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.spherical_grid"><code class="docutils literal notranslate"><span class="pre">spherical_grid()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.node_xml">pymolpro.node_xml module</a><ul>
@@ -83,14 +101,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.node_xml.tag_to_name"><code class="docutils literal notranslate"><span class="pre">tag_to_name()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.grid">pymolpro.grid module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.cubical_grid"><code class="docutils literal notranslate"><span class="pre">cubical_grid()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateBasis"><code class="docutils literal notranslate"><span class="pre">evaluateBasis()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateOrbitals"><code class="docutils literal notranslate"><span class="pre">evaluateOrbitals()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.spherical_grid"><code class="docutils literal notranslate"><span class="pre">spherical_grid()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -112,7 +122,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">pymolpro</a></li>
       <li class="breadcrumb-item active">pymolpro package</li>
       <li class="wy-breadcrumbs-aside">
@@ -150,6 +160,174 @@
 </style>
 <section id="pymolpro-package">
 <h1>pymolpro package<a class="headerlink" href="#pymolpro-package" title="Permalink to this heading"></a></h1>
+<section id="module-pymolpro">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pymolpro" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.Orbital">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">Orbital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for an orbital (usually molecular).</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.Orbital.ID">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ID</span></span><a class="headerlink" href="#pymolpro.Orbital.ID" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.Orbital.attribute">
+<span class="sig-name descname"><span class="pre">attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital.attribute" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.Orbital.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate orbital on a grid of points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> – List of geometries specified as 3-list of values in bohr</p></li>
+<li><p><strong>values</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.Orbital.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital.grid" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a grid centred on the orbital.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>npt</strong> – Number of desired points in each coordinate.</p></li>
+<li><p><strong>method</strong> – Algorithm for grid generation.</p></li>
+<li><p><strong>scale</strong> – Scale the grid by this factor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.Orbital.kinetic_energy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kinetic_energy</span></span><a class="headerlink" href="#pymolpro.Orbital.kinetic_energy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.Orbital.local_second_moments">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">local_second_moments</span></span><a class="headerlink" href="#pymolpro.Orbital.local_second_moments" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.Pair">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">Pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Pair" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pymolpro.Tuple" title="pymolpro.tuple.Tuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple</span></code></a></p>
+<p>Container for a pair of orbitals</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.Project">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Project" title="Permalink to this definition"></a></dt>
+<dd><p>This is a project factory. Based on filename suffix it decides which Project to create.</p>
+<p>Extensions of pysjef which define a new project should add theirs to the <code class="docutils literal notranslate"><span class="pre">PROJECT_FACTORY</span></code>.
+The key is the suffix specifying the backend.</p>
+<p>Project(‘a’) # creates <code class="docutils literal notranslate"><span class="pre">a.sjef</span></code>
+Project(‘a.molpro’) # creates <code class="docutils literal notranslate"><span class="pre">a.molpro</span></code> and sets suffix to <code class="docutils literal notranslate"><span class="pre">.molpro</span></code>
+Project(‘a.sjef`, suffix=’molpro’) # creates <code class="docutils literal notranslate"><span class="pre">a.sjef.molpro</span></code> and sets suffix to <code class="docutils literal notranslate"><span class="pre">.molpro</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the file</p></li>
+<li><p><strong>suffix</strong> – suffix indicating which program to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.Single">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">Single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Single" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pymolpro.Tuple" title="pymolpro.tuple.Tuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple</span></code></a></p>
+<p>Container for a single orbital</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pymolpro.Tuple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">Tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Tuple" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container for a tuple of orbitals</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>lxml.etree.Element</em>) – Node holding a correlation single or pair descriptor</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pymolpro.Tuple.energy">
+<span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#pymolpro.Tuple.energy" title="Permalink to this definition"></a></dt>
+<dd><p>Correlation energy contribution from a Single or Pair</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pymolpro.Tuple.orbitals">
+<span class="sig-name descname"><span class="pre">orbitals</span></span><a class="headerlink" href="#pymolpro.Tuple.orbitals" title="Permalink to this definition"></a></dt>
+<dd><p>Orbital objects forming the tuple</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pymolpro.Tuple.spins">
+<span class="sig-name descname"><span class="pre">spins</span></span><a class="headerlink" href="#pymolpro.Tuple.spins" title="Permalink to this definition"></a></dt>
+<dd><p>1(alpha) or -1(beta) for each orbital</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.element_to_dict">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">element_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.element_to_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Convert an lxml.etree node tree into a dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>lxml.etree.ElementTree</em>) – A node in an lxml tree</p></li>
+<li><p><strong>attributes</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include attributes in the result</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary representing the tree</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.no_errors">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">no_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.no_errors" title="Permalink to this definition"></a></dt>
+<dd><p>Checks that none of the projects have any errors. Projects can by running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>projects</strong> – list of projects to check for errors</p></li>
+<li><p><strong>ignore_warning</strong> – Whether to count warnings as well as errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True/False whether any projects have errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
@@ -285,8 +463,8 @@ and callable selectors <cite>[func(attr1, attr2)]</cite> ( see <cite>select</cit
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unused</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.clean" title="Permalink to this definition"></a></dt>
-<dd><p>Remove potentially unwanted files from the project</p>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_run_directories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.clean" title="Permalink to this definition"></a></dt>
+<dd><p>Remove run directories from the project</p>
 </dd></dl>
 
 <dl class="py method">
@@ -597,6 +775,20 @@ Defaults to same directory as current project.</p></li>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.pairs">
+<span class="sig-name descname"><span class="pre">pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.pairs" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain some or all of the correlation pairs in the job output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance</strong> – Which set of pairs</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of Pair objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.parse">
 <span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.parse" title="Permalink to this definition"></a></dt>
 <dd><p>Parse the output file and save resultant node as a child
@@ -716,6 +908,20 @@ to the parsed output</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of nodes that pass selection criteria</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.project.Project.singles">
+<span class="sig-name descname"><span class="pre">singles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.singles" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain some or all of the correlation singles in the job output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance</strong> – Which set of singles</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of Single objects</p>
 </dd>
 </dl>
 </dd></dl>
@@ -893,6 +1099,20 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dt class="sig sig-object py" id="pymolpro.project.element_to_dict">
 <span class="sig-prename descclassname"><span class="pre">pymolpro.project.</span></span><span class="sig-name descname"><span class="pre">element_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.element_to_dict" title="Permalink to this definition"></a></dt>
 <dd><p>Convert an lxml.etree node tree into a dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>lxml.etree.ElementTree</em>) – A node in an lxml tree</p></li>
+<li><p><strong>attributes</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to include attributes in the result</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary representing the tree</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -913,31 +1133,53 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 </dd></dl>
 
 </section>
-<section id="module-pymolpro.orbital">
-<span id="pymolpro-orbital-module"></span><h2>pymolpro.orbital module<a class="headerlink" href="#module-pymolpro.orbital" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.orbital.</span></span><span class="sig-name descname"><span class="pre">Orbital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Container for an orbital (usually molecular).</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.ID">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ID</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.ID" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.attribute">
-<span class="sig-name descname"><span class="pre">attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.attribute" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.evaluate" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate orbital on a grid of points</p>
+<section id="module-pymolpro.grid">
+<span id="pymolpro-grid-module"></span><h2>pymolpro.grid module<a class="headerlink" href="#module-pymolpro.grid" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.cubical_grid">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">cubical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights1d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.cubical_grid" title="Permalink to this definition"></a></dt>
+<dd><p>Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points</strong> – List of geometries specified as 3-list of values in bohr</p></li>
+<li><p><strong>points1d</strong> – </p></li>
+<li><p><strong>weights1d</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.evaluateBasis">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateBasis" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the orbital basis set on a grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
+<li><p><strong>points</strong> – numpy :,3 array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy :,: array, first index basis function, second index brid point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.evaluateOrbitals">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateOrbitals" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the molecular orbitals on a grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
+<li><p><strong>points</strong> – numpy :,3 array</p></li>
+<li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
+<li><p><strong>ID</strong> – Only the orbital whose ID attribute matches this will be selected</p></li>
 <li><p><strong>values</strong> – </p></li>
 </ul>
 </dd>
@@ -947,34 +1189,22 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.grid">
-<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.orbital.Orbital.grid" title="Permalink to this definition"></a></dt>
-<dd><p>Generate a grid centred on the orbital.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.spherical_grid">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">spherical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radial_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.spherical_grid" title="Permalink to this definition"></a></dt>
+<dd><p>Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>npt</strong> – Number of desired points in each coordinate.</p></li>
-<li><p><strong>method</strong> – Algorithm for grid generation.</p></li>
-<li><p><strong>scale</strong> – Scale the grid by this factor.</p></li>
+<li><p><strong>radial_points</strong> – </p></li>
+<li><p><strong>radial_weights</strong> – </p></li>
+<li><p><strong>l</strong> – Largest rank of spherical harmonic for which exact quadrature is wanted.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.kinetic_energy">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kinetic_energy</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.kinetic_energy" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pymolpro.orbital.Orbital.local_second_moments">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">local_second_moments</span></span><a class="headerlink" href="#pymolpro.orbital.Orbital.local_second_moments" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -1211,84 +1441,6 @@ Attributes: str name, str type, str units, int length</p>
 <dd><p>Takes XML tag with namespace, outputs raw node name.</p>
 </dd></dl>
 
-</section>
-<section id="module-pymolpro.grid">
-<span id="pymolpro-grid-module"></span><h2>pymolpro.grid module<a class="headerlink" href="#module-pymolpro.grid" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pymolpro.grid.cubical_grid">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">cubical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights1d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.cubical_grid" title="Permalink to this definition"></a></dt>
-<dd><p>Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>points1d</strong> – </p></li>
-<li><p><strong>weights1d</strong> – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pymolpro.grid.evaluateBasis">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateBasis" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate the orbital basis set on a grid</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
-<li><p><strong>points</strong> – numpy :,3 array</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>numpy :,: array, first index basis function, second index brid point</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pymolpro.grid.evaluateOrbitals">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">evaluateOrbitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minocc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.evaluateOrbitals" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate the molecular orbitals on a grid</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>molecule</strong> – lxml.etree.Element holding the molecule</p></li>
-<li><p><strong>points</strong> – numpy :,3 array</p></li>
-<li><p><strong>minocc</strong> – Only orbitals with at least this occupation will be returned</p></li>
-<li><p><strong>ID</strong> – Only the orbital whose ID attribute matches this will be selected</p></li>
-<li><p><strong>values</strong> – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pymolpro.grid.spherical_grid">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">spherical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radial_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.spherical_grid" title="Permalink to this definition"></a></dt>
-<dd><p>Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>radial_points</strong> – </p></li>
-<li><p><strong>radial_weights</strong> – </p></li>
-<li><p><strong>l</strong> – Largest rank of spherical harmonic for which exact quadrature is wanted.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-pymolpro">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pymolpro" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 
