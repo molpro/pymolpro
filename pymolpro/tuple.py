@@ -8,10 +8,6 @@ class Tuple:
     r"""
     Container for a tuple of orbitals
 
-    :math:`E=mc^2`
-
-    :math:`\vec e_z=\vec r_{ij}/r_{ij}`
-
     :param node: Node holding a correlation single or pair descriptor
     :type node: lxml.etree.Element
     """
