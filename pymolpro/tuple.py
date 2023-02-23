@@ -99,7 +99,7 @@ class Pair(Tuple):
         The coordinate axes of the orbitals expressed in the basis of the pair coordinate system.
 
         :return:
-        :rtype: np.array(3,3)
+        :rtype: list(np.array(3,3))
         """
         return [np.matmul(self.axes.transpose(), orbital.axes) for orbital in self.orbitals]
 
