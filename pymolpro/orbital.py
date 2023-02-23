@@ -13,6 +13,11 @@ class Orbital:
 
     @property
     def kinetic_energy(self):
+        """
+        Kinetic energy expectation value for the orbital.
+
+
+        """
         return float(self.attribute('moments').split()[9])
 
     def attribute(self, key):
@@ -96,9 +101,13 @@ class Orbital:
         :param node: lxml.etree.Element holding a single orbital
         """
         self.node = node
-        self.occupation = float(self.attribute('occupation'))
-        self.centroid = [float(self.attribute('moments').split()[k]) for k in range(3)]
-        self.second_moment_eigenvalues, self.second_moment_eigenvectors = np.linalg.eigh(self.local_second_moments)
+        self.occupation = float(self.attribute('occupation')) #: Occupation of the orbital
+        self.centroid = np.array([float(self.attribute('moments').split()[k]) for k in range(3)]) #: Centroid of the orbital
+        #: Eigenvalues of the orbital second-moment tensor (origin at centre of charge) in ascending order
+        self.second_moment_eigenvalues, self._second_moment_eigenvectors = np.linalg.eigh(self.local_second_moments)
+        for i in range(3):
+            if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0: self._second_moment_eigenvectors[:,
+                                                                                  i] *= -1
         self.coefficients = self.node.text.split()
         self.coefficients = [float(c) for c in self.coefficients]
 
@@ -117,5 +126,18 @@ class Orbital:
 
     def __local_to_global(self, local_coordinates, scaling=[1., 1., 1.]):
         return np.array([self.centroid for k in local_coordinates[:, 0]]) + np.matmul(
-            np.matmul(self.second_moment_eigenvectors, np.diagflat(scaling)),
+            np.matmul(self.axes, np.diagflat(scaling)),
             local_coordinates[:, :3].transpose()).transpose()
+
+    @property
+    def axes(self):
+        r"""
+        The coordinate system for the orbital.  The :math:`z` axis is the normalised vector
+        :math:`\vec e_{z}` that is the eigenvector of the second-moment tensor of largest eigenvalue,
+        similarly for :math:`\vec e_y, \vec e_x`.
+        The phase of each axis is chosen such that the largest of the coefficients specifying the axis in the global coordinate system is positive.
+
+        :return: The axes, with the first index labelling the component in the base coordinate system, and the second index specifying which orbital axis.
+        :rtype: np.array(3,3)
+        """
+        return self._second_moment_eigenvectors

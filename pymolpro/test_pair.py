@@ -76,6 +76,11 @@ class TestPair(unittest.TestCase):
         self.assertEqual(pair.orbitals[0].node.text, "-1.0 -2.0")
         self.assertEqual(len(pair), 2)
 
+    def test_axes(self):
+        pair = pymolpro.Pair(pymolpro.xpath(self.root, "//pair")[1])
+        self.assertTrue(np.allclose(np.matmul(pair.axes, pair.axes.transpose()), np.identity(3)))
+        self.assertTrue(np.allclose(np.matmul(pair.axes.transpose(), pair.axes), np.identity(3)))
+        self.assertTrue(np.allclose(pair.axes, np.identity(3)))
 
 if __name__ == '__main__':
-    unittest.main()
+            unittest.main()

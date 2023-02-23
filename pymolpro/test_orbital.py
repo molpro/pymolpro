@@ -8,26 +8,32 @@ from lxml import etree
 class TestOrbital(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        root = etree.Element("molpro")
-        orbital_node = etree.SubElement(root, "orbital", occupation='2.0', ID='1.1',
-                                        moments='0.0 0.0 0.0 1.0 1.0 1.0 0.0 0.0 0.0 0.0')
+        cls.root = etree.Element("molpro")
+        orbital_node = etree.SubElement(cls.root, "orbital", occupation='2.0', ID='1.1',
+                                        moments='0.0 0.0 0.0 1.0 2.0 3.0 1.0 0.7 -0.4 0.0')
         orbital_node.text = '1.0 2.0'
         cls.orbital = pymolpro.Orbital(orbital_node)
-
-    def test_construction(self):
-        root = etree.Element("molpro")
-        orbital_node = etree.SubElement(root, "orbital", occupation='2.0', ID='1.1',
+        orbital_node = etree.SubElement(cls.root, "orbital", occupation='2.0', ID='1.1',
                                         moments='0.0 0.0 0.0 1.0 1.0 1.0 0.0 0.0 0.0 0.0')
         orbital_node.text = '1.0 2.0'
-        orbital = pymolpro.Orbital(orbital_node)
-        self.assertEqual(orbital.ID, '1.1')  # add assertion here
-        self.assertEqual(orbital.occupation, 2.0)  # add assertion here
-        self.assertEqual(orbital.coefficients, [1.0, 2.0])
+        cls.aligned_orbital = pymolpro.Orbital(orbital_node)
+
+    def test_construction(self):
+        self.assertEqual(self.orbital.ID, '1.1')  # add assertion here
+        self.assertEqual(self.orbital.occupation, 2.0)  # add assertion here
+        self.assertEqual(self.orbital.coefficients, [1.0, 2.0])
+
+    def test_axes(self):
+        self.assertEqual(self.orbital.ID, '1.1')
+        reconstructed_second_moments = np.matmul(self.orbital.axes,
+                                                 np.matmul(np.diagflat(self.orbital.second_moment_eigenvalues),
+                                                           self.orbital.axes.transpose()))
+        np.testing.assert_almost_equal(reconstructed_second_moments, self.orbital.local_second_moments)
 
     def test_large_grid(self):
-        self.assertEqual(self.orbital.ID, '1.1')
         for grid in ['Gauss-Hermite', 'Lebedev-Mura', 'Lebedev-Gauss-Laguerre']:
-            points = self.orbital.grid(55, grid, scale=2.0 if 'Mura' in grid else 0.5 if 'Hermite' in grid else 1.0)
+            points = self.aligned_orbital.grid(55, grid,
+                                               scale=2.0 if 'Mura' in grid else 0.5 if 'Hermite' in grid else 1.0)
             integral = 0.0
             for i in range(len(points)):
                 # integral += weights[i] * math.exp(-np.linalg.norm(points[i, :])) / 4 / math.pi
@@ -37,7 +43,7 @@ class TestOrbital(unittest.TestCase):
     def test_gauss_hermite(self):
         from scipy.special import factorial2
         size = 15
-        points = self.orbital.grid(size, 'Gauss-Hermite', scale=1.0)
+        points = self.aligned_orbital.grid(size, 'Gauss-Hermite', scale=1.0)
         integrals = []
         for power in range(0, size // 2):
             integral002 = 0.0
@@ -58,7 +64,7 @@ class TestOrbital(unittest.TestCase):
         integrals = []
         for size in range(1, 10):
             for m in range(1, 5):
-                points = self.orbital.grid(size, 'Lebedev-Mura', scale=1.0, grid_parameters=[m, 1])
+                points = self.aligned_orbital.grid(size, 'Lebedev-Mura', scale=1.0, grid_parameters=[m, 1])
                 alpha = 0.7475238520470884
                 alpha = 1
                 integral = 0.0
@@ -93,7 +99,7 @@ class TestOrbital(unittest.TestCase):
             scale = math.exp(scalelog / 100.0)
             alpha = scale / beta
             for m in range(2, 5):
-                points = self.orbital.grid(size, 'Lebedev-Mura', scale=alpha, grid_parameters=[m])
+                points = self.aligned_orbital.grid(size, 'Lebedev-Mura', scale=alpha, grid_parameters=[m])
                 # print("alpha=",alpha)
                 # print(points)
                 norm = 0
