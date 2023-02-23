@@ -93,6 +93,16 @@ class Pair(Tuple):
         axes[:, 1] = np.cross(axes[:, 2], axes[:, 0])
         return axes
 
+    @property
+    def local_orbital_axes(self):
+        r"""
+        The coordinate axes of the orbitals expressed in the basis of the pair coordinate system.
+
+        :return:
+        :rtype: np.array(3,3)
+        """
+        return [np.matmul(self.axes.transpose(), orbital.axes) for orbital in self.orbitals]
+
 
 class Single(Tuple):
     """
