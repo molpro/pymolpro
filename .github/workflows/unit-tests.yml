@@ -28,6 +28,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          conda search -vv pysjef
           conda create --name pymolpro-test -c conda-forge --file=requirements.txt
           conda activate pymolpro-test || true
           python -m pip install --upgrade pip
