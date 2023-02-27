@@ -18,6 +18,7 @@ jobs:
         with:
           miniconda-version: "latest"
           channels: conda-forge, defaults
+          mamba-version: "*"
           use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
           auto-update-conda: true
           auto-activate-base: true
@@ -35,8 +36,8 @@ jobs:
           conda config --show-sources
           conda config --show
           rm -rf /home/runner/conda_pkgs_dir/cache/*
-          conda search -vv pysjef
-          conda create --name pymolpro-test -c conda-forge --file=requirements.txt
+          mamba search -vv pysjef
+          mamba create --name pymolpro-test -c conda-forge --file=requirements.txt
           conda activate pymolpro-test || true
           python -m pip install --upgrade pip
           pip install numgrid
