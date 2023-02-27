@@ -22,6 +22,7 @@ jobs:
           auto-update-conda: true
           auto-activate-base: true
           show-channel-urls: true
+          channel-priority: true
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
