@@ -21,6 +21,7 @@ jobs:
           use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
           auto-update-conda: true
           auto-activate-base: true
+          show-channel-urls: true
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -28,6 +29,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          conda info
+          conda list
+          conda config --show-sources
+          conda config --show
           conda search -vv pysjef
           conda create --name pymolpro-test -c conda-forge --file=requirements.txt
           conda activate pymolpro-test || true
