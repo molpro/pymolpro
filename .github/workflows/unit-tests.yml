@@ -33,6 +33,7 @@ jobs:
           conda list
           conda config --show-sources
           conda config --show
+          rm -rf /home/runner/conda_pkgs_dir/cache/*
           conda search -vv pysjef
           conda create --name pymolpro-test -c conda-forge --file=requirements.txt
           conda activate pymolpro-test || true
