@@ -24,6 +24,8 @@ jobs:
           auto-activate-base: true
           show-channel-urls: true
           channel-priority: true
+          allow-softlinks: true
+          python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
