@@ -32,7 +32,7 @@ jobs:
           pip install flake8 pytest
           pip list|grep numgrid
           python -c 'import numgrid; print(numgrid)'
-          ls -lR /usr/share/miniconda3/envs/test/lib/python${{ matrix.pyton-version }}/site-packages
+          ls -lR /usr/share/miniconda3/envs/test/lib/python${{ matrix.python-version }}/site-packages
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
