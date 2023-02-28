@@ -29,6 +29,7 @@ jobs:
           conda install --file=requirements.txt
           python -m pip install 'numgrid>=1.1.2'
           python -m pip install flake8 pytest
+          pip list|grep numgrid
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
