@@ -1,7 +1,8 @@
 pysjef>=1.32.0
-pytest>=7.2.0
+pytest
 regex
 lxml
 scipy>=1.9.3
 numpy
 sphinx-rtd-theme>=1.0.0
+numgrid==1.1.2
