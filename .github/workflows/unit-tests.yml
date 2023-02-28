@@ -27,8 +27,9 @@ jobs:
       - name: Install dependencies
         run: |
           conda install --file=requirements.txt
-          python -m pip install 'numgrid>=1.1.2'
-          python -m pip install flake8 pytest
+          python -m pip install --upgrade pip
+          pip install 'numgrid>=1.1.2'
+          pip install flake8 pytest
           pip list|grep numgrid
           python -c 'import numgrid; print(numgrid)'
       - name: Lint with flake8
