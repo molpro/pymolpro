@@ -18,13 +18,6 @@ jobs:
         with:
           miniconda-version: "latest"
           channels: conda-forge, defaults
-          mamba-version: "*"
-          use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
-          auto-update-conda: true
-          auto-activate-base: true
-          show-channel-urls: true
-          channel-priority: true
-          allow-softlinks: true
           python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -33,15 +26,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-          rm -rf /home/runner/conda_pkgs_dir/cache/*
-          mamba search -vv pysjef
-          mamba create --name pymolpro-test -c conda-forge --file=requirements.txt
-          conda activate pymolpro-test || true
-          python -m pip install --upgrade pip
+#          conda info
+#          conda list
+#          conda config --show-sources
+#          conda config --show
+#          rm -rf /home/runner/conda_pkgs_dir/cache/*
+#          mamba search -vv pysjef
+          conda install --file=requirements.txt
+#          mamba create --name pymolpro-test -c conda-forge --file=requirements.txt
+#          conda activate pymolpro-test || true
+#          python -m pip install --upgrade pip
           pip install numgrid
           pip install flake8 pytest
 #          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
