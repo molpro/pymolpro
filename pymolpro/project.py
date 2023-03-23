@@ -60,8 +60,41 @@ class Project(pysjef.project.Project):
     Project is a node with parsed molpro output as the only child.
     """
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, name, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
+                 preamble="",
+                 postamble="",
+                 **kwargs):
+        super().__init__(name=name, **kwargs)
+        if geometry != "":  # construct input
+            geometry_spec = name + ".xyz"
+            import re
+            if re.match(re.compile(
+                    r'^(?:http|ftp)s?://'  # http:// or https://
+                    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+                    r'localhost|'  # localhost...
+                    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+                    r'(?::\d+)?'  # optional port
+                    r'(?:/?|[/?]\S+)$', re.IGNORECASE), geometry) is not None:
+                import urllib.request
+                urllib.request.urlretrieve(geometry, self.location / geometry_spec)
+            else:
+                try:
+                    with open(geometry, "r") as file:
+                        with open(self.location / geometry_spec, "w") as ofile:
+                            ofile.write(file.read())
+                except:
+                    geometry_spec = '{' + geometry + '}'
+            self.write_input(f"""
+{"symmetry, nosym" if not symm else ""}
+geometry={geometry_spec}
+basis,{basis}
+{preamble}
+{method}
+{"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
+{"optg" if func[:3] == 'opt' else ""}
+{postamble}
+{{put,xml;noorbitals,nobasis}}
+""")
 
     def errors(self, ignore_warning=True):
         '''
@@ -285,7 +318,6 @@ class Project(pysjef.project.Project):
         import pymolpro.grid
         return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values)
 
-
     def pairs(self, instance=-1):
         """
         Obtain some or all of the correlation pairs in the job output
@@ -297,12 +329,10 @@ class Project(pysjef.project.Project):
         jobsteps = self.xpath('//*/jobstep[@commandset="CCSD"]')
         if len(jobsteps) == 0:
             raise Exception('No orbital pairs found')
-        if (instance >=0 and len(jobsteps) <= instance) or len(jobsteps) < abs(instance):
+        if (instance >= 0 and len(jobsteps) <= instance) or len(jobsteps) < abs(instance):
             raise Exception('Not enough pair-containing jobsteps found')
         from pymolpro import Pair
         return [Pair(pair) for pair in self.xpath('pair', jobsteps[instance])]
-
-
 
     def singles(self, instance=-1):
         """
@@ -315,11 +345,10 @@ class Project(pysjef.project.Project):
         jobsteps = self.xpath('//*/jobstep[@commandset="CCSD"]')
         if len(jobsteps) == 0:
             raise Exception('No orbital singles found')
-        if (instance >=0 and len(jobsteps) <= instance) or len(jobsteps) < abs(instance):
+        if (instance >= 0 and len(jobsteps) <= instance) or len(jobsteps) < abs(instance):
             raise Exception('Not enough single-containing jobsteps found')
         from pymolpro import Single
         return [Single(single) for single in self.xpath('single', jobsteps[instance])]
-
 
     def variable(self, name, instance=-1, list=False, dict=False):
         """
