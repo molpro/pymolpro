@@ -54,6 +54,25 @@ def element_to_dict(node, attributes=True):
     return result
 
 
+def resolve_geometry(geometry):
+    import re
+    if re.match(re.compile(
+            r'^(?:http|ftp|file)s?://'  # http:// or https://
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+            r'localhost|'  # localhost...
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+            r'(?::\d+)?'  # optional port
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE), geometry) is not None:
+        import urllib.request
+        return urllib.request.urlopen(geometry).read()
+    else:
+        try:
+            with open(geometry, "r") as file:
+                return file.read()
+        except:
+            return geometry
+
+
 class Project(pysjef.project.Project):
     """
     Python binding to sjef, for managing molpro jobs.
@@ -66,27 +85,11 @@ class Project(pysjef.project.Project):
                  **kwargs):
         super().__init__(name=name, **kwargs)
         if geometry != "":  # construct input
-            geometry_spec = name + ".xyz"
-            import re
-            if re.match(re.compile(
-                    r'^(?:http|ftp)s?://'  # http:// or https://
-                    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
-                    r'localhost|'  # localhost...
-                    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
-                    r'(?::\d+)?'  # optional port
-                    r'(?:/?|[/?]\S+)$', re.IGNORECASE), geometry) is not None:
-                import urllib.request
-                urllib.request.urlretrieve(geometry, self.location / geometry_spec)
-            else:
-                try:
-                    with open(geometry, "r") as file:
-                        with open(self.location / geometry_spec, "w") as ofile:
-                            ofile.write(file.read())
-                except:
-                    geometry_spec = '{' + geometry + '}'
             self.write_input(f"""
 {"symmetry, nosym" if not symm else ""}
-geometry={geometry_spec}
+geometry={{
+{resolve_geometry(geometry)}
+}}
 basis,{basis}
 {preamble}
 {method}
