@@ -1,7 +1,7 @@
 import unittest
 
 import pymolpro
-from pymolpro import Database
+from pymolpro.database import Database
 import os
 
 
@@ -56,25 +56,25 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertEqual(db.reactions, db2.reactions)
 
     def test_library(self):
-        db = pymolpro.library_database('sample')
+        db = pymolpro.database.library('sample')
         self.assertEqual(len(db.molecules), 4)
         self.assertEqual(len(db.reactions), 2)
 
     def test_run_database(self):
-        db = pymolpro.library_database('sample')
-        results = pymolpro.run_database(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
-        results2 = pymolpro.run_database(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
+        db = pymolpro.database.library('sample')
+        results = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
+        results2 = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
         self.assertEqual(results, results2)
         print(results)
 
     def test_compare_database_runs(self):
-        db = pymolpro.library_database('sample')
+        db = pymolpro.database.library('sample')
         results = [
-            pymolpro.run_database(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy"),
-            pymolpro.run_database(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
-            pymolpro.run_database(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
+            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy"),
+            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
+            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
         ]
-        outputs = pymolpro.compare_database_runs(results, results[-1])
+        outputs = pymolpro.database.compare(results, results[-1])
         self.assertEqual(len(outputs['reaction_statistics'].index), 4)
         self.assertEqual(len(outputs['molecule_statistics'].index), 4)
         self.assertEqual(len(outputs['reaction_energies'].index), len(db))

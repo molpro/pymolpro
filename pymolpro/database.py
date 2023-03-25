@@ -1,11 +1,7 @@
-import pandas as pd
-
-from pymolpro import resolve_geometry, Project
+from pymolpro import resolve_geometry
 import json
-import os.path
-from shutil import rmtree
-import multiprocessing
-import hashlib
+
+__all__ = ['Database', 'library', 'run', 'compare']
 
 
 class Database:
@@ -56,17 +52,23 @@ class Database:
         self.reactions = j_['reactions']
 
 
-def library_database(key):
+def library(key):
+    import os.path
     db = Database()
     db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
     return db
 
 
-def run_database(db, method="hf", basis="cc-pVTZ", location=".", parallel=multiprocessing.cpu_count(), backend="local",
-                 clean=False, **kwargs):
+from multiprocessing import cpu_count
+def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), backend="local",
+        clean=False, **kwargs):
+    from shutil import rmtree
+    import hashlib
     from multiprocessing.dummy import Pool
     from operator import methodcaller
-    if type(db) == str: db = library_database(db)
+    from pymolpro import Project
+    import os
+    if type(db) == str: db = library(db)
     project_dir_ = os.path.realpath(
         os.path.join(location, method.upper() + "_" + basis + "_" + hashlib.sha256(
             str(tuple(sorted(kwargs.items()))).encode('utf-8')).hexdigest()[-8:]))
@@ -101,7 +103,7 @@ def run_database(db, method="hf", basis="cc-pVTZ", location=".", parallel=multip
     }
 
 
-def compare_database_runs(results, reference_result, reactions=False, molecules=False):
+def compare(results, reference_result, reactions=False, molecules=False):
     import statistics
     results_ = list(results) if type(results) == list else [results]
     output = {}
@@ -109,11 +111,11 @@ def compare_database_runs(results, reference_result, reactions=False, molecules=
         for result in results_:
             result[typ + '_energy_errors'] = {key: value - reference_result[typ + '_energies'][key] for key, value in
                                               result[typ + '_energies'].items()}
-            result[typ+'_statistics']={
-                'mean': statistics.mean(result[typ+'_energy_errors'].values()),
-                'meanabs': statistics.mean([abs(v) for v in result[typ+'_energy_errors'].values()]),
-                'stdev': statistics.stdev(result[typ+'_energy_errors'].values()),
-                'maxabs': max([abs(v) for v in result[typ+'_energy_errors'].values()]),
+            result[typ + '_statistics'] = {
+                'mean': statistics.mean(result[typ + '_energy_errors'].values()),
+                'meanabs': statistics.mean([abs(v) for v in result[typ + '_energy_errors'].values()]),
+                'stdev': statistics.stdev(result[typ + '_energy_errors'].values()),
+                'maxabs': max([abs(v) for v in result[typ + '_energy_errors'].values()]),
             }
         for table in [typ + '_energies', typ + '_energy_errors', typ + '_statistics']:
             output[table] = __compare_database_runs_format_table(results_, table)
