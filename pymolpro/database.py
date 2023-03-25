@@ -21,19 +21,31 @@ class Database:
     def __len__(self):
         return len(self.reactions)
 
-    def add_molecule(self, name, geometry, fragment_lengths=[], description=None):
+    def add_molecule(self, name, geometry, fragment_lengths=None, reference_energy=None, description=None, InChi=None,
+                     SMILES=None):
         self.molecules[name] = {
-            'description': description,
             'geometry': resolve_geometry(geometry),
-            'fragment_lengths': fragment_lengths,
         }
+        self.molecules[name]['description'] = description if description is not None else name
+        if reference_energy is not None: self.molecules[name]['reference energy'] = reference_energy
+        if fragment_lengths is not None: self.molecules[name]['fragment lengths'] = fragment_lengths
+        if InChi is not None: self.molecules[name]['InChi'] = InChi
+        if SMILES is not None: self.molecules[name]['SMILES'] = SMILES
+
 
     def add_reaction(self, name, stoichiometry, reference_energy=None, description=None):
+        if reference_energy:
+            __reference_energy = reference_energy
+        else:
+            __reference_energy = 0.0
+            for reagent, stoi in stoichiometry.items():
+                __reference_energy += stoi * self.molecules[reagent]['reference energy']
         self.reactions[name] = {
-            'description': description,
             'stoichiometry': stoichiometry,
-            'reference energy': reference_energy,
+            'reference energy': __reference_energy,
         }
+        if description is not None: self.reactions[name]['description'] = description
+
 
     def dump(self, filename=None):
         if filename is not None:
@@ -41,6 +53,7 @@ class Database:
                 json.dump(self, f_, default=vars)
         else:
             return json.dumps(self, default=vars)
+
 
     def load(self, filename=None, string=""):
         if filename is not None:
@@ -52,14 +65,16 @@ class Database:
         self.reactions = j_['reactions']
 
 
-def library(key):
-    import os.path
-    db = Database()
-    db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
-    return db
+    def library(key):
+        import os.path
+        db = Database()
+        db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
+        return db
 
 
 from multiprocessing import cpu_count
+
+
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), backend="local",
         clean=False, **kwargs):
     from shutil import rmtree
