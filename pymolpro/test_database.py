@@ -3,6 +3,7 @@ import unittest
 import pymolpro
 from pymolpro.database import Database
 import os
+import shutil
 
 
 class TestDatabase(unittest.TestCase):
@@ -61,27 +62,29 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertEqual(len(db.reactions), 2)
 
     def test_run_database(self):
-        db = pymolpro.database.library('sample')
-        results = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
-        results2 = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
-        self.assertEqual(results, results2)
-        print(results)
+        if shutil.which('molpro'):
+            db = pymolpro.database.library('sample')
+            results = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
+            results2 = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
+            self.assertEqual(results, results2)
+            # print(results)
 
     def test_compare_database_runs(self):
-        db = pymolpro.database.library('sample')
-        results = [
-            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy"),
-            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
-            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
-        ]
-        outputs = pymolpro.database.compare(results, results[-1])
-        self.assertEqual(len(outputs['reaction_statistics'].index), 4)
-        self.assertEqual(len(outputs['molecule_statistics'].index), 4)
-        self.assertEqual(len(outputs['reaction_energies'].index), len(db))
-        for title, output in outputs.items():
-            self.assertEqual(len(output.columns), 3)
-            print(title)
-            print(output)
+        if shutil.which('molpro'):
+            db = pymolpro.database.library('sample')
+            results = [
+                pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy"),
+                pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
+                pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
+            ]
+            outputs = pymolpro.database.compare(results, results[-1])
+            self.assertEqual(len(outputs['reaction_statistics'].index), 4)
+            self.assertEqual(len(outputs['molecule_statistics'].index), 4)
+            self.assertEqual(len(outputs['reaction_energies'].index), len(db))
+            for title, output in outputs.items():
+                self.assertEqual(len(output.columns), 3)
+                # print(title)
+                # print(output)
 
 
 if __name__ == '__main__':
