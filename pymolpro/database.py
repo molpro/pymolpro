@@ -32,20 +32,22 @@ class Database:
         if InChi is not None: self.molecules[name]['InChi'] = InChi
         if SMILES is not None: self.molecules[name]['SMILES'] = SMILES
 
-
     def add_reaction(self, name, stoichiometry, reference_energy=None, description=None):
         if reference_energy:
             __reference_energy = reference_energy
         else:
-            __reference_energy = 0.0
-            for reagent, stoi in stoichiometry.items():
-                __reference_energy += stoi * self.molecules[reagent]['reference energy']
+            try:
+                __reference_energy = 0.0
+                for reagent, stoi in stoichiometry.items():
+                    __reference_energy += stoi * self.molecules[reagent]['reference energy']
+            except:
+                __reference_energy = None
         self.reactions[name] = {
             'stoichiometry': stoichiometry,
             'reference energy': __reference_energy,
         }
+        if __reference_energy is not None: self.reactions[name]['reference energy'] = __reference_energy
         if description is not None: self.reactions[name]['description'] = description
-
 
     def dump(self, filename=None):
         if filename is not None:
@@ -53,7 +55,6 @@ class Database:
                 json.dump(self, f_, default=vars)
         else:
             return json.dumps(self, default=vars)
-
 
     def load(self, filename=None, string=""):
         if filename is not None:
@@ -65,11 +66,11 @@ class Database:
         self.reactions = j_['reactions']
 
 
-    def library(key):
-        import os.path
-        db = Database()
-        db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
-        return db
+def library(key):
+    import os.path
+    db = Database()
+    db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
+    return db
 
 
 from multiprocessing import cpu_count
