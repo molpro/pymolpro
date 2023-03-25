@@ -4,6 +4,7 @@ from pymolpro.project import no_errors, element_to_dict, resolve_geometry
 import pymolpro.node_xml as node_xml
 from pymolpro.orbital import Orbital
 from pymolpro.tuple import Tuple, Single, Pair
+import pymolpro.database
 from . import _version
 
 __all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict', 'Database']
