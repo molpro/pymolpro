@@ -32,7 +32,7 @@ class Database:
         self.reactions[name] = {
             'description': description,
             'stoichiometry': stoichiometry,
-            'reference_energy': reference_energy,
+            'reference energy': reference_energy,
         }
 
     def dump(self, filename=None):
@@ -94,12 +94,12 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), ba
     if clean: rmtree(project_dir_)
 
     return {
-        "project_directory": project_dir_,
+        "project directory": project_dir_,
         "method": method,
         "basis": basis,
         "options": sorted(kwargs.items()),
-        "molecule_energies": molecule_energies,
-        "reaction_energies": reaction_energies,
+        "molecule energies": molecule_energies,
+        "reaction energies": reaction_energies,
     }
 
 
@@ -109,15 +109,15 @@ def compare(results, reference_result, reactions=False, molecules=False):
     output = {}
     for typ in ['reaction', 'molecule']:
         for result in results_:
-            result[typ + '_energy_errors'] = {key: value - reference_result[typ + '_energies'][key] for key, value in
-                                              result[typ + '_energies'].items()}
-            result[typ + '_statistics'] = {
-                'mean': statistics.mean(result[typ + '_energy_errors'].values()),
-                'meanabs': statistics.mean([abs(v) for v in result[typ + '_energy_errors'].values()]),
-                'stdev': statistics.stdev(result[typ + '_energy_errors'].values()),
-                'maxabs': max([abs(v) for v in result[typ + '_energy_errors'].values()]),
+            result[typ + ' energy errors'] = {key: value - reference_result[typ + ' energies'][key] for key, value in
+                                              result[typ + ' energies'].items()}
+            result[typ + ' statistics'] = {
+                'mean': statistics.mean(result[typ + ' energy errors'].values()),
+                'meanabs': statistics.mean([abs(v) for v in result[typ + ' energy errors'].values()]),
+                'stdev': statistics.stdev(result[typ + ' energy errors'].values()),
+                'maxabs': max([abs(v) for v in result[typ + ' energy errors'].values()]),
             }
-        for table in [typ + '_energies', typ + '_energy_errors', typ + '_statistics']:
+        for table in [typ + ' energies', typ + ' energy errors', typ + ' statistics']:
             output[table] = __compare_database_runs_format_table(results_, table)
     return output
 
@@ -132,7 +132,7 @@ def __compare_database_runs_format_table(results, dataset):
     output.columns = pd.MultiIndex.from_arrays([
         [result['method'].upper() for result in results],
         [result['basis'] for result in results],
-        [re.compile('^.*_').sub('', result['project_directory']) for result in results],
+        [re.compile('^.*_').sub('', result['project directory']) for result in results],
     ])
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
