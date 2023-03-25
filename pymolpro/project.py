@@ -92,6 +92,7 @@ geometry={{
 }}
 basis,{basis}
 {preamble}
+{"" if method.lower()[-2] in ["hf", "ks"] else ("df-hf" if method.lower()[:2]=='df' else "hf")}
 {method}
 {"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
 {"optg" if func[:3] == 'opt' else ""}
