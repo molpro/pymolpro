@@ -165,6 +165,7 @@ def __compare_database_runs_format_table(results, dataset):
 
 
 def basis_extrapolate(results, hf_results, x):
+    import re
     molecule_energies = {}
     for molecule_name in results[0]['molecule energies']:
         molecule_energies[molecule_name] = __extrapolate_single(
@@ -181,7 +182,10 @@ def basis_extrapolate(results, hf_results, x):
         )
     return {
         "method": results[0]['method'],
-        "basis": '[' + str(min(x)) + str(max(x)) + ']',
+        "basis": re.sub('(.*[Vv])[DTQ567]([Zz])', f'\\1[{str(min(x)) + str(max(x))}]\\2',
+                        results[0]['basis']) if re.match('.*[Vv][DTQ567][Zz]',
+                                                         results[0]['basis']) is not None else '[' + str(min(x)) + str(
+            max(x)) + ']',
         "molecule energies": molecule_energies,
         "reaction energies": reaction_energies,
     }
