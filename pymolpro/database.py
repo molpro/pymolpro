@@ -64,7 +64,8 @@ class Database:
             __j = json.loads(string)
         self.molecules = __j['molecules']
         self.reactions = __j['reactions']
-        self.preamble = __j['preamble']
+        if 'preamble' in __j:
+            self.preamble = __j['preamble']
 
     def reference_results(self):
         __results = {}
