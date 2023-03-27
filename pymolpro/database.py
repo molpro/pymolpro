@@ -9,7 +9,7 @@ class Database:
     Database of molecular structures and reactions
     """
 
-    def __init__(self, molecules={}, reactions={}):
+    def __init__(self, molecules={}, reactions={}, description="None"):
         self.molecules = {}
         self.reactions = {}
         for key, value in molecules.items():
@@ -17,6 +17,8 @@ class Database:
         for key, value in reactions.items():
             self.add_reaction(key, value)
         self.preamble = ""
+        self.description = "" if description is None else description
+        self.references = {}
 
     def __len__(self):
         return len(self.reactions)
@@ -64,8 +66,14 @@ class Database:
             __j = json.loads(string)
         self.molecules = __j['molecules']
         self.reactions = __j['reactions']
+        if 'references' in __j:
+            self.references = __j['references']
         if 'preamble' in __j:
             self.preamble = __j['preamble']
+        if 'description' in __j:
+            self.description = __j['description']
+        else:
+            self.description = "Molecular and reaction database"
 
     def reference_results(self):
         __results = {}
@@ -74,6 +82,16 @@ class Database:
         if all(['reference energy' in reaction for reaction in self.reactions.values()]):
             __results["reaction energies"] = {key: value['reference energy'] for key, value in self.reactions.items()}
         return __results
+
+    def __str__(self):
+        result = "Database" if self.description == "" or self.description is None else self.description
+        if len(self.references) > 0:
+            result += '\n\nReferences:\n'+str(self.references)
+        result += '\n\nMolecules:\n'+str(self.molecules)
+        result += '\n\nReactions:\n'+str(self.reactions)
+        if self.preamble is not None and self.preamble != "":
+            result += '\n\nPreamble:\n'+str(self.preamble)
+        return result
 
 
 def library(key):

@@ -57,7 +57,14 @@ for name, molecule in molecules.items():
     reactions_db.add_molecule(name, molecule['geometry'],
                               reference_energy=-molecule['De_exp'] / 2625.49963948, description=name)
 
+reactions_db.references = {
+    'Bak et al., 2001': 'https://doi.org/10.1063/1.481544',
+}
+
 atomisations_db = reactions_db
+
+reactions_db.description = "Database of closed-shell small-molecule reactions"
+atomisations_db.description = "Database of atomisations of closed-shell small-molecules"
 
 for name, reaction in reactions.items():
     reactions_db.add_reaction(name, reaction, description=name)
