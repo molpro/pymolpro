@@ -52,9 +52,10 @@ reactions["12"] = {"F2": -1, "H2": -1, "HF": +2}
 reactions["13"] = {"CH2": -2, "C2H4": +1}
 
 reactions_db = pymolpro.database.Database()
+reactions_db.preamble = 'angstrom'
 for name, molecule in molecules.items():
     reactions_db.add_molecule(name, molecule['geometry'],
-                              reference_energy=molecule['De_exp'] / 2625.49963948, description=name)
+                              reference_energy=-molecule['De_exp'] / 2625.49963948, description=name)
 
 atomisations_db = reactions_db
 

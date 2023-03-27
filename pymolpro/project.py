@@ -80,23 +80,25 @@ class Project(pysjef.project.Project):
     """
 
     def __init__(self, name, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
-                 preamble="",
-                 postamble="",
+                 preamble=None,
+                 postamble=None,
+                 initial=None,
                  **kwargs):
         super().__init__(name=name, **kwargs)
         if geometry != "":  # construct input
             self.write_input(f"""
+{initial if initial is not None else ""}
 {"symmetry, nosym" if not symm else ""}
 geometry={{
 {resolve_geometry(geometry)}
 }}
 basis,{basis}
-{preamble}
-{"" if method.lower()[-2] in ["hf", "ks"] else ("df-hf" if method.lower()[:2]=='df' else "hf")}
+{preamble if preamble is not None else ""}
+{"" if method.lower()[-2] in ["hf", "ks"] else ("df-hf" if method.lower()[:2] == 'df' else "hf")}
 {method}
 {"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
 {"optg" if func[:3] == 'opt' else ""}
-{postamble}
+{postamble if postamble is not None else ""}
 {{put,xml;noorbitals,nobasis}}
 """)
 

@@ -16,7 +16,7 @@ class Database:
             self.add_molecule(key, value)
         for key, value in reactions.items():
             self.add_reaction(key, value)
-        pass
+        self.preamble = ""
 
     def __len__(self):
         return len(self.reactions)
@@ -59,11 +59,20 @@ class Database:
     def load(self, filename=None, string=""):
         if filename is not None:
             with open(filename, "r") as f_:
-                j_ = json.load(f_)
+                __j = json.load(f_)
         else:
-            j_ = json.loads(string)
-        self.molecules = j_['molecules']
-        self.reactions = j_['reactions']
+            __j = json.loads(string)
+        self.molecules = __j['molecules']
+        self.reactions = __j['reactions']
+        self.preamble = __j['preamble']
+
+    def reference_results(self):
+        __results = {}
+        if all(['reference energy' in molecule for molecule in self.molecules.values()]):
+            __results["molecule energies"] = {key: value['reference energy'] for key, value in self.molecules.items()}
+        if all(['reference energy' in reaction for reaction in self.reactions.values()]):
+            __results["reaction energies"] = {key: value['reference energy'] for key, value in self.reactions.items()}
+        return __results
 
 
 def library(key):
@@ -77,7 +86,7 @@ from multiprocessing import cpu_count
 
 
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), backend="local",
-        clean=False, **kwargs):
+        clean=False, initial="", **kwargs):
     from shutil import rmtree
     import hashlib
     from multiprocessing.dummy import Pool
@@ -93,7 +102,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), ba
     projects = {}
     for molecule_name, molecule in db.molecules.items():
         projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'], method=method, basis=basis,
-                                          location=project_dir_,
+                                          location=project_dir_, initial=initial + "; " + db.preamble,
                                           **kwargs)
     with Pool(processes=parallel) as pool:
         pool.map(methodcaller('run', backend=backend, wait=True), projects.values(), 1)
@@ -129,8 +138,8 @@ def compare(results, reference_result, reactions=False, molecules=False):
                                               result[typ + ' energies'].items()}
             result[typ + ' statistics'] = {
                 'mean': statistics.mean(result[typ + ' energy errors'].values()),
-                'meanabs': statistics.mean([abs(v) for v in result[typ + ' energy errors'].values()]),
                 'stdev': statistics.stdev(result[typ + ' energy errors'].values()),
+                'meanabs': statistics.mean([abs(v) for v in result[typ + ' energy errors'].values()]),
                 'maxabs': max([abs(v) for v in result[typ + ' energy errors'].values()]),
             }
         for table in [typ + ' energies', typ + ' energy errors', typ + ' statistics']:
@@ -148,7 +157,37 @@ def __compare_database_runs_format_table(results, dataset):
     output.columns = pd.MultiIndex.from_arrays([
         [result['method'].upper() for result in results],
         [result['basis'] for result in results],
-        [re.compile('^.*_').sub('', result['project directory']) for result in results],
+        # [re.compile('^.*_').sub('', (result['project directory'] if 'project_directory' in list(result.keys()) else '')) for result in results],
     ])
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
+
+
+def basis_extrapolate(results, hf_results, x):
+    molecule_energies = {}
+    for molecule_name in results[0]['molecule energies']:
+        molecule_energies[molecule_name] = __extrapolate_single(
+            [result['molecule energies'][molecule_name] for result in results],
+            [result['molecule energies'][molecule_name] for result in hf_results],
+            x
+        )
+    reaction_energies = {}
+    for reaction_name in results[0]['reaction energies']:
+        reaction_energies[reaction_name] = __extrapolate_single(
+            [result['reaction energies'][reaction_name] for result in results],
+            [result['reaction energies'][reaction_name] for result in hf_results],
+            x
+        )
+    return {
+        "method": results[0]['method'],
+        "basis": '[' + str(min(x)) + str(max(x)) + ']',
+        "molecule energies": molecule_energies,
+        "reaction energies": reaction_energies,
+    }
+
+
+def __extrapolate_single(energies, hf_energies, x):
+    return (hf_energies[0] if x[0] > x[1] else hf_energies[1]) + (
+            x[0] * x[0] * x[0] * (energies[0] - hf_energies[0])
+            - x[1] * x[1] * x[1] * (energies[1] - hf_energies[1])
+    ) / (x[0] * x[0] * x[0] - x[1] * x[1] * x[1])
