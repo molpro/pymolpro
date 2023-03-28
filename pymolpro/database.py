@@ -8,6 +8,9 @@ __all__ = ['Database', 'library', 'run', 'compare']
 class Database:
     """
     Database of molecular structures and reactions
+
+    :param list molecules: Initial molecules to be added with default options to :py:meth:`add_molecule()`.
+
     """
 
     def __init__(self, molecules={}, reactions={}, description="None"):
