@@ -10,35 +10,59 @@ class Database:
     Database of molecular structures and reactions
 
     :param list molecules: Initial molecules to be added with default options to :py:meth:`add_molecule()`.
+    :param list reactions: Initial reactions to be added with default options to :py:meth:`add_reaction()`.
+    :param str description: Text describing the database
 
     """
 
     def __init__(self, molecules={}, reactions={}, description="None"):
-        self.molecules = {}
-        self.reactions = {}
+        self.molecules = {}  #: Dictionary of molecules
+        self.reactions = {}  #: Dictionary of reactions involving the :py:data:`molecules` together with stoichiometric factors
         for key, value in molecules.items():
             self.add_molecule(key, value)
         for key, value in reactions.items():
             self.add_reaction(key, value)
-        self.preamble = ""
-        self.description = "" if description is None else description
-        self.references = {}
+        self.preamble = ""  #: any Molpro commands that should be executed before geometry specification. Typically `angstrom` could be specified if the geometry specification is in Z-matrix format with numerical values that would, by default, be interpreted as Bohr.
+        self.description = "" if description is None else description  #: Text describing the database
+        self.references = {}  #: A dictionary of external references to the data. The keys should be a short-form string that you want printed, eg author, year, and the values URLs that lead to the resource.
 
     def __len__(self):
         return len(self.reactions)
 
-    def add_molecule(self, name, geometry, fragment_lengths=None, reference_energy=None, description=None, InChi=None,
+    def add_molecule(self, name, geometry, fragment_lengths=None, reference_energy=None, description=None, InChI=None,
                      SMILES=None):
+        r"""
+        Add a molecule to the database.  The minimal information that is stored is the geometry, but information from each of the optional arguments, if given, is also stored in the :py:data:`molecules` dictionary.
+
+        :param str name: The key for the molecule in :py:data:`molecules`.
+        :param str geometry: The geometry. Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separaetd either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
+        :param list fragment_lengths:  For a molecule that is to be considered as a supramolecular complex, the lengths of each of the fragments. The last value can be omitted.
+        :param float reference_energy:  The reference value for the energy of the molecule in Hartree units
+        :param str description: Descriptive text
+        :param str InChI: `InChI <https://www.inchi-trust.org>` string describing the molecule
+        :param str SMILES: `SMILES <http://opensmiles.org/opensmiles.html>` string describing the molecule
+        :return: The added molecule
+        :rtype: dict
+        """
         self.molecules[name] = {
             'geometry': resolve_geometry(geometry),
         }
         self.molecules[name]['description'] = description if description is not None else name
         if reference_energy is not None: self.molecules[name]['reference energy'] = reference_energy
         if fragment_lengths is not None: self.molecules[name]['fragment lengths'] = fragment_lengths
-        if InChi is not None: self.molecules[name]['InChi'] = InChi
+        if InChI is not None: self.molecules[name]['InChI'] = InChI
         if SMILES is not None: self.molecules[name]['SMILES'] = SMILES
+        return self.molecules[name]
 
     def add_reaction(self, name, stoichiometry, reference_energy=None, description=None):
+        r"""
+        Add a reaction to the database.  The minimal information that is stored is the stoichiometry, which references existing molecules in the database, but information from each of the optional arguments, if given, is also stored in the `:py:data:reactions` dictionary.
+        :param name:  The key for the reaction in :py:data:`reactions`.
+        :param stoichiometry: A dictionary describing the stoichiometry of the reaction. Each key should be a key in `:py:data:molecules`, and the value is an integer giving the number of equivalents of the molecule in the reaction, with the sign convention of positive for products, negative for reactants.
+        :param reference_energy: The reference value for the energy change of the reaction in Hartree units. If not given, and if all molecules in the reaction have a reference energy, it will be computed.
+        :param description:  Descriptive text
+        :return:  The added reaction
+        """
         if reference_energy:
             __reference_energy = reference_energy
         else:
@@ -54,8 +78,16 @@ class Database:
         }
         if __reference_energy is not None: self.reactions[name]['reference energy'] = __reference_energy
         if description is not None: self.reactions[name]['description'] = description
+        return self.reactions[name]
 
     def dump(self, filename=None):
+        r"""
+        Dump the database in json format.
+
+        :param str filename: If specified, the destination of the result
+        :return: If :py:data:`filename` is not specified, the json is returned as a string
+        :rtype: str
+        """
         if filename is not None:
             with open(filename, "w") as f_:
                 json.dump(self, f_, default=vars)
@@ -63,6 +95,12 @@ class Database:
             return json.dumps(self, default=vars)
 
     def load(self, filename=None, string=""):
+        r"""
+        Load the database from a json dump in either a file or a string
+
+        :param str filename: Source of dump
+        :param str string: Alternate source of dump if :py:data:`filename` is not given
+        """
         if filename is not None:
             with open(filename, "r") as f_:
                 __j = json.load(f_)
@@ -80,6 +118,12 @@ class Database:
             self.description = "Molecular and reaction database"
 
     def reference_results(self):
+        r"""
+        The reference values stored in the database.
+
+        :return: A dictionary containing, where possible, entries `molecule energies` and `reaction energies' constructed from the `reference energy` fields of each :py:data:`molecules` and :py:data:`reactions` entry.
+        :rtype: dict:
+        """
         __results = {}
         if all(['reference energy' in molecule for molecule in self.molecules.values()]):
             __results["molecule energies"] = {key: value['reference energy'] for key, value in self.molecules.items()}
@@ -90,15 +134,21 @@ class Database:
     def __str__(self):
         result = "Database" if self.description == "" or self.description is None else self.description
         if len(self.references) > 0:
-            result += '\n\nReferences:\n'+str(self.references)
-        result += '\n\nMolecules:\n'+str(self.molecules)
-        result += '\n\nReactions:\n'+str(self.reactions)
+            result += '\n\nReferences:\n' + str(self.references)
+        result += '\n\nMolecules:\n' + str(self.molecules)
+        result += '\n\nReactions:\n' + str(self.reactions)
         if self.preamble is not None and self.preamble != "":
-            result += '\n\nPreamble:\n'+str(self.preamble)
+            result += '\n\nPreamble:\n' + str(self.preamble)
         return result
 
 
 def library(key):
+    r"""
+    Construct a :py:class:`Database` from the library
+    :param str key: File name, without trailing .json, of the library database in /share/database
+    :return: The database
+    :rtype: Database
+    """
     import os.path
     db = Database()
     db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
@@ -130,11 +180,11 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), ba
     with Pool(processes=parallel) as pool:
         pool.map(methodcaller('run', backend=backend, wait=True), projects.values(), 1)
 
-    failed_jobs={}
+    failed_jobs = {}
     for molecule in db.molecules:
         project = projects[molecule]
         if project.status != 'completed' or not pymolpro.no_errors([project]):
-            failed_jobs[molecule]=project
+            failed_jobs[molecule] = project
 
     molecule_energies = {}
     for molecule_name in db.molecules:
