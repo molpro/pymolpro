@@ -72,8 +72,8 @@ for name, reaction in reactions.items():
 reactions_db.dump(
     os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', 'Bak2000_reactions' + '.json')))
 
-for element in ['H', 'C', 'N', 'O', 'F']:
-    atomisations_db.add_molecule(element, element, reference_energy=0.0, description=element)
+for element, spin in {'H': 1, 'C': 2, 'N': 3, 'O': 2, 'F': 1}.items():
+    atomisations_db.add_molecule(element, element, reference_energy=0.0, description=element, spin=spin)
 
 for name in molecules:
     stoi = {name: -1}
