@@ -86,6 +86,31 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 # print(title)
                 # print(output)
 
+    def test_fail(self):
+        if shutil.which('molpro'):
+            db = pymolpro.database.library('sample')
+
+            result = pymolpro.database.run(db, method='hf', basis='minao')
+            self.assertNotIn('failed', result)
+            shutil.rmtree(result['project directory'])
+
+            result = pymolpro.database.run(db, method='hf', preamble='memory,1,k', basis='minao')
+            self.assertIn('failed', result)
+            self.assertEqual(len(result['failed']), len(db.molecules))
+            self.assertEqual(result['failed']['HF'].status, 'failed')
+            shutil.rmtree(result['project directory'])
+
+            result = pymolpro.database.run(db, method='ccsd', preamble='charge=-10', basis='cc-pvdz')
+            self.assertIn('failed', result)
+            self.assertEqual(len(result['failed']), 1)
+            self.assertEqual(result['failed']['HF'].status, 'failed')
+            shutil.rmtree(result['project directory'])
+
+            result = pymolpro.database.run(db, method='bad-method', basis='minao')
+            self.assertIn('failed', result)
+            self.assertEqual(len(result['failed']), len(db.molecules))
+            shutil.rmtree(result['project directory'])
+
 
 if __name__ == '__main__':
     unittest.main()

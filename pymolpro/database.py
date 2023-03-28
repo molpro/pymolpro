@@ -1,3 +1,4 @@
+import pymolpro
 from pymolpro import resolve_geometry
 import json
 
@@ -126,25 +127,35 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=cpu_count(), ba
     with Pool(processes=parallel) as pool:
         pool.map(methodcaller('run', backend=backend, wait=True), projects.values(), 1)
 
+    failed_jobs={}
+    for molecule in db.molecules:
+        project = projects[molecule]
+        if project.status != 'completed' or not pymolpro.no_errors([project]):
+            failed_jobs[molecule]=project
+
     molecule_energies = {}
     for molecule_name in db.molecules:
         molecule_energies[molecule_name] = projects[molecule_name].variable('energy')
-    reaction_energies = {}
-    for reaction_name, reaction in db.reactions.items():
-        reaction_energies[reaction_name] = 0.0
-        for reagent, stoichiometry in reaction['stoichiometry'].items():
-            reaction_energies[reaction_name] += stoichiometry * molecule_energies[reagent]
-
-    if clean: rmtree(project_dir_)
-
-    return {
+    result = {
         "project directory": project_dir_,
         "method": method,
         "basis": basis,
         "options": sorted(kwargs.items()),
         "molecule energies": molecule_energies,
-        "reaction energies": reaction_energies,
     }
+    if len(failed_jobs) > 0:
+        result['failed'] = failed_jobs
+        return result
+
+    result['reaction energies'] = {}
+    for reaction_name, reaction in db.reactions.items():
+        result['reaction energies'][reaction_name] = 0.0
+        for reagent, stoichiometry in reaction['stoichiometry'].items():
+            result['reaction energies'][reaction_name] += stoichiometry * molecule_energies[reagent]
+
+    if clean: rmtree(project_dir_)
+
+    return result
 
 
 def compare(results, reference_result, reactions=False, molecules=False):
