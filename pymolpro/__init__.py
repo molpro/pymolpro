@@ -1,12 +1,13 @@
 import pysjef
 from pysjef import *
-from pymolpro.project import no_errors, element_to_dict
+from pymolpro.project import no_errors, element_to_dict, resolve_geometry
 import pymolpro.node_xml as node_xml
 from pymolpro.orbital import Orbital
 from pymolpro.tuple import Tuple, Single, Pair
+import pymolpro.database
 from . import _version
 
-__all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict']
+__all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict', 'Database']
 
 Settings.set('project_default_suffix', 'molpro')
 pysjef.project_factory.PROJECT_FACTORY["molpro"] = project.Project

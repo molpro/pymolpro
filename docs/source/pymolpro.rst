@@ -21,6 +21,14 @@ pymolpro.project module
    :show-inheritance:
    :inherited-members:
 
+pymolpro.database module
+-------------------------
+
+.. automodule:: pymolpro.database
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pymolpro.grid module
 -------------------------
 
