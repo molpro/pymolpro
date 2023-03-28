@@ -74,11 +74,41 @@ def resolve_geometry(geometry):
 
 
 class Project(pysjef.project.Project):
-    """
-    Python binding to sjef, for managing molpro jobs.
-    Project is a node with parsed molpro output as the only child.
-    """
+    r"""
+    A :py:class:`Project` holds all the data associated with a single Molpro job. This includes input, output, any auxiliary files, and information about
+    the state of the job. :py:class:`Project` acts as a reference to a
+    `sjef <https://molpro.github.io/sjef>`_
+    Project with some added functionality.
+    All of the data is stored in the project bundle on the file system, with the consequence that it is safe to construct and recreate multiple
+    :py:class:`Project` objects all mapping the same underlying project.
 
+    The underlying functionality of `sjef` includes job submission and monitoring on local or remote machines, and structured searching of Molpro's xml output stream.
+    This class provides additional convenience operations:
+
+    * Preparation of simple Molpro input from provided geometry, method, basis set and other options.
+
+    * Molpro-specific error checking.
+
+    * Computed properties, energies and geometries.
+
+    * Computed orbitals, including their evaluation on a grid.
+
+    * Values of Molpro variables.
+
+    :param str name: The base filename of the filesystem bundle carrying the project. If the bundle does not yet exist, it is created.
+    :param str geometry: The geometry.
+        If specified, the input for the job will be constructed, without the need for a subsequent call to :py:meth:`write_input()`.
+        Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
+    :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
+    :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
+    :param str func: This should be one of
+
+        * `energy` for a single geometry
+        * `opt` for a geometry optimisation
+
+    :param str extrapolate: If specified, carry out basis-set extrapolation. Anything that can appear after `extrapolate,basis=` in Molpro input is accepted.
+
+    """
     def __init__(self, name, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
                  preamble=None,
                  postamble=None,
@@ -92,7 +122,7 @@ class Project(pysjef.project.Project):
 geometry={{
 {resolve_geometry(geometry)}
 }}
-basis,{basis}
+basis={basis}
 {preamble if preamble is not None else ""}
 {"" if method.lower()[-2] in ["hf", "ks"] else ("df-hf" if method.lower()[:2] == 'df' else "hf")}
 {method}
@@ -107,6 +137,7 @@ basis,{basis}
         Return all error nodes
 
         :return: list of error nodes
+        :rtype: lxml.etree
         '''
         errors = self.select('//error')
         if ignore_warning:
