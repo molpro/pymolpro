@@ -107,12 +107,16 @@ class Project(pysjef.project.Project):
         * `opt` for a geometry optimisation
 
     :param str extrapolate: If specified, carry out basis-set extrapolation. Anything that can appear after `extrapolate,basis=` in Molpro input is accepted.
+    :param int spin: The spin multiplicity minus one
+    :param int charge: Electrical charge of molecule
 
     """
     def __init__(self, name, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
                  preamble=None,
                  postamble=None,
                  initial=None,
+                 charge=None,
+                 spin=None,
                  **kwargs):
         super().__init__(name=name, **kwargs)
         if geometry != "":  # construct input
@@ -124,7 +128,9 @@ geometry={{
 }}
 basis={basis}
 {preamble if preamble is not None else ""}
-{"" if method.lower()[-2] in ["hf", "ks"] else ("df-hf" if method.lower()[:2] == 'df' else "hf")}
+{"charge="+str(charge) if charge is not None else ""}
+{"spin="+str(spin) if spin is not None else ""}
+{"" if method.lower()[-2:] in ["hf", "ks"] else ("df-hf" if method.lower()[:2] == 'df' else "hf")}
 {method}
 {"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
 {"optg" if func[:3] == 'opt' else ""}

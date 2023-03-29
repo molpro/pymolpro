@@ -30,7 +30,7 @@ class Database:
         return len(self.reactions)
 
     def add_molecule(self, name, geometry, fragment_lengths=None, reference_energy=None, description=None, InChI=None,
-                     SMILES=None):
+                     SMILES=None, spin=None, charge=None):
         r"""
         Add a molecule to the database.  The minimal information that is stored is the geometry, but information from each of the optional arguments, if given, is also stored in the :py:data:`molecules` dictionary.
 
@@ -41,6 +41,8 @@ class Database:
         :param str description: Descriptive text
         :param str InChI: `InChI <https://www.inchi-trust.org>`_ string describing the molecule
         :param str SMILES: `SMILES <http://opensmiles.org/opensmiles.html>`_ string describing the molecule
+        :param int spin: The spin multiplicity minus one
+        :param int charge: Electrical charge of molecule
         :return: The added molecule
         :rtype: dict
         """
@@ -50,6 +52,8 @@ class Database:
         self.molecules[name]['description'] = description if description is not None else name
         if reference_energy is not None: self.molecules[name]['reference energy'] = reference_energy
         if fragment_lengths is not None: self.molecules[name]['fragment lengths'] = fragment_lengths
+        if spin is not None: self.molecules[name]['spin'] = spin
+        if charge is not None: self.molecules[name]['charge'] = charge
         if InChI is not None: self.molecules[name]['InChI'] = InChI
         if SMILES is not None: self.molecules[name]['SMILES'] = SMILES
         return self.molecules[name]
@@ -213,7 +217,9 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     projects = {}
     for molecule_name, molecule in db.molecules.items():
         projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'], method=method, basis=basis,
-                                          location=project_dir_, initial=initial + "; " + db.preamble,
+                                          location=project_dir_, initial=initial + "; " + db.preamble if len(initial)>0 else db.preamble,
+                                          spin=molecule['spin'] if 'spin' in molecule else None,
+                                          charge=molecule['charge'] if 'charge' in molecule else None,
                                           **kwargs)
     with Pool(processes=__parallel) as pool:
         pool.map(methodcaller('run', backend=backend, wait=True), projects.values(), 1)
