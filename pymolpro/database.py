@@ -217,7 +217,9 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     projects = {}
     for molecule_name, molecule in db.molecules.items():
         projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'], method=method, basis=basis,
-                                          location=project_dir_, initial=initial + "; " + db.preamble,
+                                          location=project_dir_, initial=initial + "; " + db.preamble if len(initial)>0 else db.preamble,
+                                          spin=molecule['spin'] if 'spin' in molecule else None,
+                                          charge=molecule['charge'] if 'charge' in molecule else None,
                                           **kwargs)
     with Pool(processes=__parallel) as pool:
         pool.map(methodcaller('run', backend=backend, wait=True), projects.values(), 1)
