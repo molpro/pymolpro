@@ -1,3 +1,5 @@
+import copy
+
 import pymolpro
 import os
 
@@ -61,7 +63,7 @@ reactions_db.references = {
     'Bak et al., 2001': 'https://doi.org/10.1063/1.481544',
 }
 
-atomisations_db = reactions_db
+atomisations_db = copy.deepcopy(reactions_db)
 
 reactions_db.description = "Database of closed-shell small-molecule reactions"
 atomisations_db.description = "Database of atomisations of closed-shell small-molecules"

@@ -288,7 +288,8 @@ def __compare_database_runs_format_table(results, dataset):
     row_labels = list(results[0][dataset].keys())
     output = pd.DataFrame(np.array(table).transpose(), index=row_labels)
     output.columns = pd.MultiIndex.from_arrays([
-        [result['method'].upper() for result in results],
+        [result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
+         results],
         [result['basis'] for result in results],
         # [re.compile('^.*_').sub('', (result['project directory'] if 'project_directory' in list(result.keys()) else '')) for result in results],
     ])
