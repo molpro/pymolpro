@@ -80,7 +80,7 @@ class Database:
             except:
                 __reference_energy = None
         self.reactions[name] = {
-            'stoichiometry': stoichiometry,
+            'stoichiometry': Stoichiometry(stoichiometry),
             'reference energy': __reference_energy,
         }
         if __reference_energy is not None: self.reactions[name]['reference energy'] = __reference_energy
@@ -117,6 +117,9 @@ class Database:
             __j = json.loads(string)
         self.molecules = __j['molecules']
         self.reactions = __j['reactions']
+        for reaction in self.reactions.values():
+            if reaction['stoichiometry'] is not None:
+                reaction['stoichiometry'] = Stoichiometry(reaction['stoichiometry'])
         if 'references' in __j:
             self.references = __j['references']
         if 'preamble' in __j:
@@ -142,13 +145,20 @@ class Database:
         return __results
 
     def __str__(self):
-        result = "Database" if self.description == "" or self.description is None else self.description
+        result = "Database\n" if self.description == "" or self.description is None else self.description + '\n'
         if len(self.references) > 0:
-            result += '\n\nReferences:\n' + str(self.references)
-        result += '\n\nMolecules:\n' + str(self.molecules)
-        result += '\n\nReactions:\n' + str(self.reactions)
+            result += '\nReferences:\n' + str(self.references) + '\n'
+        if len(self.molecules) > 0:
+            result += '\nMolecules:\n'
+            for name, molecule in self.molecules.items():
+                result += name + ': ' + str(molecule) + '\n'
+        if len(self.reactions) > 0:
+            result += '\nReactions:\n'
+            for name, reaction in self.reactions.items():
+                result += name + ': ' + str(reaction['stoichiometry']) + ' ' + str(
+                    {k: v for k, v in reaction.items() if k != 'stoichiometry'}) + '\n'
         if self.preamble is not None and self.preamble != "":
-            result += '\n\nPreamble:\n' + str(self.preamble)
+            result += '\nPreamble:\n' + str(self.preamble) + '\n'
         return result
 
 
@@ -241,6 +251,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         molecule_energies[molecule_name] = projects[molecule_name].variable('energy')
     result = {
         "project directory": project_dir_,
+        "projects": projects,
         "method": method,
         "basis": basis,
         "options": sorted(kwargs.items()),
@@ -256,7 +267,10 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         for reagent, stoichiometry in reaction['stoichiometry'].items():
             result['reaction energies'][reaction_name] += stoichiometry * molecule_energies[reagent]
 
-    if clean: rmtree(project_dir_)
+    if clean:
+        rmtree(project_dir_)
+        del result['projects']
+        del result['project directory']
 
     return result
 
@@ -329,3 +343,16 @@ def __extrapolate_single(energies, hf_energies, x):
             x[0] * x[0] * x[0] * (energies[0] - hf_energies[0])
             - x[1] * x[1] * x[1] * (energies[1] - hf_energies[1])
     ) / (x[0] * x[0] * x[0] - x[1] * x[1] * x[1])
+
+
+class Stoichiometry(dict):
+    def __str__(self):
+        return self.__format_reagents(-1) + " -> " + self.__format_reagents(1)
+
+    def __format_reagents(self, direction):
+        reagents = ""
+        for k, v in self.items():
+            if v * direction > 0:
+                reagents += ' + ' + (str(v * direction) if v * direction != 1 else "") + k
+        assert len(reagents) > 0
+        return reagents[3:]
