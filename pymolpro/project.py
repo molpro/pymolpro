@@ -120,6 +120,18 @@ class Project(pysjef.project.Project):
                  **kwargs):
         super().__init__(name=name, **kwargs)
         if geometry != "":  # construct input
+            __method = method.lower()
+            if __method[-2:] != 'hf' and __method[-2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
+                if __method[:2] == 'df':
+                    if __method[:4] == 'df-u':
+                        __method = 'df-uhf; '+__method
+                    else:
+                        __method = 'df-hf; '+__method
+                else:
+                    if __method[:1] == 'u':
+                        __method = 'uhf; '+__method
+                    else:
+                        __method = 'hf; '+__method
             self.write_input(f"""
 {initial if initial is not None else ""}
 {"symmetry, nosym" if not symm else ""}
@@ -130,8 +142,7 @@ basis={basis}
 {preamble if preamble is not None else ""}
 {"charge="+str(charge) if charge is not None else ""}
 {"spin="+str(spin) if spin is not None else ""}
-{"" if method.lower()[-2:] in ["hf", "ks"] else ("df-hf" if method.lower()[:2] == 'df' else "hf")}
-{method}
+{__method}
 {"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
 {"optg" if func[:3] == 'opt' else ""}
 {postamble if postamble is not None else ""}

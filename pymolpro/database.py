@@ -210,14 +210,20 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     import os
     if type(db) == str: db = library(db)
     project_dir_ = os.path.realpath(
-        os.path.join(location, method.upper() + "_" + basis + "_" + hashlib.sha256(
-            str(tuple(sorted(kwargs.items()))).encode('utf-8')).hexdigest()[-8:]))
+        os.path.join(location,
+                     hashlib.sha256(
+                         (str(method) + str(basis) + str(initial) +
+                          str(tuple(sorted(kwargs.items())))).encode('utf-8')).hexdigest()[-8:]))
     if not os.path.exists(project_dir_):
         os.makedirs(project_dir_)
     projects = {}
     for molecule_name, molecule in db.molecules.items():
-        projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'], method=method, basis=basis,
-                                          location=project_dir_, initial=initial + "; " + db.preamble if len(initial)>0 else db.preamble,
+        projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
+                                          method=method if type(method) == str else
+                                          method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else method[0],
+                                          basis=basis,
+                                          location=project_dir_,
+                                          initial=initial + "; " + db.preamble if len(initial) > 0 else db.preamble,
                                           spin=molecule['spin'] if 'spin' in molecule else None,
                                           charge=molecule['charge'] if 'charge' in molecule else None,
                                           **kwargs)
