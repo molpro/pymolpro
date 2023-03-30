@@ -198,10 +198,12 @@ def library(key):
     :return: The database
     :rtype: Database
     """
+    return Database().load(library_path(key))
+
+
+def library_path(key):
     import os.path
-    db = Database()
-    db.load(os.path.realpath(os.path.join(__file__, '..', 'share', 'database', key + '.json')))
-    return db
+    return os.path.realpath(os.path.join(__file__, '..', 'share', 'database', key + '.json'))
 
 
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
