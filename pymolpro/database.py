@@ -15,7 +15,7 @@ class Database:
 
     """
 
-    def __init__(self, molecules={}, reactions={}, description="None"):
+    def __init__(self, molecules={}, reactions={}, description=None):
         self.molecules = {}  #: Dictionary of molecules
         self.reactions = {}  #: Dictionary of reactions involving the :py:data:`molecules` together with stoichiometric factors
         for key, value in molecules.items():
@@ -25,6 +25,7 @@ class Database:
         self.preamble = ""  #: any Molpro commands that should be executed before geometry specification. Typically `angstrom` could be specified if the geometry specification is in Z-matrix format with numerical values that would, by default, be interpreted as Bohr.
         self.description = "" if description is None else description  #: Text describing the database
         self.references = {}  #: A dictionary of external references to the data. The keys should be a short-form string that you want printed, eg author, year, and the values URLs that lead to the resource.
+        self.subsets = {}  #: A dictionary defining subsets of the database reactions
 
     def __len__(self):
         return len(self.reactions)
@@ -81,11 +82,33 @@ class Database:
                 __reference_energy = None
         self.reactions[name] = {
             'stoichiometry': Stoichiometry(stoichiometry),
-            'reference energy': __reference_energy,
         }
         if __reference_energy is not None: self.reactions[name]['reference energy'] = __reference_energy
         if description is not None: self.reactions[name]['description'] = description
         return self.reactions[name]
+
+    def add_subset(self, subset_name, subset):
+        self.subsets[subset_name] = subset if type(subset) == list else [subset]
+        assert all([reaction in self.reactions for reaction in self.subsets[subset_name]])
+
+    def subset(self, subset):
+        """
+        Extract a subset of this database as a new database
+
+        :param subset: Either a key in the :py:data:`subsets` or a list of keys in :py:data:`reactions`
+        :return: The subset
+        :rtype: Database
+        """
+        subset_list = subset if type(subset) == list else self.subsets[subset]
+        db = Database(description=self.description)
+        for reaction in subset_list:
+            db.reactions[reaction] = self.reactions[reaction]
+        for molecule in self.molecules:
+            if any([molecule in reaction['stoichiometry'] for reaction in db.reactions.values()]):
+                db.molecules[molecule] = self.molecules[molecule]
+        db.preamble = str(self.preamble)
+        db.description = self.description + " (subset " + str(subset) + ")"
+        return db
 
     def dump(self, filename=None):
         r"""
@@ -128,6 +151,8 @@ class Database:
             self.description = __j['description']
         else:
             self.description = "Molecular and reaction database"
+        if 'subsets' in __j:
+            self.subsets = __j['subsets']
         return self
 
     def reference_results(self):
@@ -157,6 +182,10 @@ class Database:
             for name, reaction in self.reactions.items():
                 result += name + ': ' + str(reaction['stoichiometry']) + ' ' + str(
                     {k: v for k, v in reaction.items() if k != 'stoichiometry'}) + '\n'
+        if len(self.subsets) > 0:
+            result += '\nSubsets of reactions:\n'
+            for name, subset in self.subsets.items():
+                result += name + ': ' + str(subset) + '\n'
         if self.preamble is not None and self.preamble != "":
             result += '\nPreamble:\n' + str(self.preamble) + '\n'
         return result
@@ -199,8 +228,9 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     :return: A dictionary containing the results, containing the following.
 
         * `molecule energies` A dictionary with molecule handles pointing to the contents of the Molpro `energy` variable, which could be a scalar or a list.
-        * `reaction energies` A dictionary with molecule handles pointing to the evaluated reaction energy changes.
+        * `reaction energies` A dictionary with reaction handles pointing to the evaluated reaction energy changes.
         * `project directory`
+        * `projects` A dictionary with molecule handles pointing to filesystem project bundles for the each job that has been run.
         * `method`
         * `basis`
         * `options` Extra options that were used in constructing the input.
