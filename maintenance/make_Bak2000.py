@@ -72,7 +72,7 @@ for name, reaction in reactions.items():
     reactions_db.add_reaction(name, reaction, description=name)
 
 reactions_db.dump(
-    os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', 'Bak2000_reactions' + '.json')))
+    os.path.realpath(os.path.join(__file__, '..', 'share', 'database', 'Bak2000_reactions' + '.json')))
 
 for element, spin in {'H': 1, 'C': 2, 'N': 3, 'O': 2, 'F': 1}.items():
     atomisations_db.add_molecule(element, element, reference_energy=0.0, description=element, spin=spin)
@@ -88,4 +88,4 @@ for name in molecules:
         string = string[1:]
     atomisations_db.add_reaction(name, stoichiometry=stoi, description=name)
 atomisations_db.dump(
-    os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', 'Bak2000_atomisations' + '.json')))
+    os.path.realpath(os.path.join(__file__, '..', 'share', 'database', 'Bak2000_atomisations' + '.json')))
