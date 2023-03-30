@@ -53,7 +53,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         db.dump("sample.json")
         db2 = Database()
         db2.load("sample.json")
-        # os.remove("sample.json")
+        os.remove("sample.json")
         self.assertEqual(db.molecules, db2.molecules)
         self.assertEqual(db.reactions, db2.reactions)
 
