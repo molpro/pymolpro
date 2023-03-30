@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.3.2 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.3.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -1234,7 +1234,7 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <span id="pymolpro-database-module"></span><h2>pymolpro.database module<a class="headerlink" href="#module-pymolpro.database" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.database.Database">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.database.</span></span><span class="sig-name descname"><span class="pre">Database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.database.Database" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.database.</span></span><span class="sig-name descname"><span class="pre">Database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.database.Database" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Database of molecular structures and reactions</p>
 <dl class="field-list simple">
@@ -1294,6 +1294,11 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.database.Database.add_subset">
+<span class="sig-name descname"><span class="pre">add_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.database.Database.add_subset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pymolpro.database.Database.description">
@@ -1376,6 +1381,29 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <dd><p>A dictionary of external references to the data. The keys should be a short-form string that you want printed, eg author, year, and the values URLs that lead to the resource.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.database.Database.subset">
+<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.database.Database.subset" title="Permalink to this definition"></a></dt>
+<dd><p>Extract a subset of this database as a new database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> – Either a key in the <a class="reference internal" href="#pymolpro.database.Database.subsets" title="pymolpro.database.Database.subsets"><code class="xref py py-data docutils literal notranslate"><span class="pre">subsets</span></code></a> or a list of keys in <a class="reference internal" href="#pymolpro.database.Database.reactions" title="pymolpro.database.Database.reactions"><code class="xref py py-data docutils literal notranslate"><span class="pre">reactions</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The subset</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pymolpro.database.Database" title="pymolpro.database.Database">Database</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pymolpro.database.Database.subsets">
+<span class="sig-name descname"><span class="pre">subsets</span></span><a class="headerlink" href="#pymolpro.database.Database.subsets" title="Permalink to this definition"></a></dt>
+<dd><p>A dictionary defining subsets of the database reactions</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -1422,8 +1450,9 @@ and compute reaction energies.</p>
 <dd class="field-even"><p><p>A dictionary containing the results, containing the following.</p>
 <ul class="simple">
 <li><p><cite>molecule energies</cite> A dictionary with molecule handles pointing to the contents of the Molpro <cite>energy</cite> variable, which could be a scalar or a list.</p></li>
-<li><p><cite>reaction energies</cite> A dictionary with molecule handles pointing to the evaluated reaction energy changes.</p></li>
+<li><p><cite>reaction energies</cite> A dictionary with reaction handles pointing to the evaluated reaction energy changes.</p></li>
 <li><p><cite>project directory</cite></p></li>
+<li><p><cite>projects</cite> A dictionary with molecule handles pointing to filesystem project bundles for the each job that has been run.</p></li>
 <li><p><cite>method</cite></p></li>
 <li><p><cite>basis</cite></p></li>
 <li><p><cite>options</cite> Extra options that were used in constructing the input.</p></li>

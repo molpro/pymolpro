@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Closed shell reactions with core correlation &mdash; pymolpro 1.3.2 documentation</title>
+  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Potential energy surface for twisting of ethene" href="dihedral_scan.html" />
-    <link rel="prev" title="Examples" href="../examples.html" /> 
+    <link rel="prev" title="Thermochemical Benchmark: closed shell reactions with core correlation" href="thermochemical_benchmark_Bak2000_reactions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,10 +48,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Closed shell reactions with core correlation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Extrapolation">Extrapolation</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_Bak2000_reactions.html">Thermochemical Benchmark: closed shell reactions with core correlation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Thermochemical benchmark: atomisation of closed shell molecules with core correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dihedral_scan.html">Potential energy surface for twisting of ethene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evaluate_charge_density.html">Evaluate charge density at the atomic nuclei</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
@@ -79,9 +77,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
-      <li class="breadcrumb-item active">Closed shell reactions with core correlation</li>
+      <li class="breadcrumb-item active">Thermochemical benchmark: atomisation of closed shell molecules with core correlation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/examples/thermochemical_benchmark_for_methods.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/thermochemical_benchmark_Bak2000_atomisations.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -89,8 +87,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Closed-shell-reactions-with-core-correlation">
-<h1>Closed shell reactions with core correlation<a class="headerlink" href="#Closed-shell-reactions-with-core-correlation" title="Permalink to this heading"></a></h1>
+  <section id="Thermochemical-benchmark:-atomisation-of-closed-shell-molecules-with-core-correlation">
+<h1>Thermochemical benchmark: atomisation of closed shell molecules with core correlation<a class="headerlink" href="#Thermochemical-benchmark:-atomisation-of-closed-shell-molecules-with-core-correlation" title="Permalink to this heading"></a></h1>
 <p>Bak et al., <a class="reference external" href="https://doi.org/10.1063/1.1357225">doi:10.1063/1.1357225</a> and <a class="reference external" href="https://doi.org/10.1063/1.481544">doi:10.1063/1.481544</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -106,7 +104,7 @@ import pandas as pd
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>backend = &#39;local&#39;  # If preferred, change this to one of the backends in your ~/.sjef/molpro/backends.xml that is ssh-accessible
-project_name = &#39;Core_Valence_reactions&#39;
+project_name = &#39;Bak2000_atomisations&#39;
 parallel = None  # how many jobs to run at once
 </pre></div>
 </div>
@@ -115,8 +113,8 @@ parallel = None  # how many jobs to run at once
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = [&#39;HF&#39;, &#39;MP2&#39;, &#39;CCSD&#39;, &#39;CCSD(T)&#39;]
-bases = [&#39;cc-pCVDZ&#39;, &#39;cc-pCVTZ&#39;, &#39;cc-pCVQZ&#39;, &#39;cc-pCV5Z&#39;]
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = { &quot;HF&quot;: [&quot;hf&quot;,&quot;uhf&quot;], &quot;MP2&quot;: [&quot;mp2&quot;,&quot;ump2&quot;], &quot;CCSD&quot;: [&quot;ccsd&quot;,&quot;uccsd&quot;], }
+bases = [&#39;cc-pCVDZ&#39;,&#39;cc-pCVTZ&#39;,&#39;cc-pCVQZ&#39;,&#39;cc-pCV5Z&#39;]
 </pre></div>
 </div>
 </div>
@@ -124,27 +122,25 @@ bases = [&#39;cc-pCVDZ&#39;, &#39;cc-pCVTZ&#39;, &#39;cc-pCVQZ&#39;, &#39;cc-pCV
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db = pymolpro.database.library(&quot;Bak2000_reactions&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db = pymolpro.database.library(&quot;Bak2000_atomisations&quot;)
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>results = {}
 for method in methods:
     results[method] = {}
     for basis in bases:
-        results[method][basis] = pymolpro.database.run(db, method, basis, location=project_name, backend=backend,
+        results[method][basis] = pymolpro.database.run(db, methods[method], basis, location=project_name, backend=backend,
                                                        preamble=&quot;core,small&quot;, parallel=parallel)
 </pre></div>
 </div>
 </div>
-<section id="Extrapolation">
-<h2>Extrapolation<a class="headerlink" href="#Extrapolation" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>extrapolations = {}
@@ -170,7 +166,7 @@ for extr in extrapolations:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
@@ -182,7 +178,7 @@ method_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -204,14 +200,12 @@ method_errors
   <thead>
     <tr>
       <th></th>
-      <th>HF</th>
-      <th>MP2</th>
-      <th>CCSD</th>
-      <th>CCSD(T)</th>
+      <th>UHF</th>
+      <th>UMP2</th>
+      <th>UCCSD</th>
     </tr>
     <tr>
       <th></th>
-      <th>cc-pCV5Z</th>
       <th>cc-pCV5Z</th>
       <th>cc-pCV5Z</th>
       <th>cc-pCV5Z</th>
@@ -220,49 +214,45 @@ method_errors
   <tbody>
     <tr>
       <th>mean</th>
-      <td>9.25</td>
-      <td>-10.49</td>
-      <td>-5.78</td>
-      <td>0.39</td>
+      <td>-405.05</td>
+      <td>21.79</td>
+      <td>-34.61</td>
     </tr>
     <tr>
       <th>stdev</th>
-      <td>41.24</td>
-      <td>18.17</td>
-      <td>9.20</td>
-      <td>1.51</td>
+      <td>143.84</td>
+      <td>30.40</td>
+      <td>18.76</td>
     </tr>
     <tr>
       <th>meanabs</th>
-      <td>29.06</td>
-      <td>14.46</td>
-      <td>9.37</td>
-      <td>1.30</td>
+      <td>405.05</td>
+      <td>29.43</td>
+      <td>34.61</td>
     </tr>
     <tr>
       <th>maxabs</th>
-      <td>113.66</td>
-      <td>50.01</td>
-      <td>17.72</td>
-      <td>3.00</td>
+      <td>598.79</td>
+      <td>99.26</td>
+      <td>69.02</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-basis_errors = pymolpro.database.compare([results[&#39;CCSD(T)&#39;][basis] for basis in bases], db.reference_results())[
+basis_errors = pymolpro.database.compare([results[&#39;CCSD&#39;][basis] for basis in bases], db.reference_results())[
                    &#39;reaction statistics&#39;] * tokj
 basis_errors
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -284,7 +274,7 @@ basis_errors
   <thead>
     <tr>
       <th></th>
-      <th colspan="7" halign="left">CCSD(T)</th>
+      <th colspan="7" halign="left">UCCSD</th>
     </tr>
     <tr>
       <th></th>
@@ -300,50 +290,50 @@ basis_errors
   <tbody>
     <tr>
       <th>mean</th>
-      <td>33.39</td>
-      <td>11.31</td>
-      <td>3.02</td>
-      <td>0.39</td>
-      <td>2.70</td>
-      <td>-1.13</td>
-      <td>-0.83</td>
+      <td>-121.40</td>
+      <td>-59.96</td>
+      <td>-40.92</td>
+      <td>-34.61</td>
+      <td>-43.84</td>
+      <td>-28.78</td>
+      <td>-28.48</td>
     </tr>
     <tr>
       <th>stdev</th>
-      <td>25.92</td>
-      <td>8.07</td>
-      <td>2.88</td>
-      <td>1.51</td>
-      <td>4.83</td>
-      <td>1.23</td>
-      <td>1.22</td>
+      <td>45.18</td>
+      <td>27.14</td>
+      <td>20.78</td>
+      <td>18.76</td>
+      <td>24.36</td>
+      <td>16.89</td>
+      <td>16.43</td>
     </tr>
     <tr>
       <th>meanabs</th>
-      <td>36.73</td>
-      <td>12.05</td>
-      <td>3.70</td>
-      <td>1.30</td>
-      <td>4.37</td>
-      <td>1.33</td>
-      <td>1.19</td>
+      <td>121.40</td>
+      <td>59.96</td>
+      <td>40.92</td>
+      <td>34.61</td>
+      <td>43.91</td>
+      <td>28.83</td>
+      <td>28.50</td>
     </tr>
     <tr>
       <th>maxabs</th>
-      <td>65.92</td>
-      <td>21.33</td>
-      <td>6.97</td>
-      <td>3.00</td>
-      <td>10.79</td>
-      <td>3.15</td>
-      <td>3.49</td>
+      <td>177.81</td>
+      <td>107.34</td>
+      <td>78.23</td>
+      <td>69.02</td>
+      <td>91.02</td>
+      <td>58.93</td>
+      <td>58.55</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -371,21 +361,38 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_thermochemical_benchmark_for_methods_11_0.png" src="../_images/examples_thermochemical_benchmark_for_methods_11_0.png" />
+<img alt="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" src="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" />
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
-#     tf.write(&#39;\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}&#39;)
-#     tf.write(df_exp_reaction_meanerror.style.to_latex())
-#     tf.write(df_exp_reaction_std.style.to_latex())
-#     tf.write(df_exp_reaction_meanabserror.style.to_latex())
-#     tf.write(df_exp_reaction_maxerror.style.to_latex())
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
+    tf.write(&#39;\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}&#39;)
+    tf.write(df_exp_reaction_meanerror.style.to_latex())
+    tf.write(df_exp_reaction_std.style.to_latex())
+    tf.write(df_exp_reaction_meanabserror.style.to_latex())
+    tf.write(df_exp_reaction_maxerror.style.to_latex())
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[10], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span style="color: rgb(0,135,0)">open</span>(project_name <span style="color: rgb(98,98,98)">+</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">.tex</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#39;</span>) <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> tf:
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     tf<span style="color: rgb(98,98,98)">.</span>write(<span style="color: rgb(175,0,0)">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">def</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">toprule</span><span style="color: rgb(175,0,0)">{</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline}</span><span class="ansi-bold" style="color: rgb(175,95,0)">\n</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">def</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">midrule</span><span style="color: rgb(175,0,0)">{</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline}</span><span class="ansi-bold" style="color: rgb(175,95,0)">\n</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">def</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">bottomrule</span><span style="color: rgb(175,0,0)">{</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline}</span><span style="color: rgb(175,0,0)">&#39;</span>)
+<span class="ansi-green-fg">----&gt; 3</span>     tf<span style="color: rgb(98,98,98)">.</span>write(<span class="ansi-yellow-bg">df_exp_reaction_meanerror</span><span style="color: rgb(98,98,98)">.</span>style<span style="color: rgb(98,98,98)">.</span>to_latex())
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     tf<span style="color: rgb(98,98,98)">.</span>write(df_exp_reaction_std<span style="color: rgb(98,98,98)">.</span>style<span style="color: rgb(98,98,98)">.</span>to_latex())
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     tf<span style="color: rgb(98,98,98)">.</span>write(df_exp_reaction_meanabserror<span style="color: rgb(98,98,98)">.</span>style<span style="color: rgb(98,98,98)">.</span>to_latex())
+
+<span class="ansi-red-fg">NameError</span>: name &#39;df_exp_reaction_meanerror&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -396,13 +403,12 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 </div>
 </section>
-</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thermochemical_benchmark_Bak2000_reactions.html" class="btn btn-neutral float-left" title="Thermochemical Benchmark: closed shell reactions with core correlation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="dihedral_scan.html" class="btn btn-neutral float-right" title="Potential energy surface for twisting of ethene" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
