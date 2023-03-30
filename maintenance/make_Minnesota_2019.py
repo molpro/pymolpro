@@ -66,6 +66,6 @@ for filename in os.listdir(directory):
                 if not line or re.match('>+', line): break
     db.references['Geometries for Minnesota Database 2019'] = 'https://doi.org/10.13020/217y-8g32'
     db.dump(
-        os.path.realpath(os.path.join(__file__, '..', 'share', 'database', 'Minnesota_2019_' + handle + '.json')))
+        os.path.realpath(os.path.join(__file__, '..', '..', 'pymolpro', 'share', 'database', 'Minnesota_2019_' + handle + '.json')))
 
     print(pymolpro.database.library('Minnesota_2019_' + handle))
