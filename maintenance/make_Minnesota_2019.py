@@ -36,9 +36,9 @@ for filename in os.listdir(directory):
             s = '%chk=([A-Za-z0-9_,.\\+=-]+)(\\b|\\.chk)*'
             assert (re.match(s, line))
             molecule_name = re.sub(s, r'\1', line)
-            if molecule_name[-1]=='\n': molecule_name=molecule_name[:-1]
+            if molecule_name[-1] == '\n': molecule_name = molecule_name[:-1]
             # print("molecule_name", molecule_name[-4:])
-            if molecule_name[-4:]==".chk": molecule_name=molecule_name[:-4]
+            if molecule_name[-4:] == ".chk": molecule_name = molecule_name[:-4]
             # print("molecule_name", molecule_name)
             while True:
                 line = fh.readline()
@@ -65,7 +65,6 @@ for filename in os.listdir(directory):
                 line = fh.readline()
                 if not line or re.match('>+', line): break
     db.references['Geometries for Minnesota Database 2019'] = 'https://doi.org/10.13020/217y-8g32'
-    db.dump(
-        os.path.realpath(os.path.join(__file__, '..', '..', 'pymolpro', 'share', 'database', 'Minnesota_2019_' + handle + '.json')))
+    db.dump(pymolpro.database.library_path('Minnesota_2019_' + handle))
 
     print(pymolpro.database.library('Minnesota_2019_' + handle))
