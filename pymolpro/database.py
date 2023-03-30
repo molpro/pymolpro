@@ -194,13 +194,13 @@ class Database:
 def library(key):
     r"""
     Construct a :py:class:`Database` from the library
-    :param str key: File name, without trailing .json, of the library database in /share/database
+    :param str key: File name, without trailing .json, of the library database in share/database
     :return: The database
     :rtype: Database
     """
     import os.path
     db = Database()
-    db.load(os.path.realpath(os.path.join(__file__, '..', '..', 'share', 'database', key + '.json')))
+    db.load(os.path.realpath(os.path.join(__file__, '..', 'share', 'database', key + '.json')))
     return db
 
 
