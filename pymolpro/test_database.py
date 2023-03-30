@@ -49,6 +49,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                         {'HF': 2,
                          'HFHF': -1,
                          }, description='Binding of hydrogen fluoride dimer')
+        db.add_subset('non-covalent', ['HFHF'])
         db.dump("sample.json")
         db2 = Database()
         db2.load("sample.json")
@@ -65,8 +66,11 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         if shutil.which('molpro'):
             db = pymolpro.database.library('sample')
             results = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
-            results2 = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
+            results2 = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
+            del results['projects']
+            del results2['projects']
             self.assertEqual(results, results2)
+            pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
             # print(results)
 
     def test_compare_database_runs(self):
@@ -110,6 +114,27 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertIn('failed', result)
             self.assertEqual(len(result['failed']), len(db.molecules))
             shutil.rmtree(result['project directory'])
+
+    def test_subset(self):
+        db = pymolpro.database.library('sample')
+        self.assertEqual(len(db.subset('non-covalent')), 1)
+        self.assertEqual(len(db.subset('non-covalent').molecules), 2)
+        # print(db.subset('non-covalent'))
+
+        subset = db.subset(['HFHF'])
+        # print(subset)
+        self.assertEqual(len(subset), 1)
+        self.assertEqual(len(subset.molecules), 2)
+
+        db.add_subset('vdW', 'HFHF')
+        self.assertEqual(len(db.subset('vdW')), 1)
+        self.assertEqual(len(db.subset('vdW').molecules), 2)
+        # print(db.subset('vdW'))
+
+        if shutil.which('molpro'):
+            result = pymolpro.database.run(subset, clean=True)
+            self.assertEqual(len(result['molecule energies']), 2)
+            self.assertEqual(len(result['reaction energies']), 1)
 
 
 if __name__ == '__main__':
