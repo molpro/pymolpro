@@ -386,5 +386,4 @@ class Stoichiometry(dict):
         for k, v in self.items():
             if v * direction > 0:
                 reagents += ' + ' + (str(v * direction) if v * direction != 1 else "") + k
-        assert len(reagents) > 0
-        return reagents[3:]
+        return reagents[3:] if len(reagents) > 0 else ""
