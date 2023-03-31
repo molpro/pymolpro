@@ -168,6 +168,10 @@ for subset in subsets:
         db.add_reaction(cols[0],stoichiometry,reference_energy=float(cols[-1])*kcal)
     # print(db)
 
+    if subset == 'S22':
+        db.add_subset('small',['2','1','8'])
+        db.add_reference('Jurecka, P.; Sponer, J.; Cerny, J.; Hobza, P. Phys. Chem. Chem. Phys. 2006, 8, 1985-1993','https://doi.org/10.1039/B600027D')
+
     dbname = 'GMTKN55_'+subset
 
     db.dump(pymolpro.database.library_path(dbname))

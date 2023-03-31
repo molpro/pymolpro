@@ -47,17 +47,18 @@ class Database:
         :return: The added molecule
         :rtype: dict
         """
-        self.molecules[name] = {
+        _name = name.strip()
+        self.molecules[_name] = {
             'geometry': resolve_geometry(geometry),
         }
-        self.molecules[name]['description'] = description if description is not None else name
-        if reference_energy is not None: self.molecules[name]['reference energy'] = reference_energy
-        if fragment_lengths is not None: self.molecules[name]['fragment lengths'] = fragment_lengths
-        if spin is not None: self.molecules[name]['spin'] = spin
-        if charge is not None: self.molecules[name]['charge'] = charge
-        if InChI is not None: self.molecules[name]['InChI'] = InChI
-        if SMILES is not None: self.molecules[name]['SMILES'] = SMILES
-        return self.molecules[name]
+        self.molecules[_name]['description'] = description if description is not None else _name
+        if reference_energy is not None: self.molecules[_name]['reference energy'] = reference_energy
+        if fragment_lengths is not None: self.molecules[_name]['fragment lengths'] = fragment_lengths
+        if spin is not None: self.molecules[_name]['spin'] = spin
+        if charge is not None: self.molecules[_name]['charge'] = charge
+        if InChI is not None: self.molecules[_name]['InChI'] = InChI
+        if SMILES is not None: self.molecules[_name]['SMILES'] = SMILES
+        return self.molecules[_name]
 
     def add_reaction(self, name, stoichiometry, reference_energy=None, description=None):
         r"""
@@ -71,6 +72,7 @@ class Database:
         :rtype: dict
 
         """
+        _name = name.strip()
         if reference_energy:
             __reference_energy = reference_energy
         else:
@@ -80,16 +82,19 @@ class Database:
                     __reference_energy += stoi * self.molecules[reagent]['reference energy']
             except:
                 __reference_energy = None
-        self.reactions[name] = {
+        self.reactions[_name] = {
             'stoichiometry': Stoichiometry(stoichiometry),
         }
-        if __reference_energy is not None: self.reactions[name]['reference energy'] = __reference_energy
-        if description is not None: self.reactions[name]['description'] = description
-        return self.reactions[name]
+        if __reference_energy is not None: self.reactions[_name]['reference energy'] = __reference_energy
+        if description is not None: self.reactions[_name]['description'] = description
+        return self.reactions[_name]
 
     def add_subset(self, subset_name, subset):
-        self.subsets[subset_name] = subset if type(subset) == list else [subset]
-        assert all([reaction in self.reactions for reaction in self.subsets[subset_name]])
+        self.subsets[subset_name.strip()] = subset if type(subset) == list else [subset]
+        assert all([reaction in self.reactions for reaction in self.subsets[subset_name.strip()]])
+
+    def add_reference(self, key, url):
+        self.references[key.strip()] = url.strip()
 
     def subset(self, subset):
         """
@@ -312,7 +317,9 @@ def compare(results, reference_result, reactions=False, molecules=False):
     results_ = list(results) if type(results) == list else [results]
     output = {}
     for typ in ['reaction', 'molecule']:
+        if typ+' energies' not in reference_result: continue
         for result in results_:
+            if typ+' energies' not in result: continue
             result[typ + ' energy errors'] = {key: value - reference_result[typ + ' energies'][key] for key, value in
                                               result[typ + ' energies'].items()}
             result[typ + ' statistics'] = {
