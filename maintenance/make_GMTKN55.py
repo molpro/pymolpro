@@ -22,7 +22,7 @@ subsets = ['W4-11',
            'ALK8',
            'RC21',
            'G2RC',
-           # 'BH76RC',
+           'BH76RC',
            'FH51',
            'TAUT15',
            'DC13',
@@ -116,15 +116,14 @@ def html_repair(file):
 
 kcal= 0.00159360144
 for subset in subsets:
-    print("process subset",subset)
+    # print("process subset",subset)
     db=pymolpro.database.Database(description='GMTKN55 '+subset)
     db.references['L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017']='https://doi.org/10.1039/C7CP04913G'
     ensure_file(subset + 'ref.html')
     ensure_file('GMTKN.css')
     shutil.unpack_archive(ensure_file(subset + '.tar'), directory)
-    for filename in os.listdir(os.path.join(directory,subset)):
+    for filename in os.listdir(os.path.join(directory,subset if subset != 'BH76RC' else 'BH76')):
         f = os.path.join(directory, subset,filename,'struc.xyz')
-        # print(filename, f)
         if not os.path.exists(f): continue
         with open(f,'r') as fh:
             geometry=' '.join(fh.readlines())
@@ -167,10 +166,10 @@ for subset in subsets:
                 stoichiometry[str(cols[i+1]).strip()]=int(cols[i+offset])
         # print("stoichiometry:",stoichiometry)
         db.add_reaction(cols[0],stoichiometry,reference_energy=float(cols[-1])*kcal)
-    print(db)
+    # print(db)
 
     dbname = 'GMTKN55_'+subset
 
     db.dump(pymolpro.database.library_path(dbname))
 
-    print(pymolpro.database.library(dbname))
+    # print(pymolpro.database.library(dbname))
