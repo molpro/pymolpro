@@ -11,6 +11,7 @@ Examples
 
    examples/thermochemical_benchmark_Bak2000_reactions.ipynb
    examples/thermochemical_benchmark_Bak2000_atomisations.ipynb
+   examples/Non-covalent interactions benchmark.ipynb
    examples/dihedral_scan.ipynb
    examples/evaluate_charge_density.ipynb
    examples/pair_correlation_energies.ipynb
