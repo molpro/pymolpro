@@ -165,7 +165,7 @@ for subset in subsets:
             if str(cols[i+1]).strip():
                 stoichiometry[str(cols[i+1]).strip()]=int(cols[i+offset])
         # print("stoichiometry:",stoichiometry)
-        db.add_reaction(cols[0],stoichiometry,reference_energy=float(cols[-1])*kcal)
+        db.add_reaction(cols[0], stoichiometry, energy=float(cols[-1]) * kcal)
     # print(db)
 
     if subset == 'S22':
