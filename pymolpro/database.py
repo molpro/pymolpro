@@ -7,15 +7,26 @@ __all__ = ['Database', 'library', 'run', 'compare']
 
 class Database:
     """
-    Database of molecular structures and reactions
+    Database of molecular structures and reactions. The class contains and supports the following data.
+
+    * Descriptions of molecules: geometry, charge, spin state.
+    * Descriptions of reactions between the molecules: stochiometric factors.
+    * Optionally, computed data: energies of molecules and/or reactions, the parameters used to obtain them, and references to persistent data that can be used to further query or restart.
+    * Description and external URLs that serve to further define the provenance of the data.
+    * Specification of recommended subsets of the reactions
 
     :param list molecules: Initial molecules to be added with default options to :py:meth:`add_molecule()`.
     :param list reactions: Initial reactions to be added with default options to :py:meth:`add_reaction()`.
     :param str description: Text describing the database
+    :param str method: A string specifying the ansatz that was used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.
+    :param str basis: A string specifying the orbital basis set that was used to compute the energies.
+    :param str options: A string specifying any additional options used to compute energies.
+    :param str project_directory: The path of the directory where support files that were generated in calculating energies can be found.
 
     """
 
-    def __init__(self, molecules={}, reactions={}, description=None):
+    def __init__(self, molecules={}, reactions={}, description=None, method=None, basis=None, options=None,
+                 project_directory=None):
         self.molecules = {}  #: Dictionary of molecules
         self.reactions = {}  #: Dictionary of reactions involving the :py:data:`molecules` together with stoichiometric factors
         for key, value in molecules.items():
@@ -25,12 +36,31 @@ class Database:
         self.preamble = ""  #: any Molpro commands that should be executed before geometry specification. Typically `angstrom` could be specified if the geometry specification is in Z-matrix format with numerical values that would, by default, be interpreted as Bohr.
         self.description = "" if description is None else description  #: Text describing the database
         self.references = {}  #: A dictionary of external references to the data. The keys should be a short-form string that you want printed, eg author, year, and the values URLs that lead to the resource.
-        self.subsets = {}  #: A dictionary defining subsets of the database reactions
+        self.subsets = {}  #: A dictionary defining named subsets of the database reactions
+        self.molecule_energies = {}  #: A dictionary with molecule keys giving the molecular energy/Hartree reference values associated with the Database. The dictionary could be empty or only partly filled.
+        self.reaction_energies = {}  #: A dictionary with reaction keys giving the reaction energy/Hartree reference values associated with the Database. The dictionary could be empty or only partly filled. A database might have either, both or none of :py:data:`molecule_energies` or :py:data:`reaction_energies`.
+        self.method = None  #: A string specifying the ansatz used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.
+        self.basis = None  #: A string specifying the orbital basis-set used to compute the energies.
+        self.options = None  #: Any additional options used to compute reference values.
+        self.project_directory = None  #: A string giving the path of the directory where support files generated in calculating energies can be found.
+        self.projects = {}  #: A dictionary with molecule handles pointing to filesystem project bundles for each Molpro job that has been run.
+        self.failed = {}  #: Subset of :py:data:`projects` corresponding to jobs that did not complete successfully.
+
+    def copy(self):
+        db = Database()
+        db.molecules = dict(self.molecules)
+        db.reactions = dict(self.reactions)
+        db.preamble = str(self.preamble)
+        return db
+
+    def __eq__(self, other):
+        return all([getattr(self, attr) == getattr(other, attr) for attr in
+                    ['molecules', 'reactions', 'molecule_energies', 'reaction_energies']])
 
     def __len__(self):
         return len(self.reactions)
 
-    def add_molecule(self, name, geometry, fragment_lengths=None, reference_energy=None, description=None, InChI=None,
+    def add_molecule(self, name, geometry, energy=None, description=None, InChI=None,
                      SMILES=None, spin=None, charge=None):
         r"""
         Add a molecule to the database.  The minimal information that is stored is the geometry, but information from each of the optional arguments, if given, is also stored in the :py:data:`molecules` dictionary.
@@ -38,7 +68,7 @@ class Database:
         :param str name: The key for the molecule in :py:data:`molecules`.
         :param str geometry: The geometry. Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
         :param list fragment_lengths:  For a molecule that is to be considered as a supramolecular complex, the lengths of each of the fragments. The last value can be omitted.
-        :param float reference_energy:  The reference value for the energy of the molecule in Hartree units
+        :param float energy:  The reference value for the energy of the molecule in Hartree units
         :param str description: Descriptive text
         :param str InChI: `InChI <https://www.inchi-trust.org>`_ string describing the molecule
         :param str SMILES: `SMILES <http://opensmiles.org/opensmiles.html>`_ string describing the molecule
@@ -52,40 +82,41 @@ class Database:
             'geometry': resolve_geometry(geometry),
         }
         self.molecules[_name]['description'] = description if description is not None else _name
-        if reference_energy is not None: self.molecules[_name]['reference energy'] = reference_energy
-        if fragment_lengths is not None: self.molecules[_name]['fragment lengths'] = fragment_lengths
+        if energy is not None:
+            self.molecule_energies[_name] = energy
         if spin is not None: self.molecules[_name]['spin'] = spin
         if charge is not None: self.molecules[_name]['charge'] = charge
         if InChI is not None: self.molecules[_name]['InChI'] = InChI
         if SMILES is not None: self.molecules[_name]['SMILES'] = SMILES
         return self.molecules[_name]
 
-    def add_reaction(self, name, stoichiometry, reference_energy=None, description=None):
+    def add_reaction(self, name, stoichiometry, energy=None, description=None):
         r"""
         Add a reaction to the database.  The minimal information that is stored is the stoichiometry, which references existing molecules in the database, but information from each of the optional arguments, if given, is also stored in the :py:data:`reactions` dictionary.
 
         :param name:  The key for the reaction in :py:data:`reactions`.
         :param stoichiometry: A dictionary describing the stoichiometry of the reaction. Each key should be a key in :py:data:`molecules`, and the value is an integer giving the number of equivalents of the molecule in the reaction, with the sign convention of positive for products, negative for reactants.
-        :param reference_energy: The reference value for the energy change of the reaction in Hartree units. If not given, and if all molecules in the reaction have a reference energy, it will be computed.
+        :param energy: The reference value for the energy change of the reaction in Hartree units. If not given, and if all molecules in the reaction have an energy, it will be computed.
         :param description:  Descriptive text
         :return:  The added reaction
         :rtype: dict
 
         """
         _name = name.strip()
-        if reference_energy:
-            __reference_energy = reference_energy
+        if energy:
+            __reference_energy = energy
         else:
             try:
                 __reference_energy = 0.0
                 for reagent, stoi in stoichiometry.items():
-                    __reference_energy += stoi * self.molecules[reagent]['reference energy']
+                    __reference_energy += stoi * self.molecule_energies[reagent]
             except:
                 __reference_energy = None
         self.reactions[_name] = {
             'stoichiometry': Stoichiometry(stoichiometry),
         }
-        if __reference_energy is not None: self.reactions[_name]['reference energy'] = __reference_energy
+        if __reference_energy is not None:
+            self.reaction_energies[_name] = __reference_energy
         if description is not None: self.reactions[_name]['description'] = description
         return self.reactions[_name]
 
@@ -148,6 +179,10 @@ class Database:
         for reaction in self.reactions.values():
             if reaction['stoichiometry'] is not None:
                 reaction['stoichiometry'] = Stoichiometry(reaction['stoichiometry'])
+        if 'molecule_energies' in __j:
+            self.molecule_energies = __j['molecule_energies']
+        if 'reaction_energies' in __j:
+            self.reaction_energies = __j['reaction_energies']
         if 'references' in __j:
             self.references = __j['references']
         if 'preamble' in __j:
@@ -160,20 +195,6 @@ class Database:
             self.subsets = __j['subsets']
         return self
 
-    def reference_results(self):
-        r"""
-        The reference values stored in the database.
-
-        :return: A dictionary containing, where possible, entries `molecule energies` and `reaction energies` constructed from the `reference energy` fields of each :py:data:`molecules` and :py:data:`reactions` entry.
-        :rtype: dict:
-        """
-        __results = {}
-        if all(['reference energy' in molecule for molecule in self.molecules.values()]):
-            __results["molecule energies"] = {key: value['reference energy'] for key, value in self.molecules.items()}
-        if all(['reference energy' in reaction for reaction in self.reactions.values()]):
-            __results["reaction energies"] = {key: value['reference energy'] for key, value in self.reactions.items()}
-        return __results
-
     def __str__(self):
         result = "Database\n" if self.description == "" or self.description is None else self.description + '\n'
         if len(self.references) > 0:
@@ -181,12 +202,14 @@ class Database:
         if len(self.molecules) > 0:
             result += '\nMolecules:\n'
             for name, molecule in self.molecules.items():
-                result += name + ': ' + str(molecule) + '\n'
+                result += name + ': ' + str(molecule) + (', energy = ' + str(
+                    self.molecule_energies[name]) if name in self.molecule_energies else "") + '\n'
         if len(self.reactions) > 0:
             result += '\nReactions:\n'
             for name, reaction in self.reactions.items():
                 result += name + ': ' + str(reaction['stoichiometry']) + ' ' + str(
-                    {k: v for k, v in reaction.items() if k != 'stoichiometry'}) + '\n'
+                    {k: v for k, v in reaction.items() if k != 'stoichiometry'}) + (', energy = ' + str(
+                    self.reaction_energies[name]) if name in self.reaction_energies else "") + '\n'
         if len(self.subsets) > 0:
             result += '\nSubsets of reactions:\n'
             for name, subset in self.subsets.items():
@@ -232,17 +255,8 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     :param bool clean: Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of :py:meth:`run()` will use cached results when possible. If there are errors, this parameter is ignored.
     :param str initial: Any valid molpro input to be placed before the geometry specification.
     :param kwargs: Any other options to pass to :py:meth:`project.Project.run()`, including `func`, `extrapolate`, `preamble`, `postamble`, `initial`.
-    :return: A dictionary containing the results, containing the following.
-
-        * `molecule energies` A dictionary with molecule handles pointing to the contents of the Molpro `energy` variable, which could be a scalar or a list.
-        * `reaction energies` A dictionary with reaction handles pointing to the evaluated reaction energy changes.
-        * `project directory`
-        * `projects` A dictionary with molecule handles pointing to filesystem project bundles for the each job that has been run.
-        * `method`
-        * `basis`
-        * `options` Extra options that were used in constructing the input.
-        * `failed` Normally empty or absent, but in the case of execution errors a dictionary with molecule handles pointing to filesystem project bundles for each job that failed.
-    :rtype: dict
+    :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
+    :rtype: Database
     """
     if parallel is None:
         from multiprocessing import cpu_count
@@ -256,86 +270,97 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     from pymolpro import Project
     import os
     if type(db) == str: db = library(db)
-    project_dir_ = os.path.realpath(
+    newdb = db.copy()
+    newdb.project_directory = os.path.realpath(
         os.path.join(location,
                      hashlib.sha256(
                          (str(method) + str(basis) + str(initial) +
                           str(tuple(sorted(kwargs.items())))).encode('utf-8')).hexdigest()[-8:]))
-    if not os.path.exists(project_dir_):
-        os.makedirs(project_dir_)
-    projects = {}
+    if not os.path.exists(newdb.project_directory):
+        os.makedirs(newdb.project_directory)
+    newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
-        projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
-                                          method=method if type(method) == str else
-                                          method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else method[0],
-                                          basis=basis,
-                                          location=project_dir_,
-                                          initial=initial + "; " + db.preamble if len(initial) > 0 else db.preamble,
-                                          spin=molecule['spin'] if 'spin' in molecule else None,
-                                          charge=molecule['charge'] if 'charge' in molecule else None,
-                                          **kwargs)
+        newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
+                                                method=method if type(method) == str else
+                                                method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else
+                                                method[0],
+                                                basis=basis,
+                                                location=newdb.project_directory,
+                                                initial=initial + "; " + db.preamble if len(
+                                                    initial) > 0 else db.preamble,
+                                                spin=molecule['spin'] if 'spin' in molecule else None,
+                                                charge=molecule['charge'] if 'charge' in molecule else None,
+                                                **kwargs)
     with Pool(processes=__parallel) as pool:
-        pool.map(methodcaller('run', backend=backend, wait=True), projects.values(), 1)
+        pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
 
-    failed_jobs = {}
+    newdb.failed = {}
     for molecule in db.molecules:
-        project = projects[molecule]
+        project = newdb.projects[molecule]
         if project.status != 'completed' or not pymolpro.no_errors([project]):
-            failed_jobs[molecule] = project
+            newdb.failed[molecule] = project
 
-    molecule_energies = {}
+    newdb.molecule_energies = {}
     for molecule_name in db.molecules:
-        molecule_energies[molecule_name] = projects[molecule_name].variable('energy')
-    result = {
-        "project directory": project_dir_,
-        "projects": projects,
-        "method": method,
-        "basis": basis,
-        "options": sorted(kwargs.items()),
-        "molecule energies": molecule_energies,
-    }
-    if len(failed_jobs) > 0:
-        result['failed'] = failed_jobs
-        return result
+        newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+    newdb.method = method
+    newdb.basis = basis
+    newdb.options = sorted(kwargs.items())
+    if len(newdb.failed) == 0:
+        newdb.reaction_energies = {}
+        for reaction_name, reaction in db.reactions.items():
+            newdb.reaction_energies[reaction_name] = 0.0
+            for reagent, stoichiometry in reaction['stoichiometry'].items():
+                newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
 
-    result['reaction energies'] = {}
-    for reaction_name, reaction in db.reactions.items():
-        result['reaction energies'][reaction_name] = 0.0
-        for reagent, stoichiometry in reaction['stoichiometry'].items():
-            result['reaction energies'][reaction_name] += stoichiometry * molecule_energies[reagent]
+        if clean:
+            newdb.projects = {}
+            rmtree(newdb.project_directory)
+            newdb.project_directory = None
 
-    if clean:
-        rmtree(project_dir_)
-        del result['projects']
-        del result['project directory']
-
-    return result
+    return newdb
 
 
-def compare(results, reference_result, reactions=False, molecules=False):
+def compare(databases, reference_database=None):
+    r"""
+    Analyse and format the results in one or more databases
+
+    :param list(Database)|Database databases:
+    :param Database reference_database:
+    :return:
+    :rtype: dict
+    """
     import statistics
-    results_ = list(results) if type(results) == list else [results]
+    databases_ = list(databases) if type(databases) == list else [databases]
     output = {}
     for typ in ['reaction', 'molecule']:
-        if typ+' energies' not in reference_result: continue
-        for result in results_:
-            if typ+' energies' not in result: continue
-            result[typ + ' energy errors'] = {key: value - reference_result[typ + ' energies'][key] for key, value in
-                                              result[typ + ' energies'].items()}
-            result[typ + ' statistics'] = {
-                'mean': statistics.mean(result[typ + ' energy errors'].values()),
-                'stdev': statistics.stdev(result[typ + ' energy errors'].values()),
-                'meanabs': statistics.mean([abs(v) for v in result[typ + ' energy errors'].values()]),
-                'maxabs': max([abs(v) for v in result[typ + ' energy errors'].values()]),
-            }
+        results = []
+        for database in databases_:
+            if len(getattr(database, typ + '_energies')) == 0: continue
+            results.append({})
+            results[-1]['method'] = database.method
+            results[-1]['basis'] = database.basis
+            if len(getattr(database, typ + '_energies')) == 0: continue
+            results[-1][typ + ' energies'] = getattr(database, typ + '_energies')
+            if reference_database and len(getattr(reference_database, typ + '_energies')) > 0:
+                results[-1][typ + ' energy errors'] = {key: value - getattr(reference_database, typ + '_energies')[key]
+                                                       for
+                                                       key, value in
+                                                       results[-1][typ + ' energies'].items()}
+                results[-1][typ + ' statistics'] = {
+                    'mean': statistics.mean(results[-1][typ + ' energy errors'].values()),
+                    'stdev': statistics.stdev(results[-1][typ + ' energy errors'].values()),
+                    'meanabs': statistics.mean([abs(v) for v in results[-1][typ + ' energy errors'].values()]),
+                    'maxabs': max([abs(v) for v in results[-1][typ + ' energy errors'].values()]),
+                }
         for table in [typ + ' energies', typ + ' energy errors', typ + ' statistics']:
-            output[table] = __compare_database_runs_format_table(results_, table)
+            if all([table in result for result in results]):
+                output[table] = __compare_database_runs_format_table(results, table)
     return output
 
 
 def __compare_database_runs_format_table(results, dataset):
     import numpy as np
-    import re
     import pandas as pd
     table = [list(result[dataset].values()) for result in results]
     row_labels = list(results[0][dataset].keys())
@@ -344,7 +369,6 @@ def __compare_database_runs_format_table(results, dataset):
         [result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
          results],
         [result['basis'] for result in results],
-        # [re.compile('^.*_').sub('', (result['project directory'] if 'project_directory' in list(result.keys()) else '')) for result in results],
     ])
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
@@ -352,29 +376,28 @@ def __compare_database_runs_format_table(results, dataset):
 
 def basis_extrapolate(results, hf_results, x):
     import re
-    molecule_energies = {}
-    for molecule_name in results[0]['molecule energies']:
-        molecule_energies[molecule_name] = __extrapolate_single(
-            [result['molecule energies'][molecule_name] for result in results],
-            [result['molecule energies'][molecule_name] for result in hf_results],
+    assert len(results) == 2
+    assert len(hf_results) == 2
+    assert len(x) == 2
+    newdb = results[0].copy()
+    for molecule_name in results[0].molecule_energies:
+        newdb.molecule_energies[molecule_name] = __extrapolate_single(
+            [result.molecule_energies[molecule_name] for result in results],
+            [result.molecule_energies[molecule_name] for result in hf_results],
             x
         )
-    reaction_energies = {}
-    for reaction_name in results[0]['reaction energies']:
-        reaction_energies[reaction_name] = __extrapolate_single(
-            [result['reaction energies'][reaction_name] for result in results],
-            [result['reaction energies'][reaction_name] for result in hf_results],
+    for reaction_name in results[0].reaction_energies:
+        newdb.reaction_energies[reaction_name] = __extrapolate_single(
+            [result.reaction_energies[reaction_name] for result in results],
+            [result.reaction_energies[reaction_name] for result in hf_results],
             x
         )
-    return {
-        "method": results[0]['method'],
-        "basis": re.sub('(.*[Vv])[DTQ567]([Zz])', f'\\1[{str(min(x)) + str(max(x))}]\\2',
-                        results[0]['basis']) if re.match('.*[Vv][DTQ567][Zz]',
-                                                         results[0]['basis']) is not None else '[' + str(min(x)) + str(
-            max(x)) + ']',
-        "molecule energies": molecule_energies,
-        "reaction energies": reaction_energies,
-    }
+    newdb.method = results[0].method
+    newdb.basis = re.sub('(.*[Vv])[DTQ567]([Zz])', f'\\1[{str(min(x)) + str(max(x))}]\\2',
+                         results[0].basis) if re.match('.*[Vv][DTQ567][Zz]',
+                                                       results[0].basis) is not None else '[' + str(min(x)) + str(
+        max(x)) + ']'
+    return newdb
 
 
 def __extrapolate_single(energies, hf_energies, x):

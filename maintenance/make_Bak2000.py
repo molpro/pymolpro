@@ -57,7 +57,7 @@ reactions_db = pymolpro.database.Database()
 reactions_db.preamble = 'angstrom'
 for name, molecule in molecules.items():
     reactions_db.add_molecule(name, molecule['geometry'],
-                              reference_energy=-molecule['De_exp'] / 2625.49963948, description=name)
+                              energy=-molecule['De_exp'] / 2625.49963948, description=name)
 
 reactions_db.references = {
     'Bak et al., 2001': 'https://doi.org/10.1063/1.481544',
@@ -74,7 +74,7 @@ for name, reaction in reactions.items():
 reactions_db.dump(pymolpro.database.library_path('Bak2000_reactions'))
 
 for element, spin in {'H': 1, 'C': 2, 'N': 3, 'O': 2, 'F': 1}.items():
-    atomisations_db.add_molecule(element, element, reference_energy=0.0, description=element, spin=spin)
+    atomisations_db.add_molecule(element, element, energy=0.0, description=element, spin=spin)
 
 for name in molecules:
     stoi = {name: -1}
