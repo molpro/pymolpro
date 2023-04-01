@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.7 documentation</title>
+  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.8 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -113,33 +113,102 @@ parallel = None  # how many jobs to run at once
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = { &quot;HF&quot;: &quot;df-hf&quot;, &quot;MP2&quot;: &quot;df-mp2&quot;, &quot;LMP2&quot;: &quot;df-lmp2&quot;, }
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = {&quot;HF&quot;: &quot;df-hf&quot;, &quot;MP2&quot;: &quot;df-mp2&quot;, &quot;LMP2&quot;: &quot;df-lmp2&quot;, }
 bases = [&#39;aug-cc-pVDZ&#39;, &#39;aug-cc-pVTZ&#39;, &#39;aug-cc-pVQZ&#39;]
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db = pymolpro.database.library(&quot;GMTKN55_S22&quot;).subset(&#39;small&#39;)
 </pre></div>
 </div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db.molecules.keys()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;02&#39;, &#39;08&#39;, &#39;01&#39;, &#39;01a&#39;, &#39;02a&#39;, &#39;08a&#39;])
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>results = {}
 for method in methods:
     results[method] = {}
     for basis in bases:
-        results[method][basis] = pymolpro.database.run(db, methods[method], basis, location=project_name, backend=backend, parallel=parallel)
+        results[method][basis] = pymolpro.database.run(db, methods[method], basis, location=project_name,
+                                                       backend=backend, parallel=parallel)
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>results[&#39;HF&#39;][&#39;aug-cc-pVDZ&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;pymolpro.database.Database at 0x11e9df100&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db.molecules.keys()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;02&#39;, &#39;08&#39;, &#39;01&#39;, &#39;01a&#39;, &#39;02a&#39;, &#39;08a&#39;])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db.reactions.keys()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;2&#39;, &#39;1&#39;, &#39;8&#39;])
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>extrapolations = {}
@@ -165,164 +234,75 @@ for extr in extrapolations:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
 pd.set_option(&#39;display.precision&#39;, 2)
-method_errors = pymolpro.database.compare([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db.reference_results())[
+method_errors = pymolpro.database.compare([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db)[
                     &#39;reaction statistics&#39;] * tokj
 method_errors
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[11], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> tokj <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">2625.49963948</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> pd<span style="color: rgb(98,98,98)">.</span>set_option(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">display.precision</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(98,98,98)">2</span>)
+<span class="ansi-green-fg">----&gt; 3</span> method_errors <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">pymolpro</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">database</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">compare</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">results</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#39;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">aug-cc-pVQZ</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#39;</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">for</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(175,0,255)">in</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">methods</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">db</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">[</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-yellow-bg">                    </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#39;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">reaction statistics</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#39;</span><span class="ansi-yellow-bg">]</span> <span style="color: rgb(98,98,98)">*</span> tokj
+<span class="ansi-green-intense-fg ansi-bold">      5</span> method_errors
+
+<span class="ansi-red-fg">KeyError</span>: &#39;reaction statistics&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th>DF-HF</th>
-      <th>DF-MP2</th>
-      <th>DF-LMP2</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>aug-cc-pVQZ</th>
-      <th>aug-cc-pVQZ</th>
-      <th>aug-cc-pVQZ</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>mean</th>
-      <td>-6.08</td>
-      <td>0.22</td>
-      <td>-0.54</td>
-    </tr>
-    <tr>
-      <th>stdev</th>
-      <td>2.03</td>
-      <td>0.21</td>
-      <td>0.26</td>
-    </tr>
-    <tr>
-      <th>meanabs</th>
-      <td>6.08</td>
-      <td>0.22</td>
-      <td>0.54</td>
-    </tr>
-    <tr>
-      <th>maxabs</th>
-      <td>7.52</td>
-      <td>0.42</td>
-      <td>0.79</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
+pd.set_option(&#39;display.precision&#39;, 2)
+method_errors = pymolpro.database.compare([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db)[
+                    &#39;reaction energy errors&#39;] * tokj
+method_errors
+</pre></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-basis_errors = pymolpro.database.compare([results[&#39;LMP2&#39;][basis] for basis in bases], db.reference_results())[
+basis_errors = pymolpro.database.compare([results[&#39;LMP2&#39;][basis] for basis in bases], db)[
                    &#39;reaction statistics&#39;] * tokj
 basis_errors
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="5" halign="left">DF-LMP2</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>aug-cc-pVDZ</th>
-      <th>aug-cc-pVTZ</th>
-      <th>aug-cc-pVQZ</th>
-      <th>aug-cc-pV[23]Z</th>
-      <th>aug-cc-pV[34]Z</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>mean</th>
-      <td>-1.21</td>
-      <td>-4.05</td>
-      <td>-0.54</td>
-      <td>-4.85</td>
-      <td>2.07</td>
-    </tr>
-    <tr>
-      <th>stdev</th>
-      <td>1.36</td>
-      <td>5.71</td>
-      <td>0.26</td>
-      <td>7.71</td>
-      <td>3.80</td>
-    </tr>
-    <tr>
-      <th>meanabs</th>
-      <td>1.44</td>
-      <td>4.05</td>
-      <td>0.54</td>
-      <td>4.85</td>
-      <td>2.24</td>
-    </tr>
-    <tr>
-      <th>maxabs</th>
-      <td>2.23</td>
-      <td>10.62</td>
-      <td>0.79</td>
-      <td>13.76</td>
-      <td>6.46</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -336,7 +316,7 @@ for pane in range(len(bases_pruned)):
     for method in methods_pruned:
         data.append(
             pymolpro.database.compare(results[method][bases_pruned[pane]],
-                                      db.reference_results())[&#39;reaction energy errors&#39;].to_numpy()[:, 0] * tokj
+                                      db)[&#39;reaction energy errors&#39;].to_numpy()[:, 0] * tokj
         )
     panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method=&#39;silverman&#39;)
     panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
@@ -344,13 +324,6 @@ for pane in range(len(bases_pruned)):
 panes[0].set_ylabel(&#39;Error / kJ/mol&#39;)
 plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_Non-covalent_interactions_benchmark_9_0.png" src="../_images/examples_Non-covalent_interactions_benchmark_9_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">

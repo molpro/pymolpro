@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.7 documentation</title>
+  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.8 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -114,8 +114,8 @@ parallel = None  # how many jobs to run at once
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = { &quot;HF&quot;: [&quot;hf&quot;,&quot;uhf&quot;], &quot;MP2&quot;: [&quot;mp2&quot;,&quot;ump2&quot;], &quot;CCSD&quot;: [&quot;ccsd&quot;,&quot;uccsd&quot;], }
-bases = [&#39;cc-pCVDZ&#39;,&#39;cc-pCVTZ&#39;,&#39;cc-pCVQZ&#39;,&#39;cc-pCV5Z&#39;]
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = {&quot;HF&quot;: [&quot;hf&quot;, &quot;uhf&quot;], &quot;MP2&quot;: [&quot;mp2&quot;, &quot;ump2&quot;], &quot;CCSD&quot;: [&quot;ccsd&quot;, &quot;uccsd&quot;], }
+bases = [&#39;cc-pCVDZ&#39;, &#39;cc-pCVTZ&#39;, &#39;cc-pCVQZ&#39;, &#39;cc-pCV5Z&#39;]
 </pre></div>
 </div>
 </div>
@@ -135,7 +135,8 @@ bases = [&#39;cc-pCVDZ&#39;,&#39;cc-pCVTZ&#39;,&#39;cc-pCVQZ&#39;,&#39;cc-pCV5Z&
 for method in methods:
     results[method] = {}
     for basis in bases:
-        results[method][basis] = pymolpro.database.run(db, methods[method], basis, location=project_name, backend=backend,
+        results[method][basis] = pymolpro.database.run(db, methods[method], basis, location=project_name,
+                                                       backend=backend,
                                                        preamble=&quot;core,small&quot;, parallel=parallel)
 </pre></div>
 </div>
@@ -172,7 +173,7 @@ for extr in extrapolations:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
 pd.set_option(&#39;display.precision&#39;, 2)
-method_errors = pymolpro.database.compare([results[method][&#39;cc-pCV5Z&#39;] for method in methods], db.reference_results())[
+method_errors = pymolpro.database.compare([results[method][&#39;cc-pCV5Z&#39;] for method in methods], db)[
                     &#39;reaction statistics&#39;] * tokj
 method_errors
 </pre></div>
@@ -246,7 +247,7 @@ method_errors
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-basis_errors = pymolpro.database.compare([results[&#39;CCSD&#39;][basis] for basis in bases], db.reference_results())[
+basis_errors = pymolpro.database.compare([results[&#39;CCSD&#39;][basis] for basis in bases], db)[
                    &#39;reaction statistics&#39;] * tokj
 basis_errors
 </pre></div>
@@ -334,7 +335,7 @@ basis_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -348,7 +349,7 @@ for pane in range(len(bases_pruned)):
     for method in methods_pruned:
         data.append(
             pymolpro.database.compare(results[method][bases_pruned[pane]],
-                                      db.reference_results())[&#39;reaction energy errors&#39;].to_numpy()[:, 0] * tokj
+                                      db)[&#39;reaction energy errors&#39;].to_numpy()[:, 0] * tokj
         )
     panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method=&#39;silverman&#39;)
     panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
@@ -365,8 +366,8 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 <img alt="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" src="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" />
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
@@ -377,23 +378,6 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
     tf.write(df_exp_reaction_maxerror.style.to_latex())
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-Cell <span class="ansi-green-fg">In[10], line 3</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span style="color: rgb(0,135,0)">open</span>(project_name <span style="color: rgb(98,98,98)">+</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">.tex</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#39;</span>) <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> tf:
-<span class="ansi-green-intense-fg ansi-bold">      2</span>     tf<span style="color: rgb(98,98,98)">.</span>write(<span style="color: rgb(175,0,0)">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">def</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">toprule</span><span style="color: rgb(175,0,0)">{</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline}</span><span class="ansi-bold" style="color: rgb(175,95,0)">\n</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">def</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">midrule</span><span style="color: rgb(175,0,0)">{</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline}</span><span class="ansi-bold" style="color: rgb(175,95,0)">\n</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">def</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">bottomrule</span><span style="color: rgb(175,0,0)">{</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline</span><span class="ansi-bold" style="color: rgb(175,95,0)">\\</span><span style="color: rgb(175,0,0)">hline}</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-fg">----&gt; 3</span>     tf<span style="color: rgb(98,98,98)">.</span>write(<span class="ansi-yellow-bg">df_exp_reaction_meanerror</span><span style="color: rgb(98,98,98)">.</span>style<span style="color: rgb(98,98,98)">.</span>to_latex())
-<span class="ansi-green-intense-fg ansi-bold">      4</span>     tf<span style="color: rgb(98,98,98)">.</span>write(df_exp_reaction_std<span style="color: rgb(98,98,98)">.</span>style<span style="color: rgb(98,98,98)">.</span>to_latex())
-<span class="ansi-green-intense-fg ansi-bold">      5</span>     tf<span style="color: rgb(98,98,98)">.</span>write(df_exp_reaction_meanabserror<span style="color: rgb(98,98,98)">.</span>style<span style="color: rgb(98,98,98)">.</span>to_latex())
-
-<span class="ansi-red-fg">NameError</span>: name &#39;df_exp_reaction_meanerror&#39; is not defined
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
