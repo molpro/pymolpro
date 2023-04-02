@@ -382,8 +382,19 @@ def __compare_database_runs_format_table(results, dataset):
     return output
 
 
-def basis_extrapolate(results, hf_results, x):
+def basis_extrapolate(results, hf_results, x=None):
     import re
+    if x == None:
+        assert len(results) > 1
+        xs = []
+        newresults = []
+        for result in results:
+            letter = re.sub(r'.*V([DTQ5-9])Z.*', r'\1', result.basis.upper())
+            if len(letter) == 1:
+                xs.append(int(letter.replace('D', '2').replace('T', '3')))
+                newresults.append(result)
+        return basis_extrapolate(newresults, hf_results, xs)
+
     assert len(results) == 2
     assert len(hf_results) == 2
     assert len(x) == 2
@@ -401,8 +412,8 @@ def basis_extrapolate(results, hf_results, x):
             x
         )
     newdb.method = results[0].method
-    newdb.basis = re.sub('(.*[Vv])[DTQ567]([Zz])', f'\\1[{str(min(x)) + str(max(x))}]\\2',
-                         results[0].basis) if re.match('.*[Vv][DTQ567][Zz]',
+    newdb.basis = re.sub('(.*[Vv])[dtqDTQ567]([Zz].*)', f'\\1[{str(min(x)) + str(max(x))}]\\2',
+                         results[0].basis) if re.match('.*[Vv][dtqDTQ567][Zz].*',
                                                        results[0].basis) is not None else '[' + str(min(x)) + str(
         max(x)) + ']'
     return newdb
