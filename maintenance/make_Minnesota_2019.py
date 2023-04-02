@@ -67,4 +67,4 @@ for filename in os.listdir(directory):
     db.references['Geometries for Minnesota Database 2019'] = 'https://doi.org/10.13020/217y-8g32'
     db.dump(pymolpro.database.library_path('Minnesota_2019_' + handle))
 
-    print(pymolpro.database.library('Minnesota_2019_' + handle))
+    print(pymolpro.database.load('Minnesota_2019_' + handle))
