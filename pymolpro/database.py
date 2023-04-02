@@ -129,15 +129,21 @@ class Database:
         else:
             return json.dumps(self, default=vars)
 
-    def load(self, filename=None, string=""):
+    def load(self, source):
         r"""
-        Load the database from a json dump in either a file or a string
+        Load the database from a json dump in either the library, a file or a string
 
         :param str filename: Source of dump
         :param str string: Alternate source of dump if :py:data:`filename` is not given
         :return: The database
         :rtype: Database
         """
+        if os.exists(source):
+            pass
+        elif os.exists(source+".json"):
+            pass
+        elif os.exists(library_path(source)):
+            pass
         if filename is not None:
             with open(filename, "r") as f_:
                 __j = json.load(f_)
@@ -194,6 +200,9 @@ class Database:
         if self.preamble is not None and self.preamble != "":
             result += '\nPreamble:\n' + str(self.preamble) + '\n'
         return result
+
+class Results(Database):
+    self.reaction_energies={} #: Energy changes for each reaction
 
 
 def library(key):
