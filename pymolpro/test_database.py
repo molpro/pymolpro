@@ -85,7 +85,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
                 pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
             ]
-            outputs = pymolpro.database.compare(results, results[-1])
+            outputs = pymolpro.database.analyse(results, results[-1])
             self.assertEqual(len(outputs['reaction statistics'].index), 4)
             self.assertEqual(len(outputs['molecule statistics'].index), 4)
             self.assertEqual(len(outputs['reaction energies'].index), len(db))

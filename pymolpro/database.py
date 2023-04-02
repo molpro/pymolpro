@@ -2,7 +2,7 @@ import pymolpro
 from pymolpro import resolve_geometry
 import json
 
-__all__ = ['Database', 'library', 'run', 'compare']
+__all__ = ['Database', 'library', 'run', 'analyse']
 
 
 class Database:
@@ -139,9 +139,13 @@ class Database:
         db = Database(description=self.description)
         for reaction in subset_list:
             db.reactions[reaction] = self.reactions[reaction]
+            if reaction in self.reaction_energies:
+                db.reaction_energies[reaction] = self.reaction_energies[reaction]
         for molecule in self.molecules:
             if any([molecule in reaction['stoichiometry'] for reaction in db.reactions.values()]):
                 db.molecules[molecule] = self.molecules[molecule]
+                if molecule in self.molecule_energies:
+                    db.molecule_energies[molecule] = self.molecule_energies[molecule]
         db.preamble = str(self.preamble)
         db.description = self.description + " (subset " + str(subset) + ")"
         return db
@@ -321,7 +325,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     return newdb
 
 
-def compare(databases, reference_database=None):
+def analyse(databases, reference_database=None):
     r"""
     Analyse and format the results in one or more databases
 
