@@ -67,9 +67,13 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             db = pymolpro.database.library('sample')
             results = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
             results2 = pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
-            del results['projects']
-            del results2['projects']
+            # del results['projects']
+            # del results2['projects']
+            self.assertEqual(results.molecule_energies, results2.molecule_energies)
             self.assertEqual(results, results2)
+            results2.molecule_energies['HF'] = 12345.0
+            self.assertNotEqual(results.molecule_energies, results2.molecule_energies)
+            self.assertNotEqual(results, results2)
             pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
             # print(results)
 
@@ -81,7 +85,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
                 pymolpro.database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
             ]
-            outputs = pymolpro.database.compare(results, results[-1])
+            outputs = pymolpro.database.analyse(results, results[-1])
             self.assertEqual(len(outputs['reaction statistics'].index), 4)
             self.assertEqual(len(outputs['molecule statistics'].index), 4)
             self.assertEqual(len(outputs['reaction energies'].index), len(db))
@@ -95,25 +99,25 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             db = pymolpro.database.library('sample')
 
             result = pymolpro.database.run(db, method='hf', basis='minao')
-            self.assertNotIn('failed', result)
-            shutil.rmtree(result['project directory'])
+            self.assertFalse(result.failed)
+            shutil.rmtree(result.project_directory)
 
             result = pymolpro.database.run(db, method='hf', preamble='memory,1,k', basis='minao')
-            self.assertIn('failed', result)
-            self.assertEqual(len(result['failed']), len(db.molecules))
-            self.assertEqual(result['failed']['HF'].status, 'failed')
-            shutil.rmtree(result['project directory'])
+            self.assertTrue(result.failed)
+            self.assertEqual(len(result.failed), len(db.molecules))
+            self.assertEqual(result.failed['HF'].status, 'failed')
+            shutil.rmtree(result.project_directory)
 
             result = pymolpro.database.run(db, method='ccsd', preamble='charge=-10', basis='cc-pvdz')
-            self.assertIn('failed', result)
-            self.assertEqual(len(result['failed']), 1)
-            self.assertEqual(result['failed']['HF'].status, 'failed')
-            shutil.rmtree(result['project directory'])
+            self.assertTrue(result.failed)
+            self.assertEqual(len(result.failed), 1)
+            self.assertEqual(result.failed['HF'].status, 'failed')
+            shutil.rmtree(result.project_directory)
 
             result = pymolpro.database.run(db, method='bad-method', basis='minao')
-            self.assertIn('failed', result)
-            self.assertEqual(len(result['failed']), len(db.molecules))
-            shutil.rmtree(result['project directory'])
+            self.assertEqual(len(result.failed), len(db.molecules))
+            self.assertEqual(result.failed['HF'].status, 'failed')
+            shutil.rmtree(result.project_directory)
 
     def test_subset(self):
         db = pymolpro.database.library('sample')
@@ -133,8 +137,16 @@ F          0.0000000000        0.0000000000        3.6683721829"""
 
         if shutil.which('molpro'):
             result = pymolpro.database.run(subset, clean=True)
-            self.assertEqual(len(result['molecule energies']), 2)
-            self.assertEqual(len(result['reaction energies']), 1)
+            self.assertEqual(len(result.molecule_energies), 2)
+            self.assertEqual(len(result.reaction_energies), 1)
+
+    def extrapolate(self):
+        db = pymolpro.database.library('sample').subset('non-covalent')
+        results=[]
+        for basis in ['cc-pvdz','cc-pvtz']:
+            results.append(pymolpro.database.run(db,'mp2',basis))
+        results.append()
+
 
 
 if __name__ == '__main__':
