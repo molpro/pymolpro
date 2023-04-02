@@ -1,8 +1,9 @@
 import pymolpro
 from pymolpro import resolve_geometry
 import json
+import os.path
 
-__all__ = ['Database', 'library', 'run', 'analyse']
+__all__ = ['Database', 'load', 'run', 'analyse', 'basis_extrapolate']
 
 
 class Database:
@@ -164,20 +165,22 @@ class Database:
         else:
             return json.dumps(self, default=vars)
 
-    def load(self, filename=None, string=""):
+    def load(self, source):
         r"""
-        Load the database from a json dump in either a file or a string
+        Load the database from a json dump in either the library, a file or a string
 
-        :param str filename: Source of dump
-        :param str string: Alternate source of dump if :py:data:`filename` is not given
+        :param str source: Source of dump
         :return: The database
         :rtype: Database
         """
-        if filename is not None:
-            with open(filename, "r") as f_:
-                __j = json.load(f_)
-        else:
-            __j = json.loads(string)
+        __j = None
+        for name in [source, source + '.json', library_path(source)]:
+            if os.path.isfile(name):
+                with open(name, "r") as f_:
+                    __j = json.load(f_)
+                break
+        if not __j:
+            __j = json.loads(source)
         self.molecules = __j['molecules']
         self.reactions = __j['reactions']
         for reaction in self.reactions.values():
@@ -223,19 +226,20 @@ class Database:
         return result
 
 
-def library(key):
+def load(source):
     r"""
-    Construct a :py:class:`Database` from the library
-    :param str key: File name, without trailing .json, of the library database in share/database
+    Construct a :py:class:`Database` from a json dump in either the library, a file or a string
+
+    :param str source: Source of dump
     :return: The database
     :rtype: Database
     """
-    return Database().load(library_path(key))
+    return Database().load(source)
 
 
 def library_path(key):
     import os.path
-    return os.path.realpath(os.path.join(__file__, '..', 'share', 'database', key + '.json'))
+    return os.path.realpath(os.path.join(__file__, '..', 'share', 'database', key.replace('.json', '') + '.json'))
 
 
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
@@ -273,7 +277,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     from operator import methodcaller
     from pymolpro import Project
     import os
-    if type(db) == str: db = library(db)
+    if type(db) == str: db = load(db)
     newdb = db.copy()
     newdb.project_directory = os.path.realpath(
         os.path.join(location,
