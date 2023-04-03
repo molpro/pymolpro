@@ -101,6 +101,9 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 self.assertEqual(len(output.columns), 3)
                 # print(title)
                 # print(output)
+            db.reaction_energies = results[-1].reaction_energies
+            db.molecule_energies = {}
+            self.assertEqual(len(pymolpro.database.analyse(results,db)),4)
 
     def test_fail(self):
         if shutil.which('molpro'):
