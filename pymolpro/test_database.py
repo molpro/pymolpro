@@ -155,9 +155,19 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         for basis in ['cc-pvdz', 'cc-pvtz']:
             hfresults.append(pymolpro.database.run(db, 'hf', basis))
             results.append(pymolpro.database.run(db, 'mp2', basis))
-        results.append(pymolpro.database.basis_extrapolate(results,hfresults,[2,3]))
-        results.append(pymolpro.database.basis_extrapolate(results,hfresults))
-        print(pymolpro.database.analyse(results))
+        results += pymolpro.database.basis_extrapolate(results, hfresults, [2, 3])
+        results += pymolpro.database.basis_extrapolate(results, hfresults)
+        # print(pymolpro.database.analyse(results))
+        self.assertEqual(len(results), 4)
+
+        hfresults = []
+        results = []
+        for basis in ['cc-pvdz', 'cc-pvtz', 'cc-pvqz']:
+            hfresults.append(pymolpro.database.run(db, 'hf', basis))
+            results.append(pymolpro.database.run(db, 'mp2', basis))
+        results += pymolpro.database.basis_extrapolate(results, hfresults)
+        # print(pymolpro.database.analyse(results))
+        self.assertEqual(len(results), 5)
 
 
 if __name__ == '__main__':
