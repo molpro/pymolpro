@@ -103,8 +103,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 # print(output)
             db.reaction_energies = results[-1].reaction_energies
             db.molecule_energies = {}
-            print(db)
-            print(pymolpro.database.analyse(results,db))
+            self.assertEqual(len(pymolpro.database.analyse(results,db)),4)
 
     def test_fail(self):
         if shutil.which('molpro'):
