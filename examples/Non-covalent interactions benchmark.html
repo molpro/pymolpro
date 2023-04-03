@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.9 documentation</title>
+  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.10 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -119,15 +119,15 @@ bases = [&#39;aug-cc-pVDZ&#39;, &#39;aug-cc-pVTZ&#39;, &#39;aug-cc-pVQZ&#39;]
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db = pymolpro.database.library(&quot;GMTKN55_S22&quot;).subset(&#39;small&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db = pymolpro.database.load(&quot;GMTKN55_S22&quot;).subset(&#39;small&#39;)
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>results = {}
@@ -140,33 +140,19 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>extrapolations = {}
-if &#39;aug-cc-pVDZ&#39; in bases and &#39;aug-cc-pVTZ&#39; in bases:
-    extrapolations[&quot;aug-cc-pV[23]Z&quot;] = {&#39;x&#39;: 2, &#39;first&#39;: &#39;aug-cc-pVDZ&#39;, &#39;second&#39;: &#39;aug-cc-pVTZ&#39;}
-if &#39;aug-cc-pVTZ&#39; in bases and &#39;aug-cc-pVQZ&#39; in bases:
-    extrapolations[&quot;aug-cc-pV[34]Z&quot;] = {&#39;x&#39;: 3, &#39;first&#39;: &#39;aug-cc-pVTZ&#39;, &#39;second&#39;: &#39;aug-cc-pVQZ&#39;}
-if &#39;aug-cc-pVQZ&#39; in bases and &#39;aug-cc-pV5Z&#39; in bases:
-    extrapolations[&quot;aug-cc-pV[45]Z&quot;] = {&#39;x&#39;: 4, &#39;first&#39;: &#39;aug-cc-pVQZ&#39;, &#39;second&#39;: &#39;aug-cc-pV5Z&#39;}
-
-for extr in extrapolations:
-    x = extrapolations[extr][&#39;x&#39;]
-    xbas = extrapolations[extr][&#39;first&#39;]
-    xpbas = extrapolations[extr][&#39;second&#39;]
-    for method in methods:
-        results[method][extr] = pymolpro.database.basis_extrapolate(
-            [results[method][xbas], results[method][xpbas]],
-            [results[&#39;HF&#39;][xbas], results[&#39;HF&#39;][xpbas]],
-            [x, x + 1]
-        )
-    bases.append(extr) if extr not in bases else &quot;&quot;
-<br/></pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for method in methods:
+    for result in pymolpro.database.basis_extrapolate(results[method].values(),results[&#39;HF&#39;].values()):
+        results[method][result.basis]=result
+    for basis in results[method]:
+        if basis not in bases: bases.append(basis)
+</pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
@@ -178,7 +164,7 @@ method_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -241,7 +227,7 @@ method_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for key, table in pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db).items():
@@ -286,7 +272,7 @@ molecule energies
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
@@ -298,7 +284,7 @@ method_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -355,7 +341,7 @@ method_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
@@ -366,7 +352,7 @@ basis_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -436,8 +422,8 @@ basis_errors
 </table>
 </div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -461,15 +447,8 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_Non-covalent_interactions_benchmark_11_0.png" src="../_images/examples_Non-covalent_interactions_benchmark_11_0.png" />
-</div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
@@ -482,7 +461,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>

@@ -51,7 +51,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "db = pymolpro.database.library(\"Bak2000_atomisations\")"
+    "db = pymolpro.database.load(\"Bak2000_atomisations\")"
    ]
   },
   {
@@ -74,40 +74,28 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "metadata": {},
    "outputs": [],
    "source": [
-    "extrapolations = {}\n",
-    "if 'cc-pCVDZ' in bases and 'cc-pCVTZ' in bases:\n",
-    "    extrapolations[\"cc-pCV[23]Z\"] = {'x': 2, 'first': 'cc-pCVDZ', 'second': 'cc-pCVTZ'}\n",
-    "if 'cc-pCVTZ' in bases and 'cc-pCVQZ' in bases:\n",
-    "    extrapolations[\"cc-pCV[34]Z\"] = {'x': 3, 'first': 'cc-pCVTZ', 'second': 'cc-pCVQZ'}\n",
-    "if 'cc-pCVQZ' in bases and 'cc-pCV5Z' in bases:\n",
-    "    extrapolations[\"cc-pCV[45]Z\"] = {'x': 4, 'first': 'cc-pCVQZ', 'second': 'cc-pCV5Z'}\n",
-    "\n",
-    "for extr in extrapolations:\n",
-    "    x = extrapolations[extr]['x']\n",
-    "    xbas = extrapolations[extr]['first']\n",
-    "    xpbas = extrapolations[extr]['second']\n",
-    "    for method in methods:\n",
-    "        results[method][extr] = pymolpro.database.basis_extrapolate(\n",
-    "            [results[method][xbas], results[method][xpbas]],\n",
-    "            [results['HF'][xbas], results['HF'][xpbas]],\n",
-    "            [x, x + 1]\n",
-    "        )\n",
-    "    bases.append(extr) if extr not in bases else \"\"\n"
-   ]
+    "for method in methods:\n",
+    "    for result in pymolpro.database.basis_extrapolate(results[method].values(),results['HF'].values()):\n",
+    "        results[method][result.basis]=result\n",
+    "    for basis in results[method]:\n",
+    "        if basis not in bases: bases.append(basis)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 11,
    "outputs": [
     {
      "data": {
       "text/plain": "             UHF     UMP2    UCCSD\n        cc-pCV5Z cc-pCV5Z cc-pCV5Z\nmean     -405.05    21.79   -34.61\nstdev     143.84    30.40    18.76\nmeanabs   405.05    29.43    34.61\nmaxabs    598.79    99.26    69.02",
       "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead tr th {\n        text-align: left;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr>\n      <th></th>\n      <th>UHF</th>\n      <th>UMP2</th>\n      <th>UCCSD</th>\n    </tr>\n    <tr>\n      <th></th>\n      <th>cc-pCV5Z</th>\n      <th>cc-pCV5Z</th>\n      <th>cc-pCV5Z</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>mean</th>\n      <td>-405.05</td>\n      <td>21.79</td>\n      <td>-34.61</td>\n    </tr>\n    <tr>\n      <th>stdev</th>\n      <td>143.84</td>\n      <td>30.40</td>\n      <td>18.76</td>\n    </tr>\n    <tr>\n      <th>meanabs</th>\n      <td>405.05</td>\n      <td>29.43</td>\n      <td>34.61</td>\n    </tr>\n    <tr>\n      <th>maxabs</th>\n      <td>598.79</td>\n      <td>99.26</td>\n      <td>69.02</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
      },
-     "execution_count": 7,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -115,9 +103,8 @@
    "source": [
     "tokj = 2625.49963948\n",
     "pd.set_option('display.precision', 2)\n",
-    "method_errors = pymolpro.database.analyse([results[method]['cc-pCV5Z'] for method in methods], db)[\n",
-    "                    'reaction statistics'] * tokj\n",
-    "method_errors"
+    "pymolpro.database.analyse([results[method]['cc-pCV5Z'] for method in methods], db)[\n",
+    "  'reaction statistics'] * tokj"
    ],
    "metadata": {
     "collapsed": false
@@ -125,23 +112,22 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 16,
    "outputs": [
     {
      "data": {
       "text/plain": "           UCCSD                                                     \\\n        cc-pCVDZ cc-pCVTZ cc-pCVQZ cc-pCV5Z cc-pCV[23]Z cc-pCV[34]Z   \nmean     -121.40   -59.96   -40.92   -34.61      -43.84      -28.78   \nstdev      45.18    27.14    20.78    18.76       24.36       16.89   \nmeanabs   121.40    59.96    40.92    34.61       43.91       28.83   \nmaxabs    177.81   107.34    78.23    69.02       91.02       58.93   \n\n                     \n        cc-pCV[45]Z  \nmean         -28.48  \nstdev         16.43  \nmeanabs       28.50  \nmaxabs        58.55  ",
       "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead tr th {\n        text-align: left;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr>\n      <th></th>\n      <th colspan=\"7\" halign=\"left\">UCCSD</th>\n    </tr>\n    <tr>\n      <th></th>\n      <th>cc-pCVDZ</th>\n      <th>cc-pCVTZ</th>\n      <th>cc-pCVQZ</th>\n      <th>cc-pCV5Z</th>\n      <th>cc-pCV[23]Z</th>\n      <th>cc-pCV[34]Z</th>\n      <th>cc-pCV[45]Z</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>mean</th>\n      <td>-121.40</td>\n      <td>-59.96</td>\n      <td>-40.92</td>\n      <td>-34.61</td>\n      <td>-43.84</td>\n      <td>-28.78</td>\n      <td>-28.48</td>\n    </tr>\n    <tr>\n      <th>stdev</th>\n      <td>45.18</td>\n      <td>27.14</td>\n      <td>20.78</td>\n      <td>18.76</td>\n      <td>24.36</td>\n      <td>16.89</td>\n      <td>16.43</td>\n    </tr>\n    <tr>\n      <th>meanabs</th>\n      <td>121.40</td>\n      <td>59.96</td>\n      <td>40.92</td>\n      <td>34.61</td>\n      <td>43.91</td>\n      <td>28.83</td>\n      <td>28.50</td>\n    </tr>\n    <tr>\n      <th>maxabs</th>\n      <td>177.81</td>\n      <td>107.34</td>\n      <td>78.23</td>\n      <td>69.02</td>\n      <td>91.02</td>\n      <td>58.93</td>\n      <td>58.55</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
      },
-     "execution_count": 8,
+     "execution_count": 16,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
     "pd.set_option('display.precision', 2)\n",
-    "basis_errors = pymolpro.database.analyse([results['CCSD'][basis] for basis in bases], db)[\n",
-    "                   'reaction statistics'] * tokj\n",
-    "basis_errors"
+    "pymolpro.database.analyse([results['CCSD'][basis] for basis in bases], db)[\n",
+    "  'reaction statistics'] * tokj"
    ],
    "metadata": {
     "collapsed": false
@@ -149,7 +135,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 14,
    "outputs": [
     {
      "data": {
@@ -187,26 +173,14 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "outputs": [
-    {
-     "ename": "NameError",
-     "evalue": "name 'df_exp_reaction_meanerror' is not defined",
-     "output_type": "error",
-     "traceback": [
-      "\u001B[0;31m---------------------------------------------------------------------------\u001B[0m",
-      "\u001B[0;31mNameError\u001B[0m                                 Traceback (most recent call last)",
-      "Cell \u001B[0;32mIn[10], line 3\u001B[0m\n\u001B[1;32m      1\u001B[0m \u001B[38;5;28;01mwith\u001B[39;00m \u001B[38;5;28mopen\u001B[39m(project_name \u001B[38;5;241m+\u001B[39m \u001B[38;5;124m'\u001B[39m\u001B[38;5;124m.tex\u001B[39m\u001B[38;5;124m'\u001B[39m, \u001B[38;5;124m'\u001B[39m\u001B[38;5;124mw\u001B[39m\u001B[38;5;124m'\u001B[39m) \u001B[38;5;28;01mas\u001B[39;00m tf:\n\u001B[1;32m      2\u001B[0m     tf\u001B[38;5;241m.\u001B[39mwrite(\u001B[38;5;124m'\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mdef\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mtoprule\u001B[39m\u001B[38;5;124m{\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mhline\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mhline}\u001B[39m\u001B[38;5;130;01m\\n\u001B[39;00m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mdef\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mmidrule\u001B[39m\u001B[38;5;124m{\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mhline}\u001B[39m\u001B[38;5;130;01m\\n\u001B[39;00m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mdef\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mbottomrule\u001B[39m\u001B[38;5;124m{\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mhline\u001B[39m\u001B[38;5;130;01m\\\\\u001B[39;00m\u001B[38;5;124mhline}\u001B[39m\u001B[38;5;124m'\u001B[39m)\n\u001B[0;32m----> 3\u001B[0m     tf\u001B[38;5;241m.\u001B[39mwrite(\u001B[43mdf_exp_reaction_meanerror\u001B[49m\u001B[38;5;241m.\u001B[39mstyle\u001B[38;5;241m.\u001B[39mto_latex())\n\u001B[1;32m      4\u001B[0m     tf\u001B[38;5;241m.\u001B[39mwrite(df_exp_reaction_std\u001B[38;5;241m.\u001B[39mstyle\u001B[38;5;241m.\u001B[39mto_latex())\n\u001B[1;32m      5\u001B[0m     tf\u001B[38;5;241m.\u001B[39mwrite(df_exp_reaction_meanabserror\u001B[38;5;241m.\u001B[39mstyle\u001B[38;5;241m.\u001B[39mto_latex())\n",
-      "\u001B[0;31mNameError\u001B[0m: name 'df_exp_reaction_meanerror' is not defined"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
-    "with open(project_name + '.tex', 'w') as tf:\n",
-    "    tf.write('\\\\def\\\\toprule{\\\\hline\\\\hline}\\n\\\\def\\\\midrule{\\\\hline}\\n\\\\def\\\\bottomrule{\\\\hline\\\\hline}')\n",
-    "    tf.write(df_exp_reaction_meanerror.style.to_latex())\n",
-    "    tf.write(df_exp_reaction_std.style.to_latex())\n",
-    "    tf.write(df_exp_reaction_meanabserror.style.to_latex())\n",
-    "    tf.write(df_exp_reaction_maxerror.style.to_latex())"
+    "# with open(project_name + '.tex', 'w') as tf:\n",
+    "#     tf.write('\\\\def\\\\toprule{\\\\hline\\\\hline}\\n\\\\def\\\\midrule{\\\\hline}\\n\\\\def\\\\bottomrule{\\\\hline\\\\hline}')\n",
+    "#     tf.write(df_exp_reaction_meanerror.style.to_latex())\n",
+    "#     tf.write(df_exp_reaction_std.style.to_latex())\n",
+    "#     tf.write(df_exp_reaction_meanabserror.style.to_latex())\n",
+    "#     tf.write(df_exp_reaction_maxerror.style.to_latex())"
    ],
    "metadata": {
     "collapsed": false
@@ -214,7 +188,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 10,
    "outputs": [],
    "source": [],
    "metadata": {
