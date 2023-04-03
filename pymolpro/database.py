@@ -382,11 +382,40 @@ def __compare_database_runs_format_table(results, dataset):
     return output
 
 
-def basis_extrapolate(results, hf_results, x):
+def basis_extrapolate(results, hf_results, x=None):
     import re
+    assert len(hf_results) == len(hf_results)
+    if x == None:
+        assert len(results) > 1
+        xs = []
+        newresults = []
+        for result in results:
+            letter = re.sub(r'.*V([DTQ5-9])Z.*', r'\1', result.basis.upper())
+            if len(letter) == 1:
+                xs.append(int(letter.replace('D', '2').replace('T', '3').replace('Q', '4')))
+                newresults.append(result)
+        return basis_extrapolate(newresults, [list(hf_results)[list(results).index(newresult)] for newresult in newresults], xs)
+
+    assert len(x) == len(results)
+    assert len(x) == len(hf_results)
+    if len(results) > 2:
+        for first in range(len(x) - 1):
+            try:
+                partner = x.index(x[first] + 1)
+                return basis_extrapolate(
+                    [list(results)[first], list(results)[partner]],
+                    [list(hf_results)[first], list(hf_results)[partner]],
+                    [x[first], x[partner]]
+                ) + basis_extrapolate(
+                    [list(results)[i] for i in range(len(results)) if i != first],
+                    [list(hf_results)[i] for i in range(len(results)) if i != first],
+                    [x[i] for i in range(len(results)) if i != first]
+                )
+            except:
+                pass
+        return []
+    if len(x) < 2 or x[1] != x[0] + 1: return []
     assert len(results) == 2
-    assert len(hf_results) == 2
-    assert len(x) == 2
     newdb = results[0].copy()
     for molecule_name in results[0].molecule_energies:
         newdb.molecule_energies[molecule_name] = __extrapolate_single(
@@ -401,11 +430,11 @@ def basis_extrapolate(results, hf_results, x):
             x
         )
     newdb.method = results[0].method
-    newdb.basis = re.sub('(.*[Vv])[DTQ567]([Zz])', f'\\1[{str(min(x)) + str(max(x))}]\\2',
-                         results[0].basis) if re.match('.*[Vv][DTQ567][Zz]',
+    newdb.basis = re.sub('(.*[Vv])[dtqDTQ567]([Zz].*)', f'\\1[{str(min(x)) + str(max(x))}]\\2',
+                         results[0].basis) if re.match('.*[Vv][dtqDTQ567][Zz].*',
                                                        results[0].basis) is not None else '[' + str(min(x)) + str(
         max(x)) + ']'
-    return newdb
+    return [newdb]
 
 
 def __extrapolate_single(energies, hf_energies, x):
