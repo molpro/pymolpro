@@ -103,7 +103,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 # print(output)
             db.reaction_energies = results[-1].reaction_energies
             db.molecule_energies = {}
-            self.assertEqual(len(pymolpro.database.analyse(results,db)),4)
+            self.assertEqual(len(pymolpro.database.analyse(results, db)), 4)
 
     def test_fail(self):
         if shutil.which('molpro'):
@@ -172,6 +172,17 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             results += pymolpro.database.basis_extrapolate(results, hfresults)
             # print(pymolpro.database.analyse(results))
             self.assertEqual(len(results), 5)
+
+    def test_units(self):
+        from pymolpro.database import units
+        self.assertEqual(units[None], 1.0)
+        self.assertEqual(units[1.2345], 1.2345)
+        self.assertAlmostEqual(units['kJ/mol'], 1/2625.499)
+        self.assertAlmostEqual(units['kj/mol'], 1/2625.499)
+        self.assertAlmostEqual(units['KJ/MOL'], 1/2625.499)
+        self.assertAlmostEqual(units[1/2625.499], 1/2625.499)
+        with self.assertRaises(KeyError):
+            units['badunit']
 
 
 if __name__ == '__main__':
