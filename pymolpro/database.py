@@ -329,7 +329,41 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     return newdb
 
 
-def analyse(databases, reference_database=None):
+import collections
+
+
+class Units(collections.abc.Mapping):
+    def __init__(self, d):
+        self._d = d
+        self._s = dict((k.lower(), k) for k in d)
+
+    def __contains__(self, k):
+        return k.lower() in self._s
+
+    def __len__(self):
+        return len(self._s)
+
+    def __iter__(self):
+        return iter(self._s)
+
+    def __getitem__(self, k):
+        if k is None: return 1.0
+        if type(k) == float or type(k) == int: return float(k)
+        return self._d[self._s[k.lower()]]
+
+    def actual_key_case(self, k):
+        return self._s.get(k.lower())
+
+
+units = Units({
+    'kJ/mol': 1 / 2625.49963948,
+    'kcal/mol': 4.184 / 2625.49963948,
+    'eV': 1 / 27.211386249880,
+    'cm-1': 1 / 219474.6313632,
+})
+
+
+def analyse(databases, reference_database=None, unit=None):
     r"""
     Analyse and format the results in one or more databases
 
@@ -349,12 +383,14 @@ def analyse(databases, reference_database=None):
             results[-1]['method'] = database.method
             results[-1]['basis'] = database.basis
             if len(getattr(database, typ + '_energies')) == 0: continue
-            results[-1][typ + ' energies'] = getattr(database, typ + '_energies')
+            results[-1][typ + ' energies'] = {key: value / units[unit] for key, value in
+                                              getattr(database, typ + '_energies').items()}
             if reference_database and len(getattr(reference_database, typ + '_energies')) > 0:
-                results[-1][typ + ' energy errors'] = {key: value - getattr(reference_database, typ + '_energies')[key]
-                                                       for
-                                                       key, value in
-                                                       results[-1][typ + ' energies'].items()}
+                results[-1][typ + ' energy errors'] = {
+                    key: value - getattr(reference_database, typ + '_energies')[key] / units[unit]
+                    for
+                    key, value in
+                    results[-1][typ + ' energies'].items()}
                 results[-1][typ + ' statistics'] = {
                     'mean': statistics.mean(results[-1][typ + ' energy errors'].values()),
                     'stdev': statistics.stdev(results[-1][typ + ' energy errors'].values()),
@@ -394,7 +430,8 @@ def basis_extrapolate(results, hf_results, x=None):
             if len(letter) == 1:
                 xs.append(int(letter.replace('D', '2').replace('T', '3').replace('Q', '4')))
                 newresults.append(result)
-        return basis_extrapolate(newresults, [list(hf_results)[list(results).index(newresult)] for newresult in newresults], xs)
+        return basis_extrapolate(newresults,
+                                 [list(hf_results)[list(results).index(newresult)] for newresult in newresults], xs)
 
     assert len(x) == len(results)
     assert len(x) == len(hf_results)
