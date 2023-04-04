@@ -3,7 +3,7 @@ from pymolpro import resolve_geometry
 import json
 import os.path
 
-__all__ = ['Database', 'load', 'run', 'analyse', 'basis_extrapolate']
+__all__ = ['Database', 'load', 'run', 'analyse', 'basis_extrapolate', 'units']
 
 
 class Database:
@@ -360,7 +360,7 @@ units = Units({
     'kcal/mol': 4.184 / 2625.49963948,
     'eV': 1 / 27.211386249880,
     'cm-1': 1 / 219474.6313632,
-})
+}) #: dictionary of units, giving their values in atomic units
 
 
 def analyse(databases, reference_database=None, unit=None):
@@ -369,6 +369,7 @@ def analyse(databases, reference_database=None, unit=None):
 
     :param list(Database)|Database databases:
     :param Database reference_database:
+    :param unit: Either a string or a float specifying desired units for the output. In the case of  a string, it should match (case insensitive) one of the keys of :py:data:`units`; if an explicit value is given, it should be the value of the desired units in atomic units, ie the results will be divided by the value.
     :return:
     :rtype: dict
     """
