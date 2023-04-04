@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.10 documentation</title>
+  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.11 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -146,26 +146,25 @@ for method in methods:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for method in methods:
-    for result in pymolpro.database.basis_extrapolate(results[method].values(),results[&#39;HF&#39;].values()):
-        results[method][result.basis]=result
+    for result in pymolpro.database.basis_extrapolate(results[method].values(), results[&#39;HF&#39;].values()):
+        results[method][result.basis] = result
     for basis in results[method]:
         if basis not in bases: bases.append(basis)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
-pd.set_option(&#39;display.precision&#39;, 2)
-pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in methods], db)[
-  &#39;reaction statistics&#39;] * tokj
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
+pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in methods], db, &#39;kj/mol&#39;)[
+    &#39;reaction statistics&#39;]
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -228,17 +227,17 @@ pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in met
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-pymolpro.database.analyse([results[&#39;CCSD&#39;][basis] for basis in bases], db)[
-  &#39;reaction statistics&#39;] * tokj
+pymolpro.database.analyse([results[&#39;CCSD&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
+    &#39;reaction statistics&#39;]
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -319,7 +318,7 @@ pymolpro.database.analyse([results[&#39;CCSD&#39;][basis] for basis in bases], d
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -343,15 +342,35 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[9], line 12</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> data <span style="color: rgb(98,98,98)">=</span> []
+<span class="ansi-green-intense-fg ansi-bold">      9</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> method <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> methods_pruned:
+<span class="ansi-green-intense-fg ansi-bold">     10</span>     data<span style="color: rgb(98,98,98)">.</span>append(
+<span class="ansi-green-intense-fg ansi-bold">     11</span>         pymolpro<span style="color: rgb(98,98,98)">.</span>database<span style="color: rgb(98,98,98)">.</span>analyse(results[method][bases_pruned[pane]],
+<span class="ansi-green-fg">---&gt; 12</span>                                   db)[<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">reaction energy errors</span><span style="color: rgb(175,0,0)">&#39;</span>]<span style="color: rgb(98,98,98)">.</span>to_numpy()[:, <span style="color: rgb(98,98,98)">0</span>] <span style="color: rgb(98,98,98)">*</span> <span class="ansi-yellow-bg">tokj</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span>     )
+<span class="ansi-green-intense-fg ansi-bold">     14</span> panes[pane]<span style="color: rgb(98,98,98)">.</span>violinplot(data, showmeans<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, showextrema<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, vert<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, bw_method<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">silverman</span><span style="color: rgb(175,0,0)">&#39;</span>)
+<span class="ansi-green-intense-fg ansi-bold">     15</span> panes[pane]<span style="color: rgb(98,98,98)">.</span>set_xticks(<span style="color: rgb(0,135,0)">range</span>(<span style="color: rgb(98,98,98)">1</span>, <span style="color: rgb(0,135,0)">len</span>(methods_pruned) <span style="color: rgb(98,98,98)">+</span> <span style="color: rgb(98,98,98)">1</span>), labels<span style="color: rgb(98,98,98)">=</span>methods_pruned, rotation<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">90</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;tokj&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" src="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" />
+<img alt="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_1.png" src="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
@@ -364,7 +383,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
