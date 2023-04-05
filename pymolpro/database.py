@@ -61,6 +61,28 @@ class Database:
     def __len__(self):
         return len(self.reactions)
 
+    def __iadd__(self, other):
+        for mkey, molecule in other.molecules.items():
+            self.add_molecule(mkey, molecule['geometry'])
+            if mkey in other.molecule_energies:
+                self.molecule_energies[mkey] = other.molecule_energies[mkey]
+            for key in ['description', 'InChI', 'SMILES', 'spin', 'charge']:
+                if key in molecule:
+                    self.molecules[mkey][key] = molecule[key]
+        for mkey, reaction in other.reactions.items():
+            self.add_reaction(mkey, reaction['stoichiometry'])
+            if mkey in other.reaction_energies:
+                self.reaction_energies[mkey] = other.reaction_energies[mkey]
+            for key in ['description']:
+                if key in reaction:
+                    self.reactions[mkey][key] = reaction[key]
+        return self
+
+    def __add__(self, other):
+        result = self.copy()
+        result += other
+        return result
+
     def add_molecule(self, name, geometry, energy=None, description=None, InChI=None,
                      SMILES=None, spin=None, charge=None):
         r"""
@@ -68,7 +90,6 @@ class Database:
 
         :param str name: The key for the molecule in :py:data:`molecules`.
         :param str geometry: The geometry. Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
-        :param list fragment_lengths:  For a molecule that is to be considered as a supramolecular complex, the lengths of each of the fragments. The last value can be omitted.
         :param float energy:  The reference value for the energy of the molecule in Hartree units
         :param str description: Descriptive text
         :param str InChI: `InChI <https://www.inchi-trust.org>`_ string describing the molecule
@@ -360,7 +381,8 @@ units = Units({
     'kcal/mol': 4.184 / 2625.49963948,
     'eV': 1 / 27.211386249880,
     'cm-1': 1 / 219474.6313632,
-}) #: dictionary of units, giving their values in atomic units
+    'K': 1 / 315776.177845143,
+})  #: dictionary of units, giving their values in atomic units
 
 
 def analyse(databases, reference_database=None, unit=None):

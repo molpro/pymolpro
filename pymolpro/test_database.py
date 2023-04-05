@@ -177,12 +177,27 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         from pymolpro.database import units
         self.assertEqual(units[None], 1.0)
         self.assertEqual(units[1.2345], 1.2345)
-        self.assertAlmostEqual(units['kJ/mol'], 1/2625.499)
-        self.assertAlmostEqual(units['kj/mol'], 1/2625.499)
-        self.assertAlmostEqual(units['KJ/MOL'], 1/2625.499)
-        self.assertAlmostEqual(units[1/2625.499], 1/2625.499)
+        self.assertAlmostEqual(units['kJ/mol'], 1 / 2625.499)
+        self.assertAlmostEqual(units['kj/mol'], 1 / 2625.499)
+        self.assertAlmostEqual(units['KJ/MOL'], 1 / 2625.499)
+        self.assertAlmostEqual(units[1 / 2625.499], 1 / 2625.499)
         with self.assertRaises(KeyError):
             units['badunit']
+
+    def test_add(self):
+        db = pymolpro.database.load('sample')
+        db += db
+        # print(db)
+        self.assertEqual(db, db)
+        db1 = pymolpro.database.load('sample').subset(['H2+F2'])
+        db2 = pymolpro.database.load('sample').subset(['HFHF'])
+        db12 = db1.copy()
+        db12 += db2
+        # print(db12)
+        self.assertEqual(len(db12), 2)
+        db12 = db1 + db2
+        # print(db12)
+        self.assertEqual(len(db12), 2)
 
 
 if __name__ == '__main__':
