@@ -372,6 +372,19 @@ class Units(collections.abc.Mapping):
         if type(k) == float or type(k) == int: return float(k)
         return self._d[self._s[k.lower()]]
 
+    def keys(self):
+        return self._d.keys()
+
+    def items(self):
+        return self._d.items()
+
+    def __str__(self):
+        if len(self) == 0: return ""
+        s = "Defined units:\n"
+        for k, v in self.items():
+            s += "1 " + k + " = " + str(v) + " a.u.\n"
+        return s
+
     def actual_key_case(self, k):
         return self._s.get(k.lower())
 
@@ -380,6 +393,11 @@ units = Units({
     'kJ/mol': 1 / 2625.49963948,
     'kcal/mol': 4.184 / 2625.49963948,
     'eV': 1 / 27.211386249880,
+    'meV': 1 / 27.211386249880 / 1000.0,
+    'mEh': 1 / 1000.0,
+    'mH': 1 / 1000.0,
+    'uEh': 1 / 1000.0 / 1000.0,
+    'uH': 1 / 1000.0 / 1000.0,
     'cm-1': 1 / 219474.6313632,
     'K': 1 / 315776.177845143,
 })  #: dictionary of units, giving their values in atomic units

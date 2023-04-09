@@ -183,6 +183,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertAlmostEqual(units[1 / 2625.499], 1 / 2625.499)
         with self.assertRaises(KeyError):
             units['badunit']
+        # print(units)
 
     def test_add(self):
         db = pymolpro.database.load('sample')
