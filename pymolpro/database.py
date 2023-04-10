@@ -84,7 +84,7 @@ class Database:
         return result
 
     def add_molecule(self, name, geometry, energy=None, description=None, InChI=None,
-                     SMILES=None, spin=None, charge=None):
+                     SMILES=None, spin=None, charge=None, preamble=None):
         r"""
         Add a molecule to the database.  The minimal information that is stored is the geometry, but information from each of the optional arguments, if given, is also stored in the :py:data:`molecules` dictionary.
 
@@ -96,6 +96,7 @@ class Database:
         :param str SMILES: `SMILES <http://opensmiles.org/opensmiles.html>`_ string describing the molecule
         :param int spin: The spin multiplicity minus one
         :param int charge: Electrical charge of molecule
+        :param str preamble: Additional Molpro input to be added before geometry
         :return: The added molecule
         :rtype: dict
         """
@@ -110,6 +111,7 @@ class Database:
         if charge is not None: self.molecules[_name]['charge'] = charge
         if InChI is not None: self.molecules[_name]['InChI'] = InChI
         if SMILES is not None: self.molecules[_name]['SMILES'] = SMILES
+        if preamble is not None: self.molecules[_name]['preamble'] = preamble
         return self.molecules[_name]
 
     def add_reaction(self, name, stoichiometry, energy=None, description=None):
@@ -309,46 +311,47 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         os.makedirs(newdb.project_directory)
     newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
+        method_ = method if type(method) == str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else  method[0]
+        initial_ = (initial + "; " + db.preamble if len(initial) > 0 else db.preamble) + (
+                    ';' + molecule['preamble']) if 'preamble' in molecule else ''
+        if re.match('^(;+ +)*$',initial_) : initial_=None
+        # initial_=initial+'; '+db.preamble if len(initial)>0 else db.preamble
         newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
-                                                method=method if type(method) == str else
-                                                method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else
-                                                method[0],
+                                                method=method_,
                                                 basis=basis,
                                                 location=newdb.project_directory,
-                                                initial=initial + "; " + db.preamble if len(
-                                                    initial) > 0 else db.preamble,
-                                                spin=molecule['spin'] if 'spin' in molecule else None,
-                                                charge=molecule['charge'] if 'charge' in molecule else None,
-                                                **kwargs)
-    with Pool(processes=__parallel) as pool:
-        pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
+                                                initial=initial_,
+                                                spin = molecule['spin'] if 'spin' in molecule else None,
+                                                charge = molecule['charge'] if 'charge' in molecule else None,
+                                                ** kwargs)
+        with Pool(processes=__parallel) as pool:
+            pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
 
-    newdb.failed = {}
-    for molecule in db.molecules:
-        project = newdb.projects[molecule]
+        newdb.failed = {}
+        for molecule in db.molecules:
+            project = newdb.projects[molecule]
         if project.status != 'completed' or not pymolpro.no_errors([project]):
             newdb.failed[molecule] = project
 
-    newdb.molecule_energies = {}
-    for molecule_name in db.molecules:
-        newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
-    newdb.method = method
-    newdb.basis = basis
-    newdb.options = sorted(kwargs.items())
-    if len(newdb.failed) == 0:
-        newdb.reaction_energies = {}
+        newdb.molecule_energies = {}
+        for molecule_name in db.molecules:
+            newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+        newdb.method = method
+        newdb.basis = basis
+        newdb.options = sorted(kwargs.items())
+        if len(newdb.failed) == 0:
+            newdb.reaction_energies = {}
         for reaction_name, reaction in db.reactions.items():
             newdb.reaction_energies[reaction_name] = 0.0
-            for reagent, stoichiometry in reaction['stoichiometry'].items():
-                newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
+        for reagent, stoichiometry in reaction['stoichiometry'].items():
+            newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
 
         if clean:
             newdb.projects = {}
-            rmtree(newdb.project_directory)
-            newdb.project_directory = None
+        rmtree(newdb.project_directory)
+        newdb.project_directory = None
 
     return newdb
-
 
 import collections
 

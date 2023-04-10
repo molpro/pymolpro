@@ -20,7 +20,7 @@ for filename in os.listdir(directory):
     handle = filename[:-9]
     db = pymolpro.database.Database(description='Minnesota 2019 ' + handle)
     if handle in ['PEC4', 'MGBL193']: continue  # TODO handle these exceptional cases
-    # if handle != 'S66_2.00': continue
+    # if handle != 'SR-MGM-BE8': continue
     assert os.path.isfile(f)
     print(handle, f)
     molecule_name = ""
@@ -35,7 +35,8 @@ for filename in os.listdir(directory):
             # print("parsed line",line)
             s = '%chk=([A-Za-z0-9_,.\\+=-]+)(\\b|\\.chk)*'
             assert (re.match(s, line))
-            molecule_name = re.sub(s, r'\1', line)
+            molecule_name = re.sub(s, r'\1', line).strip()
+            # print("molecule_name",molecule_name)
             if molecule_name[-1] == '\n': molecule_name = molecule_name[:-1]
             # print("molecule_name", molecule_name[-4:])
             if molecule_name[-4:] == ".chk": molecule_name = molecule_name[:-4]
@@ -60,10 +61,16 @@ for filename in os.listdir(directory):
                 if line.isspace() or not line: break
                 geometry += line
             # print("molecule geometry", geometry)
-            db.add_molecule(molecule_name, geometry, description=molecule_title, charge=charge, spin=spin)
+            # print("search for extra data")
+            preamble = ""
             while True:
                 line = fh.readline()
                 if not line or re.match('>+', line): break
+                if re.match('[A-Za-z][A-Za-z0-9]*=', line):
+                    preamble += line + '\n'
+            # print("preamble:",preamble)
+            db.add_molecule(molecule_name, geometry, description=molecule_title, charge=charge, spin=spin,
+                            preamble='Angstrom\n' + preamble if len(preamble) > 0 else None)
     db.references['Geometries for Minnesota Database 2019'] = 'https://doi.org/10.13020/217y-8g32'
     db.dump(pymolpro.database.library_path('Minnesota_2019_' + handle))
 
