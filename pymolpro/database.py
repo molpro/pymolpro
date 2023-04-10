@@ -2,6 +2,7 @@ import pymolpro
 from pymolpro import resolve_geometry
 import json
 import os.path
+import re
 
 __all__ = ['Database', 'load', 'run', 'analyse', 'basis_extrapolate', 'units']
 
@@ -311,47 +312,49 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         os.makedirs(newdb.project_directory)
     newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
-        method_ = method if type(method) == str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else  method[0]
+        method_ = method if type(method) == str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
+            method[0]
         initial_ = (initial + "; " + db.preamble if len(initial) > 0 else db.preamble) + (
-                    ';' + molecule['preamble']) if 'preamble' in molecule else ''
-        if re.match('^(;+ +)*$',initial_) : initial_=None
+                ';' + molecule['preamble']) if 'preamble' in molecule else ''
+        if re.match('^(;+ +)*$', initial_): initial_ = None
         # initial_=initial+'; '+db.preamble if len(initial)>0 else db.preamble
         newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
                                                 method=method_,
                                                 basis=basis,
                                                 location=newdb.project_directory,
                                                 initial=initial_,
-                                                spin = molecule['spin'] if 'spin' in molecule else None,
-                                                charge = molecule['charge'] if 'charge' in molecule else None,
-                                                ** kwargs)
-        with Pool(processes=__parallel) as pool:
-            pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
+                                                spin=molecule['spin'] if 'spin' in molecule else None,
+                                                charge=molecule['charge'] if 'charge' in molecule else None,
+                                                **kwargs)
+    with Pool(processes=__parallel) as pool:
+        pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
 
-        newdb.failed = {}
-        for molecule in db.molecules:
-            project = newdb.projects[molecule]
+    newdb.failed = {}
+    for molecule in db.molecules:
+        project = newdb.projects[molecule]
         if project.status != 'completed' or not pymolpro.no_errors([project]):
             newdb.failed[molecule] = project
 
-        newdb.molecule_energies = {}
-        for molecule_name in db.molecules:
-            newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
-        newdb.method = method
-        newdb.basis = basis
-        newdb.options = sorted(kwargs.items())
-        if len(newdb.failed) == 0:
-            newdb.reaction_energies = {}
+    newdb.molecule_energies = {}
+    for molecule_name in db.molecules:
+        newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+    newdb.method = method
+    newdb.basis = basis
+    newdb.options = sorted(kwargs.items())
+    if len(newdb.failed) == 0:
+        newdb.reaction_energies = {}
         for reaction_name, reaction in db.reactions.items():
             newdb.reaction_energies[reaction_name] = 0.0
-        for reagent, stoichiometry in reaction['stoichiometry'].items():
-            newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
+            for reagent, stoichiometry in reaction['stoichiometry'].items():
+                newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
 
         if clean:
             newdb.projects = {}
-        rmtree(newdb.project_directory)
-        newdb.project_directory = None
+            rmtree(newdb.project_directory)
+            newdb.project_directory = None
 
     return newdb
+
 
 import collections
 
@@ -463,7 +466,6 @@ def __compare_database_runs_format_table(results, dataset):
 
 
 def basis_extrapolate(results, hf_results, x=None):
-    import re
     assert len(hf_results) == len(hf_results)
     if x == None:
         assert len(results) > 1
