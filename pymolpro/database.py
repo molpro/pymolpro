@@ -333,10 +333,10 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     for molecule_name, molecule in db.molecules.items():
         method_ = method if type(method) == str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
             method[0]
-        initial_ = (initial + "; " + db.preamble if len(initial) > 0 else db.preamble) + (
-                ';' + molecule['preamble']) if 'preamble' in molecule else ''
-        if re.match('^(;+ +)*$', initial_): initial_ = None
-        # initial_=initial+'; '+db.preamble if len(initial)>0 else db.preamble
+        initial_= initial + '\n' + db.preamble
+        if 'preamble' in molecule:
+            initial_ += '\n'+molecule['preamble']
+        if re.match('^(\n+;+ +)*$', initial_): initial_ = None
         newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
                                                 method=method_,
                                                 basis=basis,

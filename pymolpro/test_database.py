@@ -86,6 +86,20 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
             # print(results)
 
+    def test_preamble(self):
+        if shutil.which('molpro'):
+            db = Database()
+            db.preamble = 'angstrom'
+            db.add_molecule('H2', 'H;H,H,0.7'
+                            # , preamble='angstrom'
+                            )
+            # print(db)
+            db2 = database.load(db.dump())
+            # print(db2)
+            results = database.run(db2)
+            # print(results)
+            self.assertAlmostEquals(results.molecule_energies['H2'], -1.13207566548333)
+
     def test_compare_database_runs(self):
         if shutil.which('molpro'):
             db = database.load('sample')
@@ -208,8 +222,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertEqual(len(library('GMTKN55$')), 0)
         self.assertEqual(len(library('sample')), 1)
         self.assertGreater(len(library()), 55)
-        self.assertEqual(len(library('^((?!GMTKN55).)*$'))+len(library('GMTKN55')),len(library()))
-
+        self.assertEqual(len(library('^((?!GMTKN55).)*$')) + len(library('GMTKN55')), len(library()))
 
 
 if __name__ == '__main__':
