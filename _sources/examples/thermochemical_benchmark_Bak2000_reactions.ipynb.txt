@@ -159,7 +159,7 @@
     "    for method in methods_pruned:\n",
     "        data.append(\n",
     "            pymolpro.database.analyse(results[method][bases_pruned[pane]],\n",
-    "                                      db)['reaction energy errors'].to_numpy()[:, 0] * tokj\n",
+    "                                      db, 'kJ/mol')['reaction energy errors'].to_numpy()[:, 0]\n",
     "        )\n",
     "    panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method='silverman')\n",
     "    panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)\n",
