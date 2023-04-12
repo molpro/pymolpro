@@ -266,6 +266,25 @@ def library_path(key):
     return os.path.realpath(os.path.join(__file__, '..', 'share', 'database', key.replace('.json', '') + '.json'))
 
 
+def library(expression=None):
+    r"""
+    Obtain a, possibly filtered, list of databases in the library
+
+    :param expression: Regular expression to limit the databases found
+    :return:
+    :rtype list:
+    """
+    import os.path
+    import pathlib
+    result = []
+    library = os.path.realpath(os.path.join(__file__, '..', 'share', 'database'))
+    for file in os.listdir(library):
+        if pathlib.Path(file).suffix != '.json': continue
+        if expression and not re.match(expression, pathlib.Path(file).stem): continue
+        result.append(pathlib.Path(file).stem)
+    return result
+
+
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
         clean=False, initial="", **kwargs):
     r"""
