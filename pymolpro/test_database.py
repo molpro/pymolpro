@@ -98,7 +98,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print(db2)
             results = database.run(db2)
             # print(results)
-            self.assertAlmostEquals(results.molecule_energies['H2'], -1.13207566548333)
+            self.assertAlmostEqual(results.molecule_energies['H2'], -1.13207566548333)
 
     def test_compare_database_runs(self):
         if shutil.which('molpro'):
