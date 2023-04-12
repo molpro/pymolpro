@@ -291,7 +291,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
 
-    :param Database db:  The database that defines molecules and reacitions
+    :param Database db:  The database that defines molecules and reactions.
     :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
     :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
     :param str func: This should be one of
