@@ -224,6 +224,36 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertGreater(len(library()), 55)
         self.assertEqual(len(library('^((?!GMTKN55).)*$')) + len(library('GMTKN55')), len(library()))
 
+    def test_no_reactions(self):
+        db = Database(
+            molecules={
+                'H2': 'H 0 0 0\nH 0 0 .8',
+                'F2': 'F 0 0 0\nF 0 0 1.43',
+                'HF': 'H 0 0 0\nF 0 0 1',
+                'HFHF': """
+H          0.0000000000        0.0000000000       -0.1672052678
+F          0.0000000000        0.0000000000        0.7584550750
+H          0.0000000000        0.0000000000        2.7403780100
+F          0.0000000000        0.0000000000        3.6683721829"""
+            },
+        )
+        db.molecule_energies['H2'] = 1.0
+        db.molecule_energies['F2'] = 2.0
+        db.molecule_energies['HF'] = 3.0
+        db.molecule_energies['HFHF'] = 4.0
+        db2 = db.copy()
+        for molecule in db.molecules:
+            db2.molecule_energies[molecule] = db.molecule_energies[molecule] + 0.01
+        # print(db)
+        # print(db2)
+        statistics_ = pymolpro.database.analyse(db2, db)['molecule statistics']
+        # print(statistics_[0])
+        self.assertAlmostEqual(statistics_[0]['stdev'],0.0)
+        self.assertAlmostEqual(statistics_[0]['maxabs'],1e-2)
+        statistics_ = pymolpro.database.analyse(db2, db)['molecule energies']
+        # print(statistics_)
+        self.assertAlmostEqual(statistics_[0]['H2'],1.01)
+
 
 if __name__ == '__main__':
     unittest.main()

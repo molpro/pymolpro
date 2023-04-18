@@ -56,6 +56,7 @@ class Database:
         return db
 
     def __eq__(self, other):
+        if other is None and not self is None: return False
         return all([getattr(self, attr) == getattr(other, attr) for attr in
                     ['molecules', 'reactions', 'molecule_energies', 'reaction_energies']])
 
@@ -451,7 +452,7 @@ def analyse(databases, reference_database=None, unit=None):
             if len(getattr(database, typ + '_energies')) == 0: continue
             results[-1][typ + ' energies'] = {key: value / units[unit] for key, value in
                                               getattr(database, typ + '_energies').items()}
-            if reference_database and len(getattr(reference_database, typ + '_energies')) > 0:
+            if reference_database!=None and len(getattr(reference_database, typ + '_energies')) > 0:
                 results[-1][typ + ' energy errors'] = {
                     key: value - getattr(reference_database, typ + '_energies')[key] / units[unit]
                     for
@@ -464,7 +465,7 @@ def analyse(databases, reference_database=None, unit=None):
                     'maxabs': max([abs(v) for v in results[-1][typ + ' energy errors'].values()]),
                 }
         for table in [typ + ' energies', typ + ' energy errors', typ + ' statistics']:
-            if all([table in result for result in results]):
+            if results and all([table in result for result in results]):
                 output[table] = __compare_database_runs_format_table(results, table)
     return output
 
@@ -475,11 +476,14 @@ def __compare_database_runs_format_table(results, dataset):
     table = [list(result[dataset].values()) for result in results]
     row_labels = list(results[0][dataset].keys())
     output = pd.DataFrame(np.array(table).transpose(), index=row_labels)
-    output.columns = pd.MultiIndex.from_arrays([
-        [result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
-         results],
-        [result['basis'] for result in results],
-    ])
+    column_headers = [ ]
+    if all(['method' in result and result['method'] for result in results]):
+        column_headers.append([result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
+         results])
+    if all(['basis' in result and result['basis'] for result in results]):
+        column_headers.append([result['basis'] for result in results])
+    if column_headers:
+        output.columns = pd.MultiIndex.from_arrays(column_headers)
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
 
