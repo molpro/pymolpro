@@ -436,10 +436,29 @@ def analyse(databases, reference_database=None, unit=None):
     :param list(Database)|Database databases:
     :param Database reference_database:
     :param unit: Either a string or a float specifying desired units for the output. In the case of  a string, it should match (case insensitive) one of the keys of :py:data:`units`; if an explicit value is given, it should be the value of the desired units in atomic units, ie the results will be divided by the value.
-    :return:
+    :return: A dictionary with keys, where possible,
+
+        * `molecule energies`
+        * `molecule energy deviations`
+        * `molecule statistics`
+        * `reaction energies`
+        * `reaction energy deviations`
+        * `reaction statistics`
+
+    The energy deviations are, for each molecule or reaction, the difference between the energies in each element of :py:data:`databases` and the value in :py:data:`reference_database`.
+    The values are pandas Dataframe objects, whose columns correspond to the elements of :py:data:`databases`. In the case of the molecule or reaction energies or energy deviations, the rows correspond to the individual molecule or reaction.
+    In the case of `statistics`, the rows are
+
+        * `MSD`: the mean of the deviations
+        * `STDEVD`: the standard deviation of the deviations
+        * `MAD`: the mean of the absolute value of the deviations
+        * `MAXD`: the maximum absolute value of the deviations
+        * `RMSD`: the root mean square deviation
+
     :rtype: dict
     """
     import statistics
+    from math import sqrt
     databases_ = list(databases) if type(databases) == list else [databases]
     output = {}
     for typ in ['reaction', 'molecule']:
@@ -453,18 +472,19 @@ def analyse(databases, reference_database=None, unit=None):
             results[-1][typ + ' energies'] = {key: value / units[unit] for key, value in
                                               getattr(database, typ + '_energies').items()}
             if reference_database!=None and len(getattr(reference_database, typ + '_energies')) > 0:
-                results[-1][typ + ' energy errors'] = {
+                results[-1][typ + ' energy deviations'] = {
                     key: value - getattr(reference_database, typ + '_energies')[key] / units[unit]
                     for
                     key, value in
                     results[-1][typ + ' energies'].items()}
                 results[-1][typ + ' statistics'] = {
-                    'mean': statistics.mean(results[-1][typ + ' energy errors'].values()),
-                    'stdev': statistics.stdev(results[-1][typ + ' energy errors'].values()),
-                    'meanabs': statistics.mean([abs(v) for v in results[-1][typ + ' energy errors'].values()]),
-                    'maxabs': max([abs(v) for v in results[-1][typ + ' energy errors'].values()]),
+                    'MSD': statistics.mean(results[-1][typ + ' energy deviations'].values()), # mean of the deviations
+                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()), # standard deviation of the deviations
+                    'MAD': statistics.mean([abs(v) for v in results[-1][typ + ' energy deviations'].values()]), # mean absolute deviation
+                    'MAXD': max([abs(v) for v in results[-1][typ + ' energy deviations'].values()]), # maximum absolute deviation
+                    'RMSD': sqrt(statistics.mean([v*v for v in results[-1][typ + ' energy deviations'].values()])), # root mean square deviation
                 }
-        for table in [typ + ' energies', typ + ' energy errors', typ + ' statistics']:
+        for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
             if results and all([table in result for result in results]):
                 output[table] = __compare_database_runs_format_table(results, table)
     return output
