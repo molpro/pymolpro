@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.15 documentation</title>
+  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.16 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -199,28 +199,34 @@ method_errors
   </thead>
   <tbody>
     <tr>
-      <th>mean</th>
+      <th>MSD</th>
       <td>-6.08</td>
       <td>0.22</td>
       <td>-0.54</td>
     </tr>
     <tr>
-      <th>stdev</th>
+      <th>STDEVD</th>
       <td>2.03</td>
       <td>0.21</td>
       <td>0.26</td>
     </tr>
     <tr>
-      <th>meanabs</th>
+      <th>MAD</th>
       <td>6.08</td>
       <td>0.22</td>
       <td>0.54</td>
     </tr>
     <tr>
-      <th>maxabs</th>
+      <th>MAXD</th>
       <td>7.52</td>
       <td>0.42</td>
       <td>0.79</td>
+    </tr>
+    <tr>
+      <th>RMSD</th>
+      <td>6.30</td>
+      <td>0.28</td>
+      <td>0.58</td>
     </tr>
   </tbody>
 </table>
@@ -247,19 +253,20 @@ reaction energies
 2    5.30e-03    8.11e-03    7.65e-03
 1    2.13e-03    5.09e-03    4.78e-03
 8   -5.94e-04    8.36e-04    7.38e-04
-reaction energy errors
+reaction energy deviations
         DF-HF      DF-MP2     DF-LMP2
   aug-cc-pVQZ aug-cc-pVQZ aug-cc-pVQZ
 2   -2.65e-03    1.59e-04   -3.02e-04
 1   -2.87e-03    9.25e-05   -2.12e-04
 8   -1.43e-03   -3.85e-06   -1.02e-04
 reaction statistics
-              DF-HF      DF-MP2     DF-LMP2
-        aug-cc-pVQZ aug-cc-pVQZ aug-cc-pVQZ
-mean      -2.32e-03    8.25e-05   -2.05e-04
-stdev      7.72e-04    8.18e-05    9.99e-05
-meanabs    2.32e-03    8.51e-05    2.05e-04
-maxabs     2.87e-03    1.59e-04    3.02e-04
+             DF-HF      DF-MP2     DF-LMP2
+       aug-cc-pVQZ aug-cc-pVQZ aug-cc-pVQZ
+MSD      -2.32e-03    8.25e-05   -2.05e-04
+STDEVD    7.72e-04    8.18e-05    9.99e-05
+MAD       2.32e-03    8.51e-05    2.05e-04
+MAXD      2.87e-03    1.59e-04    3.02e-04
+RMSD      2.40e-03    1.06e-04    2.21e-04
 molecule energies
           DF-HF      DF-MP2     DF-LMP2
     aug-cc-pVQZ aug-cc-pVQZ aug-cc-pVQZ
@@ -272,18 +279,18 @@ molecule energies
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
 method_errors = pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db, &#39;kJ/mol&#39;)[
-                    &#39;reaction energy errors&#39;]
+                    &#39;reaction energy deviations&#39;]
 method_errors
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -340,7 +347,7 @@ method_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
@@ -351,7 +358,7 @@ basis_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -386,7 +393,7 @@ basis_errors
   </thead>
   <tbody>
     <tr>
-      <th>mean</th>
+      <th>MSD</th>
       <td>-1.21</td>
       <td>-4.05</td>
       <td>-0.54</td>
@@ -394,7 +401,7 @@ basis_errors
       <td>2.07</td>
     </tr>
     <tr>
-      <th>stdev</th>
+      <th>STDEVD</th>
       <td>1.36</td>
       <td>5.71</td>
       <td>0.26</td>
@@ -402,7 +409,7 @@ basis_errors
       <td>3.80</td>
     </tr>
     <tr>
-      <th>meanabs</th>
+      <th>MAD</th>
       <td>1.44</td>
       <td>4.05</td>
       <td>0.54</td>
@@ -410,19 +417,27 @@ basis_errors
       <td>2.24</td>
     </tr>
     <tr>
-      <th>maxabs</th>
+      <th>MAXD</th>
       <td>2.23</td>
       <td>10.62</td>
       <td>0.79</td>
       <td>13.76</td>
       <td>6.46</td>
     </tr>
+    <tr>
+      <th>RMSD</th>
+      <td>1.64</td>
+      <td>6.17</td>
+      <td>0.58</td>
+      <td>7.95</td>
+      <td>3.73</td>
+    </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -436,7 +451,7 @@ for pane in range(len(bases_pruned)):
     for method in methods_pruned:
         data.append(
             pymolpro.database.analyse(results[method][bases_pruned[pane]],
-                                      db)[&#39;reaction energy errors&#39;].to_numpy()[:, 0] * tokj
+                                      db)[&#39;reaction energy deviations&#39;].to_numpy()[:, 0] * tokj
         )
     panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method=&#39;silverman&#39;)
     panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
@@ -454,7 +469,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
@@ -467,7 +482,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>

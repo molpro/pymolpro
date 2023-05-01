@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.15 documentation</title>
+  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.16 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -114,7 +114,11 @@ parallel = None  # how many jobs to run at once
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = {&quot;HF&quot;: [&quot;hf&quot;, &quot;uhf&quot;], &quot;MP2&quot;: [&quot;mp2&quot;, &quot;ump2&quot;], &quot;CCSD&quot;: [&quot;ccsd&quot;, &quot;uccsd&quot;], }
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = {&quot;HF&quot;: [&quot;hf&quot;, &quot;uhf&quot;],
+&quot;MP2&quot;: [&quot;mp2&quot;, &quot;ump2&quot;],
+# &quot;MP3&quot;: [&quot;mp3&quot;, &quot;ump3&quot;],
+# &quot;MP4&quot;: [&quot;mp4&quot;, &quot;ump4&quot;],
+&quot;CCSD&quot;: [&quot;ccsd&quot;, &quot;uccsd&quot;], &quot;CCSD(T)&quot;: [&quot;ccsd(t)&quot;, &quot;uccsd(t)&quot;], }
 bases = [&#39;cc-pCVDZ&#39;, &#39;cc-pCVTZ&#39;, &#39;cc-pCVQZ&#39;, &#39;cc-pCV5Z&#39;]
 </pre></div>
 </div>
@@ -189,9 +193,11 @@ pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in met
       <th>UHF</th>
       <th>UMP2</th>
       <th>UCCSD</th>
+      <th>UCCSD(T)</th>
     </tr>
     <tr>
       <th></th>
+      <th>cc-pCV5Z</th>
       <th>cc-pCV5Z</th>
       <th>cc-pCV5Z</th>
       <th>cc-pCV5Z</th>
@@ -199,28 +205,39 @@ pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in met
   </thead>
   <tbody>
     <tr>
-      <th>mean</th>
+      <th>MSD</th>
       <td>-405.05</td>
       <td>21.79</td>
       <td>-34.61</td>
+      <td>-6.61</td>
     </tr>
     <tr>
-      <th>stdev</th>
+      <th>STDEVD</th>
       <td>143.84</td>
       <td>30.40</td>
       <td>18.76</td>
+      <td>3.08</td>
     </tr>
     <tr>
-      <th>meanabs</th>
+      <th>MAD</th>
       <td>405.05</td>
       <td>29.43</td>
       <td>34.61</td>
+      <td>6.61</td>
     </tr>
     <tr>
-      <th>maxabs</th>
+      <th>MAXD</th>
       <td>598.79</td>
       <td>99.26</td>
       <td>69.02</td>
+      <td>10.71</td>
+    </tr>
+    <tr>
+      <th>RMSD</th>
+      <td>428.32</td>
+      <td>36.62</td>
+      <td>39.09</td>
+      <td>7.25</td>
     </tr>
   </tbody>
 </table>
@@ -231,7 +248,7 @@ pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in met
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-pymolpro.database.analyse([results[&#39;CCSD&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
+pymolpro.database.analyse([results[&#39;CCSD(T)&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
     &#39;reaction statistics&#39;]
 </pre></div>
 </div>
@@ -259,7 +276,7 @@ pymolpro.database.analyse([results[&#39;CCSD&#39;][basis] for basis in bases], d
   <thead>
     <tr>
       <th></th>
-      <th colspan="7" halign="left">UCCSD</th>
+      <th colspan="7" halign="left">UCCSD(T)</th>
     </tr>
     <tr>
       <th></th>
@@ -274,51 +291,61 @@ pymolpro.database.analyse([results[&#39;CCSD&#39;][basis] for basis in bases], d
   </thead>
   <tbody>
     <tr>
-      <th>mean</th>
-      <td>-121.40</td>
-      <td>-59.96</td>
-      <td>-40.92</td>
-      <td>-34.61</td>
-      <td>-43.84</td>
-      <td>-28.78</td>
-      <td>-28.48</td>
+      <th>MSD</th>
+      <td>-103.07</td>
+      <td>-34.00</td>
+      <td>-13.46</td>
+      <td>-6.61</td>
+      <td>-14.66</td>
+      <td>-0.23</td>
+      <td>0.08</td>
     </tr>
     <tr>
-      <th>stdev</th>
-      <td>45.18</td>
-      <td>27.14</td>
-      <td>20.78</td>
-      <td>18.76</td>
-      <td>24.36</td>
-      <td>16.89</td>
-      <td>16.43</td>
+      <th>STDEVD</th>
+      <td>37.19</td>
+      <td>13.58</td>
+      <td>5.63</td>
+      <td>3.08</td>
+      <td>8.39</td>
+      <td>2.15</td>
+      <td>1.12</td>
     </tr>
     <tr>
-      <th>meanabs</th>
-      <td>121.40</td>
-      <td>59.96</td>
-      <td>40.92</td>
-      <td>34.61</td>
-      <td>43.91</td>
-      <td>28.83</td>
-      <td>28.50</td>
+      <th>MAD</th>
+      <td>103.07</td>
+      <td>34.00</td>
+      <td>13.46</td>
+      <td>6.61</td>
+      <td>14.74</td>
+      <td>1.68</td>
+      <td>0.90</td>
     </tr>
     <tr>
-      <th>maxabs</th>
-      <td>177.81</td>
-      <td>107.34</td>
-      <td>78.23</td>
-      <td>69.02</td>
-      <td>91.02</td>
-      <td>58.93</td>
-      <td>58.55</td>
+      <th>MAXD</th>
+      <td>155.71</td>
+      <td>51.58</td>
+      <td>20.15</td>
+      <td>10.71</td>
+      <td>29.53</td>
+      <td>4.01</td>
+      <td>2.45</td>
+    </tr>
+    <tr>
+      <th>RMSD</th>
+      <td>109.18</td>
+      <td>36.45</td>
+      <td>14.52</td>
+      <td>7.25</td>
+      <td>16.76</td>
+      <td>2.10</td>
+      <td>1.09</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -332,7 +359,7 @@ for pane in range(len(bases_pruned)):
     for method in methods_pruned:
         data.append(
             pymolpro.database.analyse(results[method][bases_pruned[pane]],
-                                      db,&#39;kJ/mol&#39;)[&#39;reaction energy errors&#39;].to_numpy()[:, 0]
+                                      db,&#39;kJ/mol&#39;)[&#39;reaction energy deviations&#39;].to_numpy()[:, 0]
         )
     panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method=&#39;silverman&#39;)
     panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
@@ -350,7 +377,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:

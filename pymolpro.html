@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.3.15 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.3.16 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -1473,8 +1473,31 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p><p>A dictionary with keys, where possible,</p>
+<ul class="simple">
+<li><p><cite>molecule energies</cite></p></li>
+<li><p><cite>molecule energy deviations</cite></p></li>
+<li><p><cite>molecule statistics</cite></p></li>
+<li><p><cite>reaction energies</cite></p></li>
+<li><p><cite>reaction energy deviations</cite></p></li>
+<li><p><cite>reaction statistics</cite></p></li>
+</ul>
+</p>
 </dd>
+</dl>
+<p>The energy deviations are, for each molecule or reaction, the difference between the energies in each element of <code class="xref py py-data docutils literal notranslate"><span class="pre">databases</span></code> and the value in <code class="xref py py-data docutils literal notranslate"><span class="pre">reference_database</span></code>.
+The values are pandas Dataframe objects, whose columns correspond to the elements of <code class="xref py py-data docutils literal notranslate"><span class="pre">databases</span></code>. In the case of the molecule or reaction energies or energy deviations, the rows correspond to the individual molecule or reaction.
+In the case of <cite>statistics</cite>, the rows are</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>MSD</cite>: the mean of the deviations</p></li>
+<li><p><cite>STDEVD</cite>: the standard deviation of the deviations</p></li>
+<li><p><cite>MAD</cite>: the mean of the absolute value of the deviations</p></li>
+<li><p><cite>MAXD</cite>: the maximum absolute value of the deviations</p></li>
+<li><p><cite>RMSD</cite>: the root mean square deviation</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
