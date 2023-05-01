@@ -109,9 +109,15 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                 database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
             ]
             outputs = database.analyse(results, results[-1])
-            self.assertEqual(len(outputs['reaction statistics'].index), 4)
-            self.assertEqual(len(outputs['molecule statistics'].index), 4)
+            # print(outputs)
+            self.assertEqual(len(outputs['reaction statistics'].index), 5)
+            self.assertEqual(len(outputs['molecule statistics'].index), 5)
             self.assertEqual(len(outputs['reaction energies'].index), len(db))
+            rmsd = outputs['molecule statistics'].iloc[:, 0]['RMSD']
+            msd = outputs['molecule statistics'].iloc[:, 0]['MSD']
+            stdevd = outputs['molecule statistics'].iloc[:, 0]['STDEVD']
+            self.assertAlmostEqual((len(db.molecules) - 1) * pow(stdevd, 2),
+                                   len(db.molecules) * (pow(rmsd, 2) - pow(msd, 2)))
             for title, output in outputs.items():
                 self.assertEqual(len(output.columns), 3)
                 # print(title)
@@ -248,11 +254,13 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         # print(db2)
         statistics_ = pymolpro.database.analyse(db2, db)['molecule statistics']
         # print(statistics_[0])
-        self.assertAlmostEqual(statistics_[0]['stdev'],0.0)
-        self.assertAlmostEqual(statistics_[0]['maxabs'],1e-2)
-        statistics_ = pymolpro.database.analyse(db2, db)['molecule energies']
-        # print(statistics_)
-        self.assertAlmostEqual(statistics_[0]['H2'],1.01)
+        self.assertAlmostEqual((len(db.molecules) - 1) * pow(statistics_[0]['STDEVD'], 2),
+                               len(db.molecules) * (pow(statistics_[0]['RMSD'], 2) - pow(statistics_[0]['MSD'], 2)))
+        self.assertAlmostEqual(statistics_[0]['STDEVD'], 0.0)
+        self.assertAlmostEqual(statistics_[0]['MAXD'], 1e-2)
+        energies_ = pymolpro.database.analyse(db2, db)['molecule energies']
+        # print(energies_)
+        self.assertAlmostEqual(energies_[0]['H2'], 1.01)
 
 
 if __name__ == '__main__':
