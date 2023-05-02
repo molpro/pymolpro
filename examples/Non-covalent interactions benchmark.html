@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.16 documentation</title>
+  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.3.17 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -152,19 +152,21 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tokj = 2625.49963948
-pd.set_option(&#39;display.precision&#39;, 2)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
 method_errors = pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db, &#39;kJ/mol&#39;)[
                     &#39;reaction statistics&#39;]
+with open(project_name + &#39;.method_errors.tex&#39;, &#39;w&#39;) as tf:
+    tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
+    tf.write(method_errors.style.format(precision=2).to_latex(hrules=True,multicol_align=&#39;c&#39;,caption=&#39;Method errors&#39;))
 method_errors
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -233,7 +235,7 @@ method_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for key, table in pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db).items():
@@ -279,7 +281,7 @@ molecule energies
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
@@ -290,7 +292,7 @@ method_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -347,18 +349,21 @@ method_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
 basis_errors = pymolpro.database.analyse([results[&#39;LMP2&#39;][basis] for basis in bases], db, &#39;kJ/mol&#39;)[
     &#39;reaction statistics&#39;]
+with open(project_name + &#39;.basis_errors.tex&#39;, &#39;w&#39;) as tf:
+    tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
+    tf.write(basis_errors.style.format(precision=2).to_latex(hrules=True,multicol_align=&#39;c&#39;,caption=&#39;Basis errors&#39;))
 basis_errors
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -437,7 +442,7 @@ basis_errors
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -451,7 +456,7 @@ for pane in range(len(bases_pruned)):
     for method in methods_pruned:
         data.append(
             pymolpro.database.analyse(results[method][bases_pruned[pane]],
-                                      db)[&#39;reaction energy deviations&#39;].to_numpy()[:, 0] * tokj
+                                      db,&#39;kJ/mol&#39;)[&#39;reaction energy deviations&#39;].to_numpy()[:, 0]
         )
     panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method=&#39;silverman&#39;)
     panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
@@ -468,16 +473,70 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 <img alt="../_images/examples_Non-covalent_interactions_benchmark_11_0.png" src="../_images/examples_Non-covalent_interactions_benchmark_11_0.png" />
 </div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>basis_errors.to_latex(float_format=&#39;%.2f&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/var/folders/qd/f26v1rbd3g5341rsg3s9j4v80000gn/T/ipykernel_71408/3833976484.py:1: FutureWarning: In future versions `DataFrame.to_latex` is expected to utilise the base implementation of `Styler.to_latex` for formatting and rendering. The arguments signature may therefore change. It is recommended instead to use `DataFrame.style.to_latex` which also contains additional functionality.
+  basis_errors.to_latex(float_format=&#39;%.2f&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;\\begin{tabular}{lrrrrr}\n\\toprule\n{} &amp; \\multicolumn{5}{l}{DF-LMP2} \\\\\n{} &amp; aug-cc-pVDZ &amp; aug-cc-pVTZ &amp; aug-cc-pVQZ &amp; aug-cc-pV[23]Z &amp; aug-cc-pV[34]Z \\\\\n\\midrule\nMSD    &amp;       -1.21 &amp;       -4.05 &amp;       -0.54 &amp;          -4.85 &amp;           2.07 \\\\\nSTDEVD &amp;        1.36 &amp;        5.71 &amp;        0.26 &amp;           7.71 &amp;           3.80 \\\\\nMAD    &amp;        1.44 &amp;        4.05 &amp;        0.54 &amp;           4.85 &amp;           2.24 \\\\\nMAXD   &amp;        2.23 &amp;       10.62 &amp;        0.79 &amp;          13.76 &amp;           6.46 \\\\\nRMSD   &amp;        1.64 &amp;        6.17 &amp;        0.58 &amp;           7.95 &amp;           3.73 \\\\\n\\bottomrule\n\\end{tabular}\n&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(basis_errors.style.format(precision=3).to_latex(hrules=True,multicol_align=&#39;c&#39;))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+\begin{tabular}{lrrrrr}
+\toprule
+ &amp; \multicolumn{5}{c}{DF-LMP2} \\
+ &amp; aug-cc-pVDZ &amp; aug-cc-pVTZ &amp; aug-cc-pVQZ &amp; aug-cc-pV[23]Z &amp; aug-cc-pV[34]Z \\
+\midrule
+MSD &amp; -1.210 &amp; -4.046 &amp; -0.539 &amp; -4.854 &amp; 2.070 \\
+STDEVD &amp; 1.362 &amp; 5.710 &amp; 0.262 &amp; 7.711 &amp; 3.804 \\
+MAD &amp; 1.435 &amp; 4.046 &amp; 0.539 &amp; 4.854 &amp; 2.238 \\
+MAXD &amp; 2.226 &amp; 10.624 &amp; 0.792 &amp; 13.757 &amp; 6.462 \\
+RMSD &amp; 1.644 &amp; 6.173 &amp; 0.580 &amp; 7.950 &amp; 3.733 \\
+\bottomrule
+\end{tabular}
+
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
-#     tf.write(&#39;\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}&#39;)
-#     tf.write(df_exp_reaction_meanerror.style.to_latex())
-#     tf.write(df_exp_reaction_std.style.to_latex())
-#     tf.write(df_exp_reaction_meanabserror.style.to_latex())
-#     tf.write(df_exp_reaction_maxerror.style.to_latex())
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
+    tf.write(&#39;\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}&#39;)
+    tf.write(df_exp_reaction_meanerror.style.to_latex())
+    tf.write(df_exp_reaction_std.style.to_latex())
+    tf.write(df_exp_reaction_meanabserror.style.to_latex())
+    tf.write(df_exp_reaction_maxerror.style.to_latex())
 </pre></div>
 </div>
 </div>

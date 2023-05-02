@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.16 documentation</title>
+  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.3.17 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -158,17 +158,21 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in methods], db, &#39;kj/mol&#39;)[
+method_errors=pymolpro.database.analyse([results[method][&#39;cc-pCV[45]Z&#39;] for method in methods], db, &#39;kj/mol&#39;)[
     &#39;reaction statistics&#39;]
+with open(project_name + &#39;.method_errors.tex&#39;, &#39;w&#39;) as tf:
+    tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
+    tf.write(method_errors.style.format(precision=2).to_latex(hrules=True,multicol_align=&#39;c&#39;,caption=&#39;Method errors&#39;))
+method_errors
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -197,47 +201,47 @@ pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in met
     </tr>
     <tr>
       <th></th>
-      <th>cc-pCV5Z</th>
-      <th>cc-pCV5Z</th>
-      <th>cc-pCV5Z</th>
-      <th>cc-pCV5Z</th>
+      <th>cc-pCV[45]Z</th>
+      <th>cc-pCV[45]Z</th>
+      <th>cc-pCV[45]Z</th>
+      <th>cc-pCV[45]Z</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>MSD</th>
       <td>-405.05</td>
-      <td>21.79</td>
-      <td>-34.61</td>
-      <td>-6.61</td>
+      <td>30.04</td>
+      <td>-28.48</td>
+      <td>0.08</td>
     </tr>
     <tr>
       <th>STDEVD</th>
       <td>143.84</td>
-      <td>30.40</td>
-      <td>18.76</td>
-      <td>3.08</td>
+      <td>32.64</td>
+      <td>16.43</td>
+      <td>1.12</td>
     </tr>
     <tr>
       <th>MAD</th>
       <td>405.05</td>
-      <td>29.43</td>
-      <td>34.61</td>
-      <td>6.61</td>
+      <td>35.11</td>
+      <td>28.50</td>
+      <td>0.90</td>
     </tr>
     <tr>
       <th>MAXD</th>
       <td>598.79</td>
-      <td>99.26</td>
-      <td>69.02</td>
-      <td>10.71</td>
+      <td>112.20</td>
+      <td>58.55</td>
+      <td>2.45</td>
     </tr>
     <tr>
       <th>RMSD</th>
       <td>428.32</td>
-      <td>36.62</td>
-      <td>39.09</td>
-      <td>7.25</td>
+      <td>43.60</td>
+      <td>32.62</td>
+      <td>1.09</td>
     </tr>
   </tbody>
 </table>
@@ -248,8 +252,12 @@ pymolpro.database.analyse([results[method][&#39;cc-pCV5Z&#39;] for method in met
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-pymolpro.database.analyse([results[&#39;CCSD(T)&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
+basis_errors=pymolpro.database.analyse([results[&#39;CCSD(T)&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
     &#39;reaction statistics&#39;]
+with open(project_name + &#39;.basis_errors.tex&#39;, &#39;w&#39;) as tf:
+    tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
+    tf.write(basis_errors.style.format(precision=2).to_latex(hrules=True,multicol_align=&#39;c&#39;,caption=&#39;Basis errors&#39;))
+basis_errors
 </pre></div>
 </div>
 </div>
@@ -345,7 +353,7 @@ pymolpro.database.analyse([results[&#39;CCSD(T)&#39;][basis] for basis in bases]
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
@@ -374,19 +382,6 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" src="../_images/examples_thermochemical_benchmark_Bak2000_atomisations_10_0.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># with open(project_name + &#39;.tex&#39;, &#39;w&#39;) as tf:
-#     tf.write(&#39;\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}&#39;)
-#     tf.write(df_exp_reaction_meanerror.style.to_latex())
-#     tf.write(df_exp_reaction_std.style.to_latex())
-#     tf.write(df_exp_reaction_meanabserror.style.to_latex())
-#     tf.write(df_exp_reaction_maxerror.style.to_latex())
-</pre></div>
 </div>
 </div>
 </section>
