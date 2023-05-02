@@ -478,11 +478,11 @@ def analyse(databases, reference_database=None, unit=None):
                     key, value in
                     results[-1][typ + ' energies'].items()}
                 results[-1][typ + ' statistics'] = {
-                    'MSD': statistics.mean(results[-1][typ + ' energy deviations'].values()), # mean of the deviations
-                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()), # standard deviation of the deviations
                     'MAD': statistics.mean([abs(v) for v in results[-1][typ + ' energy deviations'].values()]), # mean absolute deviation
                     'MAXD': max([abs(v) for v in results[-1][typ + ' energy deviations'].values()]), # maximum absolute deviation
                     'RMSD': sqrt(statistics.mean([v*v for v in results[-1][typ + ' energy deviations'].values()])), # root mean square deviation
+                    'MSD': statistics.mean(results[-1][typ + ' energy deviations'].values()), # mean of the deviations
+                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()), # standard deviation of the deviations
                 }
         for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
             if results and all([table in result for result in results]):
