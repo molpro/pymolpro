@@ -230,7 +230,7 @@ basis={basis}
         :param kwargs:
         :return:
         """
-        return self.properties('[@name="Energy" or @name="total energy"]', *args, **kwargs)
+        return self.properties("[ contains( translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'energy' ) ]", *args, **kwargs)
 
     def property(self, *args, **kwargs):
         """
