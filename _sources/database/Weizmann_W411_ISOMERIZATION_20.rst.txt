@@ -1,0 +1,63 @@
+Weizmann W411 ISOMERIZATION 20
+------------------------------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1016/j.cplett.2011.05.007
+
+Molecules
+^^^^^^^^^
+t-n2h2
+hnco
+cloo
+ketene
+hcno
+hocn
+oclo
+c-hooo
+honc
+formic
+c-hono
+h2cn
+propyne
+c-n2h2
+t-hono
+allene
+hcn
+oxirane
+oxirene
+ch3nh
+acetaldehyde
+h2co
+c2h2
+hnc
+dioxirane
+t-hcoh
+hcnh
+c-hcoh
+ch2nh2
+ch2c
+t-hooo
+
+Reactions
+^^^^^^^^^
+| 1: oclo -> cloo (1:oclo >1:cloo), energy = 0.0027728665014945084
+| 2: t-hono -> c-hono (1:t-hono >1:c-hono), energy = 0.0006852486181854245
+| 3: hcn -> hnc (1:hcn >1:hnc), energy = 0.02423867786651234
+| 4: hnco -> hocn (1:hnco >1:hocn), energy = 0.03931414746659168
+| 5: hnco -> honc (1:hnco >1:honc), energy = 0.13480274561001176
+| 6: hnco -> hcno (1:hnco >1:hcno), energy = 0.1111855723041792
+| 7: hocn -> honc (1:hocn >1:honc), energy = 0.09548859814342008
+| 8: hocn -> hcno (1:hocn >1:hcno), energy = 0.07187142483758754
+| 9: hcno -> honc (1:hcno >1:honc), energy = 0.023617173305832535
+| 10: h2co -> t-hcoh (1:h2co >1:t-hcoh), energy = 0.08315412301608244
+| 11: t-hcoh -> c-hcoh (1:t-hcoh >1:c-hcoh), energy = 0.007697094943803721
+| 12: c2h2 -> ch2c (1:c2h2 >1:ch2c), energy = 0.0726522895420314
+| 13: t-hooo -> c-hooo (1:t-hooo >1:c-hooo), energy = 0.0003346563019045096
+| 14: t-n2h2 -> c-n2h2 (1:t-n2h2 >1:c-n2h2), energy = 0.00860544776325882
+| 15: propyne -> allene (1:propyne >1:allene), energy = 0.002390402156460783
+| 16: formic -> dioxirane (1:formic >1:dioxirane), energy = 0.14640416407603477
+| 17: ketene -> oxirene (1:ketene >1:oxirene), energy = 0.123328815259
+| 18: acetaldehyde -> oxirane (1:acetaldehyde >1:oxirane), energy = 0.041975461867451345
+| 19: h2cn -> hcnh (1:h2cn >1:hcnh), energy = 0.011952010782303915
+| 20: ch2nh2 -> ch3nh (1:ch2nh2 >1:ch3nh), energy = 0.012191050997949994
+

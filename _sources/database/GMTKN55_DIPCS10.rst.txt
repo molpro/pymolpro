@@ -1,0 +1,43 @@
+GMTKN55 DIPCS10
+---------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+be_2+
+h2s
+c2h6
+c4h4
+c2h6_2+
+n2h2
+be
+h2s_2+
+mg_2+
+mg
+ph3
+ph3_2+
+c2h4
+ch2o_2+
+c4h4_2+
+n2h2_2+
+c2h4_2+
+nh3
+nh3_2+
+ch2o
+
+Reactions
+^^^^^^^^^
+| 1: c4h4 -> c4h4_2+, energy = 0.8433338820480001
+| 2: c2h6 -> c2h6_2+, energy = 1.0630915206240001
+| 3: c2h4 -> c2h4_2+, energy = 1.045083824352
+| 4: n2h2 -> n2h2_2+, energy = 0.999028742736
+| 5: nh3 -> nh3_2+, energy = 1.23743151816
+| 6: ch2o -> ch2o_2+, energy = 1.191376436544
+| 7: h2s -> h2s_2+, energy = 1.16810985552
+| 8: ph3 -> ph3_2+, energy = 1.0352034954240001
+| 9: mg -> mg_2+, energy = 0.832019311824
+| 10: be -> be_2+, energy = 1.011618194112
+

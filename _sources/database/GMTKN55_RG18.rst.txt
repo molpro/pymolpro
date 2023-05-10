@@ -1,0 +1,56 @@
+GMTKN55 RG18
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+c2h6
+ne6
+bzNe
+bzAr
+hfKr
+hfAr
+hfNe
+c2h2
+kr
+ne2
+hf
+ar
+bz
+ne
+ne4
+ne3
+ar2
+kr2
+kr3
+ar3
+ar4
+c2h6Ne
+c2h2Ar
+c2h6Ar
+c2h2Ne
+
+Reactions
+^^^^^^^^^
+| 1: ne2 -> 2ne, energy = 0.0001274881152
+| 2: ar2 -> 2ar, energy = 0.00043027238880000005
+| 3: kr2 -> 2kr, energy = 0.000637440576
+| 4: ne3 -> 3ne, energy = 0.00043027238880000005
+| 5: ar3 -> 3ar, energy = 0.0012270731088
+| 6: kr3 -> 3kr, energy = 0.0018804496992
+| 7: ne4 -> 4ne, energy = 0.0008605447776000001
+| 8: ar4 -> 4ar, energy = 0.0024063381744
+| 9: ne6 -> 6ne, energy = 0.0018007696271999999
+| 10: hfNe -> ne + hf, energy = 0.0003665283312
+| 11: hfAr -> ar + hf, energy = 0.0009402248496
+| 12: hfKr -> kr + hf, energy = 0.0011473930368
+| 13: c2h2Ne -> ne + c2h2, energy = 0.0001912321728
+| 14: c2h2Ar -> ar + c2h2, energy = 0.0005258884752000001
+| 15: c2h6Ne -> ne + c2h6, energy = 0.0003824643456
+| 16: c2h6Ar -> ar + c2h6, energy = 0.0008605447776000001
+| 17: bzNe -> ne + bz, energy = 0.000637440576
+| 18: bzAr -> ar + bz, energy = 0.0017848336128000002
+

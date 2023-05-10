@@ -1,0 +1,18 @@
+Minnesota 2019 LRCTEE9
+----------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+nh3hno2_11.0156
+nh3hno2_13.4708
+nh3hno2_15.9272
+nh3hno2_18.3868
+nh3hno2_23.3034
+nh3hno2_25.7630
+nh3hno2_6.1133
+nh3hno2_8.5632
+nh3hno2
+

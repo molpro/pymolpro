@@ -1,0 +1,34 @@
+Minnesota 2019 NGD21
+--------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+ArAr
+ArAr_L03A
+ArAr_R03A
+Ar
+HeAr
+HeAr_L03A
+HeAr_R03A
+He
+HeHe
+HeHe_L03A
+HeHe_R03A
+HeNe
+HeNe_L03A
+HeNe_R03A
+Kr2
+Kr2_L03A
+Kr2_R03A
+Kr
+NeAr
+NeAr_L03A
+NeAr_R03A
+Ne
+NeNe
+NeNe_L03A
+NeNe_R03A
+

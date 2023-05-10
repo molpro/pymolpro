@@ -1,0 +1,32 @@
+Minnesota 2019 EE23
+-------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+Acetaldehyde
+Acetone
+benzene
+benzene-triplet
+btcne
+dmabn
+Ethylene
+Formaldehyde
+Furan
+Furan-triplet
+hexatriene
+hexatriene-triplet
+napthalene
+napthalene-triplet
+pna
+Pyrazine
+Pyridazine
+Pyridine
+Pyrimidine
+STetrazine
+TButadiene
+water
+water-triplet
+

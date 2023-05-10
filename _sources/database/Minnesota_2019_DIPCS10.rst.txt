@@ -1,0 +1,29 @@
+Minnesota 2019 DIPCS10
+----------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+be_2+
+be
+c2h4_2+
+c2h4
+c2h6_2+
+c2h6
+c4h4_2+
+c4h4
+ch2o_2+
+ch2o
+h2s_2+
+h2s
+mg_2+
+mg
+n2h2_2+
+n2h2
+nh3_2+
+nh3
+ph3_2+
+ph3
+

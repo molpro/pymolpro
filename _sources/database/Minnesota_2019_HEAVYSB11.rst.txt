@@ -1,0 +1,31 @@
+Minnesota 2019 HEAVYSB11
+------------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+as2me4
+asme2
+br2
+br
+cl2
+cl
+ge2h6
+geh3
+h2s2
+h2se2
+p2me4
+pb2me6
+pbme3
+pme2
+sb2me4
+sbme2
+seh
+sh
+sn2me6
+snme3
+te2me2
+teme
+

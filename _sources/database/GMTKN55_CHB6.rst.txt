@@ -1,0 +1,37 @@
+GMTKN55 CHB6
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+24B
+27B
+22A
+23B
+26A
+25A
+27
+26
+24A
+22B
+27A
+26B
+23A
+25B
+24
+23
+22
+25
+
+Reactions
+^^^^^^^^^
+| 1: 22A + 22B -> 22, energy = -0.0548676975792
+| 2: 23A + 23B -> 23, energy = -0.037975522315199996
+| 3: 24A + 24B -> 24, energy = -0.0284139136752
+| 4: 25A + 25B -> 25, energy = -0.06229388028960001
+| 5: 26A + 26B -> 26, energy = -0.0408440049072
+| 6: 27A + 27B -> 27, energy = -0.031712668656
+

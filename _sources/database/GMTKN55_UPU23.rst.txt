@@ -1,0 +1,60 @@
+GMTKN55 UPU23
+-------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+3b
+5z
+3d
+0b
+4b
+1f
+1a
+1g
+2h
+2a
+7p
+9a
+3a
+6p
+0a
+aa
+1b
+1e
+1p
+8d
+1c
+1m
+2p
+7a
+
+Reactions
+^^^^^^^^^
+| 1: 2p -> 1a, energy = 0.0077608390128
+| 2: 2p -> 1b, energy = 0.0047329962768
+| 3: 2p -> 1c, energy = 0.014183052816
+| 4: 2p -> 1g, energy = 0.0035377951968
+| 5: 2p -> 1p, energy = 0.0032190749088000003
+| 6: 2p -> 2a, energy = 0.005003908521600001
+| 7: 2p -> 5z, energy = 0.0009083528208
+| 8: 2p -> 6p, energy = 0.0052907567808
+| 9: 2p -> 7a, energy = 0.0115695464544
+| 10: 2p -> aa, energy = 0.0063106617024
+| 11: 2p -> 1e, energy = 0.0177367840272
+| 12: 2p -> 0a, energy = 0.007681158940800001
+| 13: 2p -> 1f, energy = 0.0229637967504
+| 14: 2p -> 9a, energy = 0.008207047416
+| 15: 2p -> 4b, energy = 0.008732935891200002
+| 16: 2p -> 3a, energy = 0.0109002338496
+| 17: 2p -> 7p, energy = 0.006215045616
+| 18: 2p -> 8d, energy = 0.0102468572592
+| 19: 2p -> 3d, energy = 0.0086373198048
+| 20: 2p -> 0b, energy = 0.010677129648
+| 21: 2p -> 1m, energy = 0.008924168064
+| 22: 2p -> 2h, energy = 0.0166053270048
+| 23: 2p -> 3b, energy = 0.0097050327696
+

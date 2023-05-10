@@ -1,0 +1,49 @@
+GMTKN55 DARC
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+P4
+P3
+P2
+P5
+P10
+P7X
+P9X
+butadiene
+cpdiene
+maleinNH
+ethine
+chdiene
+P7
+P9
+P10X
+malein
+P8
+P6
+P1
+P8X
+furane
+ethene
+
+Reactions
+^^^^^^^^^
+| 1: ethene + butadiene -> P1, energy = -0.072349505376
+| 2: ethine + butadiene -> P2, energy = -0.096890967552
+| 3: ethene + cpdiene -> P3, energy = -0.047648683056
+| 4: ethine + cpdiene -> P4, energy = -0.053545008384000004
+| 5: ethene + chdiene -> P5, energy = -0.059919414144000004
+| 6: ethine + chdiene -> P6, energy = -0.07808647056
+| 7: furane + malein -> P7, energy = -0.02231042016
+| 8: furane + malein -> P7X, energy = -0.025338262896
+| 9: furane + maleinNH -> P8, energy = -0.026772504192000002
+| 10: furane + maleinNH -> P8X, energy = -0.030119067216
+| 11: cpdiene + malein -> P9, energy = -0.050517165648
+| 12: cpdiene + malein -> P9X, energy = -0.05131396636800001
+| 13: cpdiene + maleinNH -> P10, energy = -0.054501169248000005
+| 14: cpdiene + maleinNH -> P10X, energy = -0.055138609824000005
+

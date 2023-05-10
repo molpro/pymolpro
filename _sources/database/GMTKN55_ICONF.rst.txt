@@ -1,0 +1,57 @@
+GMTKN55 ICONF
+-------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+H2S2O7_2
+N3H5_1
+S4O4_2
+SI5H12_1
+H2S2O7_3
+S8_1
+N4H6_1
+SI6H12_2
+P7H7_2
+N3P3H12_1
+H4P2O7_1
+H2S2O7_1
+N3H5_2
+SI5H12_3
+SI5H12_4
+S4O4_1
+SI5H12_2
+S8_2
+N3H5_3
+SI6H12_1
+N4H6_2
+N4H6_3
+H4P2O7_4
+P7H7_1
+N3P3H12_2
+H4P2O7_3
+H4P2O7_2
+
+Reactions
+^^^^^^^^^
+| 1: N3H5_1 -> N3H5_2, energy = 0.001434241296
+| 2: N3H5_1 -> N3H5_3, energy = 0.008430151617600001
+| 3: N4H6_1 -> N4H6_2, energy = 0.0002071681872
+| 4: N4H6_1 -> N4H6_3, energy = 0.0037130913552
+| 5: N3P3H12_1 -> N3P3H12_2, energy = 0.019378193510400002
+| 6: SI5H12_1 -> SI5H12_2, energy = 0.000159360144
+| 7: SI5H12_1 -> SI5H12_3, energy = 0.0016414094832000001
+| 8: SI5H12_1 -> SI5H12_4, energy = 0.0055935410544
+| 9: SI6H12_1 -> SI6H12_2, energy = 0.0026931864336
+| 10: P7H7_1 -> P7H7_2, energy = 0.002231042016
+| 11: S4O4_1 -> S4O4_2, energy = 0.006995910321599999
+| 12: S8_1 -> S8_2, energy = 0.0145973891904
+| 13: H2S2O7_1 -> H2S2O7_2, energy = 0.0008764807920000001
+| 14: H2S2O7_1 -> H2S2O7_3, energy = 0.005657285112
+| 15: H4P2O7_1 -> H4P2O7_2, energy = 0.0021194899152
+| 16: H4P2O7_1 -> H4P2O7_3, energy = 0.0058325812704
+| 17: H4P2O7_1 -> H4P2O7_4, energy = 0.006932166264
+

@@ -1,0 +1,21 @@
+Minnesota 2019 ISOL6
+--------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+10-educt
+10-product
+13-educt
+13-product
+14-educt
+14-product
+20-educt
+20-product
+3-educt
+3-product
+9-educt
+9-product
+

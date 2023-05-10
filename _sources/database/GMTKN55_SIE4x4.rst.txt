@@ -1,0 +1,53 @@
+GMTKN55 SIE4x4
+--------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+| L. Goerigk; S. Grimme, J. Chem. Theory Comput., 2010, 6, 107-126: https://doi.org/10.1021/ct900489g
+
+Molecules
+^^^^^^^^^
+h2o2+_1.25
+h2o
+nh32+_1.25
+h2o+
+he
+h2o2+_1.0
+nh32+_1.5
+he2+_1.25
+h2+_1.25
+h2+_1.5
+he2+_1.0
+h
+nh32+_1.75
+h2o2+_1.75
+nh32+_1.0
+nh3+
+h2o2+_1.5
+he+
+he2+_1.75
+nh3
+h2+_1.75
+he2+_1.5
+h2+_1.0
+
+Reactions
+^^^^^^^^^
+| 1: h2+_1.0 -> h, energy = 0.10262793273600002
+| 2: h2+_1.25 -> h, energy = 0.093863124816
+| 3: h2+_1.5 -> h, energy = 0.077608390128
+| 4: h2+_1.75 -> h, energy = 0.061034935151999994
+| 5: he2+_1.0 -> he + he+, energy = 0.09067592193599999
+| 6: he2+_1.25 -> he + he+, energy = 0.074739907536
+| 7: he2+_1.5 -> he + he+, energy = 0.049879725072
+| 8: he2+_1.75 -> he + he+, energy = 0.030437787504000002
+| 9: nh32+_1.0 -> nh3 + nh3+, energy = 0.057210291696
+| 10: nh32+_1.25 -> nh3 + nh3+, energy = 0.041274277296
+| 11: nh32+_1.5 -> nh3 + nh3+, energy = 0.021354259296
+| 12: nh32+_1.75 -> nh3 + nh3+, energy = 0.007808647056000001
+| 13: h2o2+_1.0 -> h2o + h2o+, energy = 0.063265977168
+| 14: h2o2+_1.25 -> h2o + h2o+, energy = 0.046373801904000006
+| 15: h2o2+_1.5 -> h2o + h2o+, energy = 0.026931864336
+| 16: h2o2+_1.75 -> h2o + h2o+, energy = 0.014820493392
+

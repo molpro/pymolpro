@@ -1,0 +1,31 @@
+GMTKN55 ADIM6
+-------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+AM7
+AD6
+AM6
+AD7
+AD5
+AD2
+AM3
+AM4
+AD3
+AD4
+AM5
+AM2
+
+Reactions
+^^^^^^^^^
+| 1: AD2 -> 2AM2, energy = 0.0021354259296
+| 2: AD3 -> 2AM3, energy = 0.0031712668656
+| 3: AD4 -> 2AM4, energy = 0.0046055081616
+| 4: AD5 -> 2AM5, energy = 0.0060238134431999995
+| 5: AD6 -> 2AM6, energy = 0.007330566623999999
+| 6: AD7 -> 2AM7, energy = 0.008844487992
+

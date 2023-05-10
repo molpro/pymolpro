@@ -1,0 +1,54 @@
+Bak2000 atomisations
+--------------------
+Database of atomisations of closed-shell small-molecules
+
+References
+^^^^^^^^^^
+| Bak et al., 2001: https://doi.org/10.1063/1.481544
+
+Molecules
+^^^^^^^^^
+F2, energy = -0.06221672916792047
+H2, energy = -0.17445822239408812
+HF, energy = -0.2259227124165516
+CH2, energy = -0.2883489255210644
+HNO, energy = -0.3281280206805233
+N2, energy = -0.3642278161536516
+H2O, energy = -0.3714645339632046
+CO, energy = -0.41390217071796254
+H2O2, energy = -0.4292173508822851
+NH3, energy = -0.4752923905360551
+HCN, energy = -0.500000068657408
+CH2O, energy = -0.5966788097941894
+CO2, energy = -0.6217711765991029
+C2H2, energy = -0.6466731034616595
+CH4, energy = -0.6700934075726814
+C2H4, energy = -0.8988079695441819
+H, energy = 0.0
+C, energy = 0.0
+N, energy = 0.0
+O, energy = 0.0
+F, energy = 0.0
+
+Reactions
+^^^^^^^^^
+| F2: F2 -> 2F (F2), energy = 0.06221672916792047
+| H2: H2 -> 2H (H2), energy = 0.17445822239408812
+| HF: HF -> H + F (HF), energy = 0.2259227124165516
+| CH2: CH2 -> C + 2H (CH2), energy = 0.2883489255210644
+| HNO: HNO -> H + N + O (HNO), energy = 0.3281280206805233
+| N2: N2 -> 2N (N2), energy = 0.3642278161536516
+| H2O: H2O -> 2H + O (H2O), energy = 0.3714645339632046
+| CO: CO -> C + O (CO), energy = 0.41390217071796254
+| H2O2: H2O2 -> 2H + 2O (H2O2), energy = 0.4292173508822851
+| NH3: NH3 -> N + 3H (NH3), energy = 0.4752923905360551
+| HCN: HCN -> H + C + N (HCN), energy = 0.500000068657408
+| CH2O: CH2O -> C + 2H + O (CH2O), energy = 0.5966788097941894
+| CO2: CO2 -> C + 2O (CO2), energy = 0.6217711765991029
+| C2H2: C2H2 -> 2C + 2H (C2H2), energy = 0.6466731034616595
+| CH4: CH4 -> C + 4H (CH4), energy = 0.6700934075726814
+| C2H4: C2H4 -> 2C + 4H (C2H4), energy = 0.8988079695441819
+
+Preamble
+^^^^^^^^
+angstrom

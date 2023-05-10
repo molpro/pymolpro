@@ -1,0 +1,56 @@
+GMTKN55 DC13
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+ISO_P35
+C6H6
+omcb
+s2
+c20cage
+be4
+be
+carbooxo1
+tmethen
+o3
+ISO_E35
+heptahexaene
+o3_c2h4_add
+s8
+heptatriyne
+ethen
+c2h4
+ISO_P36
+13dip
+c2h2
+o3_c2h2_add
+HCL
+carbooxo2
+ISO_C8H8_41
+C6Cl6
+ISO_C8H8_1
+CL2
+ch2n2
+c20bowl
+ISO_E36
+
+Reactions
+^^^^^^^^^
+| 1: ISO_P36 -> ISO_E36, energy = -0.00159360144
+| 2: c20cage -> c20bowl, energy = -0.012270731088
+| 3: heptahexaene -> heptatriyne, energy = -0.024222741888
+| 4: 2tmethen -> omcb, energy = -0.029959707072000002
+| 5: ISO_P35 -> ISO_E35, energy = -0.036493472975999995
+| 6: carbooxo2 -> carbooxo1, energy = -0.040955557008
+| 7: ethen + ch2n2 -> 13dip, energy = -0.061991096015999995
+| 8: 4be -> be4, energy = -0.14661133248
+| 9: 4s2 -> s8, energy = -0.16892175264
+| 10: ISO_C8H8_1 -> ISO_C8H8_41, energy = 0.17516867028480002
+| 11: o3 + c2h2 -> o3_c2h2_add, energy = -0.104062174032
+| 12: o3 + c2h4 -> o3_c2h4_add, energy = -0.093544404528
+| 13: C6Cl6 + 6HCL -> C6H6 + 6CL2, energy = 0.24318357974399998
+

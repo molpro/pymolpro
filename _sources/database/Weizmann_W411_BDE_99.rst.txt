@@ -1,0 +1,208 @@
+Weizmann W411 BDE 99
+--------------------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1016/j.cplett.2011.05.007
+
+Molecules
+^^^^^^^^^
+t-n2h2
+cloo
+ch2ch
+hocl
+no2
+clo
+formic
+propyne
+ch3f
+t-hono
+clcn
+foof
+ssh
+ch3nh
+c2h6
+ch2nh
+c2h4
+c2h2
+nccn
+propene
+t-hcoh
+o3
+o2
+h
+ketene
+co2
+hnnn
+n2h4
+hcn
+hco
+cf2
+c
+fo2
+oh
+of
+f2o
+so
+o
+s
+hccf
+t-hooo
+f2co
+ch
+co
+cn
+cl
+cf
+hooh
+cs
+glyoxal
+cl2o
+ch3nh2
+hs
+b2h6
+so3
+so2
+nh3
+nh2
+ch2-trip
+h2co
+p2
+p4
+f
+c2h3f
+n
+ch3
+ch4
+ch2nh2
+n2h
+n2o
+hnco
+hcnh
+hno
+hcno
+oclo
+s4-c2v
+hof
+honc
+no
+s3
+s2
+s2o
+methanol
+allene
+ch2c
+nh
+hcof
+acetaldehyde
+bh3
+hnc
+h2s
+h2o
+nh2cl
+cch
+hoo
+n2
+cs2
+
+Reactions
+^^^^^^^^^
+| 1: foof -> f + fo2 (1:foof >1:f,1:fo2), energy = 0.02812706537435521
+| 2: foof -> 2of (1:foof >2:of), energy = 0.07365625844774493
+| 3: oclo -> o + clo (1:oclo >1:o,1:clo), energy = 0.09987100209693152
+| 4: cloo -> clo + o (1:cloo >1:clo,1:o), energy = 0.0971140716098134
+| 5: cloo -> cl + o2 (1:cloo >1:cl,1:o2), energy = 0.008860423993281302
+| 6: fo2 -> of + o (1:fo2 >1:of,1:o), energy = 0.13011755738334863
+| 7: fo2 -> f + o2 (1:fo2 >1:f,1:o2), energy = 0.022151059983203256
+| 8: cl2o -> clo + cl (1:cl2o >1:clo,1:cl), energy = 0.05738558776943519
+| 9: f2o -> of + f (1:f2o >1:of,1:f), energy = 0.06485957851196925
+| 10: hocl -> h + clo (1:hocl >1:h,1:clo), energy = 0.1606031528854118
+| 11: hocl -> oh + cl (1:hocl >1:oh,1:cl), energy = 0.09405435684954361
+| 12: hof -> h + of (1:hof >1:h,1:of), energy = 0.1682524397860863
+| 13: hof -> oh + f (1:hof >1:oh,1:f), energy = 0.08199079396660486
+| 14: no2 -> no + o (1:no2 >1:no,1:o), energy = 0.11974321202430882
+| 15: n2o -> no + n (1:n2o >1:no,1:n), energy = 0.18820432978534563
+| 16: n2o -> n2 + o (1:n2o >1:n2,1:o), energy = 0.06750495689845251
+| 17: t-hono -> h + no2 (1:t-hono >1:h,1:no2), energy = 0.13508959386878705
+| 18: t-hono -> oh + no (1:t-hono >1:oh,1:no), energy = 0.08398279576365551
+| 19: hnc -> h + cn (1:hnc >1:h,1:cn), energy = 0.18621232798829498
+| 20: hnc -> nh + c (1:hnc >1:nh,1:c), energy = 0.3427996052508527
+| 21: honc -> oh + cn (1:honc >1:oh,1:cn), energy = 0.09814991254427975
+| 22: hnco -> nh + co (1:hnco >1:nh,1:co), energy = 0.14646790813354038
+| 23: hcno -> ch + no (1:hcno >1:ch,1:no), energy = 0.2039969200323632
+| 24: hno -> h + no (1:hno >1:h,1:no), energy = 0.08468398039621734
+| 25: hno -> nh + o (1:hno >1:nh,1:o), energy = 0.1956783205278797
+| 26: methanol -> ch3 + oh (1:methanol >1:ch3,1:oh), energy = 0.15684225349258019
+| 27: t-hcoh -> ch + oh (1:t-hcoh >1:ch,1:oh), energy = 0.20884146840279041
+| 28: t-hcoh -> hco + h (1:t-hcoh >1:hco,1:h), energy = 0.06860454189042446
+| 29: formic -> hco + oh (1:formic >1:hco,1:oh), energy = 0.18369443771682295
+| 30: ketene -> ch2c + o (1:ketene >1:ch2c,1:o), energy = 0.2765376574737598
+| 31: ketene -> ch2-trip + co (1:ketene >1:ch2-trip,1:co), energy = 0.1322529833097869
+| 32: glyoxal -> 2hco (1:glyoxal >2:hco), energy = 0.12152804563446622
+| 33: acetaldehyde -> ch3 + hco (1:acetaldehyde >1:ch3,1:hco), energy = 0.14433248220710207
+| 34: f2co -> cf2 + o (1:f2co >1:cf2,1:o), energy = 0.2579243926821185
+| 35: hcof -> hco + f (1:hcof >1:hco,1:f), energy = 0.19811653072746968
+| 36: h2co -> hco + h (1:h2co >1:hco,1:h), energy = 0.1517746009208833
+| 37: h2co -> ch2-trip + o (1:h2co >1:ch2-trip,1:o), energy = 0.2930792403964684
+| 38: hco -> h + co (1:hco >1:h,1:co), energy = 0.03137801230714188
+| 39: hco -> ch + o (1:hco >1:ch,1:o), energy = 0.31107100062742987
+| 40: cs2 -> cs + s (1:cs2 >1:cs,1:s), energy = 0.17300137207025507
+| 41: co2 -> co + o (1:co2 >1:co,1:o), energy = 0.20782156348270045
+| 42: ch2nh2 -> ch2-trip + nh2 (1:ch2nh2 >1:ch2-trip,1:nh2), energy = 0.17360694061655846
+| 43: ch2nh2 -> ch2nh + h (1:ch2nh2 >1:ch2nh,1:h), energy = 0.06825394957414355
+| 44: ch3nh -> ch3 + nh (1:ch3nh >1:ch3,1:nh), energy = 0.13332069627300605
+| 45: ch3nh -> ch2nh + h (1:ch3nh >1:ch2nh,1:h), energy = 0.05607883459056996
+| 46: ch3nh2 -> ch2nh2 + h (1:ch3nh2 >1:ch2nh2,1:h), energy = 0.15940795180718142
+| 47: ch3nh2 -> ch3nh + h (1:ch3nh2 >1:ch3nh,1:h), energy = 0.171583066790755
+| 48: ch2nh -> hcnh + h (1:ch2nh >1:hcnh,1:h), energy = 0.16444373235012547
+| 49: hcnh -> nh + ch (1:hcnh >1:nh,1:ch), energy = 0.2692070908606134
+| 50: hcnh -> hcn + h (1:hcnh >1:hcn,1:h), energy = 0.03638192082133311
+| 51: hcn -> cn + h (1:hcn >1:cn,1:h), energy = 0.21046694186918372
+| 52: hcn -> ch + n (1:hcn >1:ch,1:n), energy = 0.3652534495072076
+| 53: nccn -> 2cn (1:nccn >2:cn), energy = 0.22205242432083033
+| 54: h2s -> hs + h (1:h2s >1:hs,1:h), energy = 0.15327258627226542
+| 55: t-hooo -> hoo + o (1:t-hooo >1:hoo,1:o), energy = 0.09204641903811654
+| 56: t-hooo -> oh + o2 (1:t-hooo >1:oh,1:o2), energy = 0.00839827957636555
+| 57: t-hooo -> h + o3 (1:t-hooo >1:h,1:o3), energy = 0.13684255545019164
+| 58: o3 -> o2 + o (1:o3 >1:o2,1:o), energy = 0.04238979824123788
+| 59: hooh -> hoo + h (1:hooh >1:hoo,1:h), energy = 0.14909735050564724
+| 60: hooh -> 2oh (1:hooh >2:oh), energy = 0.08712219059580734
+| 61: ssh -> hs + s (1:ssh >1:hs,1:s), energy = 0.12334475127337641
+| 62: ssh -> s2 + h (1:ssh >1:s2,1:h), energy = 0.09701845552355498
+| 63: hoo -> oh + o (1:hoo >1:oh,1:o), energy = 0.10889078623397687
+| 64: hoo -> o2 + h (1:hoo >1:o2,1:h), energy = 0.08718593465331295
+| 65: h2o -> oh + h (1:h2o >1:oh,1:h), energy = 0.20042725281204843
+| 66: hnnn -> n2 + nh (1:hnnn >1:n2,1:nh), energy = 0.03219074904033854
+| 67: n2h4 -> 2nh2 (1:n2h4 >2:nh2), energy = 0.11649226509152215
+| 68: t-n2h2 -> 2nh (1:t-n2h2 >2:nh), energy = 0.20771001138206563
+| 69: n2h -> nh + n (1:n2h >1:nh,1:n), energy = 0.22592487581429682
+| 70: nh2cl -> nh2 + cl (1:nh2cl >1:nh2,1:cl), energy = 0.10433308612232498
+| 71: nh3 -> nh2 + h (1:nh3 >1:nh2,1:h), energy = 0.18394941394684547
+| 72: nh2 -> nh + h (1:nh2 >1:nh,1:h), energy = 0.15856334304523192
+| 73: allene -> ch2c + ch2-trip (1:allene >1:ch2c,1:ch2-trip), energy = 0.24449033256280886
+| 74: propyne -> cch + ch3 (1:propyne >1:cch,1:ch3), energy = 0.20967014115036348
+| 75: propene -> ch2ch + ch3 (1:propene >1:ch2ch,1:ch3), energy = 0.17151932273324938
+| 76: c2h3f -> ch2ch + f (1:c2h3f >1:ch2ch,1:f), energy = 0.20367819974483511
+| 77: c2h6 -> 2ch3 (1:c2h6 >2:ch3), energy = 0.15512116393992842
+| 78: c2h4 -> 2ch2-trip (1:c2h4 >2:ch2-trip), energy = 0.29100755852753574
+| 79: ch2ch -> ch2c + h (1:ch2ch >1:ch2c,1:h), energy = 0.13728876385273098
+| 80: ch2ch -> c2h2 + h (1:ch2ch >1:c2h2,1:h), energy = 0.06463647431069958
+| 81: ch2c -> ch2-trip + c (1:ch2c >1:ch2-trip,1:c), energy = 0.2696214272343999
+| 82: hccf -> cch + f (1:hccf >1:cch,1:f), energy = 0.21084940621421747
+| 83: hccf -> ch + cf (1:hccf >1:ch,1:cf), energy = 0.28928646897488397
+| 84: c2h2 -> cch + h (1:c2h2 >1:cch,1:h), energy = 0.22208429634958315
+| 85: c2h2 -> 2ch (1:c2h2 >2:ch), energy = 0.37781102883581497
+| 86: ch3f -> ch3 + f (1:ch3f >1:ch3,1:f), energy = 0.18340758945804767
+| 87: ch4 -> ch3 + h (1:ch4 >1:ch3,1:h), energy = 0.17935984180644074
+| 88: ch3 -> ch2-trip + h (1:ch3 >1:ch2-trip,1:h), energy = 0.18665853639083432
+| 89: ch2-trip -> ch + h (1:ch2-trip >1:ch,1:h), energy = 0.16975042513746838
+| 90: cf2 -> cf + f (1:cf2 >1:cf,1:f), energy = 0.2008893972289642
+| 91: clcn -> cn + cl (1:clcn >1:cn,1:cl), energy = 0.16589390965837833
+| 92: b2h6 -> 2bh3 (1:b2h6 >2:bh3), energy = 0.07083558390312121
+| 93: s2o -> s2 + o (1:s2o >1:s2,1:o), energy = 0.16657915827656375
+| 94: s2o -> s + so (1:s2o >1:s,1:so), energy = 0.13118527034656777
+| 95: so3 -> so2 + o (1:so3 >1:so2,1:o), energy = 0.13755967609712985
+| 96: so2 -> so + o (1:so2 >1:so,1:o), energy = 0.21379756887385243
+| 97: s4-c2v -> s3 + s (1:s4-c2v >1:s3,1:s), energy = 0.10514582285552164
+| 98: s4-c2v -> 2s2 (1:s4-c2v >2:s2), energy = 0.041194597163007496
+| 99: p4 -> 2p2 (1:p4 >2:p2), energy = 0.08826958363090852
+

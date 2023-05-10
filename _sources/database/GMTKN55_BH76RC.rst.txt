@@ -1,0 +1,41 @@
+GMTKN55 BH76RC
+--------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+| L. Goerigk; S. Grimme, J. Chem. Theory Comput., 2010, 6, 107-126: https://doi.org/10.1021/ct900489g
+
+Reactions
+^^^^^^^^^
+| 1: h + n2o -> oh + n2, energy = -0.1034406694704
+| 2: h + ch3f -> hf + ch3, energy = -0.0419435899008
+| 3: h + f2 -> hf + f, energy = -0.1645871567232
+| 4: ch3 + clf -> ch3f + cl, energy = -0.0838871798016
+| 5: f- + ch3cl -> cl- + ch3f, energy = -0.051250222310399995
+| 6: fch3clcomp1 -> fch3clcomp2, energy = -0.0416248696128
+| 7: oh- + ch3f -> ch3oh + f-, energy = -0.032381981260800004
+| 8: hoch3fcomp2 -> hoch3fcomp1, energy = -0.0585011088624
+| 9: h + n2 -> hn2, energy = 0.0058803893136
+| 10: h + co -> hco, energy = -0.031154908152
+| 11: h + c2h4 -> c2h5, energy = -0.06377592962880001
+| 12: ch3 + c2h4 -> c3h7, energy = -0.0423260542464
+| 13: hnc -> hcn, energy = -0.0239996376864
+| 14: h + hcl -> H2 + cl, energy = -0.003027842736
+| 15: oh + H2 -> H2O + h, energy = -0.0261191276016
+| 16: ch3 + H2 -> CH4 + h, energy = -0.0049561004784
+| 17: oh + CH4 -> H2O + ch3, energy = -0.0211630271232
+| 18: oh + NH3 -> H2O + NH2, energy = -0.0164459668608
+| 19: hcl + ch3 -> cl + CH4, energy = -0.0079839432144
+| 20: oh + C2H6 -> H2O + C2H5, energy = -0.0268362482496
+| 21: f + H2 -> hf + h, energy = -0.0513458383968
+| 22: O + CH4 -> oh + ch3, energy = 0.008669191833600001
+| 23: h + PH3 -> H2 + PH2, energy = -0.0346448953056
+| 24: h + oh -> H2 + O, energy = -0.0036971553408
+| 25: h + H2S -> H2 + HS, energy = -0.0211311550944
+| 26: O + hcl -> oh + cl, energy = 0.0006693126047999999
+| 27: NH2 + ch3 -> NH + CH4, energy = -0.020908050892799998
+| 28: NH2 + C2H5 -> NH + C2H6, energy = -0.0152348297664
+| 29: C2H6 + NH2 -> C2H5 + NH3, energy = -0.010390281388799999
+| 30: NH2 + CH4 -> NH3 + ch3, energy = -0.0047170602624
+

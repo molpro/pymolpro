@@ -1,0 +1,43 @@
+GMTKN55 BHDIV10
+---------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+ed9
+ed7
+ed1
+ed6
+ed8
+ts5
+ts2
+ts3
+ts4
+ed3
+ed4
+ed5
+ed2
+ed10
+ts8
+ts1
+ts6
+ts7
+ts9
+ts10
+
+Reactions
+^^^^^^^^^
+| 1: ed1 -> ts1, energy = 0.040875876936
+| 2: ed2 -> ts2, energy = 0.09067592193599999
+| 3: ed3 -> ts3, energy = 0.0582142606032
+| 4: ed4 -> ts4, energy = 0.1532566504848
+| 5: ed5 -> ts5, energy = 0.0254020069536
+| 6: ed6 -> ts6, energy = 0.021736723641600002
+| 7: ed7 -> ts7, energy = 0.0438081035856
+| 8: ed8 -> ts8, energy = 0.08006253634560001
+| 9: ed9 -> ts9, energy = 0.10492271880960001
+| 10: ed10 -> ts10, energy = 0.10347254149920002
+

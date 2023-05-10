@@ -1,0 +1,20 @@
+Minnesota 2019 AL2X6
+--------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+al2cl6
+al2f6
+al2h6
+al2me4
+al2me5
+al2me6
+alcl3
+alf3
+alh3
+alme2
+alme3
+

@@ -1,0 +1,114 @@
+GMTKN55 MB16-43
+---------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+03
+04
+32
+35
+S2
+34
+33
+05
+P2
+02
+H2
+MgH2
+LiH
+BH3
+O2
+F2
+NaH
+20
+18
+27
+11
+29
+16
+42
+28
+17
+10
+19
+26
+21
+AlH3
+43
+07
+38
+36
+09
+31
+CH4
+30
+37
+08
+01
+06
+39
+N2
+BeH2
+41
+Cl2
+SiH4
+24
+23
+15
+12
+40
+13
+14
+22
+25
+
+Reactions
+^^^^^^^^^
+| 1: 201 + 4H2 -> 4BH3 + 2N2 + 2O2 + F2 + 2NaH + 2AlH3 + Cl2, energy = 1.385791190779824
+| 2: 202 + 6H2 -> 2LiH + 4BH3 + O2 + F2 + 2MgH2 + 2SiH4 + 2S2, energy = 1.17573762881256
+| 3: 203 + 13H2 -> 2LiH + 6CH4 + O2 + F2 + 2NaH + 2MgH2 + 2AlH3 + S2, energy = 0.826533498226944
+| 4: 204 + 17H2 -> 6BH3 + 2CH4 + O2 + F2 + 2AlH3 + 4SiH4, energy = 0.568673646021264
+| 5: 205 + 4H2 -> 4BH3 + 2N2 + 2SiH4 + 4P2 + Cl2, energy = 0.23534752274323198
+| 6: 206 + 10H2 -> 6BH3 + 2CH4 + N2 + O2 + 2MgH2 + 2AlH3, energy = 0.587232728391504
+| 7: 207 + 7H2 -> 2BH3 + 4CH4 + N2 + O2 + 2F2 + 2MgH2 + S2 + Cl2, energy = 0.8892034684563841
+| 8: 208 + 17H2 -> 2BeH2 + 6BH3 + 4CH4 + 2O2 + 2F2 + 2AlH3, energy = 1.086772119302112
+| 9: 209 + 6H2 -> 2LiH + 4BH3 + 2CH4 + F2 + 2SiH4 + Cl2, energy = 0.607847556619344
+| 10: 210 + 14H2 -> 2BH3 + 6CH4 + N2 + F2 + 2MgH2 + 2SiH4 + Cl2, energy = 0.073795379962512
+| 11: 211 + 12H2 -> 4BH3 + 4CH4 + N2 + O2 + F2 + 2MgH2 + 2AlH3, energy = 0.469165506824352
+| 12: 212 + 11H2 -> 4BH3 + 2CH4 + 2N2 + O2 + F2 + 4AlH3 + P2 + Cl2, energy = 0.722004558333168
+| 13: 213 + 5H2 -> 4CH4 + 4N2 + 2O2 + 2MgH2 + 2S2, energy = 0.031672987980144
+| 14: 214 + 9H2 -> 2LiH + 4BH3 + O2 + 4AlH3 + 2SiH4 + Cl2, energy = 0.61336046144088
+| 15: 215 + 15H2 -> 4BH3 + 2CH4 + 2NaH + 2AlH3 + 4SiH4 + S2 + Cl2, energy = 0.34437105613838404
+| 16: 216 + 19H2 -> 2LiH + 6BH3 + O2 + 4MgH2 + 2AlH3 + 4SiH4, energy = 0.520719947649648
+| 17: 217 + 9H2 -> 4BH3 + 2CH4 + O2 + 3F2 + 2MgH2 + 2SiH4, energy = 1.0415669053340642
+| 18: 218 + 4H2 -> 6BH3 + N2 + O2 + F2 + 2AlH3 + Cl2, energy = 0.92566092603984
+| 19: 219 + 7H2 -> 2LiH + 4BH3 + O2 + F2 + 4AlH3 + 2P2 + S2, energy = 1.0590437729664
+| 20: 220 + 11H2 -> 6BH3 + 4CH4 + 2N2 + 2F2 + P2, energy = 0.38693519443991997
+| 21: 221 + 7H2 -> 2BH3 + 2O2 + 2NaH + 4MgH2 + 4AlH3 + Cl2, energy = 1.284801799044432
+| 22: 222 + 3H2 -> 6BH3 + 2O2 + F2 + 2MgH2 + P2, energy = 1.125407233253328
+| 23: 223 + 20H2 -> 8BH3 + 2CH4 + F2 + 2MgH2 + 4SiH4 + Cl2, energy = 0.343250276245632
+| 24: 224 + 8H2 -> 2BH3 + O2 + 4F2 + 2AlH3 + 4SiH4 + S2, energy = 1.70617264892088
+| 25: 25 + 5H2 -> 2BH3 + O2 + F2 + AlH3 + 2SiH4, energy = 0.5139211658261761
+| 26: 226 + 8H2 -> 2BH3 + 2CH4 + 2O2 + 2MgH2 + 2AlH3 + 2SiH4 + P2, energy = 0.5954778628819201
+| 27: 227 + 12H2 -> 2BH3 + 6CH4 + 2N2 + O2 + 2AlH3 + S2 + Cl2, energy = 0.183210939311904
+| 28: 228 -> 4BH3 + 2N2 + O2 + F2 + 2AlH3, energy = 0.518113771854672
+| 29: 229 + 9H2 -> 2LiH + 4BH3 + 2CH4 + N2 + 3F2 + 2SiH4 + S2, energy = 1.107717460468608
+| 30: 230 + 12H2 -> 4LiH + 2BH3 + 2CH4 + 5F2 + 2AlH3 + 2SiH4 + S2, energy = 2.056918429539552
+| 31: 231 + 8H2 -> 4BH3 + 2CH4 + O2 + F2 + 2AlH3 + 4P2 + Cl2, energy = 0.8524178883364321
+| 32: 232 + 11H2 -> 2LiH + 6BH3 + N2 + 2F2 + 2AlH3 + 2SiH4 + S2, energy = 1.092544143717792
+| 33: 233 + 6H2 -> 4BH3 + 2CH4 + 2N2 + F2 + 2AlH3 + 2S2, energy = 0.4983072182772
+| 34: 234 + 10H2 -> 2BH3 + 2CH4 + N2 + 2O2 + F2 + 2MgH2 + 2AlH3 + 2SiH4 + P2, energy = 0.8577786042204479
+| 35: 235 + 20H2 -> 2LiH + 4BH3 + 4CH4 + O2 + 4AlH3 + 2SiH4 + P2 + Cl2, energy = 0.363619689851712
+| 36: 236 -> 3H2 + 2LiH + 2CH4 + N2 + 2O2 + F2 + P2 + Cl2, energy = 0.881022556104
+| 37: 237 + 19H2 -> 8BH3 + 2CH4 + 2O2 + F2 + 2AlH3 + 2SiH4 + 2S2, energy = 1.0036250080092481
+| 38: 238 + 12H2 -> 2BH3 + 2CH4 + 2N2 + F2 + 2AlH3 + 4SiH4 + P2 + S2, energy = 0.156482577879792
+| 39: 239 + 5H2 -> 2LiH + 2BH3 + 4CH4 + 2F2 + 2NaH + Cl2, energy = 0.695454680262336
+| 40: 240 + 26H2 -> 6BH3 + 6CH4 + N2 + 2AlH3 + 4SiH4, energy = -0.5784464068520639
+| 41: 241 + 16H2 -> 4BH3 + 6CH4 + F2 + 2NaH + 2AlH3 + 2S2, energy = 0.255439809058896
+| 42: 242 + 11H2 -> 4BH3 + 2CH4 + N2 + 2O2 + 2F2 + 4AlH3 + P2, energy = 1.202604633569952
+| 43: 243 + 7H2 -> 2BH3 + 3N2 + O2 + F2 + 2AlH3 + 4SiH4, energy = 0.672449290514352
+

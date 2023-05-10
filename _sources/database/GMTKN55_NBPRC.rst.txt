@@ -1,0 +1,44 @@
+GMTKN55 NBPRC
+-------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+K_H
+BH3PH3
+K_F
+H2
+BCl3
+BF3
+bh3
+ch
+PH3
+nh2-bh2
+nh-bh
+nh3-bh3
+K_Cl
+PMe3
+cbut
+bz
+BF3PMe3
+nh3
+BCl3PMe3
+
+Reactions
+^^^^^^^^^
+| 1: nh3 + bh3 -> nh3-bh3, energy = -0.051154606224000004
+| 2: nh3-bh3 -> nh2-bh2 + h2, energy = -0.000318720288
+| 3: nh2-bh2 -> nh-bh + h2, energy = 0.059919414144000004
+| 4: 2nh2-bh2 -> cbut, energy = -0.03107522808
+| 5: 3nh2-bh2 -> bz h2, energy = -0.07792711041599999
+| 6: 3nh2-bh2 -> ch, energy = -0.073465026384
+| 7: BH3 + PH3 -> BH3PH3, energy = -0.040158756288
+| 8: BH3PH3 + H2 -> K_H, energy = 0.064381498176
+| 9: BF3 + PMe3 -> BF3PMe3, energy = -0.024222741888
+| 10: BF3PMe3 + H2 -> K_F, energy = 0.02948162664
+| 11: BCl3 + PMe3 -> BCl3PMe3, energy = -0.049720364928
+| 12: BCl3PMe3 + H2 -> K_Cl, energy = 0.028047385344000003
+

@@ -1,0 +1,19 @@
+Minnesota 2019 MR-MGN-BE17
+--------------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+b2
+b
+c2
+C
+cl2
+cl2o
+Cl
+ClO
+CN
+CO2
+

@@ -1,0 +1,175 @@
+GMTKN55 BH76
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+| L. Goerigk; S. Grimme, J. Chem. Theory Comput., 2010, 6, 107-126: https://doi.org/10.1021/ct900489g
+
+Molecules
+^^^^^^^^^
+H2O
+hfhts
+ch3f
+H2S
+RKT08
+RKT01
+RKT06
+clch3clcomp
+C2H6
+hch3clts
+RKT07
+RKT09
+fch3clts
+H2
+N2H2
+hco
+fch3clcomp1
+fch3fcomp
+NH
+fch3fts
+hf2ts
+hcn
+C5H8
+ch3cl
+ch3fclts
+n2ohts
+f2
+co
+ch3oh
+RKT13
+RKT14
+cl-
+RKT22
+clf
+hoch3fcomp2
+PH3
+hcots
+RKT15
+RKT12
+c3h7ts
+f
+O
+PH2
+h
+RKT05
+oh-
+ch3
+RKT02
+CH4
+c2h4
+N2H
+RKT03
+RKT04
+n2o
+hoch3fts
+CH2OH
+C2H5
+hcl
+fch3clcomp2
+HS
+hf
+hn2ts
+hcnts
+n2
+NH2
+hn2
+c3h7
+hfch3ts
+oh
+hclhts
+f-
+NH3
+hnc
+cl
+RKT17
+RKT10
+RKT19
+hoch3fcomp1
+RKT21
+c2h5ts
+RKT20
+RKT18
+clch3clts
+RKT11
+RKT16
+
+Reactions
+^^^^^^^^^
+| 1: h + n2o -> n2ohts, energy = 0.028206745488
+| 2: oh + n2 -> n2ohts, energy = 0.13163147894399999
+| 3: h + hf -> hfhts, energy = 0.06709062062400001
+| 4: hf + h -> hfhts, energy = 0.06709062062400001
+| 5: h + hcl -> hclhts, energy = 0.028366105632
+| 6: hcl + h -> hclhts, energy = 0.028366105632
+| 7: h + ch3f -> hfch3ts, energy = 0.04860484392
+| 8: hf + ch3 -> hfch3ts, energy = 0.09067592193599999
+| 9: h + f2 -> hf2ts, energy = 0.00239040216
+| 10: hf + f -> hf2ts, energy = 0.167009430912
+| 11: ch3 + clf -> ch3fclts, energy = 0.011314570224
+| 12: ch3f + cl -> ch3fclts, energy = 0.095297366112
+| 13: f- + ch3f -> fch3fts, energy = -0.000956160864
+| 14: ch3f + f- -> fch3fts, energy = -0.000956160864
+| 15: fch3fcomp -> fch3fts, energy = 0.021354259296
+| 16: fch3fcomp -> fch3fts, energy = 0.021354259296
+| 17: cl- + ch3cl -> clch3clts, energy = 0.0039840036
+| 18: ch3cl + cl- -> clch3clts, energy = 0.0039840036
+| 19: clch3clcomp -> clch3clts, energy = 0.02151361944
+| 20: clch3clcomp -> clch3clts, energy = 0.02151361944
+| 21: f- + ch3cl -> fch3clts, energy = -0.019601297712
+| 22: cl- + ch3f -> fch3clts, energy = 0.031553308512
+| 23: fch3clcomp1 -> fch3clts, energy = 0.00557760504
+| 24: fch3clcomp2 -> fch3clts, energy = 0.047170602624
+| 25: oh- + ch3f -> hoch3fts, energy = -0.004302723888
+| 26: ch3oh + f- -> hoch3fts, energy = 0.028047385344000003
+| 27: hoch3fcomp2 -> hoch3fts, energy = 0.01752961584
+| 28: hoch3fcomp1 -> hoch3fts, energy = 0.076014788688
+| 29: h + n2 -> hn2ts, energy = 0.023266581024
+| 30: hn2 -> hn2ts, energy = 0.017370255696000002
+| 31: h + co -> hcots, energy = 0.005099524608
+| 32: hco -> hcots, energy = 0.036334112832
+| 33: h + c2h4 -> c2h5ts, energy = 0.00318720288
+| 34: c2h5 -> c2h5ts, energy = 0.06693126048
+| 35: ch3 + c2h4 -> c3h7ts, energy = 0.010199049216
+| 36: c3h7 -> c3h7ts, energy = 0.05258884752
+| 37: hcn -> hcnts, energy = 0.076652229264
+| 38: hnc -> hcnts, energy = 0.05258884752
+| 39: h + hcl -> RKT01, energy = 0.009720968784
+| 40: H2 + cl -> RKT01, energy = 0.01274881152
+| 41: oh + H2 -> RKT02, energy = 0.008286727488
+| 42: H2O + h -> RKT02, energy = 0.034421791104
+| 43: ch3 + H2 -> RKT03, energy = 0.018963857136
+| 44: CH4 + h -> RKT03, energy = 0.0239040216
+| 45: oh + CH4 -> RKT04, energy = 0.010039689072
+| 46: H2O + ch3 -> RKT04, energy = 0.03107522808
+| 47: h + H2 -> RKT06, energy = 0.015457933968
+| 48: h + H2 -> RKT06, energy = 0.015457933968
+| 49: oh + NH3 -> RKT07, energy = 0.005418244896
+| 50: H2O + NH2 -> RKT07, energy = 0.021832339728
+| 51: hcl + ch3 -> RKT08, energy = 0.002868482592
+| 52: cl + CH4 -> RKT08, energy = 0.010836489792
+| 53: oh + C2H6 -> RKT09, energy = 0.00557760504
+| 54: H2O + C2H5 -> RKT09, energy = 0.032509469376
+| 55: f + H2 -> RKT10, energy = 0.002549762304
+| 56: hf + h -> RKT10, energy = 0.053863728672
+| 57: O + CH4 -> RKT11, energy = 0.022947860736
+| 58: oh + ch3 -> RKT11, energy = 0.014183052816
+| 59: h + PH3 -> RKT12, energy = 0.004621444176
+| 60: H2 + PH2 -> RKT12, energy = 0.039361955568
+| 61: h + oh -> RKT14, energy = 0.017370255696000002
+| 62: H2 + O -> RKT14, energy = 0.021035539008
+| 63: h + H2S -> RKT16, energy = 0.006215045616
+| 64: H2 + HS -> RKT16, energy = 0.027409944768
+| 65: O + hcl -> RKT17, energy = 0.016573454976
+| 66: oh + cl -> RKT17, energy = 0.015776654256
+| 67: NH2 + ch3 -> RKT18, energy = 0.014183052816
+| 68: NH + CH4 -> RKT18, energy = 0.03505923168
+| 69: NH2 + C2H5 -> RKT19, energy = 0.015617294112000002
+| 70: NH + C2H6 -> RKT19, energy = 0.030915867936
+| 71: C2H6 + NH2 -> RKT20, energy = 0.018007696272000003
+| 72: C2H5 + NH3 -> RKT20, energy = 0.028366105632
+| 73: NH2 + CH4 -> RKT21, energy = 0.022151060016
+| 74: NH3 + ch3 -> RKT21, energy = 0.026931864336
+| 75: C5H8 -> RKT22, energy = 0.063265977168
+| 76: C5H8 -> RKT22, energy = 0.063265977168
+

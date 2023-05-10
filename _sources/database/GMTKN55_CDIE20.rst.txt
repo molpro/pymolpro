@@ -1,0 +1,69 @@
+GMTKN55 CDIE20
+--------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+P26
+R25
+R22
+P44
+R49
+P43
+R47
+R40
+P20
+R46
+P45
+R48
+P60
+R52
+P56
+P51
+P40
+P47
+R43
+R44
+P49
+P22
+R28
+P25
+R21
+R26
+R45
+P48
+P46
+R20
+R29
+R51
+R56
+P52
+R60
+R57
+
+Reactions
+^^^^^^^^^
+| 1: R20 -> P20, energy = -0.005258884752
+| 2: R21 -> P20, energy = 0.007011846336000001
+| 3: R22 -> P22, energy = -0.009402248496
+| 4: R25 -> P25, energy = -0.007649286912
+| 5: R26 -> P26, energy = -0.0039840036
+| 6: R28 -> P26, energy = 0.00637440576
+| 7: R29 -> P25, energy = 0.00717120648
+| 8: R40 -> P40, energy = 0.002709122448
+| 9: R43 -> P43, energy = 0.004621444176
+| 10: R44 -> P44, energy = 0.005896325328
+| 11: R45 -> P45, energy = 0.001912321728
+| 12: R46 -> P46, energy = 0.005896325328
+| 13: R47 -> P47, energy = 0.006055685472
+| 14: R48 -> P48, energy = 0.007011846336000001
+| 15: R49 -> P49, energy = 0.0066931260480000004
+| 16: R51 -> P51, energy = 0.002549762304
+| 17: R52 -> P52, energy = 0.0066931260480000004
+| 18: R56 -> P56, energy = 0.009402248496
+| 19: R57 -> P51, energy = 0.009242888352
+| 20: R60 -> P60, energy = 0.013704972384
+

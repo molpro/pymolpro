@@ -1,0 +1,18 @@
+sample
+------
+Molecules
+^^^^^^^^^
+H2
+F2
+HF
+HFHF
+
+Reactions
+^^^^^^^^^
+| H2+F2: H2 + F2 -> 2HF (Hydrogenation of difluorine)
+| HFHF: HFHF -> 2HF (Binding of hydrogen fluoride dimer)
+
+Subsets of reactions
+^^^^^^^^^^^^^^^^^^^^
+non-covalent: ['HFHF']
+

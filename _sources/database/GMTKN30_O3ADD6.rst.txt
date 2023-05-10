@@ -1,0 +1,27 @@
+GMTKN30 O3ADD6
+--------------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1021/jp811054n
+
+Molecules
+^^^^^^^^^
+c2h2
+c2h4
+o3_c2h2_add
+o3_c2h2_ts
+o3_c2h2_vdw
+o3_c2h4_add
+o3_c2h4_ts
+o3_c2h4_vdw
+o3
+
+Reactions
+^^^^^^^^^
+| 1: o3 + c2h2 -> o3_c2h2_vdw (1), energy = -0.0030278427315169917
+| 2: o3 + c2h2 -> o3_c2h2_ts (2), energy = 0.01233447512733764
+| 3: o3 + c2h2 -> o3_c2h2_add (3), energy = -0.1016717717214653
+| 4: o3 + c2h4 -> o3_c2h4_vdw (4), energy = -0.0030915867890226123
+| 5: o3 + c2h4 -> o3_c2h4_ts (5), energy = 0.005370436844848559
+| 6: o3 + c2h4 -> o3_c2h4_add (6), energy = -0.09107432216115582
+

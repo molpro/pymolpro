@@ -1,0 +1,50 @@
+GMTKN55 SCONF
+-------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+| L. Goerigk; S. Grimme, J. Chem. Theory Comput., 2010, 6, 107-126: https://doi.org/10.1021/ct900489g
+
+Molecules
+^^^^^^^^^
+G1
+C14
+C13
+C7
+C9
+C12
+C15
+C8
+C1
+C6
+G2
+G4
+G3
+C3
+C4
+C10
+C5
+C2
+C11
+
+Reactions
+^^^^^^^^^
+| 1: C1 -> C2, energy = 0.0013704972384
+| 2: C1 -> C3, energy = 0.0036334112832
+| 3: C1 -> C4, energy = 0.0049082924352
+| 4: C1 -> C5, energy = 0.007330566623999999
+| 5: C1 -> C6, energy = 0.0077608390128
+| 6: C1 -> C7, energy = 0.0066293819904
+| 7: C1 -> C8, energy = 0.0069799743072
+| 8: C1 -> C9, energy = 0.0098643929136
+| 9: C1 -> C10, energy = 0.0098484568992
+| 10: C1 -> C11, energy = 0.009003848136000001
+| 11: C1 -> C12, energy = 0.0089082320496
+| 12: C1 -> C13, energy = 0.009450056539199999
+| 13: C1 -> C14, energy = 0.0100556250864
+| 14: C1 -> C15, energy = 0.0099122009568
+| 15: G1 -> G2, energy = 0.000318720288
+| 16: G1 -> G3, energy = 0.0098165848704
+| 17: G1 -> G4, energy = 0.0088285519776
+

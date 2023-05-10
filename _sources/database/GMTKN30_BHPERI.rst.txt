@@ -1,0 +1,90 @@
+GMTKN30 BHPERI
+--------------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1021/ct900489g
+
+Molecules
+^^^^^^^^^
+00r
+02r
+02ts
+03r
+03ts
+04r
+04ts
+05r
+06ts
+07r
+07ts
+08ts
+09r
+09ts
+1-3-butadiene
+13_c2h4
+1-3-cyclopentadiene
+1-3-pentadiene
+13r_1
+13r_2
+13r_3
+13r_4
+13r_5
+13r_6
+13r_7
+13r_8
+13r_9
+13ts_1a
+13ts_2a
+13ts_3a
+13ts_4a
+13ts_5a
+13ts_6a
+13ts_7a
+13ts_8a
+13ts_9a
+1-5-hexadiene
+cis-1-3-5-hexatriene
+cis-triscyclopropacyclohexane
+cyclobutene
+ethylene
+ortho-xylylene
+ts11
+ts1
+ts2
+ts3
+ts4
+ts5
+ts6
+ts7
+ts8
+ts9
+
+Reactions
+^^^^^^^^^
+| 1: cyclobutene -> ts1 (1), energy = 0.05472427336857553
+| 2: cis-1-3-5-hexatriene -> ts2 (2), energy = 0.04927415645184494
+| 3: ortho-xylylene -> ts3 (3), energy = 0.04509892068522677
+| 4: 1-3-pentadiene -> ts4 (4), energy = 0.06304287287305906
+| 5: 1-3-cyclopentadiene -> ts5 (5), energy = 0.04490768851270991
+| 6: 1-5-hexadiene -> ts6 (6), energy = 0.0567959552375082
+| 7: 1-3-butadiene + ethylene -> ts7 (7), energy = 0.035282335829361154
+| 8: 1-3-cyclopentadiene + ethylene -> ts8 (8), energy = 0.029099162251315935
+| 9: 21-3-cyclopentadiene -> ts11 (9), energy = 0.015617294088877116
+| 10: cis-triscyclopropacyclohexane -> ts9 (10), energy = 0.03752931385643429
+| 11: 13r_1 + 13_c2h4 -> 13ts_1a (11), energy = 0.04191171780994573
+| 12: 13r_2 + 13_c2h4 -> 13ts_2a (12), energy = 0.02884418602129345
+| 13: 13r_3 + 13_c2h4 -> 13ts_3a (13), energy = 0.019441937539214367
+| 14: 13r_4 + 13_c2h4 -> 13ts_4a (14), energy = 0.017688975957809792
+| 15: 13r_5 + 13_c2h4 -> 13ts_5a (15), energy = 0.008446087619494766
+| 16: 13r_6 + 13_c2h4 -> 13ts_6a (16), energy = 0.006374405750562088
+| 17: 13r_7 + 13_c2h4 -> 13ts_7a (17), energy = 0.018326416532866003
+| 18: 13r_8 + 13_c2h4 -> 13ts_8a (18), energy = 0.006374405750562088
+| 19: 13r_9 + 13_c2h4 -> 13ts_9a (19), energy = -0.0022310420126967307
+| 20: 02r + 00r -> 02ts (20), energy = 0.02387799805313116
+| 21: 03r + 00r -> 03ts (21), energy = 0.0215609971788881
+| 22: 04r + 00r -> 04ts (22), energy = 0.03156600946874033
+| 23: 05r + 00r -> 06ts (23), energy = 0.04040499952268537
+| 24: 07r + 00r -> 07ts (24), energy = 0.02884600272693236
+| 25: 07r + 00r -> 08ts (25), energy = 0.028992008490648983
+| 26: 09r + 00r -> 09ts (26), energy = 0.04473900580053566
+

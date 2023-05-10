@@ -1,0 +1,75 @@
+GMTKN55 RC21
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+3e
+1p3
+7p6
+9e
+3int1
+7p1
+10p2
+9p1
+1p2
+3p1
+10e
+2p3
+6p3
+2p2
+4e
+4p
+7e
+3int2
+7p2
+6e
+7p5
+pr
+10p1
+3p3
+5e
+7p4
+7p3
+3int3
+9p2
+1p1
+5p
+3p2
+6int
+me
+6p1
+2p1
+ethylene
+8p1
+1e
+2e
+8e
+
+Reactions
+^^^^^^^^^
+| 1: 1e -> 1p1 + me, energy = 0.0373380817392
+| 2: 1e -> 1p2 + 1p3, energy = 0.0424854143904
+| 3: 2e -> 2p1 + me, energy = 0.0394256996256
+| 4: 2e -> 2p2 + 2p3, energy = 0.0947236695936
+| 5: 3e -> 3p1 + 3p2, energy = 0.0923173314192
+| 6: 3e -> 3int1, energy = 0.0582620686464
+| 7: 3e -> 3int2, energy = 0.0285414017904
+| 8: 3e -> 3int3, energy = 0.026772504192000002
+| 9: 3e -> 3p2 + 3p3, energy = 0.079441031784
+| 10: 4e -> 4p + me, energy = 0.0719670410304
+| 11: 5e -> 5p + me, energy = 0.035441696025599996
+| 12: 6e -> 6int, energy = -0.010709001676799999
+| 13: 6e -> 6p1 + ethylene, energy = 0.0338002865424
+| 14: 6e -> 6p3 + me, energy = 0.0351070397232
+| 15: 6e -> 1p2 + pr, energy = 0.044812072492800004
+| 16: 7e -> 7p1 + 7p2, energy = -0.0011633290512
+| 17: 7e -> 7p3 + 7p4, energy = 0.08073184895039999
+| 18: 7e -> 7p5 + 7p6, energy = 0.0484136117472
+| 19: 8e -> 8p1 + ethylene, energy = 0.07924979961119999
+| 20: 9e -> 9p1 + 9p2, energy = 0.052286063246400005
+| 21: 10e -> 10p1 + 10p2, energy = 0.2016861982464
+

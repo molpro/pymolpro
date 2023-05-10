@@ -1,0 +1,43 @@
+GMTKN55 ALKBDE10
+----------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+cao
+be
+lio
+mg
+na
+lif
+ca
+nao
+s
+f
+o
+h
+mgo
+mgs
+hf
+kf
+beo
+bef
+li
+k
+
+Reactions
+^^^^^^^^^
+| 1: bef -> be + f, energy = 0.22103251972799998
+| 2: beo -> be + o, energy = 0.169877913504
+| 3: cao -> ca + o, energy = 0.153304458528
+| 4: hf -> h + f, energy = 0.226450764624
+| 5: kf -> k + f, energy = 0.1872481692
+| 6: lif -> li + f, energy = 0.221829320448
+| 7: lio -> li + o, energy = 0.1314721188
+| 8: mgo -> mg + o, energy = 0.099122009568
+| 9: mgs -> mg + s, energy = 0.090357201648
+| 10: nao -> na + o, energy = 0.103902813888
+

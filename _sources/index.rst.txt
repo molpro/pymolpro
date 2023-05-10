@@ -93,6 +93,7 @@ For a complete set-up of pymolpro within Jupyter notebooks on Windows,
 
    modules
    examples
+   databases
 
 Indices and tables
 ==================

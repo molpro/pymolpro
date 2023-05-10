@@ -1,0 +1,193 @@
+GMTKN55 Amino20x4
+-----------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+THR_xag
+GLY_xad
+TYR_xab
+GLY_xac
+MET_xbf
+GLN_xap
+THR_xah
+MET_xbo
+MET_xag
+PRO_xaf
+GLN_xal
+GLY_xab
+GLY_xae
+ILE_xae
+ILE_xak
+ASP_xau
+PHE_xar
+ILE_xaj
+ASP_xaz
+ILE_xaq
+PHE_xan
+ALA_xai
+LYS_xap
+ALA_xag
+HIS_xau
+SER_xah
+SER_xaf
+SER_xar
+HIS_xah
+CYS_xai
+CYS_xag
+GLU_xbi
+ASN_xaj
+ASN_xae
+CYS_xao
+ASN_xab
+CYS_xah
+VAL_xah
+VAL_xaf
+TRP_xac
+GLU_xar
+ARG_xbv
+THR_xaq
+GLY_xag
+GLN_xan
+ARG_xbx
+GLN_xai
+TYR_xah
+MET_xbm
+PRO_xac
+PRO_xad
+ARG_xak
+ARG_xby
+MET_xav
+TYR_xan
+TYR_xag
+TYR_xar
+THR_xab
+GLN_xat
+THR_xal
+PRO_xae
+PRO_xab
+PHE_xab
+ASP_xad
+PHE_xal
+PHE_xaw
+ASP_xbc
+ILE_xag
+ASP_xay
+HIS_xav
+SER_xak
+LEU_xbb
+HIS_xaq
+LYS_xao
+LEU_xad
+LEU_xaq
+HIS_xam
+LYS_xas
+LYS_xat
+ALA_xac
+LEU_xae
+SER_xad
+LYS_xan
+ALA_xab
+ALA_xak
+LEU_xap
+VAL_xad
+TRP_xaf
+VAL_xaj
+TRP_xao
+TRP_xah
+GLU_xal
+ARG_xci
+VAL_xak
+TRP_xag
+GLU_xav
+GLU_xad
+ASN_xah
+ASN_xaf
+CYS_xal
+
+Reactions
+^^^^^^^^^
+| 1: ALA_xag -> ALA_xac, energy = 0.00186292008336
+| 2: ALA_xag -> ALA_xak, energy = 0.00485889079056
+| 3: ALA_xag -> ALA_xai, energy = 0.00528916317936
+| 4: ALA_xag -> ALA_xab, energy = 0.008038125663359999
+| 5: ARG_xci -> ARG_xak, energy = 0.0025115158694400002
+| 6: ARG_xci -> ARG_xbv, energy = 0.00403021804176
+| 7: ARG_xci -> ARG_xbx, energy = 0.004462084032
+| 8: ARG_xci -> ARG_xby, energy = 0.01029307170096
+| 9: ASN_xaf -> ASN_xaj, energy = 0.0006183173587200001
+| 10: ASN_xaf -> ASN_xae, energy = 0.00654810831696
+| 11: ASN_xaf -> ASN_xab, energy = 0.007585542854399999
+| 12: ASN_xaf -> ASN_xah, energy = 0.010409404606080001
+| 13: ASP_xaz -> ASP_xad, energy = 0.00025019542608
+| 14: ASP_xaz -> ASP_xay, energy = 0.00314576924256
+| 15: ASP_xaz -> ASP_xau, energy = 0.00461666337168
+| 16: ASP_xaz -> ASP_xbc, energy = 0.00496088128272
+| 17: CYS_xai -> CYS_xah, energy = 0.00044142759888000005
+| 18: CYS_xai -> CYS_xag, energy = 0.00156013580976
+| 19: CYS_xai -> CYS_xao, energy = 0.00158085262848
+| 20: CYS_xai -> CYS_xal, energy = 0.0037816162171200006
+| 21: GLN_xai -> GLN_xan, energy = 0.00067568701056
+| 22: GLN_xai -> GLN_xat, energy = 0.00521426391168
+| 23: GLN_xai -> GLN_xap, energy = 0.0064461178248
+| 24: GLN_xai -> GLN_xal, energy = 0.0066166331788800005
+| 25: GLU_xbi -> GLU_xav, energy = 0.0021274579224
+| 26: GLU_xbi -> GLU_xal, energy = 0.0024621142248
+| 27: GLU_xbi -> GLU_xar, energy = 0.00468359463216
+| 28: GLU_xbi -> GLU_xad, energy = 0.00831222511104
+| 29: GLY_xac -> GLY_xae, energy = 0.00173861917104
+| 30: GLY_xac -> GLY_xad, energy = 0.0041863909828799995
+| 31: GLY_xac -> GLY_xab, energy = 0.00437124874992
+| 32: GLY_xac -> GLY_xag, energy = 0.00651145548384
+| 33: HIS_xaq -> HIS_xam, energy = 0.00441268238736
+| 34: HIS_xaq -> HIS_xah, energy = 0.00476805550848
+| 35: HIS_xaq -> HIS_xau, energy = 0.011661975337919999
+| 36: HIS_xaq -> HIS_xav, energy = 0.0117448426128
+| 37: ILE_xae -> ILE_xaj, energy = 0.00029800346928
+| 38: ILE_xae -> ILE_xaq, energy = 0.0009481928567999999
+| 39: ILE_xae -> ILE_xag, energy = 0.00153463818672
+| 40: ILE_xae -> ILE_xak, energy = 0.0015856334328
+| 41: LEU_xap -> LEU_xad, energy = 0.0005386372867200001
+| 42: LEU_xap -> LEU_xae, energy = 0.00242864859456
+| 43: LEU_xap -> LEU_xbb, energy = 0.00268681202784
+| 44: LEU_xap -> LEU_xaq, energy = 0.00311071001088
+| 45: LYS_xap -> LYS_xao, energy = 9.242888352e-05
+| 46: LYS_xap -> LYS_xan, energy = 0.00031712668656
+| 47: LYS_xap -> LYS_xas, energy = 0.00072668225664
+| 48: LYS_xap -> LYS_xat, energy = 0.0008605447776000001
+| 49: MET_xbf -> MET_xag, energy = 0.00289079301216
+| 50: MET_xbf -> MET_xbm, energy = 0.00391866594096
+| 51: MET_xbf -> MET_xav, energy = 0.00392982115104
+| 52: MET_xbf -> MET_xbo, energy = 0.00461506977024
+| 53: PHE_xaw -> PHE_xab, energy = 0.00138962045568
+| 54: PHE_xaw -> PHE_xar, energy = 0.00273940087536
+| 55: PHE_xaw -> PHE_xan, energy = 0.0029322266496
+| 56: PHE_xaw -> PHE_xal, energy = 0.00301031312016
+| 57: PRO_xae -> PRO_xad, energy = 0.00222466761024
+| 58: PRO_xae -> PRO_xac, energy = 0.00511705422384
+| 59: PRO_xae -> PRO_xaf, energy = 0.00667240922928
+| 60: PRO_xae -> PRO_xab, energy = 0.00958391906016
+| 61: SER_xad -> SER_xah, energy = 0.00482223795744
+| 62: SER_xad -> SER_xaf, energy = 0.00494494526832
+| 63: SER_xad -> SER_xak, energy = 0.00559832185872
+| 64: SER_xad -> SER_xar, energy = 0.00666603482352
+| 65: THR_xaq -> THR_xab, energy = 0.00213383232816
+| 66: THR_xaq -> THR_xag, energy = 0.0049082924352
+| 67: THR_xaq -> THR_xah, energy = 0.0055871666486399995
+| 68: THR_xaq -> THR_xal, energy = 0.00673137248256
+| 69: TRP_xao -> TRP_xag, energy = 0.0020605266619199997
+| 70: TRP_xao -> TRP_xah, energy = 0.0045067048723199995
+| 71: TRP_xao -> TRP_xaf, energy = 0.00516964307136
+| 72: TRP_xao -> TRP_xac, energy = 0.006465241042080001
+| 73: TYR_xag -> TYR_xar, energy = 0.00014820493392
+| 74: TYR_xag -> TYR_xab, energy = 0.00143902210032
+| 75: TYR_xag -> TYR_xah, energy = 0.0027202776580800003
+| 76: TYR_xag -> TYR_xan, energy = 0.00282386175168
+| 77: VAL_xad -> VAL_xaj, energy = 0.00135296762256
+| 78: VAL_xad -> VAL_xah, energy = 0.0013704972384
+| 79: VAL_xad -> VAL_xaf, energy = 0.0021593299512
+| 80: VAL_xad -> VAL_xak, energy = 0.00236490453696
+

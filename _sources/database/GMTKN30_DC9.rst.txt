@@ -1,0 +1,40 @@
+GMTKN30 DC9
+-----------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1021/ct900489g
+
+Molecules
+^^^^^^^^^
+13dip
+be4
+be
+c20bowl
+c20cage
+carbooxo1
+carbooxo2
+ch2n2
+ethen
+heptahexaene
+heptatriyne
+iso_e35
+iso_e36
+iso_p35
+iso_p36
+omcb
+s2
+s8
+tmethen
+
+Reactions
+^^^^^^^^^
+| 1: iso_p36 -> iso_e36 (1), energy = -0.001593601437640522
+| 2: c20cage -> c20bowl (2), energy = -0.02119489912061894
+| 3: heptahexaene -> heptatriyne (3), energy = -0.022788500558259466
+| 4: 2tmethen -> omcb (4), energy = -0.03059714760269802
+| 5: iso_p35 -> iso_e35 (5), energy = -0.03107522803399018
+| 6: carbooxo2 -> carbooxo1 (6), energy = -0.04286787867253004
+| 7: ethen + ch2n2 -> 13dip (7), energy = -0.06071621477410389
+| 8: 4be -> be4 (8), energy = -0.14087436708742215
+| 9: 4s2 -> s8 (9), energy = -0.16095374520169273
+

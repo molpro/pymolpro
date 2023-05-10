@@ -1,0 +1,30 @@
+GMTKN55 AL2X6
+-------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+alf3
+al2me4
+al2me5
+alh3
+al2f6
+al2me6
+al2cl6
+alme3
+alcl3
+al2h6
+alme2
+
+Reactions
+^^^^^^^^^
+| 1: al2h6 -> 2alh3, energy = 0.06135365544
+| 2: al2f6 -> 2alf3, energy = 0.08222983430400001
+| 3: al2cl6 -> 2alcl3, energy = 0.0517920468
+| 4: al2me4 -> 2alme2, energy = 0.061194295296
+| 5: al2me5 -> alme2 + alme3, energy = 0.049720364928
+| 6: al2me6 -> 2alme3, energy = 0.036812193264
+

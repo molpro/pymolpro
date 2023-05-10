@@ -1,0 +1,28 @@
+Minnesota 2019 DGH4
+-------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+HBr_0
+HBr_1
+HBr_2
+HBr_3
+HBr_4
+NaBr_0
+NaBr_1
+NaBr_2
+NaBr_3
+NaBr_4
+ZnS_1
+ZnS_2
+ZnS_3
+ZnS_4
+Ag2_0
+Ag2_1
+Ag2_2
+Ag2_3
+Ag2_4
+

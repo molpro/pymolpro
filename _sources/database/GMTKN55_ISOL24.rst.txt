@@ -1,0 +1,85 @@
+GMTKN55 ISOL24
+--------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+i22e
+i22p
+i21e
+i21p
+i5p
+i15p
+i15e
+i5e
+i6p
+i16p
+i16e
+i6e
+i12p
+i18e
+i8e
+i2p
+i8p
+i2e
+i12e
+i18p
+i11p
+i1p
+i1e
+i11e
+i24e
+i24p
+i10p
+i10e
+i13p
+i19e
+i9e
+i3p
+i9p
+i3e
+i13e
+i19p
+i7p
+i17p
+i17e
+i7e
+i4p
+i14p
+i14e
+i4e
+i20e
+i20p
+i23e
+i23p
+
+Reactions
+^^^^^^^^^
+| 1: i1e -> i1p, energy = 0.11316163825440001
+| 2: i2e -> i2p, energy = 0.06135365544
+| 3: i3e -> i3p, energy = 0.0170355993936
+| 4: i4e -> i4p, energy = 0.1100063074032
+| 5: i5e -> i5p, energy = 0.0527163356352
+| 6: i6e -> i6p, energy = 0.0388998111504
+| 7: i7e -> i7p, energy = 0.028493593747199997
+| 8: i8e -> i8p, energy = 0.035122975737599996
+| 9: i9e -> i9p, energy = 0.0336090543696
+| 10: i10e -> i10p, energy = 0.010342473345600001
+| 11: i11e -> i11p, energy = 0.058803893136
+| 12: i12e -> i12p, energy = 0.0006693126047999999
+| 13: i13e -> i13p, energy = 0.05262071954880001
+| 14: i14e -> i14p, energy = 0.0084779596608
+| 15: i15e -> i15p, energy = 0.0065975099616
+| 16: i16e -> i16p, energy = 0.03665283312
+| 17: i17e -> i17p, energy = 0.0156651021552
+| 18: i18e -> i18p, energy = 0.0384695387616
+| 19: i19e -> i19p, energy = 0.0287485699776
+| 20: i20e -> i20p, energy = 0.0079201991568
+| 21: i21e -> i21p, energy = 0.018963857136
+| 22: i22p -> i22e, energy = 0.00022310420160000002
+| 23: i23e -> i23p, energy = 0.0392185314384
+| 24: i24e -> i24p, energy = 0.024541462176
+

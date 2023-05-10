@@ -1,0 +1,46 @@
+Weizmann W411 SN 13
+-------------------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1016/j.cplett.2011.05.007
+
+Molecules
+^^^^^^^^^
+nh
+ch3nh2
+glyoxal
+f
+ch2f2
+h
+f2co
+nh2
+methanol
+oh
+propane
+ch3f
+ch3
+ch4
+c2h5f
+hcof
+c2h6
+ch3nh
+h2co
+hco
+acetaldehyde
+
+Reactions
+^^^^^^^^^
+| 1: ch3f + h -> f + ch4 (1:ch3f,1:h >1:f,1:ch4), energy = 0.0040477476516069255
+| 2: ch2f2 + h -> f + ch3f (1:ch2f2,1:h >1:f,1:ch3f), energy = 0.02344187714769208
+| 3: ch3f + ch3 -> f + c2h6 (1:ch3f,1:ch3 >1:f,1:c2h6), energy = 0.028286425518119263
+| 4: ch2f2 + ch3 -> f + c2h5f (1:ch2f2,1:ch3 >1:f,1:c2h5f), energy = 0.03831017856087815
+| 5: c2h5f + ch3 -> f + propane (1:c2h5f,1:ch3 >1:f,1:propane), energy = 0.0341986868517656
+| 6: ch3f + nh2 -> f + ch3nh2 (1:ch3f,1:nh2 >1:f,1:ch3nh2), energy = 0.03705123342514213
+| 7: ch3f + nh -> f + ch3nh (1:ch3f,1:nh >1:f,1:ch3nh), energy = 0.05008689318504161
+| 8: ch3f + oh -> f + methanol (1:ch3f,1:oh >1:f,1:methanol), energy = 0.026565335965467504
+| 9: ch3f + hco -> f + acetaldehyde (1:ch3f,1:hco >1:f,1:acetaldehyde), energy = 0.039075107250945595
+| 10: ch3 + hcof -> f + acetaldehyde (1:ch3,1:hcof >1:f,1:acetaldehyde), energy = 0.05378404852036762
+| 11: hcof + h -> f + h2co (1:hcof,1:h >1:f,1:h2co), energy = 0.04634192980658638
+| 12: f2co + h -> f + hcof (1:f2co,1:h >1:f,1:hcof), energy = 0.02691592828174842
+| 13: hcof + hco -> f + glyoxal (1:hcof,1:hco >1:f,1:glyoxal), energy = 0.07658848509300349
+

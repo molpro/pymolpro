@@ -1,0 +1,80 @@
+GMTKN55 BHROT27
+---------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+butadiene_strans
+bifuran_syn
+tmethane_120
+tmethane_60
+ethylthiourea_0
+butadiene_TS
+tmethane_180
+bithiophene_anti
+acetamide_TS1
+bifuran_anti
+butadiene_scis
+methanol_st
+ethylthiourea_TS2
+biphenyl_TS
+n2h4_ecl1
+nh2oh_ecl
+nh2oh_st1
+methanol_ecl
+ethylthiourea_180
+h2s2_cis
+bithiophene_TS
+h2o2_trans
+methylamine_st
+h2o2
+bifuran_TS
+ethane_ecl
+acetamide_TS2
+ethane_st
+ethylthiourea_TS1
+h2s2
+h2o2_cis
+bithiophene_syn
+n2h4_st1
+n2h4_ecl2
+h2s2_trans
+nh2oh_st2
+biphenyl
+tmethane_0
+acetamide_RC
+methylamine_ecl
+
+Reactions
+^^^^^^^^^
+| 1: ethane_st -> ethane_ecl, energy = 0.0043505319312
+| 2: tmethane_60 -> tmethane_0, energy = 0.0111711460944
+| 3: tmethane_60 -> tmethane_120, energy = 0.0055138609824
+| 4: tmethane_180 -> tmethane_120, energy = 0.005928197356800001
+| 5: methanol_st -> methanol_ecl, energy = 0.0016095374544000001
+| 6: methylamine_st -> methylamine_ecl, energy = 0.0036334112832
+| 7: h2o2 -> h2o2_trans, energy = 0.0016095374544000001
+| 8: h2o2 -> h2o2_cis, energy = 0.0114261223248
+| 9: h2s2 -> h2s2_trans, energy = 0.0092269523376
+| 10: h2s2 -> h2s2_cis, energy = 0.0127966195632
+| 11: n2h4_st1 -> n2h4_ecl1, energy = 0.0025816343328000004
+| 12: n2h4_st1 -> n2h4_ecl2, energy = 0.0134021881104
+| 13: nh2oh_st1 -> nh2oh_ecl, energy = 0.0110117859504
+| 14: nh2oh_st2 -> nh2oh_ecl, energy = 0.0042708518592
+| 15: acetamide_RC -> acetamide_TS1, energy = 0.027473688825599998
+| 16: acetamide_RC -> acetamide_TS2, energy = 0.0231390929088
+| 17: biphenyl -> biphenyl_TS, energy = 0.0033465630240000002
+| 18: bifuran_anti -> bifuran_TS, energy = 0.0061991096016
+| 19: bifuran_syn -> bifuran_TS, energy = 0.0033306270095999997
+| 20: bithiophene_anti -> bithiophene_TS, energy = 0.0028366105632
+| 21: bithiophene_syn -> bithiophene_TS, energy = 0.0022151060015999998
+| 22: butadiene_strans -> butadiene_TS, energy = 0.010039689072
+| 23: butadiene_scis -> butadiene_TS, energy = 0.005338564824
+| 24: ethylthiourea_180 -> ethylthiourea_TS1, energy = 0.0165097109184
+| 25: ethylthiourea_0 -> ethylthiourea_TS1, energy = 0.0163184787456
+| 26: ethylthiourea_180 -> ethylthiourea_TS2, energy = 0.027409944768
+| 27: ethylthiourea_0 -> ethylthiourea_TS2, energy = 0.027218712595199996
+

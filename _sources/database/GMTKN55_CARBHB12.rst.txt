@@ -1,0 +1,61 @@
+GMTKN55 CARBHB12
+----------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+2O_A
+4N_A
+4CL
+4CL_A
+1N_A
+1CL_A
+3O_A
+3CL_A
+2CL_A
+4O_B
+2N_B
+3CL
+1O_B
+1O
+2N
+2O
+3N_B
+1N
+3O
+2O_B
+4N_B
+4CL_B
+3N
+2CL
+1CL_B
+1N_B
+2CL_B
+3O_B
+3CL_B
+4O_A
+2N_A
+1CL
+1O_A
+4O
+3N_A
+4N
+
+Reactions
+^^^^^^^^^
+| 1: 1O -> 1O_A + 1O_B, energy = 0.0085576397328
+| 2: 2O -> 2O_A + 2O_B, energy = 0.00963650790768
+| 3: 3O -> 3O_A + 3O_B, energy = 0.0038581090862399997
+| 4: 4O -> 4O_A + 4O_B, energy = 0.015883425552480002
+| 5: 1N -> 1N_A + 1N_B, energy = 0.00375611859408
+| 6: 2N -> 2N_A + 2N_B, energy = 0.00481426995024
+| 7: 3N -> 3N_A + 3N_B, energy = 0.0019202897352000002
+| 8: 4N -> 4N_A + 4N_B, energy = 0.00665647321488
+| 9: 1CL -> 1CL_A + 1CL_B, energy = 0.01249224168816
+| 10: 2CL -> 2CL_A + 2CL_B, energy = 0.01670572389552
+| 11: 3CL -> 3CL_A + 3CL_B, energy = 0.0051648622670400005
+| 12: 4CL -> 4CL_A + 4CL_B, energy = 0.02596932906624
+

@@ -1,0 +1,52 @@
+GMTKN55 PCONF21
+---------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+300
+GLY_aL
+GLY_ab
+SER_aR
+470
+SER_pII
+412
+366
+357
+SER_ab
+SER_aL
+99
+GLY_aR
+444
+215
+224
+GLY_b
+SER_b
+691
+GLY_pII
+114
+
+Reactions
+^^^^^^^^^
+| 1: 99 -> 444, energy = 3.18720288e-05
+| 2: 99 -> 357, energy = 0.0016095374544000001
+| 3: 99 -> 366, energy = 0.001115521008
+| 4: 99 -> 215, energy = 0.001354561224
+| 5: 99 -> 300, energy = 0.0012430091232000001
+| 6: 99 -> 114, energy = 0.0030597147648
+| 7: 99 -> 412, energy = 0.0034740511392
+| 8: 99 -> 691, energy = 0.0025656983184000003
+| 9: 99 -> 470, energy = 0.0030119067215999998
+| 10: 99 -> 224, energy = 0.0032987549808
+| 11: GLY_ab -> GLY_aR, energy = 0.0017051535408
+| 12: GLY_ab -> GLY_pII, energy = 0.0019601297712
+| 13: GLY_ab -> GLY_aL, energy = 0.0038883875136
+| 14: GLY_ab -> GLY_b, energy = 0.0034103070816
+| 15: SER_ab -> SER_aR, energy = 0.0023425941168
+| 16: SER_ab -> SER_pII, energy = 0.004462084032
+| 17: SER_ab -> SER_aL, energy = 0.0036174752688000003
+| 18: SER_ab -> SER_b, energy = 0.004366467945600001
+

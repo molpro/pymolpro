@@ -1,0 +1,53 @@
+Weizmann W411 TAE MR 16
+-----------------------
+References
+^^^^^^^^^^
+| doi: https://doi.org/10.1016/j.cplett.2011.05.007
+
+Molecules
+^^^^^^^^^
+cl
+cloo
+b2
+oclo
+c-hooo
+s4-c2v
+s3
+be2
+o3
+foof
+be
+bn
+c2
+cl2o
+c
+b
+fo2
+f
+of
+f2o
+o
+n
+s
+t-hooo
+h
+
+Reactions
+^^^^^^^^^
+| 1: be2 -> 2be (1:be2 >2:be), energy = 0.004253322237062553
+| 2: of -> o + f (1:of >1:o,1:f), energy = 0.08458039630277071
+| 3: b2 -> 2b (1:b2 >2:b), energy = 0.10750275938179198
+| 4: f2o -> 2f + o (1:f2o >2:f,1:o), energy = 0.14944794282192816
+| 5: cl2o -> 2cl + o (1:cl2o >2:cl,1:o), energy = 0.16168202105869442
+| 6: bn -> b + n (1:bn >1:b,1:n), energy = 0.1677090216958509
+| 7: cloo -> cl + 2o (1:cloo >1:cl,2:o), energy = 0.20140731769619738
+| 8: oclo -> 2o + cl (1:oclo >2:o,1:cl), energy = 0.20417221619050369
+| 9: fo2 -> f + 2o (1:fo2 >1:f,2:o), energy = 0.21469157928036878
+| 10: c2 -> 2c (1:c2 >2:c), energy = 0.23429606416622245
+| 11: o3 -> 3o (1:o3 >3:o), energy = 0.23494147274846686
+| 12: foof -> 2f + 2o (1:foof >2:f,2:o), energy = 0.24281545745184868
+| 13: s3 -> 3s (1:s3 >3:s), energy = 0.26830511244690886
+| 14: s4-c2v -> 4s (1:s4-c2v >4:s), energy = 0.3734573097081811
+| 15: c-hooo -> h + 3o (1:c-hooo >1:h,3:o), energy = 0.3714509654981916
+| 16: t-hooo -> h + 3o (1:t-hooo >1:h,3:o), energy = 0.3717824345972208
+

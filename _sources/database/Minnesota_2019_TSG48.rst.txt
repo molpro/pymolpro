@@ -1,0 +1,25 @@
+Minnesota 2019 TSG48
+--------------------
+References
+^^^^^^^^^^
+| Geometries for Minnesota Database 2019: https://doi.org/10.13020/217y-8g32
+
+Molecules
+^^^^^^^^^
+R10
+R11
+R12
+R13
+R14
+R15
+R16
+R1
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+

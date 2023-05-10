@@ -1,0 +1,55 @@
+GMTKN55 PX13
+------------
+References
+^^^^^^^^^^
+| GMTKN55: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55
+| L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
+
+Molecules
+^^^^^^^^^
+h2o
+nh3_2_ts
+nh3_3_ts
+h2o_6
+hf_5_ts
+h2o_6_ts
+h2o_2_ts
+h2o_3_ts
+hf_3
+hf_4
+hf_5
+hf_2
+hf_4_ts
+hf_3_ts
+h2o_4_ts
+hf_6_ts
+h2o_5_ts
+hf
+hf_2_ts
+h2o_2
+nh3_4_ts
+h2o_5
+nh3
+h2o_4
+h2o_3
+nh3_3
+nh3_4
+hf_6
+nh3_2
+
+Reactions
+^^^^^^^^^
+| 1: nh3_2 -> nh3_2_ts, energy = 0.094500565392
+| 2: nh3_3 -> nh3_3_ts, energy = 0.074739907536
+| 3: nh3_4 -> nh3_4_ts, energy = 0.077130309696
+| 4: h2o_2 -> h2o_2_ts, energy = 0.07744902998400001
+| 5: h2o_3 -> h2o_3_ts, energy = 0.047489322912000004
+| 6: h2o_4 -> h2o_4_ts, energy = 0.042389798304000005
+| 7: h2o_5 -> h2o_5_ts, energy = 0.047967403344
+| 8: h2o_6 -> h2o_6_ts, energy = 0.055935410544
+| 9: hf_2 -> hf_2_ts, energy = 0.067409340912
+| 10: hf_3 -> hf_3_ts, energy = 0.032987549808
+| 11: hf_4 -> hf_4_ts, energy = 0.023425941167999998
+| 12: hf_5 -> hf_5_ts, energy = 0.023266581024
+| 13: hf_6 -> hf_6_ts, energy = 0.026453783904
+
