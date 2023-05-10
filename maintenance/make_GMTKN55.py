@@ -118,6 +118,7 @@ kcal = 0.00159360144
 for subset in subsets:
     # print("process subset",subset)
     db = pymolpro.database.Database(description='GMTKN55 ' + subset)
+    db.references['GMTKN55'] = 'https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn55'
     db.references[
         'L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017'] = 'https://doi.org/10.1039/C7CP04913G'
     ensure_file(subset + 'ref.html')

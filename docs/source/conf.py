@@ -41,3 +41,13 @@ rst_epilog = '\n'.join(map(lambda x: f".. |{x}| replace:: {__frozen_locals[x]}",
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ['_static']
+
+import os
+
+for dbfile in os.listdir("../../pymolpro/share/database"):
+    dbname = dbfile.replace('.json', '')
+    dbname_pretty = dbname.replace('_', ' ')
+    db = pymolpro.database.load(dbname)
+    if not os.path.exists('database'): os.makedirs('database')
+    with open('database/' + dbname + '.rst', 'w') as f:
+        f.write(db.__str__(rst=True,geometry=False,title=dbname_pretty))
