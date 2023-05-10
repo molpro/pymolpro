@@ -227,28 +227,51 @@ class Database:
             self.subsets = __j['subsets']
         return self
 
-    def __str__(self):
-        result = "Database\n" if self.description == "" or self.description is None else self.description + '\n'
+    def __str__(self, rst=False, geometry=True, title=None):
+        result = ''
+        if title:
+            result = _header(title, c='-', rst=rst)
+            if self.description and self.description.replace('_', ' ') != title.replace('_', ' '):
+                result += self.description.replace('_', ' ') + '\n\n'
+        else:
+            result = _header("Database" if self.description == "" or self.description is None else self.description,
+                             c='-', rst=rst) + '\n'
         if len(self.references) > 0:
-            result += '\nReferences:\n' + str(self.references) + '\n'
+            result += _header('References', rst=rst)
+            for key, value in self.references.items():
+                result += ('| ' if rst else '') + key + ': ' + value + '\n'
+            result += '\n'
         if len(self.molecules) > 0:
-            result += '\nMolecules:\n'
+            result += _header('Molecules', rst)
             for name, molecule in self.molecules.items():
-                result += name + ': ' + str(molecule) + (', energy = ' + str(
+                result += name + (': ' + str(molecule) if geometry else '') + (', energy = ' + str(
                     self.molecule_energies[name]) if name in self.molecule_energies else "") + '\n'
+            result += '\n'
         if len(self.reactions) > 0:
-            result += '\nReactions:\n'
+            result += _header('Reactions', rst)
             for name, reaction in self.reactions.items():
-                result += name + ': ' + str(reaction['stoichiometry']) + ' ' + str(
-                    {k: v for k, v in reaction.items() if k != 'stoichiometry'}) + (', energy = ' + str(
+                if rst: result += '| '
+                result += name + ': ' + str(reaction['stoichiometry']) + (
+                    ' (' + reaction['description'] + ')' if 'description' in reaction else '') + (', energy = ' + str(
                     self.reaction_energies[name]) if name in self.reaction_energies else "") + '\n'
+            result += '\n'
         if len(self.subsets) > 0:
-            result += '\nSubsets of reactions:\n'
+            result += _header('Subsets of reactions', rst)
             for name, subset in self.subsets.items():
                 result += name + ': ' + str(subset) + '\n'
+            result += '\n'
         if self.preamble is not None and self.preamble != "":
-            result += '\nPreamble:\n' + str(self.preamble) + '\n'
+            result += _header('Preamble', rst) + str(self.preamble) + '\n'
         return result
+
+
+def _header(text,rst=True,c='^'):
+    result = text.replace('_',' ')
+    if rst:
+        result += '\n' + ''.join([c for t in text]) + '\n'
+    else:
+        result += ':\n'
+    return result
 
 
 def load(source):
