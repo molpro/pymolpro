@@ -44,8 +44,7 @@ html_static_path = ['_static']
 
 import os
 
-for dbfile in os.listdir("../../pymolpro/share/database"):
-    dbname = dbfile.replace('.json', '')
+for dbname in pymolpro.database.library():
     dbname_pretty = dbname.replace('_', ' ')
     db = pymolpro.database.load(dbname)
     if not os.path.exists('database'): os.makedirs('database')

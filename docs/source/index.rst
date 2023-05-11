@@ -92,8 +92,8 @@ For a complete set-up of pymolpro within Jupyter notebooks on Windows,
    :caption: Contents:
 
    modules
-   examples
    databases
+   examples
 
 Indices and tables
 ==================

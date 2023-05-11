@@ -260,6 +260,8 @@ class Database:
             for name, subset in self.subsets.items():
                 result += name + ': ' + str(subset) + '\n'
             result += '\n'
+        if self.method is not None and self.method != "":
+            result += _header('Method', rst) + str(self.method) + '\n'
         if self.preamble is not None and self.preamble != "":
             result += _header('Preamble', rst) + str(self.preamble) + '\n'
         return result
