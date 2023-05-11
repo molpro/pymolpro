@@ -6,11 +6,3 @@ Database library
    :maxdepth: 1
 
    database/*
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
