@@ -71,6 +71,14 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         db_string = database.load(' '.join(open(raw_path, 'r').readlines()))
         self.assertEqual(db, db_string)
 
+    def test_bad_library(self):
+        import pytest
+        with pytest.raises(Exception) as e_info:
+            database.load('junk')
+        self.assertTrue(isinstance(e_info.value, ValueError))
+        self.assertEqual(str(e_info.value),
+                         'Cannot resolve "junk" as a library key, library file name, or library-defining json string')
+
     def test_run_database(self):
         if shutil.which('molpro'):
             db = database.load('sample')

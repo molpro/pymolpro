@@ -199,13 +199,19 @@ class Database:
         :rtype: Database
         """
         __j = None
-        for name in [source, source + '.json', library_path(source)]:
-            if os.path.isfile(name):
-                with open(name, "r") as f_:
-                    __j = json.load(f_)
-                break
-        if not __j:
-            __j = json.loads(source)
+        from json.decoder import JSONDecodeError
+        try:
+            for name in [source, source + '.json', library_path(source)]:
+                if os.path.isfile(name):
+                    with open(name, "r") as f_:
+                        __j = json.load(f_)
+                    break
+            if not __j:
+                __j = json.loads(source)
+        except JSONDecodeError as e:
+            raise ValueError(
+                'Cannot resolve "' + source + '" as a library key, library file name, or library-defining json string') from e
+
         self.molecules = __j['molecules']
         self.reactions = __j['reactions']
         for reaction in self.reactions.values():
