@@ -165,6 +165,16 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertEqual(len(db.subset('non-covalent').molecules), 2)
         # print(db.subset('non-covalent'))
 
+        subset = db.subset()
+        self.assertEqual(subset, db)
+
+        subset = db.subset(max_atoms=2)
+        print(db)
+        print(subset)
+        self.assertEqual(len(subset), 1)
+        print("description:", db.description)
+        print("description:", subset.description)
+
         subset = db.subset(['HFHF'])
         # print(subset)
         self.assertEqual(len(subset), 1)
@@ -179,6 +189,9 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             result = database.run(subset, clean=True)
             self.assertEqual(len(result.molecule_energies), 2)
             self.assertEqual(len(result.reaction_energies), 1)
+
+        subset = pymolpro.database.load('GMTKN55_BH76').subset(open_shell=False)
+        self.assertEqual(len(subset), 20)
 
     def test_extrapolate(self):
         if shutil.which('molpro'):

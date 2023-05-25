@@ -153,15 +153,37 @@ class Database:
     def add_reference(self, key, url):
         self.references[key.strip()] = url.strip()
 
-    def subset(self, subset):
+    @staticmethod
+    def __count_atoms(geom):
+        lines = geom.replace(';', '\n').strip().split('\n')
+        try:
+            return len(lines) - 2 if (int(lines[0]) == len(lines) - 2) else len(lines)
+        except:
+            return len(lines)
+
+    def subset(self, subset=None, open_shell=True, max_atoms=None, max_electrons=None):
         """
         Extract a subset of this database as a new database
 
-        :param subset: Either a key in the :py:data:`subsets` or a list of keys in :py:data:`reactions`
+        :param subset: Either a key in the :py:data:`subsets` or a list of keys in :py:data:`reactions`. If not given, all the reactions in the database
+        :param open_shell: Whether to include reactions involving open-shell molecules, or prune to closed-shell only
+        :param max_atoms: Exclude reactions with one or more molecules with more than this number of atoms
+        :param max_electrons: Exclude reactions with one or more molecules with more than this number of electrons
         :return: The subset
         :rtype: Database
         """
-        subset_list = subset if type(subset) == list else self.subsets[subset]
+        subset_list = subset if type(subset) == list else self.reactions.keys() if subset is None else self.subsets[
+            subset]
+        if not open_shell:
+            subset_list = [kr for kr in subset_list if not any(
+                ['spin' in self.molecules[k] and self.molecules[k]['spin'] != 0 for k in
+                 self.reactions[kr]['stoichiometry']])]
+        if max_atoms:
+            subset_list = [kr for kr in subset_list if not any(
+                [self.__count_atoms(self.molecules[k]['geometry']) > max_atoms for k in
+                 self.reactions[kr]['stoichiometry']])]
+        if max_electrons:
+            raise NotImplementedError('max_electrons not yet implemented')
         db = Database(description=self.description)
         for reaction in subset_list:
             db.reactions[reaction] = self.reactions[reaction]
@@ -173,7 +195,10 @@ class Database:
                 if molecule in self.molecule_energies:
                     db.molecule_energies[molecule] = self.molecule_energies[molecule]
         db.preamble = str(self.preamble)
-        db.description = self.description + " (subset " + str(subset) + ")"
+        if subset: db.description += " (subset " + str(subset) + ")"
+        if not open_shell: db.description += " (closed shell only)"
+        if max_atoms: db.description += " (maximum number of atoms " + str(max_atoms) + ")"
+        if max_electrons: db.description += " (maximum number of electrons " + str(max_electrons) + ")"
         return db
 
     def dump(self, filename=None):
@@ -273,8 +298,8 @@ class Database:
         return result
 
 
-def _header(text,rst=True,c='^'):
-    result = text.replace('_',' ')
+def _header(text, rst=True, c='^'):
+    result = text.replace('_', ' ')
     if rst:
         result += '\n' + ''.join([c for t in text]) + '\n'
     else:
@@ -365,9 +390,9 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     for molecule_name, molecule in db.molecules.items():
         method_ = method if type(method) == str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
             method[0]
-        initial_= initial + '\n' + db.preamble
+        initial_ = initial + '\n' + db.preamble
         if 'preamble' in molecule:
-            initial_ += '\n'+molecule['preamble']
+            initial_ += '\n' + molecule['preamble']
         if re.match('^(\n+;+ +)*$', initial_): initial_ = None
         newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
                                                 method=method_,
@@ -502,18 +527,22 @@ def analyse(databases, reference_database=None, unit=None):
             if len(getattr(database, typ + '_energies')) == 0: continue
             results[-1][typ + ' energies'] = {key: value / units[unit] for key, value in
                                               getattr(database, typ + '_energies').items()}
-            if reference_database!=None and len(getattr(reference_database, typ + '_energies')) > 0:
+            if reference_database != None and len(getattr(reference_database, typ + '_energies')) > 0:
                 results[-1][typ + ' energy deviations'] = {
                     key: value - getattr(reference_database, typ + '_energies')[key] / units[unit]
                     for
                     key, value in
                     results[-1][typ + ' energies'].items()}
                 results[-1][typ + ' statistics'] = {
-                    'MAD': statistics.mean([abs(v) for v in results[-1][typ + ' energy deviations'].values()]), # mean absolute deviation
-                    'MAXD': max([abs(v) for v in results[-1][typ + ' energy deviations'].values()]), # maximum absolute deviation
-                    'RMSD': sqrt(statistics.mean([v*v for v in results[-1][typ + ' energy deviations'].values()])), # root mean square deviation
-                    'MSD': statistics.mean(results[-1][typ + ' energy deviations'].values()), # mean of the deviations
-                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()), # standard deviation of the deviations
+                    'MAD': statistics.mean([abs(v) for v in results[-1][typ + ' energy deviations'].values()]),
+                    # mean absolute deviation
+                    'MAXD': max([abs(v) for v in results[-1][typ + ' energy deviations'].values()]),
+                    # maximum absolute deviation
+                    'RMSD': sqrt(statistics.mean([v * v for v in results[-1][typ + ' energy deviations'].values()])),
+                    # root mean square deviation
+                    'MSD': statistics.mean(results[-1][typ + ' energy deviations'].values()),  # mean of the deviations
+                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()),
+                    # standard deviation of the deviations
                 }
         for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
             if results and all([table in result for result in results]):
@@ -527,10 +556,11 @@ def __compare_database_runs_format_table(results, dataset):
     table = [list(result[dataset].values()) for result in results]
     row_labels = list(results[0][dataset].keys())
     output = pd.DataFrame(np.array(table).transpose(), index=row_labels)
-    column_headers = [ ]
+    column_headers = []
     if all(['method' in result and result['method'] for result in results]):
-        column_headers.append([result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
-         results])
+        column_headers.append(
+            [result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
+             results])
     if all(['basis' in result and result['basis'] for result in results]):
         column_headers.append([result['basis'] for result in results])
     if column_headers:
