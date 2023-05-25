@@ -7,73 +7,73 @@ References
 
 Molecules
 ^^^^^^^^^
-h2o
-h2s
-pbh4_hbr
-teh2_2
-pbh4_bih3
-sbh3_hi
-teh2_nh3
-sbh3
-teh2_hi
-pbh4_2
-bih3_h2s
-teh2_hbr
-bih3_h2o
-bih3
-sbh3_h2s
-sbh3_h2o
-teh2_hcl
-pbh4_hcl
-sbh3_hbr
-sbh3_2
-teh2
-sbh3_nh3
-bih3_hcl
-hcl
-pbh4_hi
-bih3_hi
-hi
-hbr
-pbh4_teh2
-pbh4
-pbh4_h2o
-nh3
-bih3_2
-bih3_nh3
-sbh3_hcl
-teh2_h2o
-bih3_hbr
-teh2_h2s
+H2O
+H2S
+PBH4_HBR
+TEH2_2
+PBH4_BIH3
+SBH3_HI
+TEH2_NH3
+SBH3
+TEH2_HI
+PBH4_2
+BIH3_H2S
+TEH2_HBR
+BIH3_H2O
+BIH3
+SBH3_H2S
+SBH3_H2O
+TEH2_HCL
+PBH4_HCL
+SBH3_HBR
+SBH3_2
+TEH2
+SBH3_NH3
+BIH3_HCL
+HCL
+PBH4_HI
+BIH3_HI
+HI
+HBR
+PBH4_TEH2
+PBH4
+PBH4_H2O
+NH3
+BIH3_2
+BIH3_NH3
+SBH3_HCL
+TEH2_H2O
+BIH3_HBR
+TEH2_H2S
 
 Reactions
 ^^^^^^^^^
-| 1: bih3_2 -> 2bih3, energy = 0.0018485776704
-| 2: bih3_h2o -> bih3 + h2o, energy = 0.0039680675856
-| 3: bih3_h2s -> bih3 + h2s, energy = 0.0021672979584000003
-| 4: bih3_hcl -> bih3 + hcl, energy = 0.0012270731088
-| 5: bih3_hbr -> bih3 + hbr, energy = 0.0015617294112
-| 6: bih3_hi -> bih3 + hi, energy = 0.002071681872
-| 7: bih3_nh3 -> bih3 + nh3, energy = 0.000956160864
-| 8: pbh4_2 -> 2pbh4, energy = 0.0019920018
-| 9: pbh4_bih3 -> pbh4 + bih3, energy = 0.0008764807920000001
-| 10: pbh4_h2o -> pbh4 + h2o, energy = 0.0005736965184
-| 11: pbh4_hcl -> pbh4 + hcl, energy = 0.00119520108
-| 12: pbh4_hbr -> pbh4 + hbr, energy = 0.0014820493392000002
-| 13: pbh4_hi -> pbh4 + hi, energy = 0.0018804496992
-| 14: pbh4_teh2 -> pbh4 + teh2, energy = 0.001035840936
-| 15: sbh3_2 -> 2sbh3, energy = 0.0020398098432
-| 16: sbh3_h2o -> sbh3 + h2o, energy = 0.0025019542608000003
-| 17: sbh3_h2s -> sbh3 + h2s, energy = 0.0016892175264000002
-| 18: sbh3_hcl -> sbh3 + hcl, energy = 0.0032190749088000003
-| 19: sbh3_hbr -> sbh3 + hbr, energy = 0.0030119067215999998
-| 20: sbh3_hi -> sbh3 + hi, energy = 0.0023744661456
-| 21: sbh3_nh3 -> sbh3 + nh3, energy = 0.0045258280896
-| 22: teh2_2 -> 2teh2, energy = 0.0008286727488
-| 23: teh2_h2o -> teh2 + h2o, energy = 0.0010836489792000002
-| 24: teh2_h2s -> teh2 + h2s, energy = 0.0007649286912
-| 25: teh2_hcl -> teh2 + hcl, energy = 0.0019601297712
-| 26: teh2_hbr -> teh2 + hbr, energy = 0.0019441937568
-| 27: teh2_hi -> teh2 + hi, energy = 0.001274881152
-| 28: teh2_nh3 -> teh2 + nh3, energy = 0.005338564824
+| 1: BIH3_2 -> 2BIH3, energy = 0.0018485776704
+| 2: BIH3_H2O -> BIH3 + H2O, energy = 0.0039680675856
+| 3: BIH3_H2S -> BIH3 + H2S, energy = 0.0021672979584000003
+| 4: BIH3_HCL -> BIH3 + HCL, energy = 0.0012270731088
+| 5: BIH3_HBR -> BIH3 + HBR, energy = 0.0015617294112
+| 6: BIH3_HI -> BIH3 + HI, energy = 0.002071681872
+| 7: BIH3_NH3 -> BIH3 + NH3, energy = 0.000956160864
+| 8: PBH4_2 -> 2PBH4, energy = 0.0019920018
+| 9: PBH4_BIH3 -> PBH4 + BIH3, energy = 0.0008764807920000001
+| 10: PBH4_H2O -> PBH4 + H2O, energy = 0.0005736965184
+| 11: PBH4_HCL -> PBH4 + HCL, energy = 0.00119520108
+| 12: PBH4_HBR -> PBH4 + HBR, energy = 0.0014820493392000002
+| 13: PBH4_HI -> PBH4 + HI, energy = 0.0018804496992
+| 14: PBH4_TEH2 -> PBH4 + TEH2, energy = 0.001035840936
+| 15: SBH3_2 -> 2SBH3, energy = 0.0020398098432
+| 16: SBH3_H2O -> SBH3 + H2O, energy = 0.0025019542608000003
+| 17: SBH3_H2S -> SBH3 + H2S, energy = 0.0016892175264000002
+| 18: SBH3_HCL -> SBH3 + HCL, energy = 0.0032190749088000003
+| 19: SBH3_HBR -> SBH3 + HBR, energy = 0.0030119067215999998
+| 20: SBH3_HI -> SBH3 + HI, energy = 0.0023744661456
+| 21: SBH3_NH3 -> SBH3 + NH3, energy = 0.0045258280896
+| 22: TEH2_2 -> 2TEH2, energy = 0.0008286727488
+| 23: TEH2_H2O -> TEH2 + H2O, energy = 0.0010836489792000002
+| 24: TEH2_H2S -> TEH2 + H2S, energy = 0.0007649286912
+| 25: TEH2_HCL -> TEH2 + HCL, energy = 0.0019601297712
+| 26: TEH2_HBR -> TEH2 + HBR, energy = 0.0019441937568
+| 27: TEH2_HI -> TEH2 + HI, energy = 0.001274881152
+| 28: TEH2_NH3 -> TEH2 + NH3, energy = 0.005338564824
 

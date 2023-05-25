@@ -9,48 +9,48 @@ Molecules
 ^^^^^^^^^
 ISO_P35
 C6H6
-omcb
-s2
-c20cage
-be4
-be
-carbooxo1
-tmethen
-o3
+OMCB
+S2
+C20CAGE
+BE4
+BE
+CARBOOXO1
+TMETHEN
+O3
 ISO_E35
-heptahexaene
-o3_c2h4_add
-s8
-heptatriyne
-ethen
-c2h4
+HEPTAHEXAENE
+O3_C2H4_ADD
+S8
+HEPTATRIYNE
+ETHEN
+C2H4
 ISO_P36
-13dip
-c2h2
-o3_c2h2_add
+13DIP
+C2H2
+O3_C2H2_ADD
 HCL
-carbooxo2
+CARBOOXO2
 ISO_C8H8_41
-C6Cl6
+C6CL6
 ISO_C8H8_1
 CL2
-ch2n2
-c20bowl
+CH2N2
+C20BOWL
 ISO_E36
 
 Reactions
 ^^^^^^^^^
 | 1: ISO_P36 -> ISO_E36, energy = -0.00159360144
-| 2: c20cage -> c20bowl, energy = -0.012270731088
-| 3: heptahexaene -> heptatriyne, energy = -0.024222741888
-| 4: 2tmethen -> omcb, energy = -0.029959707072000002
+| 2: C20CAGE -> C20BOWL, energy = -0.012270731088
+| 3: HEPTAHEXAENE -> HEPTATRIYNE, energy = -0.024222741888
+| 4: 2TMETHEN -> OMCB, energy = -0.029959707072000002
 | 5: ISO_P35 -> ISO_E35, energy = -0.036493472975999995
-| 6: carbooxo2 -> carbooxo1, energy = -0.040955557008
-| 7: ethen + ch2n2 -> 13dip, energy = -0.061991096015999995
-| 8: 4be -> be4, energy = -0.14661133248
-| 9: 4s2 -> s8, energy = -0.16892175264
+| 6: CARBOOXO2 -> CARBOOXO1, energy = -0.040955557008
+| 7: ETHEN + CH2N2 -> 13DIP, energy = -0.061991096015999995
+| 8: 4BE -> BE4, energy = -0.14661133248
+| 9: 4S2 -> S8, energy = -0.16892175264
 | 10: ISO_C8H8_1 -> ISO_C8H8_41, energy = 0.17516867028480002
-| 11: o3 + c2h2 -> o3_c2h2_add, energy = -0.104062174032
-| 12: o3 + c2h4 -> o3_c2h4_add, energy = -0.093544404528
-| 13: C6Cl6 + 6HCL -> C6H6 + 6CL2, energy = 0.24318357974399998
+| 11: O3 + C2H2 -> O3_C2H2_ADD, energy = -0.104062174032
+| 12: O3 + C2H4 -> O3_C2H4_ADD, energy = -0.093544404528
+| 13: C6CL6 + 6HCL -> C6H6 + 6CL2, energy = 0.24318357974399998
 

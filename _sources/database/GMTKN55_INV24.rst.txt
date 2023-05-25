@@ -8,78 +8,78 @@ References
 Molecules
 ^^^^^^^^^
 H2O
-PCl3_TS
+PCL3_TS
 H2S
-Thioether
-PMe3_TS
-Tetrabenzopyracylene
-Sumanene
-BN_Corannulene_TS
-BN_Corannulene
-Pentahelicene
-Corannulene
-BN_Sumanene
-Triindenotriphenylene
-Hexahelicene_TS
-Tetrahelicene
+THIOETHER
+PME3_TS
+TETRABENZOPYRACYLENE
+SUMANENE
+BN_CORANNULENE_TS
+BN_CORANNULENE
+PENTAHELICENE
+CORANNULENE
+BN_SUMANENE
+TRIINDENOTRIPHENYLENE
+HEXAHELICENE_TS
+TETRAHELICENE
 SO2
-Dibenzocycloheptene_TS
-Tetrahelicene_TS
-PH2Ph_TS
-NCl3_TS
-PPh3_TS
-Dibenzocarbazole
-NMe3_TS
-PCl3
-Ether_TS
-PMe3
-Pentahelicene_TS
-Ether
+DIBENZOCYCLOHEPTENE_TS
+TETRAHELICENE_TS
+PH2PH_TS
+NCL3_TS
+PPH3_TS
+DIBENZOCARBAZOLE
+NME3_TS
+PCL3
+ETHER_TS
+PME3
+PENTAHELICENE_TS
+ETHER
 H2O_TS
-Dibenzocycloheptene
-NMe3
-NCl3
+DIBENZOCYCLOHEPTENE
+NME3
+NCL3
 H2S_TS
-Hexahelicene
-Tetrabenzopyracylene_TS
-Thioether_TS
-PPh3
+HEXAHELICENE
+TETRABENZOPYRACYLENE_TS
+THIOETHER_TS
+PPH3
 SO2_TS
-Triazasumanene
-Dibenzocarbazole_TS
-Methinecyanine
-Corannulene_TS
-Sumanene_TS
-PH2Ph
-Triazasumanene_TS
-Methinecyanine_TS
-Triindenotriphenylene_TS
-BN_Sumanene_TS
+TRIAZASUMANENE
+DIBENZOCARBAZOLE_TS
+METHINECYANINE
+CORANNULENE_TS
+SUMANENE_TS
+PH2PH
+TRIAZASUMANENE_TS
+METHINECYANINE_TS
+TRIINDENOTRIPHENYLENE_TS
+BN_SUMANENE_TS
 
 Reactions
 ^^^^^^^^^
 | 1: H2O -> H2O_TS, energy = 0.050517165648
 | 2: H2S -> H2S_TS, energy = 0.110436579792
 | 3: SO2 -> SO2_TS, energy = 0.096572247264
-| 4: Ether -> Ether_TS, energy = 0.05896325328
-| 5: Thioether -> Thioether_TS, energy = 0.11824522684800001
-| 6: NMe3 -> NMe3_TS, energy = 0.015457933968
-| 7: NCl3 -> NCl3_TS, energy = 0.030119067216
-| 8: PMe3 -> PMe3_TS, energy = 0.068843582208
-| 9: PCl3 -> PCl3_TS, energy = 0.12701003476800002
-| 10: PH2Ph -> PH2Ph_TS, energy = 0.049720364928
-| 11: PPh3 -> PPh3_TS, energy = 0.046692522192
-| 12: Dibenzocycloheptene -> Dibenzocycloheptene_TS, energy = 0.016414094832
-| 13: Tetrahelicene -> Tetrahelicene_TS, energy = 0.00717120648
-| 14: Pentahelicene -> Pentahelicene_TS, energy = 0.039361955568
-| 15: Hexahelicene -> Hexahelicene_TS, energy = 0.059919414144000004
-| 16: Dibenzocarbazole -> Dibenzocarbazole_TS, energy = 0.006533765903999999
-| 17: Methinecyanine -> Methinecyanine_TS, energy = 0.020876178864
-| 18: Corannulene -> Corannulene_TS, energy = 0.017848336128
-| 19: BN_Corannulene -> BN_Corannulene_TS, energy = 0.009880328928
-| 20: Sumanene -> Sumanene_TS, energy = 0.033943710672
-| 21: Triazasumanene -> Triazasumanene_TS, energy = 0.067409340912
-| 22: BN_Sumanene -> BN_Sumanene_TS, energy = 0.043345959168
-| 23: Tetrabenzopyracylene -> Tetrabenzopyracylene_TS, energy = 0.013386252096000001
-| 24: Triindenotriphenylene -> Triindenotriphenylene_TS, energy = 0.10932105878399999
+| 4: ETHER -> ETHER_TS, energy = 0.05896325328
+| 5: THIOETHER -> THIOETHER_TS, energy = 0.11824522684800001
+| 6: NME3 -> NME3_TS, energy = 0.015457933968
+| 7: NCL3 -> NCL3_TS, energy = 0.030119067216
+| 8: PME3 -> PME3_TS, energy = 0.068843582208
+| 9: PCL3 -> PCL3_TS, energy = 0.12701003476800002
+| 10: PH2PH -> PH2PH_TS, energy = 0.049720364928
+| 11: PPH3 -> PPH3_TS, energy = 0.046692522192
+| 12: DIBENZOCYCLOHEPTENE -> DIBENZOCYCLOHEPTENE_TS, energy = 0.016414094832
+| 13: TETRAHELICENE -> TETRAHELICENE_TS, energy = 0.00717120648
+| 14: PENTAHELICENE -> PENTAHELICENE_TS, energy = 0.039361955568
+| 15: HEXAHELICENE -> HEXAHELICENE_TS, energy = 0.059919414144000004
+| 16: DIBENZOCARBAZOLE -> DIBENZOCARBAZOLE_TS, energy = 0.006533765903999999
+| 17: METHINECYANINE -> METHINECYANINE_TS, energy = 0.020876178864
+| 18: CORANNULENE -> CORANNULENE_TS, energy = 0.017848336128
+| 19: BN_CORANNULENE -> BN_CORANNULENE_TS, energy = 0.009880328928
+| 20: SUMANENE -> SUMANENE_TS, energy = 0.033943710672
+| 21: TRIAZASUMANENE -> TRIAZASUMANENE_TS, energy = 0.067409340912
+| 22: BN_SUMANENE -> BN_SUMANENE_TS, energy = 0.043345959168
+| 23: TETRABENZOPYRACYLENE -> TETRABENZOPYRACYLENE_TS, energy = 0.013386252096000001
+| 24: TRIINDENOTRIPHENYLENE -> TRIINDENOTRIPHENYLENE_TS, energy = 0.10932105878399999
 

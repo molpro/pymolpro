@@ -8,85 +8,85 @@ References
 
 Molecules
 ^^^^^^^^^
-h2o
-p4
-ethanolp
-h2s
-si2h6p
-sih4p
-p2
-h2
-c2h2p
-Ap
-assp
-cys
-nh3p
-p4p
-c2f6p
-ch3cooh
-ch2sp
-hclp
-ph3
-phosphapyrrolp
+H2O
+P4
+ETHANOLP
+H2S
+SI2H6P
+SIH4P
+P2
+H2
+C2H2P
+AP
+ASSP
+CYS
+NH3P
+P4P
+C2F6P
+CH3COOH
+CH2SP
+HCLP
+PH3
+PHOSPHAPYRROLP
 G
-c2f6
-Tp
+C2F6
+TP
 T
 A
-ch3coohp
-h2p
-glyp
-h2op
-p8
-p6
-c2h2
-hcl
-p8p
-Gp
-p2p
-phenolp
-ass
-ethanol
-phenol
-h2sp
-phosphapyrrol
-Cp
-nh3
-p6p
-cysp
+CH3COOHP
+H2P
+GLYP
+H2OP
+P8
+P6
+C2H2
+HCL
+P8P
+GP
+P2P
+PHENOLP
+ASS
+ETHANOL
+PHENOL
+H2SP
+PHOSPHAPYRROL
+CP
+NH3
+P6P
+CYSP
 C
-sih4
-si2h6
-ch2s
-ph3p
-gly
+SIH4
+SI2H6
+CH2S
+PH3P
+GLY
 
 Reactions
 ^^^^^^^^^
-| 1: p2p -> p2, energy = 0.266450160768
-| 2: p4p -> p4, energy = 0.307405717776
-| 3: p6p -> p6, energy = 0.33338142124799997
-| 4: p8p -> p8, energy = 0.349317435648
-| 5: nh3p -> nh3, energy = 0.33768414513600004
-| 6: h2op -> h2o, energy = 0.27314328681600003
-| 7: c2h2p -> c2h2, energy = 0.250832866656
-| 8: sih4p -> sih4, energy = 0.25003606593600003
-| 9: ph3p -> ph3, energy = 0.30724635763200003
-| 10: h2sp -> h2s, energy = 0.277764730992
-| 11: hclp -> hcl, energy = 0.21959827843200003
-| 12: h2p -> h2, energy = 0.169240472928
-| 13: c2f6p -> c2f6, energy = 0.192507053952
-| 14: ethanolp -> ethanol, energy = 0.30581211633600003
-| 15: ch3coohp -> ch3cooh, energy = 0.304218514896
-| 16: glyp -> gly, energy = 0.34772383420799996
-| 17: phenolp -> phenol, energy = 0.31935772857600003
-| 18: assp -> ass, energy = 0.334975022688
-| 19: ch2sp -> ch2s, energy = 0.300075151152
-| 20: si2h6p -> si2h6, energy = 0.289876101936
-| 21: cysp -> cys, energy = 0.35266399867200005
-| 22: phosphapyrrolp -> phosphapyrrol, energy = 0.349954876224
-| 23: Ap -> A, energy = 0.307405717776
-| 24: Tp -> T, energy = 0.335771823408
-| 25: Gp -> G, energy = 0.37608993984
-| 26: Cp -> C, energy = 0.374655698544
+| 1: P2P -> P2, energy = 0.266450160768
+| 2: P4P -> P4, energy = 0.307405717776
+| 3: P6P -> P6, energy = 0.33338142124799997
+| 4: P8P -> P8, energy = 0.349317435648
+| 5: NH3P -> NH3, energy = 0.33768414513600004
+| 6: H2OP -> H2O, energy = 0.27314328681600003
+| 7: C2H2P -> C2H2, energy = 0.250832866656
+| 8: SIH4P -> SIH4, energy = 0.25003606593600003
+| 9: PH3P -> PH3, energy = 0.30724635763200003
+| 10: H2SP -> H2S, energy = 0.277764730992
+| 11: HCLP -> HCL, energy = 0.21959827843200003
+| 12: H2P -> H2, energy = 0.169240472928
+| 13: C2F6P -> C2F6, energy = 0.192507053952
+| 14: ETHANOLP -> ETHANOL, energy = 0.30581211633600003
+| 15: CH3COOHP -> CH3COOH, energy = 0.304218514896
+| 16: GLYP -> GLY, energy = 0.34772383420799996
+| 17: PHENOLP -> PHENOL, energy = 0.31935772857600003
+| 18: ASSP -> ASS, energy = 0.334975022688
+| 19: CH2SP -> CH2S, energy = 0.300075151152
+| 20: SI2H6P -> SI2H6, energy = 0.289876101936
+| 21: CYSP -> CYS, energy = 0.35266399867200005
+| 22: PHOSPHAPYRROLP -> PHOSPHAPYRROL, energy = 0.349954876224
+| 23: AP -> A, energy = 0.307405717776
+| 24: TP -> T, energy = 0.335771823408
+| 25: GP -> G, energy = 0.37608993984
+| 26: CP -> C, energy = 0.374655698544
 

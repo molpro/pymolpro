@@ -8,94 +8,94 @@ References
 
 Molecules
 ^^^^^^^^^
-01ts
-13ts_2a
-Cis-triscyclopropacyclohexane
-13ts_8a
-1,3-Cyclopentadiene
-13ts_1a
-05ts
-1,3-Butadiene
-07r
-04r
+01TS
+13TS_2A
+CIS-TRISCYCLOPROPACYCLOHEXANE
+13TS_8A
+1,3-CYCLOPENTADIENE
+13TS_1A
+05TS
+1,3-BUTADIENE
+07R
+04R
 TS5
 TS2
-02ts
-00r
-08ts
+02TS
+00R
+08TS
 TS3
 TS4
-09r
-Cyclohexene
-06ts
-03r
-13ts_5a
-13r_8
-13r_1
-1,3-Cyclohexadiene
-13r_6
-1,3-Pentadiene
-ortho-xylylene
-13r_7
-13ts_6a
-13r_9
-cis-1,3,5-Hexatriene
-Cyclonona-1,4,7-triene
-13ts_7a
-09ts
-03ts
-07ts
-13ts_4a
-Norbornene
-02r
-Cyclobutene
-01r
-05r
+09R
+CYCLOHEXENE
+06TS
+03R
+13TS_5A
+13R_8
+13R_1
+1,3-CYCLOHEXADIENE
+13R_6
+1,3-PENTADIENE
+ORTHO-XYLYLENE
+13R_7
+13TS_6A
+13R_9
+CIS-1,3,5-HEXATRIENE
+CYCLONONA-1,4,7-TRIENE
+13TS_7A
+09TS
+03TS
+07TS
+13TS_4A
+NORBORNENE
+02R
+CYCLOBUTENE
+01R
+05R
 TS8
 TS1
 TS6
-Benzocyclobutane
-Ethylene
-1,5-Hexadiene
+BENZOCYCLOBUTANE
+ETHYLENE
+1,5-HEXADIENE
 TS7
-04ts
+04TS
 TS9
-13_c2h4
+13_C2H4
 TS11
-13r_5
-13r_2
-13ts_3a
+13R_5
+13R_2
+13TS_3A
 TS10
-13r_3
-13r_4
-13ts_9a
+13R_3
+13R_4
+13TS_9A
 
 Reactions
 ^^^^^^^^^
-| 1: Cyclobutene -> TS1, energy = 0.056254130831999996
-| 2: cis-1,3,5-Hexatriene -> TS2, energy = 0.049082924352
-| 3: ortho-xylylene -> TS3, energy = 0.044780200464000004
-| 4: 1,3-Pentadiene -> TS4, energy = 0.063265977168
-| 5: 1,3-Cyclopentadiene -> TS5, energy = 0.045098920752000005
-| 6: 1,5-Hexadiene -> TS6, energy = 0.057050931551999993
-| 7: 1,3-Butadiene + Ethylene -> TS7, energy = 0.035537312112
-| 8: 1,3-Cyclopentadiene + Ethylene -> TS8, energy = 0.02868482592
-| 9: 21,3-Cyclopentadiene -> TS11, energy = 0.02310722088
-| 10: Cis-triscyclopropacyclohexane -> TS9, energy = 0.042071078016
-| 11: 13r_1 13_c2h4 + 13ts_1a -> , energy = 0.043983399744
-| 12: 13r_2 13_c2h4 + 13ts_2a -> , energy = 0.0318720288
-| 13: 13r_3 13_c2h4 + 13ts_3a -> , energy = 0.021991699872
-| 14: 13r_4 13_c2h4 + 13ts_4a -> , energy = 0.018804496992
-| 15: 13r_5 13_c2h4 + 13ts_5a -> , energy = 0.010358409360000001
-| 16: 13r_6 13_c2h4 + 13ts_6a -> , energy = 0.0074899267680000004
-| 17: 13r_7 13_c2h4 + 13ts_7a -> , energy = 0.020876178864
-| 18: 13r_8 13_c2h4 + 13ts_8a -> , energy = 0.009402248496
-| 19: 13r_9 13_c2h4 + 13ts_9a -> , energy = 0.00079680072
-| 20: 02r + 00r -> 02ts, energy = 0.028844186064000004
-| 21: 03r + 00r -> 03ts, energy = 0.026453783904
-| 22: 04r + 00r -> 04ts, energy = 0.036493472975999995
-| 23: 05r + 00r -> 06ts, energy = 0.044302120032
-| 24: 07r + 00r -> 07ts, energy = 0.033943710672
-| 25: 07r + 00r -> 08ts, energy = 0.034421791104
-| 26: 09r + 00r -> 09ts, energy = 0.049879725072
+| 1: CYCLOBUTENE -> TS1, energy = 0.056254130831999996
+| 2: CIS-1,3,5-HEXATRIENE -> TS2, energy = 0.049082924352
+| 3: ORTHO-XYLYLENE -> TS3, energy = 0.044780200464000004
+| 4: 1,3-PENTADIENE -> TS4, energy = 0.063265977168
+| 5: 1,3-CYCLOPENTADIENE -> TS5, energy = 0.045098920752000005
+| 6: 1,5-HEXADIENE -> TS6, energy = 0.057050931551999993
+| 7: 1,3-BUTADIENE + ETHYLENE -> TS7, energy = 0.035537312112
+| 8: 1,3-CYCLOPENTADIENE + ETHYLENE -> TS8, energy = 0.02868482592
+| 9: 21,3-CYCLOPENTADIENE -> TS11, energy = 0.02310722088
+| 10: CIS-TRISCYCLOPROPACYCLOHEXANE -> TS9, energy = 0.042071078016
+| 11: 13R_1 13_C2H4 + 13TS_1A -> , energy = 0.043983399744
+| 12: 13R_2 13_C2H4 + 13TS_2A -> , energy = 0.0318720288
+| 13: 13R_3 13_C2H4 + 13TS_3A -> , energy = 0.021991699872
+| 14: 13R_4 13_C2H4 + 13TS_4A -> , energy = 0.018804496992
+| 15: 13R_5 13_C2H4 + 13TS_5A -> , energy = 0.010358409360000001
+| 16: 13R_6 13_C2H4 + 13TS_6A -> , energy = 0.0074899267680000004
+| 17: 13R_7 13_C2H4 + 13TS_7A -> , energy = 0.020876178864
+| 18: 13R_8 13_C2H4 + 13TS_8A -> , energy = 0.009402248496
+| 19: 13R_9 13_C2H4 + 13TS_9A -> , energy = 0.00079680072
+| 20: 02R + 00R -> 02TS, energy = 0.028844186064000004
+| 21: 03R + 00R -> 03TS, energy = 0.026453783904
+| 22: 04R + 00R -> 04TS, energy = 0.036493472975999995
+| 23: 05R + 00R -> 06TS, energy = 0.044302120032
+| 24: 07R + 00R -> 07TS, energy = 0.033943710672
+| 25: 07R + 00R -> 08TS, energy = 0.034421791104
+| 26: 09R + 00R -> 09TS, energy = 0.049879725072
 

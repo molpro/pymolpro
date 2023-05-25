@@ -9,299 +9,299 @@ References
 
 Molecules
 ^^^^^^^^^
-alf3
-h2o
-ch3f
-hcno
-ch2ch
-ch2f2
-hcnh
-p4
-honc
-h2s
-ketene
-s2
-c2h6
-oclo
-t-hono
-ccl2
-s3
-f2o
-p2
-oxirane
-b2h6
-c-hooo
-b2
-h2
-hco
-ch2-sing
-fo2
-be
-foof
-no
-al
-nh
-bf3
-oxirene
-hcn
-n2h4
-fccf
-be2
-hnco
-hno
-sio
-hnnn
-bh3
-sih
-cn
-sif
-so3
-becl2
-o2
-ch2-trip
-so2
-f2
-ch
-co
-cf
-cs
-c2h3f
-o3
-cloo
-hooh
-clo
-s2o
-clf
-hccf
-n
-ch2c
-ph3
-ch2nh
-c-n2h2
-nh2cl
-hocl
-t-hcoh
-ocs
-s
-alh3
-f
-methanol
-o
-h
-allene
-ch2nh2
-propyne
-ch3
-h2cn
-ch4
-c2h4
-so
-n2h
-sif4
-n2o
-h2co
-ssh
-s4-c2v
-dioxirane
-c2h2
-si
-alcl
-bh
-hcl
-bf
-hs
-no2
-propane
-ch3nh
-hf
-t-n2h2
-glyoxal
-acetaldehyde
-hoo
-c-hcoh
-ch3nh2
-bn
-ethanol
-cs2
-propene
-hof
-nccn
-bef2
-n2
-nh2
-f2co
-formic
-oh
-c2h5f
-of
-bn3pi
-clcn
-nh3
-c-hono
-acetic
-c2
-hnc
-cl
-cl2
-c
-t-hooo
-sih4
-alf
-si2h6
-bhf2
-cf2
-cch
-alh
-hocn
-cl2o
-alcl3
-b
-hcof
-co2
-sih3f
-p
-cf4
+ALF3
+H2O
+CH3F
+HCNO
+CH2CH
+CH2F2
+HCNH
+P4
+HONC
+H2S
+KETENE
+S2
+C2H6
+OCLO
+T-HONO
+CCL2
+S3
+F2O
+P2
+OXIRANE
+B2H6
+C-HOOO
+B2
+H2
+HCO
+CH2-SING
+FO2
+BE
+FOOF
+NO
+AL
+NH
+BF3
+OXIRENE
+HCN
+N2H4
+FCCF
+BE2
+HNCO
+HNO
+SIO
+HNNN
+BH3
+SIH
+CN
+SIF
+SO3
+BECL2
+O2
+CH2-TRIP
+SO2
+F2
+CH
+CO
+CF
+CS
+C2H3F
+O3
+CLOO
+HOOH
+CLO
+S2O
+CLF
+HCCF
+N
+CH2C
+PH3
+CH2NH
+C-N2H2
+NH2CL
+HOCL
+T-HCOH
+OCS
+S
+ALH3
+F
+METHANOL
+O
+H
+ALLENE
+CH2NH2
+PROPYNE
+CH3
+H2CN
+CH4
+C2H4
+SO
+N2H
+SIF4
+N2O
+H2CO
+SSH
+S4-C2V
+DIOXIRANE
+C2H2
+SI
+ALCL
+BH
+HCL
+BF
+HS
+NO2
+PROPANE
+CH3NH
+HF
+T-N2H2
+GLYOXAL
+ACETALDEHYDE
+HOO
+C-HCOH
+CH3NH2
+BN
+ETHANOL
+CS2
+PROPENE
+HOF
+NCCN
+BEF2
+N2
+NH2
+F2CO
+FORMIC
+OH
+C2H5F
+OF
+BN3PI
+CLCN
+NH3
+C-HONO
+ACETIC
+C2
+HNC
+CL
+CL2
+C
+T-HOOO
+SIH4
+ALF
+SI2H6
+BHF2
+CF2
+CCH
+ALH
+HOCN
+CL2O
+ALCL3
+B
+HCOF
+CO2
+SIH3F
+P
+CF4
 
 Reactions
 ^^^^^^^^^
-| 1: h2 -> 2h, energy = 0.17448820246992
-| 2: alh3 -> al + 3h, energy = 0.33970642536336004
-| 3: alh -> al + h, energy = 0.1172412579408
-| 4: sih4 -> si + 4h, energy = 0.5178328199208
-| 5: bh3 -> b + 3h, energy = 0.44825936825327994
-| 6: bh -> b + h, energy = 0.1354481543928
-| 7: ch2-trip -> c + 2h, energy = 0.3039715066728
-| 8: sih -> si + h, energy = 0.11780061204624001
-| 9: si2h6 -> 2si + 6h, energy = 0.8539871076744
-| 10: ch3 -> c + 3h, energy = 0.4906220753328
-| 11: ch4 -> c + 4h, energy = 0.6699819174048001
-| 12: b2h6 -> 2b + 6h, energy = 0.96735272691312
-| 13: sih3f -> si + 3h + f, energy = 0.60995573196432
-| 14: ph3 -> p + 3h, energy = 0.38607704006448
-| 15: c2h6 -> 2c + 6h, energy = 1.1363653148352
-| 16: propane -> 3c + 8h, energy = 1.60620523378896
-| 17: ch2-sing -> c + 2h, energy = 0.28916854289664
-| 18: ch -> c + h, energy = 0.13421470687824
-| 19: h2s -> 2h + s, energy = 0.29308402163472
-| 20: hs -> h + s, energy = 0.13980824793264
-| 21: c2h5f -> 2c + 5h + f, energy = 1.14978662616288
-| 22: ch3nh2 -> c + n + 5h, energy = 0.9279557121134401
-| 23: ch3f -> c + f + 3h, energy = 0.67402807146096
-| 24: propene -> 3c + 6h, energy = 1.37301194147232
-| 25: nh3 -> n + 3h, energy = 0.47492191394592
-| 26: ethanol -> 2c + o + 6h, energy = 1.29279482578704
-| 27: ch3nh -> c + n + 4h, energy = 0.75636945786576
-| 28: c2h4 -> 2c + 4h, energy = 0.8989426042968001
-| 29: methanol -> c + o + 4h, energy = 0.81831593304144
-| 30: hcl -> h + cl, energy = 0.17131056119856
-| 31: nh2 -> n + 2h, energy = 0.29097728053104
-| 32: nh -> n + h, energy = 0.13242190525824002
-| 33: ch2nh2 -> c + n + 4h, energy = 0.76855572807744
-| 34: bhf2 -> b + h + 2f, energy = 0.65492716460112
-| 35: h2o -> 2h + o, energy = 0.37126770188256
-| 36: hf -> h + f, energy = 0.22571770796159998
-| 37: ch2ch -> 2c + 3h, energy = 0.71087532395664
-| 38: oh -> o + h, energy = 0.17084682317952
-| 39: propyne -> 3c + 4h, energy = 1.1244531440712
-| 40: acetaldehyde -> 2c + o + 4h, energy = 1.08024504652416
-| 41: allene -> 3c + 4h, energy = 1.122054773904
-| 42: sif4 -> si + 4f, energy = 0.9207510400032
-| 43: bf3 -> b + 3f, energy = 0.7505432510011201
-| 44: c2h3f -> 2c + f + 3h, energy = 0.91455511760448
-| 45: oxirane -> 2c + o + 4h, energy = 1.03827277179744
-| 46: ch2f2 -> c + 2f + 2h, energy = 0.6974683550419201
-| 47: alf3 -> al + 3f, energy = 0.68678963179248
-| 48: bef2 -> be + 2f, energy = 0.49258061150256
-| 49: ch2c -> 2c + 2h, energy = 0.5735913407049601
-| 50: n2h4 -> 4h + 2n, energy = 0.69844523272464
-| 51: ch2nh -> c + n + 3h, energy = 0.70029381039504
-| 52: alf -> al + f, energy = 0.2610000438432
-| 53: acetic -> 2c + 2o + 4h, energy = 1.2812826489844802
-| 54: c2h2 -> 2c + 2h, energy = 0.6462452239559999
-| 55: h2co -> 2h + c + o, energy = 0.5970555283075201
-| 56: h2cn -> 2h + c + n, energy = 0.54779890139856
-| 57: bf -> b + f, energy = 0.29085935402448
-| 58: becl2 -> be + 2cl, energy = 0.35899697079456
-| 59: t-hcoh -> c + o + 2h, energy = 0.5138998115668799
-| 60: alcl3 -> al + 3cl, energy = 0.49824108381744003
-| 61: c-hcoh -> c + o + 2h, energy = 0.50620271661168
-| 62: alcl -> al + cl, energy = 0.19540422136992
-| 63: ketene -> 2c + o + 2h, energy = 0.85012581138528
-| 64: sif -> si + f, energy = 0.22742286150240001
-| 65: formic -> c + 2o + 2h, energy = 0.79982696913456
-| 66: hcnh -> c + n + 2h, energy = 0.53584689059856
-| 67: glyoxal -> 2c + 2o + 2h, energy = 1.01209786814544
-| 68: hcof -> c + o + f + h, energy = 0.64340542618992
-| 69: nh2cl -> n + cl + 2h, energy = 0.39530717960496
-| 70: cf4 -> c + 4f, energy = 0.7629526254144
-| 71: hccf -> 2c + f + h, energy = 0.63500555299968
-| 72: hcn -> h + c + n, energy = 0.49946337612192004
-| 73: hnc -> h + c + n, energy = 0.47521673021231997
-| 74: cch -> 2c + h, energy = 0.42415774007472
-| 75: hco -> h + c + o, energy = 0.44528730156768004
-| 76: co -> c + o, energy = 0.41390132120687995
-| 77: oxirene -> 2c + o + 2h, energy = 0.72679699594368
-| 78: f2co -> c + o + 2f, energy = 0.6703261353158401
-| 79: hocn -> c + o + n + h, energy = 0.65348176809504
-| 80: hooh -> 2h + 2o, energy = 0.42882061788816
-| 81: t-n2h2 -> 2h + 2n, energy = 0.47255700940896
-| 82: hnco -> c + o + n + h, energy = 0.69279750922128
-| 83: c-n2h2 -> 2h + 2n, energy = 0.4639531552344
-| 84: cf2 -> c + 2f, energy = 0.41239536784608
-| 85: co2 -> c + 2o, energy = 0.62172925940304
-| 86: fccf -> 2c + 2f, energy = 0.61526879916528
-| 87: dioxirane -> c + 2o + 2h, energy = 0.65342280484176
-| 88: cf -> c + f, energy = 0.21150437671824002
-| 89: ssh -> 2s + h, energy = 0.26314821858431997
-| 90: hocl -> h + o + cl, energy = 0.26490277376976
-| 91: nccn -> 2n + 2c, energy = 0.80004688613328
-| 92: n2 -> 2n, energy = 0.3641140250184
-| 93: n2h -> 2n + h, energy = 0.35834359420416
-| 94: ocs -> o + c + s, energy = 0.53504690267568
-| 95: sio -> si + o, energy = 0.30764794519488
-| 96: clcn -> cl + c + n, energy = 0.45488875024368003
-| 97: hoo -> h + 2o, energy = 0.27972964156752
-| 98: hcno -> c + o + n + h, energy = 0.58161831115824
-| 99: honc -> c + o + n + h, energy = 0.55799795061456
-| 100: hno -> h + n + o, energy = 0.3281066004816
-| 101: hof -> h + o + f, energy = 0.25282964926032
-| 102: c-hono -> h + n + 2o, energy = 0.49755264799536
-| 103: t-hono -> h + n + 2o, energy = 0.49823789661456
-| 104: cs2 -> c + 2s, energy = 0.44744822512032006
-| 105: hnnn -> h + 3n, energy = 0.5287330537704
-| 106: cs -> c + s, energy = 0.27444685279392
-| 107: cn -> c + n, energy = 0.288999621144
-| 108: so3 -> s + 3o, energy = 0.55288886439792
-| 109: ccl2 -> c + 2cl, energy = 0.28263637059408
-| 110: bn3pi -> b + n, energy = 0.1686269363736
-| 111: so2 -> s + 2o, energy = 0.41532600089424
-| 112: no -> n + o, energy = 0.24341465195280002
-| 113: so -> s + o, energy = 0.2015348061096
-| 114: n2o -> 2n + o, energy = 0.43162535642256
-| 115: c-hooo -> h + 3o, energy = 0.37145096604816
-| 116: s2 -> 2s, energy = 0.16613454372144001
-| 117: p4 -> 4p, energy = 0.46306551923232
-| 118: cl2 -> 2cl, energy = 0.09521768604
-| 119: o2 -> 2o, energy = 0.19254530038656
-| 120: f2 -> 2f, energy = 0.062217387420480004
-| 121: t-hooo -> h + 3o, energy = 0.37178243514768
-| 122: s2o -> 2s + o, energy = 0.33271370224464003
-| 123: p2 -> 2p, energy = 0.18739637413392002
-| 124: clf -> cl + f, energy = 0.100078170432
-| 125: no2 -> n + 2o, energy = 0.36315308335008
-| 126: clo -> cl + o, energy = 0.10429643344368
-| 127: s3 -> 3s, energy = 0.26830511284416003
-| 128: cl2o -> 2cl + o, energy = 0.16168202129808
-| 129: s4-c2v -> 4s, energy = 0.37345731026112
-| 130: of -> o + f, energy = 0.08458039642800001
-| 131: c2 -> 2c, energy = 0.23429606451312
-| 132: oclo -> 2o + cl, energy = 0.2041722164928
-| 133: f2o -> 2f + o, energy = 0.1494479430432
-| 134: b2 -> 2b, energy = 0.10750275954096
-| 135: fo2 -> f + 2o, energy = 0.21469157959824
-| 136: cloo -> cl + 2o, energy = 0.2014073179944
-| 137: foof -> 2f + 2o, energy = 0.24281545781136
-| 138: o3 -> 3o, energy = 0.23494147309632
-| 139: bn -> b + n, energy = 0.16770902194416
-| 140: be2 -> 2be, energy = 0.00425332224336
+| 1: H2 -> 2H, energy = 0.17448820246992
+| 2: ALH3 -> AL + 3H, energy = 0.33970642536336004
+| 3: ALH -> AL + H, energy = 0.1172412579408
+| 4: SIH4 -> SI + 4H, energy = 0.5178328199208
+| 5: BH3 -> B + 3H, energy = 0.44825936825327994
+| 6: BH -> B + H, energy = 0.1354481543928
+| 7: CH2-TRIP -> C + 2H, energy = 0.3039715066728
+| 8: SIH -> SI + H, energy = 0.11780061204624001
+| 9: SI2H6 -> 2SI + 6H, energy = 0.8539871076744
+| 10: CH3 -> C + 3H, energy = 0.4906220753328
+| 11: CH4 -> C + 4H, energy = 0.6699819174048001
+| 12: B2H6 -> 2B + 6H, energy = 0.96735272691312
+| 13: SIH3F -> SI + 3H + F, energy = 0.60995573196432
+| 14: PH3 -> P + 3H, energy = 0.38607704006448
+| 15: C2H6 -> 2C + 6H, energy = 1.1363653148352
+| 16: PROPANE -> 3C + 8H, energy = 1.60620523378896
+| 17: CH2-SING -> C + 2H, energy = 0.28916854289664
+| 18: CH -> C + H, energy = 0.13421470687824
+| 19: H2S -> 2H + S, energy = 0.29308402163472
+| 20: HS -> H + S, energy = 0.13980824793264
+| 21: C2H5F -> 2C + 5H + F, energy = 1.14978662616288
+| 22: CH3NH2 -> C + N + 5H, energy = 0.9279557121134401
+| 23: CH3F -> C + F + 3H, energy = 0.67402807146096
+| 24: PROPENE -> 3C + 6H, energy = 1.37301194147232
+| 25: NH3 -> N + 3H, energy = 0.47492191394592
+| 26: ETHANOL -> 2C + O + 6H, energy = 1.29279482578704
+| 27: CH3NH -> C + N + 4H, energy = 0.75636945786576
+| 28: C2H4 -> 2C + 4H, energy = 0.8989426042968001
+| 29: METHANOL -> C + O + 4H, energy = 0.81831593304144
+| 30: HCL -> H + CL, energy = 0.17131056119856
+| 31: NH2 -> N + 2H, energy = 0.29097728053104
+| 32: NH -> N + H, energy = 0.13242190525824002
+| 33: CH2NH2 -> C + N + 4H, energy = 0.76855572807744
+| 34: BHF2 -> B + H + 2F, energy = 0.65492716460112
+| 35: H2O -> 2H + O, energy = 0.37126770188256
+| 36: HF -> H + F, energy = 0.22571770796159998
+| 37: CH2CH -> 2C + 3H, energy = 0.71087532395664
+| 38: OH -> O + H, energy = 0.17084682317952
+| 39: PROPYNE -> 3C + 4H, energy = 1.1244531440712
+| 40: ACETALDEHYDE -> 2C + O + 4H, energy = 1.08024504652416
+| 41: ALLENE -> 3C + 4H, energy = 1.122054773904
+| 42: SIF4 -> SI + 4F, energy = 0.9207510400032
+| 43: BF3 -> B + 3F, energy = 0.7505432510011201
+| 44: C2H3F -> 2C + F + 3H, energy = 0.91455511760448
+| 45: OXIRANE -> 2C + O + 4H, energy = 1.03827277179744
+| 46: CH2F2 -> C + 2F + 2H, energy = 0.6974683550419201
+| 47: ALF3 -> AL + 3F, energy = 0.68678963179248
+| 48: BEF2 -> BE + 2F, energy = 0.49258061150256
+| 49: CH2C -> 2C + 2H, energy = 0.5735913407049601
+| 50: N2H4 -> 4H + 2N, energy = 0.69844523272464
+| 51: CH2NH -> C + N + 3H, energy = 0.70029381039504
+| 52: ALF -> AL + F, energy = 0.2610000438432
+| 53: ACETIC -> 2C + 2O + 4H, energy = 1.2812826489844802
+| 54: C2H2 -> 2C + 2H, energy = 0.6462452239559999
+| 55: H2CO -> 2H + C + O, energy = 0.5970555283075201
+| 56: H2CN -> 2H + C + N, energy = 0.54779890139856
+| 57: BF -> B + F, energy = 0.29085935402448
+| 58: BECL2 -> BE + 2CL, energy = 0.35899697079456
+| 59: T-HCOH -> C + O + 2H, energy = 0.5138998115668799
+| 60: ALCL3 -> AL + 3CL, energy = 0.49824108381744003
+| 61: C-HCOH -> C + O + 2H, energy = 0.50620271661168
+| 62: ALCL -> AL + CL, energy = 0.19540422136992
+| 63: KETENE -> 2C + O + 2H, energy = 0.85012581138528
+| 64: SIF -> SI + F, energy = 0.22742286150240001
+| 65: FORMIC -> C + 2O + 2H, energy = 0.79982696913456
+| 66: HCNH -> C + N + 2H, energy = 0.53584689059856
+| 67: GLYOXAL -> 2C + 2O + 2H, energy = 1.01209786814544
+| 68: HCOF -> C + O + F + H, energy = 0.64340542618992
+| 69: NH2CL -> N + CL + 2H, energy = 0.39530717960496
+| 70: CF4 -> C + 4F, energy = 0.7629526254144
+| 71: HCCF -> 2C + F + H, energy = 0.63500555299968
+| 72: HCN -> H + C + N, energy = 0.49946337612192004
+| 73: HNC -> H + C + N, energy = 0.47521673021231997
+| 74: CCH -> 2C + H, energy = 0.42415774007472
+| 75: HCO -> H + C + O, energy = 0.44528730156768004
+| 76: CO -> C + O, energy = 0.41390132120687995
+| 77: OXIRENE -> 2C + O + 2H, energy = 0.72679699594368
+| 78: F2CO -> C + O + 2F, energy = 0.6703261353158401
+| 79: HOCN -> C + O + N + H, energy = 0.65348176809504
+| 80: HOOH -> 2H + 2O, energy = 0.42882061788816
+| 81: T-N2H2 -> 2H + 2N, energy = 0.47255700940896
+| 82: HNCO -> C + O + N + H, energy = 0.69279750922128
+| 83: C-N2H2 -> 2H + 2N, energy = 0.4639531552344
+| 84: CF2 -> C + 2F, energy = 0.41239536784608
+| 85: CO2 -> C + 2O, energy = 0.62172925940304
+| 86: FCCF -> 2C + 2F, energy = 0.61526879916528
+| 87: DIOXIRANE -> C + 2O + 2H, energy = 0.65342280484176
+| 88: CF -> C + F, energy = 0.21150437671824002
+| 89: SSH -> 2S + H, energy = 0.26314821858431997
+| 90: HOCL -> H + O + CL, energy = 0.26490277376976
+| 91: NCCN -> 2N + 2C, energy = 0.80004688613328
+| 92: N2 -> 2N, energy = 0.3641140250184
+| 93: N2H -> 2N + H, energy = 0.35834359420416
+| 94: OCS -> O + C + S, energy = 0.53504690267568
+| 95: SIO -> SI + O, energy = 0.30764794519488
+| 96: CLCN -> CL + C + N, energy = 0.45488875024368003
+| 97: HOO -> H + 2O, energy = 0.27972964156752
+| 98: HCNO -> C + O + N + H, energy = 0.58161831115824
+| 99: HONC -> C + O + N + H, energy = 0.55799795061456
+| 100: HNO -> H + N + O, energy = 0.3281066004816
+| 101: HOF -> H + O + F, energy = 0.25282964926032
+| 102: C-HONO -> H + N + 2O, energy = 0.49755264799536
+| 103: T-HONO -> H + N + 2O, energy = 0.49823789661456
+| 104: CS2 -> C + 2S, energy = 0.44744822512032006
+| 105: HNNN -> H + 3N, energy = 0.5287330537704
+| 106: CS -> C + S, energy = 0.27444685279392
+| 107: CN -> C + N, energy = 0.288999621144
+| 108: SO3 -> S + 3O, energy = 0.55288886439792
+| 109: CCL2 -> C + 2CL, energy = 0.28263637059408
+| 110: BN3PI -> B + N, energy = 0.1686269363736
+| 111: SO2 -> S + 2O, energy = 0.41532600089424
+| 112: NO -> N + O, energy = 0.24341465195280002
+| 113: SO -> S + O, energy = 0.2015348061096
+| 114: N2O -> 2N + O, energy = 0.43162535642256
+| 115: C-HOOO -> H + 3O, energy = 0.37145096604816
+| 116: S2 -> 2S, energy = 0.16613454372144001
+| 117: P4 -> 4P, energy = 0.46306551923232
+| 118: CL2 -> 2CL, energy = 0.09521768604
+| 119: O2 -> 2O, energy = 0.19254530038656
+| 120: F2 -> 2F, energy = 0.062217387420480004
+| 121: T-HOOO -> H + 3O, energy = 0.37178243514768
+| 122: S2O -> 2S + O, energy = 0.33271370224464003
+| 123: P2 -> 2P, energy = 0.18739637413392002
+| 124: CLF -> CL + F, energy = 0.100078170432
+| 125: NO2 -> N + 2O, energy = 0.36315308335008
+| 126: CLO -> CL + O, energy = 0.10429643344368
+| 127: S3 -> 3S, energy = 0.26830511284416003
+| 128: CL2O -> 2CL + O, energy = 0.16168202129808
+| 129: S4-C2V -> 4S, energy = 0.37345731026112
+| 130: OF -> O + F, energy = 0.08458039642800001
+| 131: C2 -> 2C, energy = 0.23429606451312
+| 132: OCLO -> 2O + CL, energy = 0.2041722164928
+| 133: F2O -> 2F + O, energy = 0.1494479430432
+| 134: B2 -> 2B, energy = 0.10750275954096
+| 135: FO2 -> F + 2O, energy = 0.21469157959824
+| 136: CLOO -> CL + 2O, energy = 0.2014073179944
+| 137: FOOF -> 2F + 2O, energy = 0.24281545781136
+| 138: O3 -> 3O, energy = 0.23494147309632
+| 139: BN -> B + N, energy = 0.16770902194416
+| 140: BE2 -> 2BE, energy = 0.00425332224336
 

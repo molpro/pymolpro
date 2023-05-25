@@ -7,32 +7,32 @@ References
 
 Molecules
 ^^^^^^^^^
-li+
-li8
-li_h
-na2_h2
-na+
-na8
-li2_ch2n_2
-li2_ch4
-li_ch2n
-li4_c
-li_me
-li2
-li5_ch
-li4_me4
-na2
-li_na_h2
-li3_me
+LI+
+LI8
+LI_H
+NA2_H2
+NA+
+NA8
+LI2_CH2N_2
+LI2_CH4
+LI_CH2N
+LI4_C
+LI_ME
+LI2
+LI5_CH
+LI4_ME4
+NA2
+LI_NA_H2
+LI3_ME
 
 Reactions
 ^^^^^^^^^
-| 1: li8 -> 4li2, energy = 0.1377987165168
-| 2: na8 -> 4na2, energy = 0.084699916536
-| 3: li4_me4 -> 4li_me, energy = 0.2089689568272
-| 4: li3_me -> li_me + li2, energy = 0.0549951856944
-| 5: li2_ch4 -> li_me + li_h, energy = 0.0755685802848
-| 6: li5_ch -> li4_c + li_h, energy = 0.10562390344320001
-| 7: li2_ch2n_2 -> 2li_ch2n, energy = 0.090118161432
-| 8: na+ + li_na_h2 -> li+ + na2_h2, energy = 0.040318116432
+| 1: LI8 -> 4LI2, energy = 0.1377987165168
+| 2: NA8 -> 4NA2, energy = 0.084699916536
+| 3: LI4_ME4 -> 4LI_ME, energy = 0.2089689568272
+| 4: LI3_ME -> LI_ME + LI2, energy = 0.0549951856944
+| 5: LI2_CH4 -> LI_ME + LI_H, energy = 0.0755685802848
+| 6: LI5_CH -> LI4_C + LI_H, energy = 0.10562390344320001
+| 7: LI2_CH2N_2 -> 2LI_CH2N, energy = 0.090118161432
+| 8: NA+ + LI_NA_H2 -> LI+ + NA2_H2, energy = 0.040318116432
 

@@ -8,26 +8,26 @@ References
 
 Molecules
 ^^^^^^^^^
-ant
-h2
-F14f
-antdimer
-undecan2
-F22l
-octane2
-F14l
-pc22
-undecan1
-pxylene
-F22f
-octane1
+ANT
+H2
+F14F
+ANTDIMER
+UNDECAN2
+F22L
+OCTANE2
+F14L
+PC22
+UNDECAN1
+PXYLENE
+F22F
+OCTANE1
 
 Reactions
 ^^^^^^^^^
-| 1: 2ant -> antdimer, energy = -0.014581453176
-| 2: pc22 + 2h2 -> 2pxylene, energy = -0.0960622948032
-| 3: octane2 -> octane1, energy = -0.0019282577424
-| 4: undecan2 -> undecan1, energy = 0.014501773104
-| 5: F14f -> F14l, energy = -0.005800709241600001
-| 6: F22f -> F22l, energy = -0.0031234588224
+| 1: 2ANT -> ANTDIMER, energy = -0.014581453176
+| 2: PC22 + 2H2 -> 2PXYLENE, energy = -0.0960622948032
+| 3: OCTANE2 -> OCTANE1, energy = -0.0019282577424
+| 4: UNDECAN2 -> UNDECAN1, energy = 0.014501773104
+| 5: F14F -> F14L, energy = -0.005800709241600001
+| 6: F22F -> F22L, energy = -0.0031234588224
 

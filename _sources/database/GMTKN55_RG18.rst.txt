@@ -7,50 +7,50 @@ References
 
 Molecules
 ^^^^^^^^^
-c2h6
-ne6
-bzNe
-bzAr
-hfKr
-hfAr
-hfNe
-c2h2
-kr
-ne2
-hf
-ar
-bz
-ne
-ne4
-ne3
-ar2
-kr2
-kr3
-ar3
-ar4
-c2h6Ne
-c2h2Ar
-c2h6Ar
-c2h2Ne
+C2H6
+NE6
+BZNE
+BZAR
+HFKR
+HFAR
+HFNE
+C2H2
+KR
+NE2
+HF
+AR
+BZ
+NE
+NE4
+NE3
+AR2
+KR2
+KR3
+AR3
+AR4
+C2H6NE
+C2H2AR
+C2H6AR
+C2H2NE
 
 Reactions
 ^^^^^^^^^
-| 1: ne2 -> 2ne, energy = 0.0001274881152
-| 2: ar2 -> 2ar, energy = 0.00043027238880000005
-| 3: kr2 -> 2kr, energy = 0.000637440576
-| 4: ne3 -> 3ne, energy = 0.00043027238880000005
-| 5: ar3 -> 3ar, energy = 0.0012270731088
-| 6: kr3 -> 3kr, energy = 0.0018804496992
-| 7: ne4 -> 4ne, energy = 0.0008605447776000001
-| 8: ar4 -> 4ar, energy = 0.0024063381744
-| 9: ne6 -> 6ne, energy = 0.0018007696271999999
-| 10: hfNe -> ne + hf, energy = 0.0003665283312
-| 11: hfAr -> ar + hf, energy = 0.0009402248496
-| 12: hfKr -> kr + hf, energy = 0.0011473930368
-| 13: c2h2Ne -> ne + c2h2, energy = 0.0001912321728
-| 14: c2h2Ar -> ar + c2h2, energy = 0.0005258884752000001
-| 15: c2h6Ne -> ne + c2h6, energy = 0.0003824643456
-| 16: c2h6Ar -> ar + c2h6, energy = 0.0008605447776000001
-| 17: bzNe -> ne + bz, energy = 0.000637440576
-| 18: bzAr -> ar + bz, energy = 0.0017848336128000002
+| 1: NE2 -> 2NE, energy = 0.0001274881152
+| 2: AR2 -> 2AR, energy = 0.00043027238880000005
+| 3: KR2 -> 2KR, energy = 0.000637440576
+| 4: NE3 -> 3NE, energy = 0.00043027238880000005
+| 5: AR3 -> 3AR, energy = 0.0012270731088
+| 6: KR3 -> 3KR, energy = 0.0018804496992
+| 7: NE4 -> 4NE, energy = 0.0008605447776000001
+| 8: AR4 -> 4AR, energy = 0.0024063381744
+| 9: NE6 -> 6NE, energy = 0.0018007696271999999
+| 10: HFNE -> NE + HF, energy = 0.0003665283312
+| 11: HFAR -> AR + HF, energy = 0.0009402248496
+| 12: HFKR -> KR + HF, energy = 0.0011473930368
+| 13: C2H2NE -> NE + C2H2, energy = 0.0001912321728
+| 14: C2H2AR -> AR + C2H2, energy = 0.0005258884752000001
+| 15: C2H6NE -> NE + C2H6, energy = 0.0003824643456
+| 16: C2H6AR -> AR + C2H6, energy = 0.0008605447776000001
+| 17: BZNE -> NE + BZ, energy = 0.000637440576
+| 18: BZAR -> AR + BZ, energy = 0.0017848336128000002
 
