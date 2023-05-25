@@ -7,24 +7,24 @@ References
 
 Molecules
 ^^^^^^^^^
-H_GGG
-H_G+X-G-
-H_G+T+G-
-H_TTT
+H_ggg
+H_g+x-g-
+H_g+t+g-
+H_ttt
 B_T
-H_T+G+X-
+H_t+g+x-
 P_GG
 B_G
 P_TT
 P_TG
-H_X+G-G-
-H_GTG
-H_GTT
-H_G+X-T+
-H_TGG
-H_TGT
+H_x+g-g-
+H_gtg
+H_gtt
+H_g+x-t+
+H_tgg
+H_tgt
 P_GX
-H_X+G-X+
+H_x+g-x+
 
 Reactions
 ^^^^^^^^^
@@ -32,15 +32,15 @@ Reactions
 | 2: P_TT -> P_TG, energy = 0.00097847128416
 | 3: P_TT -> P_GG, energy = 0.0015314509838399999
 | 4: P_TT -> P_GX, energy = 0.00448280085072
-| 5: H_TTT -> H_GTT, energy = 0.0009481928567999999
-| 6: H_TTT -> H_TGT, energy = 0.00096253526976
-| 7: H_TTT -> H_TGG, energy = 0.0014884237449600002
-| 8: H_TTT -> H_GTG, energy = 0.0018772624963199998
-| 9: H_TTT -> H_G+T+G-, energy = 0.0020748690748800002
-| 10: H_TTT -> H_GGG, energy = 0.0019920018
-| 11: H_TTT -> H_G+X-T+, energy = 0.00419435899008
-| 12: H_TTT -> H_T+G+X-, energy = 0.004366467945600001
-| 13: H_TTT -> H_G+X-G-, energy = 0.00523179352752
-| 14: H_TTT -> H_X+G-G-, energy = 0.004913073239520001
-| 15: H_TTT -> H_X+G-X+, energy = 0.007848487091999999
+| 5: H_ttt -> H_gtt, energy = 0.0009481928567999999
+| 6: H_ttt -> H_tgt, energy = 0.00096253526976
+| 7: H_ttt -> H_tgg, energy = 0.0014884237449600002
+| 8: H_ttt -> H_gtg, energy = 0.0018772624963199998
+| 9: H_ttt -> H_g+t+g-, energy = 0.0020748690748800002
+| 10: H_ttt -> H_ggg, energy = 0.0019920018
+| 11: H_ttt -> H_g+x-t+, energy = 0.00419435899008
+| 12: H_ttt -> H_t+g+x-, energy = 0.004366467945600001
+| 13: H_ttt -> H_g+x-g-, energy = 0.00523179352752
+| 14: H_ttt -> H_x+g-g-, energy = 0.004913073239520001
+| 15: H_ttt -> H_x+g-x+, energy = 0.007848487091999999
 

@@ -7,37 +7,37 @@ References
 
 Molecules
 ^^^^^^^^^
-CAO
-BE
-LIO
-MG
-NA
-LIF
-CA
-NAO
-S
-F
-O
-H
-MGO
-MGS
-HF
-KF
-BEO
-BEF
-LI
-K
+cao
+be
+lio
+mg
+na
+lif
+ca
+nao
+s
+f
+o
+h
+mgo
+mgs
+hf
+kf
+beo
+bef
+li
+k
 
 Reactions
 ^^^^^^^^^
-| 1: BEF -> BE + F, energy = 0.22103251972799998
-| 2: BEO -> BE + O, energy = 0.169877913504
-| 3: CAO -> CA + O, energy = 0.153304458528
-| 4: HF -> H + F, energy = 0.226450764624
-| 5: KF -> K + F, energy = 0.1872481692
-| 6: LIF -> LI + F, energy = 0.221829320448
-| 7: LIO -> LI + O, energy = 0.1314721188
-| 8: MGO -> MG + O, energy = 0.099122009568
-| 9: MGS -> MG + S, energy = 0.090357201648
-| 10: NAO -> NA + O, energy = 0.103902813888
+| 1: bef -> be + f, energy = 0.22103251972799998
+| 2: beo -> be + o, energy = 0.169877913504
+| 3: cao -> ca + o, energy = 0.153304458528
+| 4: hf -> h + f, energy = 0.226450764624
+| 5: kf -> k + f, energy = 0.1872481692
+| 6: lif -> li + f, energy = 0.221829320448
+| 7: lio -> li + o, energy = 0.1314721188
+| 8: mgo -> mg + o, energy = 0.099122009568
+| 9: mgs -> mg + s, energy = 0.090357201648
+| 10: nao -> na + o, energy = 0.103902813888
 

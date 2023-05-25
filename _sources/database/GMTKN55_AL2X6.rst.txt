@@ -7,24 +7,24 @@ References
 
 Molecules
 ^^^^^^^^^
-ALF3
-AL2ME4
-AL2ME5
-ALH3
-AL2F6
-AL2ME6
-AL2CL6
-ALME3
-ALCL3
-AL2H6
-ALME2
+alf3
+al2me4
+al2me5
+alh3
+al2f6
+al2me6
+al2cl6
+alme3
+alcl3
+al2h6
+alme2
 
 Reactions
 ^^^^^^^^^
-| 1: AL2H6 -> 2ALH3, energy = 0.06135365544
-| 2: AL2F6 -> 2ALF3, energy = 0.08222983430400001
-| 3: AL2CL6 -> 2ALCL3, energy = 0.0517920468
-| 4: AL2ME4 -> 2ALME2, energy = 0.061194295296
-| 5: AL2ME5 -> ALME2 + ALME3, energy = 0.049720364928
-| 6: AL2ME6 -> 2ALME3, energy = 0.036812193264
+| 1: al2h6 -> 2alh3, energy = 0.06135365544
+| 2: al2f6 -> 2alf3, energy = 0.08222983430400001
+| 3: al2cl6 -> 2alcl3, energy = 0.0517920468
+| 4: al2me4 -> 2alme2, energy = 0.061194295296
+| 5: al2me5 -> alme2 + alme3, energy = 0.049720364928
+| 6: al2me6 -> 2alme3, energy = 0.036812193264
 

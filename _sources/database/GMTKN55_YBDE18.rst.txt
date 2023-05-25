@@ -7,54 +7,54 @@ References
 
 Molecules
 ^^^^^^^^^
-H2S
-F2S
-PF3
-PF3-CH2
-NME3-CBH22
-PME3-CBH22
-F2S-CH2
-ME2S-CBH22
-PH3
-NF3-CH2
-PME3
-H2S-CBH22
-CH2
-NH3-CBH22
-NH3-CH2
-NME3-CH2
-NF3
-NF3-CBH22
-NME3
-H2S-CH2
-PH3-CH2
-CBH22
-ME2S-CH2
-NH3
-PF3-CBH22
-PH3-CBH22
-PME3-CH2
-F2S-CBH22
-ME2S
+h2s
+f2s
+pf3
+pf3-ch2
+nme3-cbh22
+pme3-cbh22
+f2s-ch2
+me2s-cbh22
+ph3
+nf3-ch2
+pme3
+h2s-cbh22
+ch2
+nh3-cbh22
+nh3-ch2
+nme3-ch2
+nf3
+nf3-cbh22
+nme3
+h2s-ch2
+ph3-ch2
+cbh22
+me2s-ch2
+nh3
+pf3-cbh22
+ph3-cbh22
+pme3-ch2
+f2s-cbh22
+me2s
 
 Reactions
 ^^^^^^^^^
-| 1: F2S-CBH22 -> F2S + CBH22, energy = 0.09110619432480001
-| 2: F2S-CH2 -> F2S + CH2, energy = 0.1452408352416
-| 3: H2S-CBH22 -> H2S + CBH22, energy = 0.033401886182400004
-| 4: H2S-CH2 -> H2S + CH2, energy = 0.058007092416
-| 5: ME2S-CBH22 -> ME2S + CBH22, energy = 0.0621345201456
-| 6: ME2S-CH2 -> ME2S + CH2, energy = 0.08245293850560001
-| 7: NF3-CBH22 -> NF3 + CBH22, energy = 0.0196172337264
-| 8: NF3-CH2 -> NF3 + CH2, energy = 0.0856242053712
-| 9: NH3-CBH22 -> NH3 + CBH22, energy = 0.051919534915199995
-| 10: NH3-CH2 -> NH3 + CH2, energy = 0.0460072735728
-| 11: NME3-CBH22 -> NME3 + CBH22, energy = 0.0671065566384
-| 12: NME3-CH2 -> NME3 + CH2, energy = 0.06822207764640001
-| 13: PF3-CBH22 -> PF3 + CBH22, energy = 0.0833134832832
-| 14: PF3-CH2 -> PF3 + CH2, energy = 0.12170334197280001
-| 15: PH3-CBH22 -> PH3 + CBH22, energy = 0.071393344512
-| 16: PH3-CH2 -> PH3 + CH2, energy = 0.0957913825584
-| 17: PME3-CBH22 -> PME3 + CBH22, energy = 0.10611791988960001
-| 18: PME3-CH2 -> PME3 + CH2, energy = 0.12430091232
+| 1: f2s-cbh22 -> f2s + cbh22, energy = 0.09110619432480001
+| 2: f2s-ch2 -> f2s + ch2, energy = 0.1452408352416
+| 3: h2s-cbh22 -> h2s + cbh22, energy = 0.033401886182400004
+| 4: h2s-ch2 -> h2s + ch2, energy = 0.058007092416
+| 5: me2s-cbh22 -> me2s + cbh22, energy = 0.0621345201456
+| 6: me2s-ch2 -> me2s + ch2, energy = 0.08245293850560001
+| 7: nf3-cbh22 -> nf3 + cbh22, energy = 0.0196172337264
+| 8: nf3-ch2 -> nf3 + ch2, energy = 0.0856242053712
+| 9: nh3-cbh22 -> nh3 + cbh22, energy = 0.051919534915199995
+| 10: nh3-ch2 -> nh3 + ch2, energy = 0.0460072735728
+| 11: nme3-cbh22 -> nme3 + cbh22, energy = 0.0671065566384
+| 12: nme3-ch2 -> nme3 + ch2, energy = 0.06822207764640001
+| 13: pf3-cbh22 -> pf3 + cbh22, energy = 0.0833134832832
+| 14: pf3-ch2 -> pf3 + ch2, energy = 0.12170334197280001
+| 15: ph3-cbh22 -> ph3 + cbh22, energy = 0.071393344512
+| 16: ph3-ch2 -> ph3 + ch2, energy = 0.0957913825584
+| 17: pme3-cbh22 -> pme3 + cbh22, energy = 0.10611791988960001
+| 18: pme3-ch2 -> pme3 + ch2, energy = 0.12430091232
 

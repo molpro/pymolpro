@@ -14,36 +14,36 @@ P5
 P10
 P7X
 P9X
-BUTADIENE
-CPDIENE
-MALEINNH
-ETHINE
-CHDIENE
+butadiene
+cpdiene
+maleinNH
+ethine
+chdiene
 P7
 P9
 P10X
-MALEIN
+malein
 P8
 P6
 P1
 P8X
-FURANE
-ETHENE
+furane
+ethene
 
 Reactions
 ^^^^^^^^^
-| 1: ETHENE + BUTADIENE -> P1, energy = -0.072349505376
-| 2: ETHINE + BUTADIENE -> P2, energy = -0.096890967552
-| 3: ETHENE + CPDIENE -> P3, energy = -0.047648683056
-| 4: ETHINE + CPDIENE -> P4, energy = -0.053545008384000004
-| 5: ETHENE + CHDIENE -> P5, energy = -0.059919414144000004
-| 6: ETHINE + CHDIENE -> P6, energy = -0.07808647056
-| 7: FURANE + MALEIN -> P7, energy = -0.02231042016
-| 8: FURANE + MALEIN -> P7X, energy = -0.025338262896
-| 9: FURANE + MALEINNH -> P8, energy = -0.026772504192000002
-| 10: FURANE + MALEINNH -> P8X, energy = -0.030119067216
-| 11: CPDIENE + MALEIN -> P9, energy = -0.050517165648
-| 12: CPDIENE + MALEIN -> P9X, energy = -0.05131396636800001
-| 13: CPDIENE + MALEINNH -> P10, energy = -0.054501169248000005
-| 14: CPDIENE + MALEINNH -> P10X, energy = -0.055138609824000005
+| 1: ethene + butadiene -> P1, energy = -0.072349505376
+| 2: ethine + butadiene -> P2, energy = -0.096890967552
+| 3: ethene + cpdiene -> P3, energy = -0.047648683056
+| 4: ethine + cpdiene -> P4, energy = -0.053545008384000004
+| 5: ethene + chdiene -> P5, energy = -0.059919414144000004
+| 6: ethine + chdiene -> P6, energy = -0.07808647056
+| 7: furane + malein -> P7, energy = -0.02231042016
+| 8: furane + malein -> P7X, energy = -0.025338262896
+| 9: furane + maleinNH -> P8, energy = -0.026772504192000002
+| 10: furane + maleinNH -> P8X, energy = -0.030119067216
+| 11: cpdiene + malein -> P9, energy = -0.050517165648
+| 12: cpdiene + malein -> P9X, energy = -0.05131396636800001
+| 13: cpdiene + maleinNH -> P10, energy = -0.054501169248000005
+| 14: cpdiene + maleinNH -> P10X, energy = -0.055138609824000005
 

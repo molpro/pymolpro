@@ -7,53 +7,53 @@ References
 
 Molecules
 ^^^^^^^^^
-H2O
-TS9H2O
-TS8H2O
-TS3H2O
-TS5
-TS2
-TS7H2O
-TS3
-TS4
-TS6H2O
-REAC2
-REAC5
-REAC4
-TS2H2O
-REAC3
-TS5H2O
-TS1H2O
-TS4H2O
-TS8
-TS1
-TS6
-TS7
-TS9
-REAC8
-REAC6
-REAC1
-REAC7
-REAC9
+h2o
+ts9h2o
+ts8h2o
+ts3h2o
+ts5
+ts2
+ts7h2o
+ts3
+ts4
+ts6h2o
+reac2
+reac5
+reac4
+ts2h2o
+reac3
+ts5h2o
+ts1h2o
+ts4h2o
+ts8
+ts1
+ts6
+ts7
+ts9
+reac8
+reac6
+reac1
+reac7
+reac9
 
 Reactions
 ^^^^^^^^^
-| 1: REAC1 -> TS1, energy = 0.0585807889344
-| 2: REAC2 -> TS2, energy = 0.057704308142400004
-| 3: REAC3 -> TS3, energy = 0.097130007768
-| 4: REAC4 -> TS4, energy = 0.0757279404288
-| 5: REAC5 -> TS5, energy = 0.10466774257920002
-| 6: REAC6 -> TS6, energy = 0.1294641809856
-| 7: REAC7 -> TS7, energy = 0.05099524608
-| 8: REAC8 -> TS8, energy = 0.0461666337168
-| 9: REAC9 -> TS9, energy = 0.09370376467199999
-| 10: REAC1 + H2O -> TS1H2O, energy = 0.008605447776
-| 11: REAC2 + H2O -> TS2H2O, energy = 0.0042708518592
-| 12: REAC3 + H2O -> TS3H2O, energy = 0.0458638494432
-| 13: REAC4 + H2O -> TS4H2O, energy = 0.0138324604992
-| 14: REAC5 + H2O -> TS5H2O, energy = 0.054007152801600004
-| 15: REAC6 + H2O -> TS6H2O, energy = 0.0950264538672
-| 16: REAC7 + H2O -> TS7H2O, energy = 0.0092906963952
-| 17: REAC8 + H2O -> TS8H2O, energy = 0.0056413490976000005
-| 18: REAC9 + H2O -> TS9H2O, energy = 0.0529394398368
+| 1: reac1 -> ts1, energy = 0.0585807889344
+| 2: reac2 -> ts2, energy = 0.057704308142400004
+| 3: reac3 -> ts3, energy = 0.097130007768
+| 4: reac4 -> ts4, energy = 0.0757279404288
+| 5: reac5 -> ts5, energy = 0.10466774257920002
+| 6: reac6 -> ts6, energy = 0.1294641809856
+| 7: reac7 -> ts7, energy = 0.05099524608
+| 8: reac8 -> ts8, energy = 0.0461666337168
+| 9: reac9 -> ts9, energy = 0.09370376467199999
+| 10: reac1 + h2o -> ts1h2o, energy = 0.008605447776
+| 11: reac2 + h2o -> ts2h2o, energy = 0.0042708518592
+| 12: reac3 + h2o -> ts3h2o, energy = 0.0458638494432
+| 13: reac4 + h2o -> ts4h2o, energy = 0.0138324604992
+| 14: reac5 + h2o -> ts5h2o, energy = 0.054007152801600004
+| 15: reac6 + h2o -> ts6h2o, energy = 0.0950264538672
+| 16: reac7 + h2o -> ts7h2o, energy = 0.0092906963952
+| 17: reac8 + h2o -> ts8h2o, energy = 0.0056413490976000005
+| 18: reac9 + h2o -> ts9h2o, energy = 0.0529394398368
 

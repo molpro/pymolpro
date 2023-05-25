@@ -7,40 +7,40 @@ References
 
 Molecules
 ^^^^^^^^^
-ASME2
-SNME3
-TEME
-H2SE2
-P2ME4
-PME2
-GE2H6
-BR2
-SH
-AS2ME4
-SBME2
-PBME3
-TE2ME2
-SN2ME6
-PB2ME6
-BR
-SB2ME4
-H2S2
-SEH
-CL
-CL2
-GEH3
+asme2
+snme3
+teme
+h2se2
+p2me4
+pme2
+ge2h6
+br2
+sh
+as2me4
+sbme2
+pbme3
+te2me2
+sn2me6
+pb2me6
+br
+sb2me4
+h2s2
+seh
+cl
+cl2
+geh3
 
 Reactions
 ^^^^^^^^^
-| 1: GE2H6 -> 2GEH3, energy = 0.11763965830079999
-| 2: SN2ME6 -> 2SNME3, energy = 0.0983889529056
-| 3: PB2ME6 -> 2PBME3, energy = 0.0843333882048
-| 4: H2S2 -> 2SH, energy = 0.10812585770399999
-| 5: H2SE2 -> 2SEH, energy = 0.0930185160528
-| 6: TE2ME2 -> 2TEME, energy = 0.0843174521904
-| 7: P2ME4 -> 2PME2, energy = 0.098564249064
-| 8: AS2ME4 -> 2ASME2, energy = 0.0831541231392
-| 9: SB2ME4 -> 2SBME2, energy = 0.0697838070576
-| 10: CL2 -> 2CL, energy = 0.095058325896
-| 11: BR2 -> 2BR, energy = 0.0847317885648
+| 1: ge2h6 -> 2geh3, energy = 0.11763965830079999
+| 2: sn2me6 -> 2snme3, energy = 0.0983889529056
+| 3: pb2me6 -> 2pbme3, energy = 0.0843333882048
+| 4: h2s2 -> 2sh, energy = 0.10812585770399999
+| 5: h2se2 -> 2seh, energy = 0.0930185160528
+| 6: te2me2 -> 2teme, energy = 0.0843174521904
+| 7: p2me4 -> 2pme2, energy = 0.098564249064
+| 8: as2me4 -> 2asme2, energy = 0.0831541231392
+| 9: sb2me4 -> 2sbme2, energy = 0.0697838070576
+| 10: cl2 -> 2cl, energy = 0.095058325896
+| 11: br2 -> 2br, energy = 0.0847317885648
 

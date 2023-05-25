@@ -7,37 +7,37 @@ References
 
 Molecules
 ^^^^^^^^^
-H2S2O71
-S4O42
-C2H2F41
-HIS3
-SUGAR2
+h2s2o71
+s4o42
+c2h2f41
+his3
+sugar2
 A2
-HIS2
-SUGAR3
-SUGAR4
-H4P2O71
-AMINOCOOHBZ2
-AMINOCOOHBZ3
-ARG2
-C2CL43
+his2
+sugar3
+sugar4
+h4p2o71
+aminocoohbz2
+aminocoohbz3
+arg2
+c2cl43
 T2
-C2CL42
+c2cl42
 T3
-H2S2O72
-S4O41
+h2s2o72
+s4o41
 A0
-C2H2F42
-HIS0
-SUGAR0
-HIS1
+c2h2f42
+his0
+sugar0
+his1
 A1
-ARG0
-H4P2O72
-AMINOCOOHBZ1
+arg0
+h4p2o72
+aminocoohbz1
 T1
 T0
-C2CL41
+c2cl41
 
 Reactions
 ^^^^^^^^^
@@ -46,19 +46,19 @@ Reactions
 | 3: T1 -> T0, energy = 0.0046851882336
 | 4: T1 -> T2, energy = 0.0099122009568
 | 5: T1 -> T3, energy = 0.0114579943536
-| 6: ARG2 -> ARG0, energy = 0.0037927714271999997
-| 7: HIS1 -> HIS2, energy = 0.0018963857135999998
-| 8: HIS1 -> HIS0, energy = 0.0012589451376
-| 9: HIS1 -> HIS3, energy = 0.011234890152
-| 10: SUGAR0 -> SUGAR2, energy = 0.0047489322912
-| 11: SUGAR0 -> SUGAR4, energy = 0.0054341809104000004
-| 12: SUGAR0 -> SUGAR3, energy = 0.0051154606224
-| 13: AMINOCOOHBZ2 -> AMINOCOOHBZ1, energy = 0.000956160864
-| 14: AMINOCOOHBZ2 -> AMINOCOOHBZ3, energy = 0.0114898663824
-| 15: H4P2O71 -> H4P2O72, energy = 0.0037608993984
-| 16: H2S2O71 -> H2S2O72, energy = 0.028493593747199997
-| 17: S4O42 -> S4O41, energy = 0.017848336128
-| 18: C2H2F41 -> C2H2F42, energy = 0.0020238738288000002
-| 19: C2CL43 -> C2CL42, energy = 0.0039361955568
-| 20: C2CL43 -> C2CL41, energy = 0.003426243096
+| 6: arg2 -> arg0, energy = 0.0037927714271999997
+| 7: his1 -> his2, energy = 0.0018963857135999998
+| 8: his1 -> his0, energy = 0.0012589451376
+| 9: his1 -> his3, energy = 0.011234890152
+| 10: sugar0 -> sugar2, energy = 0.0047489322912
+| 11: sugar0 -> sugar4, energy = 0.0054341809104000004
+| 12: sugar0 -> sugar3, energy = 0.0051154606224
+| 13: aminocoohbz2 -> aminocoohbz1, energy = 0.000956160864
+| 14: aminocoohbz2 -> aminocoohbz3, energy = 0.0114898663824
+| 15: h4p2o71 -> h4p2o72, energy = 0.0037608993984
+| 16: h2s2o71 -> h2s2o72, energy = 0.028493593747199997
+| 17: s4o42 -> s4o41, energy = 0.017848336128
+| 18: c2h2f41 -> c2h2f42, energy = 0.0020238738288000002
+| 19: c2cl43 -> c2cl42, energy = 0.0039361955568
+| 20: c2cl43 -> c2cl41, energy = 0.003426243096
 

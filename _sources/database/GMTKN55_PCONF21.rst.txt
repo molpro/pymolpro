@@ -8,25 +8,25 @@ References
 Molecules
 ^^^^^^^^^
 300
-GLY_AL
-GLY_AB
-SER_AR
+GLY_aL
+GLY_ab
+SER_aR
 470
-SER_PII
+SER_pII
 412
 366
 357
-SER_AB
-SER_AL
+SER_ab
+SER_aL
 99
-GLY_AR
+GLY_aR
 444
 215
 224
-GLY_B
-SER_B
+GLY_b
+SER_b
 691
-GLY_PII
+GLY_pII
 114
 
 Reactions
@@ -41,12 +41,12 @@ Reactions
 | 8: 99 -> 691, energy = 0.0025656983184000003
 | 9: 99 -> 470, energy = 0.0030119067215999998
 | 10: 99 -> 224, energy = 0.0032987549808
-| 11: GLY_AB -> GLY_AR, energy = 0.0017051535408
-| 12: GLY_AB -> GLY_PII, energy = 0.0019601297712
-| 13: GLY_AB -> GLY_AL, energy = 0.0038883875136
-| 14: GLY_AB -> GLY_B, energy = 0.0034103070816
-| 15: SER_AB -> SER_AR, energy = 0.0023425941168
-| 16: SER_AB -> SER_PII, energy = 0.004462084032
-| 17: SER_AB -> SER_AL, energy = 0.0036174752688000003
-| 18: SER_AB -> SER_B, energy = 0.004366467945600001
+| 11: GLY_ab -> GLY_aR, energy = 0.0017051535408
+| 12: GLY_ab -> GLY_pII, energy = 0.0019601297712
+| 13: GLY_ab -> GLY_aL, energy = 0.0038883875136
+| 14: GLY_ab -> GLY_b, energy = 0.0034103070816
+| 15: SER_ab -> SER_aR, energy = 0.0023425941168
+| 16: SER_ab -> SER_pII, energy = 0.004462084032
+| 17: SER_ab -> SER_aL, energy = 0.0036174752688000003
+| 18: SER_ab -> SER_b, energy = 0.004366467945600001
 

@@ -8,144 +8,144 @@ References
 Molecules
 ^^^^^^^^^
 H2O
-1-PENTENE
+1-pentene
 CO_2NHC3H7_2
-METHYLPYRROLE
-3-METHYLPENTANE
-COCL2
+methylpyrrole
+3-methylpentane
+COCl2
 C3H7NCO
 H2S
-PENTADIENE
+pentadiene
 C3H7SH
 C4H9CO2H
 C4H9NO2
 H2
-AX-METHYLCYCLOHEXENE
-1-PENTYNE
-METHYL-D-VALEROLACTONE
-METHYLPYRAZOLE
-METHYLCYCLOHEXANE
+ax-methylcyclohexene
+1-pentyne
+methyl-d-valerolactone
+methylpyrazole
+methylcyclohexane
 C3H7S_2
-METHYLIMIDAZOLE
+methylimidazole
 HCON_C2H5_2
 HCN
-TOLUENE
+toluene
 C4H9NCO
 C4H9NH2
-METHYLPYRIDINE
+methylpyridine
 C6H12O
-HEXYNE
+hexyne
 CO
-C2H5CCLCHCH3
-BUTANEDIOL
-EQ-METHYLCYCLOHEXENE
-2-PENTYNE
+C2H5CClCHCH3
+butanediol
+eq-methylcyclohexene
+2-pentyne
 HCO2C5H11
 C2H5CO2CH3
 C3H7CO2C2H3
-HEXANDIONE
-PROPYLTHIOPHENE
-DIMETHYLBUTANE
-METHANOL
-METHYLFURAN
+hexandione
+propylthiophene
+dimethylbutane
+methanol
+methylfuran
 C3H7NH2
 C4H9SO3H
-N-HEXANE
-HEPTATRIYNE
-NEO-HEXANE
+n-hexane
+heptatriyne
+neo-hexane
 C3H7CO2H
 C3H7CONH2
 H2O2
-METHYLCYCLOHEXA-1,3-DIENE
+methylcyclohexa-1,3-diene
 C4H9SO2H
 C4H9CHO
 H2CO
 C4H9ONO
 C2H5CCNCHCH3
-DIETHYLOXIRANE
-PROPYLFURAN
-HCL
-TRANS-2-PENTENE
-N-NONANE
-PENTANOL
+diethyloxirane
+propylfuran
+HCl
+trans-2-pentene
+n-nonane
+pentanol
 OS_C2H5_2
-PROPYLOXIRANE
+propyloxirane
 C2H5CO2H
-DIETHYLAMINE
-3-HEXENE
+diethylamine
+3-hexene
 NH3
 C3H7CN
 S_C2H5_2
-CIS-2-PENTENE
-TETRAMETHYLPENTANE
+cis-2-pentene
+tetramethylpentane
 C2H5CONH2
-PENTANEDIOL
-HEPTENE
-DIMETHYLPYRROLE
-1-HEXENE
-CL2
+pentanediol
+Heptene
+dimethylpyrrole
+1-hexene
+Cl2
 H2C-C5-CH2
-DIMETHYLOXIRANE
+dimethyloxirane
 C2H5O_2
-ETHENE
+ethene
 C4H9NHCONH2
 C2H4OH_2
 C3H7CHCO
 CO2
-ETHYL-G-BUTYROLACTONE
-METHYLCYCLOHEXA-1,4-DIENE
+ethyl-g-butyrolactone
+methylcyclohexa-1,4-diene
 
 Reactions
 ^^^^^^^^^
-| 1: C6H12O + 2H2O2 -> ETHYL-G-BUTYROLACTONE + 3H2O, energy = -0.2403310331664
+| 1: C6H12O + 2H2O2 -> ethyl-g-butyrolactone + 3H2O, energy = -0.2403310331664
 | 2: C4H9NH2 + 3H2O2 -> C4H9NO2 + 4H2O, energy = -0.23008417590719998
 | 3: C4H9CHO + H2O2 -> C4H9CO2H + H2O, energy = -0.142388288664
 | 4: C4H9SO2H + H2O2 -> C4H9SO3H + H2O, energy = -0.131551798872
-| 5: TRANS-2-PENTENE + H2O2 -> PENTANEDIOL, energy = -0.1251136490544
-| 6: TOLUENE + 3H2 -> METHYLCYCLOHEXANE, energy = -0.10670755242239999
-| 7: PENTANOL + H2O2 -> C4H9CHO + 2H2O, energy = -0.10181519600160001
+| 5: trans-2-pentene + H2O2 -> pentanediol, energy = -0.1251136490544
+| 6: toluene + 3H2 -> methylcyclohexane, energy = -0.10670755242239999
+| 7: pentanol + H2O2 -> C4H9CHO + 2H2O, energy = -0.10181519600160001
 | 8: C2H5O_2 -> C2H4OH_2, energy = -0.0932734922832
-| 9: 3-HEXENE + H2O2 -> DIETHYLOXIRANE + H2O, energy = -0.09026158556160001
+| 9: 3-hexene + H2O2 -> diethyloxirane + H2O, energy = -0.09026158556160001
 | 10: S_C2H5_2 + H2O2 -> OS_C2H5_2 + H2O, energy = -0.084221836104
-| 11: AX-METHYLCYCLOHEXENE -> EQ-METHYLCYCLOHEXENE, energy = -0.083823435744
-| 12: HEXYNE + H2 -> 1-HEXENE, energy = -0.0744530592768
-| 13: 2-PENTYNE + H2 -> TRANS-2-PENTENE, energy = -0.0714252165408
-| 14: 2-PENTYNE + H2 -> CIS-2-PENTENE, energy = -0.0695925748848
-| 15: 2-PENTYNE + HCN -> C2H5CCNCHCH3, energy = -0.0683495657616
-| 16: 1-HEXENE + H2 -> N-HEXANE, energy = -0.0590907413952
-| 17: 1-PENTYNE + H2O -> C4H9CHO, energy = -0.0556644982992
-| 18: 2C3H7NH2 + COCL2 -> CO_2NHC3H7_2 + 2HCL, energy = -0.051744238756799996
-| 19: EQ-METHYLCYCLOHEXENE + H2 -> METHYLCYCLOHEXANE, energy = -0.051154606224000004
-| 20: TRANS-2-PENTENE + CL2 -> C2H5CCLCHCH3 + HCL, energy = -0.0497522369568
-| 21: 2-PENTYNE + HCL -> C2H5CCLCHCH3, energy = -0.047776171171200005
-| 22: 1-PENTENE + ETHENE -> HEPTENE, energy = -0.0411786612096
-| 23: C4H9CHO + H2 -> PENTANOL, energy = -0.0374018257968
-| 24: DIMETHYLOXIRANE + H2O -> BUTANEDIOL, energy = -0.035776352328
-| 25: METHYLPYRIDINE + H2 -> DIMETHYLPYRROLE, energy = -0.0323023011888
+| 11: ax-methylcyclohexene -> eq-methylcyclohexene, energy = -0.083823435744
+| 12: hexyne + H2 -> 1-hexene, energy = -0.0744530592768
+| 13: 2-pentyne + H2 -> trans-2-pentene, energy = -0.0714252165408
+| 14: 2-pentyne + H2 -> cis-2-pentene, energy = -0.0695925748848
+| 15: 2-pentyne + HCN -> C2H5CCNCHCH3, energy = -0.0683495657616
+| 16: 1-hexene + H2 -> n-hexane, energy = -0.0590907413952
+| 17: 1-pentyne + H2O -> C4H9CHO, energy = -0.0556644982992
+| 18: 2C3H7NH2 + COCl2 -> CO_2NHC3H7_2 + 2HCl, energy = -0.051744238756799996
+| 19: eq-methylcyclohexene + H2 -> methylcyclohexane, energy = -0.051154606224000004
+| 20: trans-2-pentene + Cl2 -> C2H5CClCHCH3 + HCl, energy = -0.0497522369568
+| 21: 2-pentyne + HCl -> C2H5CClCHCH3, energy = -0.047776171171200005
+| 22: 1-pentene + ethene -> Heptene, energy = -0.0411786612096
+| 23: C4H9CHO + H2 -> pentanol, energy = -0.0374018257968
+| 24: dimethyloxirane + H2O -> butanediol, energy = -0.035776352328
+| 25: methylpyridine + H2 -> dimethylpyrrole, energy = -0.0323023011888
 | 26: C4H9NCO + NH3 -> C4H9NHCONH2, energy = -0.031425820396799996
 | 27: C3H7CN + H2O -> C3H7CONH2, energy = -0.0308202518496
-| 28: PROPYLFURAN + H2S -> PROPYLTHIOPHENE H2O, energy = -0.030995548007999998
-| 29: DIETHYLAMINE + CO -> HCON_C2H5_2, energy = -0.0277127290416
+| 28: propylfuran + H2S -> propylthiophene + H2O, energy = -0.030995548007999998
+| 29: diethylamine + CO -> HCON_C2H5_2, energy = -0.0277127290416
 | 30: C3H7NCO + H2O -> C3H7NH2 + CO2, energy = -0.027059352451200003
-| 31: C3H7CO2C2H3 -> ETHYL-G-BUTYROLACTONE, energy = -0.025720727241600003
-| 32: H2C-C5-CH2 -> HEPTATRIYNE, energy = -0.022788500592
-| 33: METHYLPYRAZOLE -> METHYLIMIDAZOLE, energy = -0.0209399229216
-| 34: 1-PENTENE + H2O -> PENTANOL, energy = -0.0186132648192
-| 35: METHYLFURAN + NH3 -> METHYLPYRROLE + H2O, energy = -0.017051535407999998
-| 36: C3H7CHCO + H2CO -> PROPYLOXIRANE + CO, energy = -0.014963917521600001
-| 37: PENTANOL + CO -> HCO2C5H11, energy = -0.013593420283199998
+| 31: C3H7CO2C2H3 -> ethyl-g-butyrolactone, energy = -0.025720727241600003
+| 32: H2C-C5-CH2 -> heptatriyne, energy = -0.022788500592
+| 33: methylpyrazole -> methylimidazole, energy = -0.0209399229216
+| 34: 1-pentene + H2O -> pentanol, energy = -0.0186132648192
+| 35: methylfuran + NH3 -> methylpyrrole + H2O, energy = -0.017051535407999998
+| 36: C3H7CHCO + H2CO -> propyloxirane + CO, energy = -0.014963917521600001
+| 37: pentanol + CO -> HCO2C5H11, energy = -0.013593420283199998
 | 38: C3H7S_2 + H2 -> 2C3H7SH, energy = -0.0105655775472
-| 39: AX-METHYLCYCLOHEXENE -> PENTADIENE + ETHENE, energy = -0.010597449576000001
-| 40: HEXANDIONE -> METHYL-D-VALEROLACTONE, energy = -0.010278729288000001
-| 41: C2H5CO2H + METHANOL -> C2H5CO2CH3 + H2O, energy = -0.0081433033584
+| 39: ax-methylcyclohexene -> pentadiene + ethene, energy = -0.010597449576000001
+| 40: hexandione -> methyl-d-valerolactone, energy = -0.010278729288000001
+| 41: C2H5CO2H + methanol -> C2H5CO2CH3 + H2O, energy = -0.0081433033584
 | 42: C4H9ONO -> C4H9NO2, energy = -0.0051792046800000005
-| 43: N-HEXANE -> NEO-HEXANE, energy = -0.004207107801600001
-| 44: METHYLCYCLOHEXA-1,4-DIENE -> METHYLCYCLOHEXA-1,3-DIENE, energy = -0.0039521315712
-| 45: 1-PENTENE -> TRANS-2-PENTENE, energy = -0.0033624990384
-| 46: TOLUENE + H2 -> METHYLCYCLOHEXA-1,3-DIENE, energy = -0.0023425941168
-| 47: CIS-2-PENTENE -> TRANS-2-PENTENE, energy = -0.0018326416559999999
-| 48: 3-METHYLPENTANE -> DIMETHYLBUTANE, energy = -0.0013704972384
+| 43: n-hexane -> neo-hexane, energy = -0.004207107801600001
+| 44: methylcyclohexa-1,4-diene -> methylcyclohexa-1,3-diene, energy = -0.0039521315712
+| 45: 1-pentene -> trans-2-pentene, energy = -0.0033624990384
+| 46: toluene + H2 -> methylcyclohexa-1,3-diene, energy = -0.0023425941168
+| 47: cis-2-pentene -> trans-2-pentene, energy = -0.0018326416559999999
+| 48: 3-methylpentane -> dimethylbutane, energy = -0.0013704972384
 | 49: C2H5CO2H + NH3 -> C2H5CONH2 + H2O, energy = -0.0006852486192
-| 50: N-NONANE -> TETRAMETHYLPENTANE, energy = -0.0006533765903999999
+| 50: n-nonane -> tetramethylpentane, energy = -0.0006533765903999999
 | 51: C3H7CO2H + NH3 -> C3H7CONH2 + H2O, energy = -0.0002868482592
 

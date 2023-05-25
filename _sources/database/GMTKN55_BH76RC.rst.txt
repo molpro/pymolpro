@@ -6,36 +6,124 @@ References
 | L. Goerigk, A. Hansen. C. A. Bauer, S. Ehrlich, A. Najibi and S. Grimme in Phys. Chem. Chem. Phys., 2017: https://doi.org/10.1039/C7CP04913G
 | L. Goerigk; S. Grimme, J. Chem. Theory Comput., 2010, 6, 107-126: https://doi.org/10.1021/ct900489g
 
+Molecules
+^^^^^^^^^
+H2O
+hfhts
+ch3f
+H2S
+RKT08
+RKT01
+RKT06
+clch3clcomp
+C2H6
+hch3clts
+RKT07
+RKT09
+fch3clts
+H2
+N2H2
+hco
+fch3clcomp1
+fch3fcomp
+NH
+fch3fts
+hf2ts
+hcn
+C5H8
+ch3cl
+ch3fclts
+n2ohts
+f2
+co
+ch3oh
+RKT13
+RKT14
+cl-
+RKT22
+clf
+hoch3fcomp2
+PH3
+hcots
+RKT15
+RKT12
+c3h7ts
+f
+O
+PH2
+h
+RKT05
+oh-
+ch3
+RKT02
+CH4
+c2h4
+N2H
+RKT03
+RKT04
+n2o
+hoch3fts
+CH2OH
+C2H5
+hcl
+fch3clcomp2
+HS
+hf
+hn2ts
+hcnts
+n2
+NH2
+hn2
+c3h7
+hfch3ts
+oh
+hclhts
+f-
+NH3
+hnc
+cl
+RKT17
+RKT10
+RKT19
+hoch3fcomp1
+RKT21
+c2h5ts
+RKT20
+RKT18
+clch3clts
+RKT11
+RKT16
+
 Reactions
 ^^^^^^^^^
-| 1: H + N2O -> OH + N2, energy = -0.1034406694704
-| 2: H + CH3F -> HF + CH3, energy = -0.0419435899008
-| 3: H + F2 -> HF + F, energy = -0.1645871567232
-| 4: CH3 + CLF -> CH3F + CL, energy = -0.0838871798016
-| 5: F- + CH3CL -> CL- + CH3F, energy = -0.051250222310399995
-| 6: FCH3CLCOMP1 -> FCH3CLCOMP2, energy = -0.0416248696128
-| 7: OH- + CH3F -> CH3OH + F-, energy = -0.032381981260800004
-| 8: HOCH3FCOMP2 -> HOCH3FCOMP1, energy = -0.0585011088624
-| 9: H + N2 -> HN2, energy = 0.0058803893136
-| 10: H + CO -> HCO, energy = -0.031154908152
-| 11: H + C2H4 -> C2H5, energy = -0.06377592962880001
-| 12: CH3 + C2H4 -> C3H7, energy = -0.0423260542464
-| 13: HNC -> HCN, energy = -0.0239996376864
-| 14: H + HCL -> H2 + CL, energy = -0.003027842736
-| 15: OH + H2 -> H2O + H, energy = -0.0261191276016
-| 16: CH3 + H2 -> CH4 + H, energy = -0.0049561004784
-| 17: OH + CH4 -> H2O + CH3, energy = -0.0211630271232
-| 18: OH + NH3 -> H2O + NH2, energy = -0.0164459668608
-| 19: HCL + CH3 -> CL + CH4, energy = -0.0079839432144
-| 20: OH + C2H6 -> H2O + C2H5, energy = -0.0268362482496
-| 21: F + H2 -> HF + H, energy = -0.0513458383968
-| 22: O + CH4 -> OH + CH3, energy = 0.008669191833600001
-| 23: H + PH3 -> H2 + PH2, energy = -0.0346448953056
-| 24: H + OH -> H2 + O, energy = -0.0036971553408
-| 25: H + H2S -> H2 + HS, energy = -0.0211311550944
-| 26: O + HCL -> OH + CL, energy = 0.0006693126047999999
-| 27: NH2 + CH3 -> NH + CH4, energy = -0.020908050892799998
+| 1: h + n2o -> oh + n2, energy = -0.1034406694704
+| 2: h + ch3f -> hf + ch3, energy = -0.0419435899008
+| 3: h + f2 -> hf + f, energy = -0.1645871567232
+| 4: ch3 + clf -> ch3f + cl, energy = -0.0838871798016
+| 5: f- + ch3cl -> cl- + ch3f, energy = -0.051250222310399995
+| 6: fch3clcomp1 -> fch3clcomp2, energy = -0.0416248696128
+| 7: oh- + ch3f -> ch3oh + f-, energy = -0.032381981260800004
+| 8: hoch3fcomp2 -> hoch3fcomp1, energy = -0.0585011088624
+| 9: h + n2 -> hn2, energy = 0.0058803893136
+| 10: h + co -> hco, energy = -0.031154908152
+| 11: h + c2h4 -> C2H5, energy = -0.06377592962880001
+| 12: ch3 + c2h4 -> c3h7, energy = -0.0423260542464
+| 13: hnc -> hcn, energy = -0.0239996376864
+| 14: h + hcl -> H2 + cl, energy = -0.003027842736
+| 15: oh + H2 -> H2O + h, energy = -0.0261191276016
+| 16: ch3 + H2 -> CH4 + h, energy = -0.0049561004784
+| 17: oh + CH4 -> H2O + ch3, energy = -0.0211630271232
+| 18: oh + NH3 -> H2O + NH2, energy = -0.0164459668608
+| 19: hcl + ch3 -> cl + CH4, energy = -0.0079839432144
+| 20: oh + C2H6 -> H2O + C2H5, energy = -0.0268362482496
+| 21: f + H2 -> hf + h, energy = -0.0513458383968
+| 22: O + CH4 -> oh + ch3, energy = 0.008669191833600001
+| 23: h + PH3 -> H2 + PH2, energy = -0.0346448953056
+| 24: h + oh -> H2 + O, energy = -0.0036971553408
+| 25: h + H2S -> H2 + HS, energy = -0.0211311550944
+| 26: O + hcl -> oh + cl, energy = 0.0006693126047999999
+| 27: NH2 + ch3 -> NH + CH4, energy = -0.020908050892799998
 | 28: NH2 + C2H5 -> NH + C2H6, energy = -0.0152348297664
 | 29: C2H6 + NH2 -> C2H5 + NH3, energy = -0.010390281388799999
-| 30: NH2 + CH4 -> NH3 + CH3, energy = -0.0047170602624
+| 30: NH2 + CH4 -> NH3 + ch3, energy = -0.0047170602624
 
