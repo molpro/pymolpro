@@ -110,6 +110,9 @@ def html_repair(file):
             l = re.sub(r'Theory Comput.<em>', r'Theory Comput.</em>', l)  # hack HAL59ref
             l = re.sub(r'<td> FI pyr </td>', r'<td> FI </td><td>pyr </td>', l)  # hack HAL59ref
             l = re.sub(r'(^Taken from A L. Goerigk and S. Grimme,.*107-126.*<br/> *)$', r'<p>\1', l)  # hack PCONF21ref
+            l = re.sub(r'(<td> * 13r_[0-9*]) 13', r'\1 </td><td> 13', l)  # hack HAL59ref
+            l = l.replace(r'propylthiophene H2O',r'propylthiophene </td><td> H2O')
+            l = l.replace(r'bz h2',r'bz </td><td> h2')
             t.write(l)
     return file
 
@@ -124,8 +127,10 @@ for subset in subsets:
     ensure_file(subset + 'ref.html')
     ensure_file('GMTKN.css')
     shutil.unpack_archive(ensure_file(subset + '.tar'), directory)
-    for filename in os.listdir(os.path.join(directory, subset if subset != 'BH76RC' else 'BH76')):
-        f = os.path.join(directory, subset, filename, 'struc.xyz')
+    molecule_subset = subset if subset != 'BH76RC' else 'BH76'
+    for filename in os.listdir(os.path.join(directory, molecule_subset)):
+        f = os.path.join(directory, molecule_subset, filename, 'struc.xyz')
+        # if subset[:4]=='BHPE': print("filename",filename,subset,f)
         if not os.path.exists(f): continue
         with open(f, 'r') as fh:
             geometry = ' '.join(fh.readlines())
@@ -142,6 +147,7 @@ for subset in subsets:
             charge = None
         charge = charge if charge != 0 else None
         # print(geometry)
+        # if subset == 'BHPERI': print('add_molecule',filename)
         db.add_molecule(filename, geometry, charge=charge, spin=spin)
     # file = ensure_file(subset + '.html')
     # html_repair(file)
@@ -165,7 +171,11 @@ for subset in subsets:
             # print("key",str(cols[i+1]).strip())
             # print("value",cols[i+offset])
             if str(cols[i + 1]).strip():
-                stoichiometry[str(cols[i + 1]).strip()] = int(cols[i + offset])
+                try:
+                    key = [k for k in db.molecules if k.upper() == str(cols[i+1]).strip().upper()][0]
+                except:
+                    print("subset ",subset,": cannot find ",str(cols[i+1]).strip()," in ",db.molecules.keys())
+                stoichiometry[key] = int(cols[i + offset])
         # print("stoichiometry:",stoichiometry)
         db.add_reaction(cols[0], stoichiometry, energy=float(cols[-1]) * kcal)
     # print(db)
