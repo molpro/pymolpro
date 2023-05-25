@@ -142,7 +142,7 @@ for subset in subsets:
             charge = None
         charge = charge if charge != 0 else None
         # print(geometry)
-        db.add_molecule(filename, geometry, charge=charge, spin=spin)
+        db.add_molecule(filename.upper(), geometry, charge=charge, spin=spin)
     # file = ensure_file(subset + '.html')
     # html_repair(file)
     # root = lxml.etree.parse(file)
@@ -165,7 +165,7 @@ for subset in subsets:
             # print("key",str(cols[i+1]).strip())
             # print("value",cols[i+offset])
             if str(cols[i + 1]).strip():
-                stoichiometry[str(cols[i + 1]).strip()] = int(cols[i + offset])
+                stoichiometry[str(cols[i + 1]).strip().upper()] = int(cols[i + offset])
         # print("stoichiometry:",stoichiometry)
         db.add_reaction(cols[0], stoichiometry, energy=float(cols[-1]) * kcal)
     # print(db)
