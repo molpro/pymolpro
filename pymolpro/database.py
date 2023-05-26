@@ -153,14 +153,6 @@ class Database:
     def add_reference(self, key, url):
         self.references[key.strip()] = url.strip()
 
-    @staticmethod
-    def __count_atoms(geom):
-        lines = geom.replace(';', '\n').strip().split('\n')
-        try:
-            return len(lines) - 2 if (int(lines[0]) == len(lines) - 2) else len(lines)
-        except:
-            return len(lines)
-
     def subset(self, subset=None, open_shell=True, max_atoms=None, max_electrons=None):
         """
         Extract a subset of this database as a new database
@@ -180,10 +172,12 @@ class Database:
                  self.reactions[kr]['stoichiometry']])]
         if max_atoms:
             subset_list = [kr for kr in subset_list if not any(
-                [self.__count_atoms(self.molecules[k]['geometry']) > max_atoms for k in
+                [len(elements(self.molecules[k]['geometry'])) > max_atoms for k in
                  self.reactions[kr]['stoichiometry']])]
         if max_electrons:
-            raise NotImplementedError('max_electrons not yet implemented')
+            subset_list = [kr for kr in subset_list if not any(
+                [(electrons(self.molecules[k]['geometry'])) > max_electrons for k in
+                 self.reactions[kr]['stoichiometry']])]
         db = Database(description=self.description)
         for reaction in subset_list:
             db.reactions[reaction] = self.reactions[reaction]
@@ -641,3 +635,28 @@ class Stoichiometry(dict):
             if v * direction > 0:
                 reagents += ' + ' + (str(v * direction) if v * direction != 1 else "") + k
         return reagents[3:] if len(reagents) > 0 else ""
+def elements(geo):
+    geom = geo if type(geo) == str else geo['geometry']
+    lines = geom.replace(';', '\n').strip().split('\n')
+    try:
+        natom = len(lines) - 2 if (int(lines[0]) == len(lines) - 2) else len(lines)
+    except:
+        natom = len(lines)
+    return [line.replace(',',' ').strip().split(' ')[0] for line in lines[-natom:]]
+
+def electrons(geom):
+    symbols = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
+               'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
+               'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni',
+               'Cu', 'Zn', 'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
+               'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru',
+               'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb', 'Te',
+               'I', 'Xe', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm',
+               'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm',
+               'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir',
+               'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
+               'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am',
+               'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr',
+               'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn',
+               'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og']
+    return sum([[symbol.upper() for symbol in symbols].index(el.upper()) + 1 for el in (elements(geom))])
