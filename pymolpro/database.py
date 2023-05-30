@@ -535,7 +535,8 @@ def analyse(databases, reference_database=None, unit=None):
                     'RMSD': sqrt(statistics.mean([v * v for v in results[-1][typ + ' energy deviations'].values()])),
                     # root mean square deviation
                     'MSD': statistics.mean(results[-1][typ + ' energy deviations'].values()),  # mean of the deviations
-                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()),
+                    'STDEVD': statistics.stdev(results[-1][typ + ' energy deviations'].values()) if len(
+                        results[-1][typ + ' energy deviations']) > 1 else 0.0,
                     # standard deviation of the deviations
                 }
         for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
