@@ -548,18 +548,16 @@ def analyse(databases, reference_database=None, unit=None):
 def __compare_database_runs_format_table(results, dataset):
     import numpy as np
     import pandas as pd
-    table = [list(result[dataset].values()) for result in results]
-    row_labels = list(results[0][dataset].keys())
-    output = pd.DataFrame(np.array(table).transpose(), index=row_labels)
-    column_headers = []
-    if all(['method' in result and result['method'] for result in results]):
-        column_headers.append(
-            [result['method'].upper() if type(result['method']) == str else result['method'][-1].upper() for result in
-             results])
-    if all(['basis' in result and result['basis'] for result in results]):
-        column_headers.append([result['basis'] for result in results])
-    if column_headers:
-        output.columns = pd.MultiIndex.from_arrays(column_headers)
+    output = pd.DataFrame(np.array([list(result[dataset].values()) for result in results]).transpose(),
+                          index=(list(results[0][dataset].keys())))
+    column_headers = [
+        ((result['method'] if type(result['method']) == str else result['method'][-1]).upper() if 'method' in result and
+                                                                                                  result[
+                                                                                                      'method'] else "")
+        + ("/" + result['basis'] if 'basis' in result and result['basis'] else "")
+        for result in results
+    ]
+    if all(column_headers): output.columns = column_headers
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
 
@@ -636,6 +634,8 @@ class Stoichiometry(dict):
             if v * direction > 0:
                 reagents += ' + ' + (str(v * direction) if v * direction != 1 else "") + k
         return reagents[3:] if len(reagents) > 0 else ""
+
+
 def elements(geo):
     geom = geo if type(geo) == str else geo['geometry']
     lines = geom.replace(';', '\n').strip().split('\n')
@@ -643,7 +643,8 @@ def elements(geo):
         natom = len(lines) - 2 if (int(lines[0]) == len(lines) - 2) else len(lines)
     except:
         natom = len(lines)
-    return [line.replace(',',' ').strip().split(' ')[0] for line in lines[-natom:]]
+    return [line.replace(',', ' ').strip().split(' ')[0] for line in lines[-natom:]]
+
 
 def electrons(geom):
     symbols = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
