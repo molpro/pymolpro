@@ -407,7 +407,10 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
 
     newdb.molecule_energies = {}
     for molecule_name in db.molecules:
-        newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+        try:
+            newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+        except:
+            raise ValueError("Failure to get value of ENERGY variable from "+newdb.projects[molecule_name].filename("xml"))
     newdb.method = method
     newdb.basis = basis
     newdb.options = sorted(kwargs.items())
@@ -416,6 +419,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         for reaction_name, reaction in db.reactions.items():
             newdb.reaction_energies[reaction_name] = 0.0
             for reagent, stoichiometry in reaction['stoichiometry'].items():
+                if not newdb.molecule_energies[reagent]: raise ValueError("Missing database molecule energy for "+reagent+", method="+newdb.method+", basis="+newdb.basis+", project directory="+newdb.project_directory)
                 newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
 
         if clean:
