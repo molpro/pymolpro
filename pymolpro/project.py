@@ -10,8 +10,7 @@ def no_errors(projects, ignore_warning=True):
     :param ignore_warning: Whether to count warnings as well as errors.
     :return: True/False whether any projects have errors
     """
-    for p in projects:
-        if p.xpath('//error[@type != "Warning"]' if ignore_warning else '//error'): return False
+    return not any([p.xpath('//error[@type != "Warning"]' if ignore_warning else '//error') for p in projects])
 
 
 def element_to_dict(node, attributes=True):
