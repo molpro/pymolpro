@@ -11,12 +11,7 @@ def no_errors(projects, ignore_warning=True):
     :return: True/False whether any projects have errors
     """
     for p in projects:
-        p.parse()
-    errors = select(projects, '//error')
-    if ignore_warning:
-        errors = [x for x in errors if
-                  not ('type' in x.attributes and x.attributes['type'].lower() == 'warning')]
-    return len(errors) == 0
+        if p.xpath('//error[@type != "Warning"]' if ignore_warning else '//error'): return False
 
 
 def element_to_dict(node, attributes=True):
