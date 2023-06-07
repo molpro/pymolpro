@@ -118,12 +118,12 @@ class Project(pysjef.project.Project):
             if __method[-2:] != 'hf' and __method[-2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
                 if __method[:2] == 'df':
                     if __method[:4] == 'df-u':
-                        __method = 'df-uhf; '+__method
+                        __method = 'df-uhf; df-'+__method[4:]
                     else:
                         __method = 'df-hf; '+__method
                 else:
                     if __method[:1] == 'u':
-                        __method = 'uhf; '+__method
+                        __method = 'uhf; '+__method[1:]
                     else:
                         __method = 'hf; '+__method
             self.write_input(f"""
