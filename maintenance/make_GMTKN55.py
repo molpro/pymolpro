@@ -133,7 +133,7 @@ for subset in subsets:
         # if subset[:4]=='BHPE': print("filename",filename,subset,f)
         if not os.path.exists(f): continue
         with open(f, 'r') as fh:
-            geometry = ' '.join(fh.readlines())
+            geometry = ' '.join(fh.readlines()).replace('\t',' ')
         try:
             with open(os.path.join(directory, subset, filename, '.UHF'), 'r') as fh:
                 spin = int(' '.join(fh.readlines()))
