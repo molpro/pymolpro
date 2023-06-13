@@ -337,7 +337,7 @@ def library(expression=None):
 
 
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
-        clean=False, initial="", **kwargs):
+        clean=False, initial="", check=False, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -356,7 +356,8 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     :param str backend: The sjef backend to be used for running jobs.
     :param bool clean: Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of :py:meth:`run()` will use cached results when possible. If there are errors, this parameter is ignored.
     :param str initial: Any valid molpro input to be placed before the geometry specification.
-    :param kwargs: Any other options to pass to :py:meth:`project.Project.run()`, including `func`, `extrapolate`, `preamble`, `postamble`, `initial`.
+    :param bool check: Whether to check for status of jobs instead of running them.
+    :param kwargs: Any other options to pass to :py:meth:`project.Project.run()`, including `func`, `extrapolate`, `preamble`, `postamble`.
     :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
     :rtype: Database
     """
@@ -388,39 +389,59 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         if 'preamble' in molecule:
             initial_ += '\n' + molecule['preamble']
         if re.match('^(\n+;+ +)*$', initial_): initial_ = None
-        newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
-                                                method=method_,
-                                                basis=basis,
-                                                location=newdb.project_directory,
-                                                initial=initial_,
-                                                spin=molecule['spin'] if 'spin' in molecule else None,
-                                                charge=molecule['charge'] if 'charge' in molecule else None,
-                                                **kwargs)
-    with Pool(processes=__parallel) as pool:
-        pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
+        try:
+            newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
+                                                    method=method_,
+                                                    basis=basis,
+                                                    location=newdb.project_directory,
+                                                    initial=initial_,
+                                                    spin=molecule['spin'] if 'spin' in molecule else None,
+                                                    charge=molecule['charge'] if 'charge' in molecule else None,
+                                                    **kwargs)
+        except:
+            raise FileNotFoundError("pymolpro project "+molecule_name+" in directory "+newdb.project_directory+" cannot be opened and might be corrupt")
+    if check:
+        for k,p in newdb.projects.items():
+            print("Project",k,"status:",p.status)
+    else:
+        with Pool(processes=__parallel) as pool:
+            pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
 
     newdb.failed = {}
     for molecule in db.molecules:
         project = newdb.projects[molecule]
+        if check: print("checking for failure of",molecule,project.filename())
+        if check: print("status",project.status)
+        if check: print("no_errors",pymolpro.no_errors([project]))
         if project.status != 'completed' or not pymolpro.no_errors([project]):
+            if check: print("failed")
             newdb.failed[molecule] = project
+        else:
+            if check: print("not failed")
+    if check: print("after storing failed")
 
     newdb.molecule_energies = {}
     for molecule_name in db.molecules:
         try:
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
         except:
-            raise ValueError("Failure to get value of ENERGY variable from "+newdb.projects[molecule_name].filename("xml"))
+            if not check:
+             raise ValueError("Failure to get value of ENERGY variable from "+newdb.projects[molecule_name].filename("xml"))
+    if check: print("after getting molecule_energies")
     newdb.method = method
     newdb.basis = basis
     newdb.options = sorted(kwargs.items())
     if len(newdb.failed) == 0:
         newdb.reaction_energies = {}
         for reaction_name, reaction in db.reactions.items():
-            newdb.reaction_energies[reaction_name] = 0.0
-            for reagent, stoichiometry in reaction['stoichiometry'].items():
-                if not newdb.molecule_energies[reagent]: raise ValueError("Missing database molecule energy for "+reagent+", method="+newdb.method+", basis="+newdb.basis+", project directory="+newdb.project_directory)
-                newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
+            if not check:
+                newdb.reaction_energies[reaction_name] = 0.0
+                for reagent, stoichiometry in reaction['stoichiometry'].items():
+                    if not newdb.molecule_energies[reagent]: raise ValueError(
+                        "Missing database molecule energy for " + reagent + ", method=" + str(
+                            newdb.method) + ", basis=" + newdb.basis + ", project directory=" + newdb.project_directory + str(
+                            newdb.molecule_energies))
+                    newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
 
         if clean:
             newdb.projects = {}

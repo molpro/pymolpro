@@ -112,7 +112,10 @@ class Project(pysjef.project.Project):
                  charge=None,
                  spin=None,
                  **kwargs):
-        super().__init__(name=name, **kwargs)
+        try:
+            super().__init__(name=name, **kwargs)
+        except:
+            raise FileNotFoundError("Cannot open project "+name)
         if geometry != "":  # construct input
             __method = method.lower()
             if __method[-2:] != 'hf' and __method[-2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
