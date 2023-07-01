@@ -1,6 +1,7 @@
 import unittest
 
 import pymolpro
+import pandas
 from pymolpro import database
 from pymolpro.database import Database
 import os
@@ -127,12 +128,12 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertAlmostEqual((len(db.molecules) - 1) * pow(stdevd, 2),
                                    len(db.molecules) * (pow(rmsd, 2) - pow(msd, 2)))
             for title, output in outputs.items():
-                self.assertEqual(len(output.columns), 3)
+                if type(output) == pandas.DataFrame: self.assertEqual(len(output.columns), 3)
                 # print(title)
                 # print(output)
             db.reaction_energies = results[-1].reaction_energies
             db.molecule_energies = {}
-            self.assertEqual(len(database.analyse(results, db)), 4)
+            self.assertEqual(len(database.analyse(results, db)), 7)
 
     def test_fail(self):
         if shutil.which('molpro'):

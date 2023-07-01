@@ -607,17 +607,27 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
     :param str title:
     :return:
     """
-    ref_meth = list(analysis['reaction energy deviations'].keys())[-1] if reference_method is None else reference_method
+    print("analysis keys",analysis.keys())
+    if reference_method:
+     ref_meth = reference_method
+    else:
+        for k in ['reaction energy deviations','molecule energy deviations']:
+            if k in analysis:
+                ref_meth = analysis[k].keys()[-1]
+    if not ref_meth: return None
+    # ref_meth = list(analysis['molecule energy deviations'].keys())[-1] if reference_method is None else reference_method
     try:
         import matplotlib.pyplot as plt
     except ModuleNotFoundError or ImportError:
         return None
-    methods_pruned = [method for method in analysis['reaction statistics'] if
-                      method not in omitted_methods and method != ref_meth]
     fig, pane = plt.subplots(nrows=1, ncols=1, sharey=True, figsize=(6, 6))
-    data = analysis['reaction energy deviations' if reactions else 'molecule energy deviations'][
-        methods_pruned].to_numpy()
-    if not len(data): return None
+    deviations = 'reaction energy deviations' if reactions else 'molecule energy deviations'
+    if deviations not in analysis: return None
+    methods_pruned = [method for method in analysis[deviations] if
+                      method not in omitted_methods and method != ref_meth]
+    if  len(methods_pruned)==0: return None
+    data = analysis[deviations] [methods_pruned].to_numpy()
+    if data.size==0: return None
     pane.violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method='silverman')
     pane.set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
     pane.set_title(title if title else analysis['results'][-1]['basis'])
