@@ -399,10 +399,11 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
                                                     charge=molecule['charge'] if 'charge' in molecule else None,
                                                     **kwargs)
         except:
-            raise FileNotFoundError("pymolpro project "+molecule_name+" in directory "+newdb.project_directory+" cannot be opened and might be corrupt")
+            raise FileNotFoundError(
+                "pymolpro project " + molecule_name + " in directory " + newdb.project_directory + " cannot be opened and might be corrupt")
     if check:
-        for k,p in newdb.projects.items():
-            print("Project",k,"status:",p.status)
+        for k, p in newdb.projects.items():
+            print("Project", k, "status:", p.status)
     else:
         with Pool(processes=__parallel) as pool:
             pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
@@ -410,9 +411,9 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     newdb.failed = {}
     for molecule in db.molecules:
         project = newdb.projects[molecule]
-        if check: print("checking for failure of",molecule,project.filename())
-        if check: print("status",project.status)
-        if check: print("no_errors",pymolpro.no_errors([project]))
+        if check: print("checking for failure of", molecule, project.filename())
+        if check: print("status", project.status)
+        if check: print("no_errors", pymolpro.no_errors([project]))
         if project.status != 'completed' or not pymolpro.no_errors([project]):
             if check: print("failed")
             newdb.failed[molecule] = project
@@ -426,7 +427,8 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
         except:
             if not check:
-             raise ValueError("Failure to get value of ENERGY variable from "+newdb.projects[molecule_name].filename("xml"))
+                raise ValueError(
+                    "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
     if check: print("after getting molecule_energies")
     newdb.method = method
     newdb.basis = basis
@@ -504,7 +506,7 @@ units = Units({
 })  #: dictionary of units, giving their values in atomic units
 
 
-def analyse(databases, reference_database=None, unit=None):
+def analyse(databases, reference_database=None, unit=None, **kwargs):
     r"""
     Analyse and format the results in one or more databases
 
@@ -516,9 +518,11 @@ def analyse(databases, reference_database=None, unit=None):
         * `molecule energies`
         * `molecule energy deviations`
         * `molecule statistics`
+        * `molecule violin`
         * `reaction energies`
         * `reaction energy deviations`
         * `reaction statistics`
+        * `reaction violin`
 
     The energy deviations are, for each molecule or reaction, the difference between the energies in each element of :py:data:`databases` and the value in :py:data:`reference_database`.
     The values are pandas Dataframe objects, whose columns correspond to the elements of :py:data:`databases`. In the case of the molecule or reaction energies or energy deviations, the rows correspond to the individual molecule or reaction.
@@ -543,6 +547,7 @@ def analyse(databases, reference_database=None, unit=None):
             results.append({})
             results[-1]['method'] = database.method
             results[-1]['basis'] = database.basis
+            results[-1]['unit'] = unit if unit else 'Hartree'
             if len(getattr(database, typ + '_energies')) == 0: continue
             results[-1][typ + ' energies'] = {key: value / units[unit] for key, value in
                                               getattr(database, typ + '_energies').items()}
@@ -564,9 +569,12 @@ def analyse(databases, reference_database=None, unit=None):
                         results[-1][typ + ' energy deviations']) > 1 else 0.0,
                     # standard deviation of the deviations
                 }
+        output['results'] = results
         for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
             if results and all([table in result for result in results]):
                 output[table] = __compare_database_runs_format_table(results, table)
+    output['molecule violin plot'] = violin_plot(output, reactions=False, reference_method=reference_database.method, **kwargs)
+    output['reaction violin plot'] = violin_plot(output, reactions=True, reference_method=reference_database.method, **kwargs)
     return output
 
 
@@ -585,6 +593,48 @@ def __compare_database_runs_format_table(results, dataset):
     if all(column_headers): output.columns = column_headers
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
+
+
+def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=None, zero_hline=True, title=None):
+    r"""
+    Construct a violin plot of deviations from a collection of databases
+
+    :param dict analysis: result of a call to database.analyse().
+    :param bool reactions: Whether to analyse reaction energies rather than molecule energies
+    :param list omitted_methods:
+    :param str reference_method:
+    :param bool zero_hline: Whether to draw the y=0 x axis
+    :param str title:
+    :return:
+    """
+    print("analysis keys",analysis.keys())
+    if reference_method:
+     ref_meth = reference_method
+    else:
+        for k in ['reaction energy deviations','molecule energy deviations']:
+            if k in analysis:
+                ref_meth = analysis[k].keys()[-1]
+    if not ref_meth: return None
+    # ref_meth = list(analysis['molecule energy deviations'].keys())[-1] if reference_method is None else reference_method
+    try:
+        import matplotlib.pyplot as plt
+    except ModuleNotFoundError or ImportError:
+        return None
+    fig, pane = plt.subplots(nrows=1, ncols=1, sharey=True, figsize=(6, 6))
+    deviations = 'reaction energy deviations' if reactions else 'molecule energy deviations'
+    if deviations not in analysis: return None
+    methods_pruned = [method for method in analysis[deviations] if
+                      method not in omitted_methods and method != ref_meth]
+    if  len(methods_pruned)==0: return None
+    data = analysis[deviations] [methods_pruned].to_numpy()
+    if data.size==0: return None
+    pane.violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method='silverman')
+    pane.set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
+    pane.set_title(title if title else analysis['results'][-1]['basis'])
+    pane.set_ylabel('Error relative to ' + str(ref_meth) + ' / ' + analysis['results'][-1]['unit'])
+    if zero_hline: plt.axhline(color='gray', linestyle=':', linewidth=0.5)
+    plt.close()
+    return fig
 
 
 def basis_extrapolate(results, hf_results, x=None):
