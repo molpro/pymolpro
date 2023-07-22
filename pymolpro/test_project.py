@@ -18,6 +18,10 @@ class TestProject(unittest.TestCase):
         self.assertAlmostEqual(correlation_energy, pair_energies)
         # print(self.project.properties('correlation energy')) #TODO fix xpath search where attribute has embedded spaces
 
+    def test_copy(self):
+        newproject = self.project.copy('copied', location=os.path.dirname(os.path.abspath(__file__)))
+        newproject.erase()
+
 
 if __name__ == '__main__':
     unittest.main()

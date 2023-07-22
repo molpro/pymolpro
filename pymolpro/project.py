@@ -105,7 +105,7 @@ class Project(pysjef.project.Project):
     :param int charge: Electrical charge of molecule
 
     """
-    def __init__(self, name, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
+    def __init__(self, name=None, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
                  preamble=None,
                  postamble=None,
                  initial=None,
