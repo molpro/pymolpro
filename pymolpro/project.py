@@ -2,6 +2,7 @@ import pysjef
 from pysjef.select import select
 import subprocess
 import re
+import json
 
 
 def no_errors(projects, ignore_warning=True):
