@@ -495,7 +495,7 @@ basis={basis}
                         del self.registry_cache[set][name]['name']
             return self.registry_cache[set]
         else:
-            run = subprocess.run([self.project.backend_get('local', 'run_command').split()[0], '--registry'],
+            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                                  capture_output=True)
             return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
 
