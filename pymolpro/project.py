@@ -1,5 +1,7 @@
 import pysjef
 from pysjef.select import select
+import subprocess
+import re
 
 
 def no_errors(projects, ignore_warning=True):
@@ -462,3 +464,37 @@ basis={basis}
         instance_ = matches[instance]
         return [node.text for node in (instance_.xpath('molpro-output:p', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
+
+    def registry(self, set=None):
+        """
+        Access the registry belonging to Molpro in the `local` backend.
+
+        :param set: If present, obtain as a dictionary the specified registry set. If absent, obtain a list of all sets
+        :return:
+        """
+        if set:
+            if not hasattr(self, 'registry_cache'): self.registry_cache = {}
+            if set not in self.registry_cache:
+                run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry', set],
+                                     capture_output=True)
+                # print('run.stdout',run.stdout)
+                l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
+                # print('l1',l1)
+                l = l1.replace('{', '').strip('\\n').strip('"').split('}')
+                # print('l',l)
+                self.registry_cache[set] = {}
+                for li in l:
+                    # print('li',li)
+                    name = re.sub('["\'].*', '', re.sub('.*name *= *["\']', '', li))
+                    if name:
+                        json_ = '{' + re.sub('"type" *: * (.),', '"type": "\\1",',
+                                             re.sub('([\*a-zA-Z0-9_-]+)=', '"\\1": ', li)).replace("'", '"') + '}'
+                        # print(json_)
+                        self.registry_cache[set][name] = json.loads(json_)
+                        del self.registry_cache[set][name]['name']
+            return self.registry_cache[set]
+        else:
+            run = subprocess.run([self.project.backend_get('local', 'run_command').split()[0], '--registry'],
+                                 capture_output=True)
+            return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
+
