@@ -489,10 +489,11 @@ basis={basis}
                     name = re.sub('["\'].*', '', re.sub('.*name *= *["\']', '', li))
                     if name:
                         json_ = '{' + re.sub('"type" *: * (.),', '"type": "\\1",',
-                                             re.sub('([\*a-zA-Z0-9_-]+)=', '"\\1": ', li)).replace("'", '"') + '}'
+                                             re.sub('([*a-zA-Z0-9_-]+)=', '"\\1": ', li)).replace("'", '"') + '}'
                         # print(json_)
                         self.registry_cache[set][name] = json.loads(json_)
-                        del self.registry_cache[set][name]['name']
+                        if 'name' in self.registry_cache[set][name]:
+                            del self.registry_cache[set][name]['name']
             return self.registry_cache[set]
         else:
             run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
