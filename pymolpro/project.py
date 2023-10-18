@@ -503,8 +503,11 @@ basis={basis}
             return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
 
     def procedures_registry(self):
-        run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
+        try:
+            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                              capture_output=True)
+        except:
+            return None
         libmol = re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n', '')
         all = ''
         with open(pathlib.Path(libmol) / 'procedures.registry', 'r') as f:

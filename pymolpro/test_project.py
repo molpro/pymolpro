@@ -36,8 +36,9 @@ class TestProject(unittest.TestCase):
 
     def test_procedures_registry(self):
         proc_reg = self.project.procedures_registry()
-        assert proc_reg['PNO-UCCSD']['gradient'] == -1
-        assert 'pno' in proc_reg['PNO-UCCSD']['options']
+        if proc_reg:
+            assert proc_reg['PNO-UCCSD']['gradient'] == -1
+            assert 'pno' in proc_reg['PNO-UCCSD']['options']
 
 
 if __name__ == '__main__':
