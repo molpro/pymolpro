@@ -1,3 +1,5 @@
+import pathlib
+
 import pysjef
 from pysjef.select import select
 import subprocess
@@ -499,4 +501,39 @@ basis={basis}
             run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                                  capture_output=True)
             return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
+
+    def procedures_registry(self):
+        r"""
+        Get the procedures registry from the Molpro pointed to in the local backend
+
+        :return:
+        :rtype: dict
+        """
+        try:
+            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
+                             capture_output=True)
+        except:
+            return None
+        libmol = re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n', '')
+        all = ''
+        with open(pathlib.Path(libmol) / 'procedures.registry', 'r') as f:
+            for line in f.readlines():
+                if not re.match('^ *#', line) and line.strip(' ') !='':
+                    all += line.replace('}', '').replace('\n', '')
+        entries={}
+        for record in all.split('{'):
+            if not record: continue
+            fields = record.split(',')
+            entry={}
+            name=None
+            for field in fields:
+                match = re.match(r"([^ =]+) *= *'?([^']+)'?",field)
+                if match:
+                    entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
+                    if match.group(1)=='name': name=match.group(2)
+            if 'options' in entry:
+                entry['options'] = entry['options'].split(':')
+            entries[name]=entry
+        return entries
+
 
