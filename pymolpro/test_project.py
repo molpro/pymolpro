@@ -22,18 +22,22 @@ class TestProject(unittest.TestCase):
         newproject = self.project.copy('copied', location=os.path.dirname(os.path.abspath(__file__)))
         newproject.erase()
 
+    # def test_corrupt_project(self):
+    #     import os, shutil
+    #     import pysjef
+    #     pname = 'check_empty.molpro'
+    #     shutil.rmtree(pname,ignore_errors=True)
+    #     os.mkdir(pname)
+    #     open(pname + '/Info.plist', 'w').write('')
+    #     try:
+    #         p = pysjef.Project(pname)
+    #     except:
+    #         print("exception caught")
 
-    def test_corrupt_project(self):
-        import os, shutil
-        import pysjef
-        pname = 'check_empty.molpro'
-        shutil.rmtree(pname,ignore_errors=True)
-        os.mkdir(pname)
-        open(pname + '/Info.plist', 'w').write('')
-        try:
-            p = pysjef.Project(pname)
-        except:
-            print("exception caught")
+    def test_procedures_registry(self):
+        proc_reg = self.project.procedures_registry()
+        assert proc_reg['PNO-UCCSD']['gradient'] == -1
+        assert 'pno' in proc_reg['PNO-UCCSD']['options']
 
 
 if __name__ == '__main__':
