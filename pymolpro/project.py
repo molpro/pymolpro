@@ -500,3 +500,8 @@ basis={basis}
                                  capture_output=True)
             return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
 
+    def procedures_registry(self):
+        run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry', set],
+                             capture_output=True)
+        # print('run.stdout',run.stdout)
+        l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')

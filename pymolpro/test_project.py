@@ -23,5 +23,18 @@ class TestProject(unittest.TestCase):
         newproject.erase()
 
 
+    def test_corrupt_project(self):
+        import os, shutil
+        import pysjef
+        pname = 'check_empty.molpro'
+        shutil.rmtree(pname,ignore_errors=True)
+        os.mkdir(pname)
+        open(pname + '/Info.plist', 'w').write('')
+        try:
+            p = pysjef.Project(pname)
+        except:
+            print("exception caught")
+
+
 if __name__ == '__main__':
     unittest.main()
