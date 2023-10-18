@@ -503,6 +503,12 @@ basis={basis}
             return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
 
     def procedures_registry(self):
+        r"""
+        Get the procedures registry from the Molpro pointed to in the local backend
+
+        :return:
+        :rtype: dict
+        """
         try:
             run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                              capture_output=True)
