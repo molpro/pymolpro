@@ -147,7 +147,7 @@ def evaluateBasis(molecule, points):
     return basisAtPoints  # end basis evaluation
 
 
-def evaluateOrbitals(molecule, points, minocc=1.0, ID=None, values=False):
+def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False):
     """
     Evaluate the molecular orbitals on a grid
 

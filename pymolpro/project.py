@@ -5,6 +5,7 @@ from pysjef.select import select
 import subprocess
 import re
 import json
+import numpy as np
 
 
 def no_errors(projects, ignore_warning=True):
@@ -359,17 +360,20 @@ basis={basis}
         assert not ID or len(result) == 1
         return result
 
-    def evaluateOrbitals(self, points, instance=-1, minocc=1.0, ID=None, values=False):
+    def evaluateOrbitals(self, points, instance=-1, minocc=1.0e-10, ID=None, values=False):
         """
         Evaluate molecular orbitals on a grid of points
 
-        :param points: List of geometries specified as 3-list of values in bohr
+        :param points: List of geometries specified as 3-list of values in bohr, or numpy [:,3] array
         :param instance: Which set of orbitals
         :param minocc: Only orbitals with at least this occupation will be returned
         :param ID: Only the orbital whose ID attribute matches this will be selected
         :param values:
         :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
         """
+        if (type(points) == list):
+            return self.evaluateOrbitals(np.array(points), instance=instance, minocc=minocc,
+                                         ID=ID, values=values)
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
         return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values)
