@@ -10,56 +10,91 @@
   },
   {
    "cell_type": "markdown",
+   "id": "10f4a3b5",
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
    "source": [
     "## Do an electronic structure calculation"
-   ],
-   "metadata": {
-    "collapsed": false
-   }
+   ]
   },
   {
    "cell_type": "code",
    "execution_count": 1,
    "id": "22b8911d",
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2023-11-16T06:37:42.945450Z",
+     "start_time": "2023-11-16T06:37:42.718856Z"
+    }
+   },
    "outputs": [],
    "source": [
     "from pymolpro import Project\n",
     "\n",
     "p = Project(\"evaluate_charge_density\")\n",
-    "p.write_input('basis,cc-pVQZ;geometry={f;h,f,1.732};set,sewprop=0;gexpec,delta,f;gexpec,delta,h;rks,pbe0;put,xml')\n",
+    "p.write_input('''\n",
+    "basis,cc-pVQZ\n",
+    "geometry={f;h,f,2.732}\n",
+    "set,sewprop=0\n",
+    "gexpec,delta,f\n",
+    "gexpec,delta,h\n",
+    "{casscf;closed,2}\n",
+    "put,xml\n",
+    "''')\n",
     "p.run(wait=True)\n",
     "assert p.status == 'completed'"
    ]
   },
   {
    "cell_type": "markdown",
+   "id": "c25f4fb1",
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
    "source": [
     "## Evaluate occupied orbitals then density on a grid at the nuclear positions"
-   ],
-   "metadata": {
-    "collapsed": false
-   }
+   ]
   },
   {
    "cell_type": "code",
    "execution_count": 2,
+   "id": "8a1dce6a",
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    },
+    "pycharm": {
+     "name": "#%%\n"
+    },
+    "ExecuteTime": {
+     "end_time": "2023-11-16T06:37:42.955830Z",
+     "start_time": "2023-11-16T06:37:42.949186Z"
+    }
+   },
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
       "2 atoms:\n",
-      "a1 F [0.0, 0.0, -0.08725992951335484]\n",
-      "a2 H [0.0, 0.0, 1.644740070486644]\n",
-      "Calculated densities at the nuclei: [4.38900148e+02 4.14546918e-01]\n"
+      "a1 F [0.0, 0.0, -0.13764095117233568]\n",
+      "a2 H [0.0, 0.0, 2.5943590488276578]\n",
+      "Calculated densities at the nuclei: [4.39672987e+02 2.46536665e-01]\n"
      ]
     }
    ],
    "source": [
     "import numpy as np\n",
     "\n",
-    "atoms = p.geometry();\n",
+    "atoms = p.geometry()\n",
     "print(str(len(atoms)) + ' atoms:')\n",
     "for atom in atoms:\n",
     "    print(atom['id'], atom['elementType'], atom['xyz'])\n",
@@ -73,22 +108,20 @@
     "        results[ipoint] += orbital['values'][ipoint] ** 2 * orbital['occ']\n",
     "\n",
     "print(\"Calculated densities at the nuclei:\", results)"
-   ],
-   "metadata": {
-    "collapsed": false,
-    "pycharm": {
-     "name": "#%%\n"
-    }
-   }
+   ]
   },
   {
    "cell_type": "markdown",
+   "id": "1021bbc1",
+   "metadata": {
+    "collapsed": false,
+    "jupyter": {
+     "outputs_hidden": false
+    }
+   },
    "source": [
     "## Check that the densities at the nuclei agree with values calculated directly in Molpro"
-   ],
-   "metadata": {
-    "collapsed": false
-   }
+   ]
   },
   {
    "cell_type": "code",
@@ -97,6 +130,10 @@
    "metadata": {
     "pycharm": {
      "name": "#%%\n"
+    },
+    "ExecuteTime": {
+     "end_time": "2023-11-16T06:37:42.959391Z",
+     "start_time": "2023-11-16T06:37:42.956978Z"
     }
    },
    "outputs": [
@@ -104,10 +141,10 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "From Molpro: DELTA(F) = 438.90014827795\n",
-      "... nearest to result  0  which differs by  -5.115907697472721e-13\n",
-      "From Molpro: DELTA(H) = 0.414546917881728\n",
-      "... nearest to result  1  which differs by  1.0547118733938987e-15\n"
+      "From Molpro: DELTA(F) = 439.672986652897\n",
+      "... nearest to result  0  which differs by  -9.092104846786242e-09\n",
+      "From Molpro: DELTA(H) = 0.246536669511579\n",
+      "... nearest to result  1  which differs by  -4.210600063059289e-09\n"
      ]
     }
    ],
@@ -137,7 +174,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.10.6"
+   "version": "3.11.4"
   }
  },
  "nbformat": 4,
