@@ -118,6 +118,7 @@ class Project(pysjef.project.Project):
                  charge=None,
                  spin=None,
                  **kwargs):
+        self.local_molpro_root_ = None
         try:
             super().__init__(name=name, **kwargs)
         except:
@@ -512,14 +513,16 @@ basis={basis}
         :return: directory
         :rtype: pathlib.Path
         """
-        try:
-            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
-                                 capture_output=True)
-            return pathlib.Path(
-                re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
-                                                                                                         '')).parent
-        except:
-            return None
+        if self.local_molpro_root_ is None:
+            try:
+                run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
+                                     capture_output=True)
+                self.local_molpro_root = pathlib.Path(
+                    re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
+                                                                                                             '')).parent
+            except:
+                return None
+        return self.local_molpro_root_
 
     def procedures_registry(self):
         r"""
