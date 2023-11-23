@@ -506,6 +506,21 @@ basis={basis}
                                  capture_output=True)
             return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
 
+    def local_molpro_root(self):
+        r"""
+        Get the directory of the Molpro installation in the local backend
+        :return: directory
+        :rtype: pathlib.Path
+        """
+        try:
+            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
+                                 capture_output=True)
+            return pathlib.Path(
+                re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
+                                                                                                         '')).parent
+        except:
+            return None
+
     def procedures_registry(self):
         r"""
         Get the procedures registry from the Molpro pointed to in the local backend
@@ -513,16 +528,13 @@ basis={basis}
         :return:
         :rtype: dict
         """
-        try:
-            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
-                             capture_output=True)
-        except:
+        molpro_root = self.local_molpro_root()
+        if molpro_root is None:
             return None
-        libmol = re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n', '')
         all = ''
-        with open(pathlib.Path(libmol) / 'procedures.registry', 'r') as f:
+        with open(molpro_root / 'lib' / 'procedures.registry', 'r') as f:
             for line in f.readlines():
-                if not re.match('^ *#', line) and line.strip(' ') !='':
+                if not re.match('^ *#', line) and line.strip(' ') != '':
                     all += line.replace('}', '').replace('\n', '')
         entries={}
         for record in all.split('{'):
