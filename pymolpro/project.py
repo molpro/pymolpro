@@ -517,7 +517,7 @@ basis={basis}
             try:
                 run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                                      capture_output=True)
-                self.local_molpro_root = pathlib.Path(
+                self.local_molpro_root_ = pathlib.Path(
                     re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
                                                                                                              '')).parent
             except:
