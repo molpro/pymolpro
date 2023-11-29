@@ -39,12 +39,20 @@ class TestProject(unittest.TestCase):
         if proc_reg:
             assert proc_reg['PNO-UCCSD']['gradient'] == -1
             assert 'pno' in proc_reg['PNO-UCCSD']['options']
+    def test_basis_registry(self):
+        basis_reg = self.project.basis_registry()
+        if basis_reg:
+            assert basis_reg['cc-pV(D+d)Z']['quality'] == 'DZ'
 
     def test_molpro_root(self):
         molpro_root = self.project.local_molpro_root()
         if molpro_root:
             assert os.path.exists(molpro_root/'lib'/'defbas')
 
+    def test_registry(self):
+        assert 'GMB' in self.project.registry()
+        assert 'STATES' in self.project.registry('GMB')
+        assert self.project.registry('GMB')['STATES']['set'] == 'GMB'
 
 if __name__ == '__main__':
     unittest.main()

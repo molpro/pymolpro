@@ -556,3 +556,32 @@ basis={basis}
         return entries
 
 
+
+    def basis_registry(self):
+        r"""
+        Get the basis registry from the Molpro pointed to in the local backend
+
+        :return:
+        :rtype: dict
+        """
+        molpro_root = self.local_molpro_root()
+        if molpro_root is None:
+            return None
+        entries={}
+        with open(molpro_root / 'lib' / 'basis.registry', 'r') as f:
+            for line in f.readlines():
+                if not re.match('^ *#', line) and line.strip(' ') != '':
+                    fields = line.split(',')
+                    entry={}
+                    name=None
+                    for field in fields:
+                        match = re.match(r"([^ =]+) *= *'?([^']+)'?",field)
+                        if match:
+                            entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
+                            if match.group(1)=='name': name=match.group(2)
+                    if 'options' in entry:
+                        entry['options'] = entry['options'].split(':')
+                    entries[name]=entry
+        return entries
+
+
