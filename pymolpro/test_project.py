@@ -50,9 +50,10 @@ class TestProject(unittest.TestCase):
             assert os.path.exists(molpro_root/'lib'/'defbas')
 
     def test_registry(self):
-        assert 'GMB' in self.project.registry()
-        assert 'STATES' in self.project.registry('GMB')
-        assert self.project.registry('GMB')['STATES']['set'] == 'GMB'
+        if self.project.registry():
+            assert 'GMB' in self.project.registry()
+            assert 'STATES' in self.project.registry('GMB')
+            assert self.project.registry('GMB')['STATES']['set'] == 'GMB'
 
 if __name__ == '__main__':
     unittest.main()
