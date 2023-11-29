@@ -483,29 +483,35 @@ basis={basis}
         if set:
             if not hasattr(self, 'registry_cache'): self.registry_cache = {}
             if set not in self.registry_cache:
-                run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry', set],
-                                     capture_output=True)
-                # print('run.stdout',run.stdout)
-                l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
-                # print('l1',l1)
-                l = l1.replace('{', '').strip('\\n').strip('"').split('}')
-                # print('l',l)
-                self.registry_cache[set] = {}
-                for li in l:
-                    # print('li',li)
-                    name = re.sub('["\'].*', '', re.sub('.*name *= *["\']', '', li))
-                    if name:
-                        json_ = '{' + re.sub('"type" *: * (.),', '"type": "\\1",',
-                                             re.sub('([*a-zA-Z0-9_-]+)=', '"\\1": ', li)).replace("'", '"') + '}'
-                        # print(json_)
-                        self.registry_cache[set][name] = json.loads(json_)
-                        if 'name' in self.registry_cache[set][name]:
-                            del self.registry_cache[set][name]['name']
-            return self.registry_cache[set]
+                try:
+                    run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry', set],
+                                         capture_output=True)
+                    # print('run.stdout',run.stdout)
+                    l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
+                    # print('l1',l1)
+                    l = l1.replace('{', '').strip('\\n').strip('"').split('}')
+                    # print('l',l)
+                    self.registry_cache[set] = {}
+                    for li in l:
+                        # print('li',li)
+                        name = re.sub('["\'].*', '', re.sub('.*name *= *["\']', '', li))
+                        if name:
+                            json_ = '{' + re.sub('"type" *: * (.),', '"type": "\\1",',
+                                                 re.sub('([*a-zA-Z0-9_-]+)=', '"\\1": ', li)).replace("'", '"') + '}'
+                            # print(json_)
+                            self.registry_cache[set][name] = json.loads(json_)
+                            if 'name' in self.registry_cache[set][name]:
+                                del self.registry_cache[set][name]['name']
+                except:
+                    return None
+                return self.registry_cache[set]
         else:
-            run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
+            try:
+                run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                                  capture_output=True)
-            return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
+                return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
+            except:
+                return None
 
     def local_molpro_root(self):
         r"""
