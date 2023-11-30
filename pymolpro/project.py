@@ -588,7 +588,8 @@ basis={basis}
                                 if match.group(1) == 'name': name = match.group(2)
                         if 'options' in entry:
                             entry['options'] = entry['options'].split(':')
-                        entries[name] = entry
+                        if name is not None:
+                            entries[name] = entry
         except:
             pass
         return entries

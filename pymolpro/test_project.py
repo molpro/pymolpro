@@ -41,6 +41,7 @@ class TestProject(unittest.TestCase):
             assert 'pno' in proc_reg['PNO-UCCSD']['options']
     def test_basis_registry(self):
         basis_reg = self.project.basis_registry()
+        assert None not in basis_reg.keys()
         if basis_reg:
             assert basis_reg['cc-pV(D+d)Z']['quality'] == 'DZ'
 
