@@ -504,7 +504,7 @@ basis={basis}
                                 del self.registry_cache[set][name]['name']
                 except:
                     return None
-                return self.registry_cache[set]
+            return self.registry_cache[set]
         else:
             try:
                 run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
@@ -513,6 +513,8 @@ basis={basis}
             except:
                 return None
 
+    import builtins
+    @builtins.property
     def local_molpro_root(self):
         r"""
         Get the directory of the Molpro installation in the local backend
@@ -537,28 +539,28 @@ basis={basis}
         :return:
         :rtype: dict
         """
-        molpro_root = self.local_molpro_root()
-        if molpro_root is None:
-            return None
-        all = ''
-        with open(molpro_root / 'lib' / 'procedures.registry', 'r') as f:
-            for line in f.readlines():
-                if not re.match('^ *#', line) and line.strip(' ') != '':
-                    all += line.replace('}', '').replace('\n', '')
-        entries={}
-        for record in all.split('{'):
-            if not record: continue
-            fields = record.split(',')
-            entry={}
-            name=None
-            for field in fields:
-                match = re.match(r"([^ =]+) *= *'?([^']+)'?",field)
-                if match:
-                    entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
-                    if match.group(1)=='name': name=match.group(2)
-            if 'options' in entry:
-                entry['options'] = entry['options'].split(':')
-            entries[name]=entry
+        entries = {}
+        try:
+            all = ''
+            with open(self.local_molpro_root / 'lib' / 'procedures.registry', 'r') as f:
+                for line in f.readlines():
+                    if not re.match('^ *#', line) and line.strip(' ') != '':
+                        all += line.replace('}', '').replace('\n', '')
+            for record in all.split('{'):
+                if not record: continue
+                fields = record.split(',')
+                entry={}
+                name=None
+                for field in fields:
+                    match = re.match(r"([^ =]+) *= *'?([^']+)'?",field)
+                    if match:
+                        entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
+                        if match.group(1)=='name': name=match.group(2)
+                if 'options' in entry:
+                    entry['options'] = entry['options'].split(':')
+                entries[name]=entry
+        except:
+            pass
         return entries
 
 
@@ -570,24 +572,25 @@ basis={basis}
         :return:
         :rtype: dict
         """
-        molpro_root = self.local_molpro_root()
-        if molpro_root is None:
-            return None
         entries={}
-        with open(molpro_root / 'lib' / 'basis.registry', 'r') as f:
-            for line in f.readlines():
-                if not re.match('^ *#', line) and line.strip(' ') != '':
-                    fields = line.split(',')
-                    entry={}
-                    name=None
-                    for field in fields:
-                        match = re.match(r"([^ =]+) *= *'?([^']+)'?",field)
-                        if match:
-                            entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
-                            if match.group(1)=='name': name=match.group(2)
-                    if 'options' in entry:
-                        entry['options'] = entry['options'].split(':')
-                    entries[name]=entry
+        try:
+            with open(self.local_molpro_root / 'lib' / 'basis.registry', 'r') as f:
+                for line in f.readlines():
+                    if not re.match('^ *#', line) and line.strip(' ') != '':
+                        fields = line.split(',')
+                        entry = {}
+                        name = None
+                        for field in fields:
+                            match = re.match(r"([^ =]+) *= *'?([^']+)'?", field)
+                            if match:
+                                entry[match.group(1)] = int(match.group(2)) if re.search('^-?[0-9]+$', match.group(2).strip(
+                                    ' ')) else match.group(2)
+                                if match.group(1) == 'name': name = match.group(2)
+                        if 'options' in entry:
+                            entry['options'] = entry['options'].split(':')
+                        entries[name] = entry
+        except:
+            pass
         return entries
 
 

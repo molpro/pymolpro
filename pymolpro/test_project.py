@@ -45,9 +45,8 @@ class TestProject(unittest.TestCase):
             assert basis_reg['cc-pV(D+d)Z']['quality'] == 'DZ'
 
     def test_molpro_root(self):
-        molpro_root = self.project.local_molpro_root()
-        if molpro_root:
-            assert os.path.exists(molpro_root/'lib'/'defbas')
+        if self.project.local_molpro_root:
+            assert os.path.exists(self.project.local_molpro_root / 'lib' / 'defbas')
 
     def test_registry(self):
         if self.project.registry():
