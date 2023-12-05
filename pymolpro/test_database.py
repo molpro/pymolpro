@@ -81,7 +81,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
                          'Cannot resolve "junk" as a library key, library file name, or library-defining json string')
 
     def test_run_database(self):
-        if shutil.which('molpro'):
+        if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
             results = database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
             results2 = database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
@@ -96,7 +96,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print(results)
 
     def test_preamble(self):
-        if shutil.which('molpro'):
+        if pymolpro.Project('test').local_molpro_root:
             db = Database()
             db.preamble = 'angstrom'
             db.add_molecule('H2', 'H;H,H,0.7'
@@ -110,7 +110,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertAlmostEqual(results.molecule_energies['H2'], -1.13207566548333)
 
     def test_compare_database_runs(self):
-        if shutil.which('molpro'):
+        if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
             results = [
                 database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy"),
@@ -136,7 +136,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertEqual(len(database.analyse(results, db)), 7)
 
     def test_fail(self):
-        if shutil.which('molpro'):
+        if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
 
             result = database.run(db, method='hf', basis='minao')
@@ -186,7 +186,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertEqual(len(db.subset('vdW').molecules), 2)
         # print(db.subset('vdW'))
 
-        if shutil.which('molpro'):
+        if pymolpro.Project('test').local_molpro_root:
             result = database.run(subset, clean=True)
             self.assertEqual(len(result.molecule_energies), 2)
             self.assertEqual(len(result.reaction_energies), 1)
@@ -207,7 +207,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         self.assertEqual(len(subset), 4)
 
     def test_extrapolate(self):
-        if shutil.which('molpro'):
+        if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample').subset('non-covalent')
             hfresults = []
             results = []
