@@ -486,7 +486,7 @@ basis={basis}
                 try:
                     run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry', set],
                                          capture_output=True, shell=True)
-                    # print('run.stdout',run.stdout)
+                    if not run.stdout: return None
                     l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
                     # print('l1',l1)
                     l = l1.replace('{', '').strip('\\n').strip('"').split('}')
@@ -509,6 +509,7 @@ basis={basis}
             try:
                 run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                                  capture_output=True, shell=True)
+                if not run.stdout: return None
                 return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
             except:
                 return None
@@ -525,9 +526,10 @@ basis={basis}
             try:
                 run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
                                      capture_output=True, shell=True)
-                self.local_molpro_root_ = pathlib.Path(
-                    re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
-                                                                                                             '')).parent
+                if run.stdout:
+                    self.local_molpro_root_ = pathlib.Path(
+                        re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
+                                                                                                                 '')).parent
             except:
                 return None
         return self.local_molpro_root_
