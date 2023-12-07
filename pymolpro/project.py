@@ -1,11 +1,11 @@
 import pathlib
 
 import pysjef
-from pysjef.select import select
 import subprocess
 import re
 import json
 import numpy as np
+import shutil
 
 
 def no_errors(projects, ignore_warning=True):
@@ -484,8 +484,8 @@ basis={basis}
             if not hasattr(self, 'registry_cache'): self.registry_cache = {}
             if set not in self.registry_cache:
                 try:
-                    run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry', set],
-                                         capture_output=True, shell=True)
+                    run = subprocess.run([shutil.which(self.backend_get('local', 'run_command').split()[0]), '--registry', set],
+                                         capture_output=True)
                     if not run.stdout: return None
                     l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
                     # print('l1',l1)
@@ -507,8 +507,8 @@ basis={basis}
             return self.registry_cache[set]
         else:
             try:
-                run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
-                                 capture_output=True, shell=True)
+                run = subprocess.run([shutil.which(self.backend_get('local', 'run_command').split()[0]), '--registry'],
+                                 capture_output=True)
                 if not run.stdout: return None
                 return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
             except:
@@ -524,8 +524,8 @@ basis={basis}
         """
         if self.local_molpro_root_ is None:
             try:
-                run = subprocess.run([self.backend_get('local', 'run_command').split()[0], '--registry'],
-                                     capture_output=True, shell=True)
+                run = subprocess.run([shutil.which(self.backend_get('local', 'run_command').split()[0]), '--registry'],
+                                     capture_output=True)
                 if run.stdout:
                     self.local_molpro_root_ = pathlib.Path(
                         re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
