@@ -490,7 +490,8 @@ basis={basis}
                 try:
                     run = self.run_local_molpro(['--registry', set])
                     if not run.stdout: return None
-                    l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
+                    l0 = str(run.stdout)
+                    l1 = l0[l0.find(':') + 1:].rstrip("'").replace('\\n', '')
                     # print('l1',l1)
                     l = l1.replace('{', '').strip('\\n').strip('"').split('}')
                     # print('l',l)
