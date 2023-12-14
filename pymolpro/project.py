@@ -473,6 +473,10 @@ basis={basis}
         return [node.text for node in (instance_.xpath('molpro-output:p', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
 
+    def run_local_molpro(self, options: list):
+        return subprocess.run((['bash'] if shutil.which('bash') else []) + [
+            shutil.which(self.backend_get('local', 'run_command').split()[0])] + options, capture_output=True)
+
     def registry(self, set=None):
         """
         Access the registry belonging to Molpro in the `local` backend.
@@ -484,8 +488,7 @@ basis={basis}
             if not hasattr(self, 'registry_cache'): self.registry_cache = {}
             if set not in self.registry_cache:
                 try:
-                    run = subprocess.run([shutil.which(self.backend_get('local', 'run_command').split()[0]), '--registry', set],
-                                         capture_output=True)
+                    run = self.run_local_molpro(['--registry', set])
                     if not run.stdout: return None
                     l1 = re.sub('.*: *', '', str(run.stdout)).rstrip("'").replace('\\n', '')
                     # print('l1',l1)
@@ -507,8 +510,7 @@ basis={basis}
             return self.registry_cache[set]
         else:
             try:
-                run = subprocess.run([shutil.which(self.backend_get('local', 'run_command').split()[0]), '--registry'],
-                                 capture_output=True)
+                run = self.run_local_molpro(['--registry'])
                 if not run.stdout: return None
                 return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
             except:
@@ -524,8 +526,7 @@ basis={basis}
         """
         if self.local_molpro_root_ is None:
             try:
-                run = subprocess.run([shutil.which(self.backend_get('local', 'run_command').split()[0]), '--registry'],
-                                     capture_output=True)
+                run = self.run_local_molpro(['--registry'])
                 if run.stdout:
                     self.local_molpro_root_ = pathlib.Path(
                         re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
