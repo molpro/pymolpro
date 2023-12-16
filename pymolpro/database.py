@@ -607,7 +607,7 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
     :param str title:
     :return:
     """
-    print("analysis keys",analysis.keys())
+    # print("analysis keys",analysis.keys())
     if reference_method:
      ref_meth = reference_method
     else:
