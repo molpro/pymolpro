@@ -552,6 +552,12 @@ basis={basis}
                         all += line.replace('}', '').replace('\n', '')
             for record in all.split('{'):
                 if not record: continue
+                in_quotations=False
+                for i in range(len(record)):
+                    if record[i] == "'":
+                        in_quotations= not in_quotations
+                    elif record[i] == ',' and in_quotations:
+                        record = record[:i] + '§' + record[i+1:]
                 fields = record.split(',')
                 entry={}
                 name=None
@@ -561,7 +567,7 @@ basis={basis}
                         entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
                         if match.group(1)=='name': name=match.group(2)
                 if 'options' in entry:
-                    entry['options'] = entry['options'].split(':')
+                    entry['options'] = entry['options'].split('§')
                 entries[name]=entry
         except:
             pass
