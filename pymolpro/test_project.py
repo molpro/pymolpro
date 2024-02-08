@@ -38,7 +38,7 @@ class TestProject(unittest.TestCase):
         proc_reg = self.project.procedures_registry()
         if proc_reg:
             assert proc_reg['PNO-UCCSD']['gradient'] == -1
-            assert 'pno' in proc_reg['PNO-UCCSD']['options']
+            assert 'pairopt' in proc_reg['PNO-UCCSD']['options']
     def test_basis_registry(self):
         basis_reg = self.project.basis_registry()
         assert None not in basis_reg.keys()
