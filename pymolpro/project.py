@@ -474,8 +474,19 @@ basis={basis}
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
 
     def run_local_molpro(self, options: list):
-        return subprocess.run((['bash'] if shutil.which('bash') else []) + [
-            shutil.which(self.backend_get('local', 'run_command').split()[0])] + options, capture_output=True)
+        def get_first(string):
+            result=''
+            quoted = False
+            for i in range(len(string)):
+                if string[i]=="'":
+                    quoted = not quoted
+                elif string[i] == ' ' and not quoted:
+                    return result
+                else:
+                    result = result + string[i]
+        command_ = get_first(self.backend_get('local', 'run_command'))
+        return subprocess.run((['/bin/sh'] if shutil.which('/bin/sh') else []) + [
+            shutil.which(command_)] + options, capture_output=True)
 
     def registry(self, set=None):
         """
