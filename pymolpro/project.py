@@ -484,9 +484,14 @@ basis={basis}
                     return result
                 else:
                     result = result + string[i]
-        command_ = get_first(self.backend_get('local', 'run_command'))
-        return subprocess.run((['/bin/sh'] if shutil.which('/bin/sh') else []) + [
-            shutil.which(command_)] + options, capture_output=True)
+        command_ = (self.backend_get('local', 'run_command'))
+        # print((['/bin/sh'] if shutil.which('/bin/sh') else []) +
+        # re.sub('  *',' ',re.sub('{.*?}','',command_)).split(' ') +
+        # options)
+        return subprocess.run((['/bin/sh'] if shutil.which('/bin/sh') else []) +
+        # [ shutil.which(command_)] +
+        re.sub('  *',' ', re.sub('{.*?}','',command_)).split(' ') +
+        options, capture_output=True)
 
     def registry(self, set=None):
         """
