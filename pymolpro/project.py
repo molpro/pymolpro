@@ -490,7 +490,7 @@ basis={basis}
         # options)
         return subprocess.run((['/bin/sh'] if shutil.which('/bin/sh') else []) +
         # [ shutil.which(command_)] +
-        re.sub('  *',' ', re.sub('{.*?}','',command_)).split(' ') +
+        re.sub('mpiexec','mpiexec -n 1', re.sub('  *',' ', re.sub('{.*?}','',command_))).split(' ') +
         options, capture_output=True)
 
     def registry(self, set=None):
