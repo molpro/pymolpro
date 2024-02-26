@@ -485,8 +485,6 @@ basis={basis}
                 else:
                     result = result + string[i]
         command_ = (self.backend_get('local', 'run_command')).strip(' ')
-        first_command = get_first(command_)
-        command_ = re.sub(r'^'+first_command, shutil.which(first_command), command_)
         command_ = re.sub('mpiexec', 'mpiexec -n 1', re.sub('  *', ' ', re.sub('{.*?}', '', command_))).strip(' ')
         split_options = (['/bin/sh'] if shutil.which('/bin/sh') else []) + command_.split(' ') + options
         return subprocess.run(split_options, capture_output=True)
