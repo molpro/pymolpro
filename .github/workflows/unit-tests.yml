@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           # numgrid isn't on conda-forge, and latest version is not available on mac/arm
-          pip install numgrid==1.1.2
+          if [ $(uname) = Linux -o $(uname) = Darwin ]; then pip install numgrid==1.1.2 ; fi
           conda install $(grep -v numgrid requirements.txt)
           pip install flake8 pytest
       - name: Lint with flake8
