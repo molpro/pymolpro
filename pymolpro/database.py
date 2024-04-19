@@ -1,3 +1,5 @@
+import copy
+
 import pymolpro
 from pymolpro import resolve_geometry
 import json
@@ -50,8 +52,8 @@ class Database:
 
     def copy(self):
         db = Database()
-        db.molecules = dict(self.molecules)
-        db.reactions = dict(self.reactions)
+        db.molecules = copy.deepcopy(self.molecules)
+        db.reactions = copy.deepcopy(self.reactions)
         db.preamble = str(self.preamble)
         return db
 
@@ -429,6 +431,16 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
             if not check:
                 raise ValueError(
                     "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
+        if 'func' in kwargs and kwargs['func'][:3].lower() == 'opt':
+            try:
+                Angstrom = 1.88972612462577
+                newdb.molecules[molecule_name]['geometry'] = '\n'.join(
+                    [atom['elementType'] + ' ' + ' '.join([str(c / Angstrom) for c in atom['xyz']]) for atom in
+                     (newdb.projects[molecule_name].geometry())])
+            except:
+                if not check:
+                    raise ValueError(
+                        "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
     if check: print("after getting molecule_energies")
     newdb.method = method
     newdb.basis = basis

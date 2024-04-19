@@ -95,6 +95,17 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
             # print(results)
 
+    def test_run_opt(self):
+        if pymolpro.Project('test').local_molpro_root:
+            db = database.run(database.load('sample'), method='hf', basis='minao')
+            db_opt = database.run(db, method='hf', basis='minao', func='opt')
+            db_opt_test = database.run(db_opt, method='hf', basis='minao', func='energy')
+            # print('H2 db', db.project_directory, db.molecules['H2']['geometry'])
+            # print('H2 db_opt', db_opt.project_directory, db_opt.molecules['H2']['geometry'])
+            # print('H2 db_opt_test', db_opt_test.project_directory, db_opt_test.molecules['H2']['geometry'])
+            self.assertNotEquals(db.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
+            self.assertEquals(db_opt.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
+
     def test_preamble(self):
         if pymolpro.Project('test').local_molpro_root:
             db = Database()
