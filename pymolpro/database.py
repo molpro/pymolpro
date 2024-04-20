@@ -254,6 +254,19 @@ class Database:
             self.subsets = __j['subsets']
         return self
 
+    def calculate_reaction_energies(self, check=False):
+        if len(self.failed) == 0:
+            self.reaction_energies = {}
+            for reaction_name, reaction in self.reactions.items():
+                if not check:
+                    self.reaction_energies[reaction_name] = 0.0
+                    for reagent, stoichiometry in reaction['stoichiometry'].items():
+                        if not self.molecule_energies[reagent]: raise ValueError(
+                            "Missing database molecule energy for " + reagent + ", method=" + str(
+                                self.method) + ", basis=" + self.basis + ", project directory=" + self.project_directory + str(
+                                self.molecule_energies))
+                        self.reaction_energies[reaction_name] += stoichiometry * self.molecule_energies[reagent]
+
     def __str__(self, rst=False, geometry=True, title=None):
         result = ''
         if title:
@@ -424,9 +437,12 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     if check: print("after storing failed")
 
     newdb.molecule_energies = {}
+    if check: print('constructing newdb and getting run results')
     for molecule_name in db.molecules:
         try:
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+            if newdb.molecule_energies[molecule_name] is None:
+                raise ValueError('ENERGY variable is empty')
         except:
             if not check:
                 raise ValueError(
@@ -441,26 +457,16 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
                 if not check:
                     raise ValueError(
                         "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
+            if check: print('got geometry', newdb.molecules[molecule_name]['geometry'])
     if check: print("after getting molecule_energies")
     newdb.method = method
     newdb.basis = basis
     newdb.options = sorted(kwargs.items())
-    if len(newdb.failed) == 0:
-        newdb.reaction_energies = {}
-        for reaction_name, reaction in db.reactions.items():
-            if not check:
-                newdb.reaction_energies[reaction_name] = 0.0
-                for reagent, stoichiometry in reaction['stoichiometry'].items():
-                    if not newdb.molecule_energies[reagent]: raise ValueError(
-                        "Missing database molecule energy for " + reagent + ", method=" + str(
-                            newdb.method) + ", basis=" + newdb.basis + ", project directory=" + newdb.project_directory + str(
-                            newdb.molecule_energies))
-                    newdb.reaction_energies[reaction_name] += stoichiometry * newdb.molecule_energies[reagent]
-
-        if clean:
-            newdb.projects = {}
-            rmtree(newdb.project_directory)
-            newdb.project_directory = None
+    newdb.calculate_reaction_energies(check)
+    if clean:
+        newdb.projects = {}
+        rmtree(newdb.project_directory)
+        newdb.project_directory = None
 
     return newdb
 
