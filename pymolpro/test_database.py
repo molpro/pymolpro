@@ -248,6 +248,16 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print(database.analyse(results))
             self.assertEqual(len(results), 5)
 
+    def test_cache(self):
+        db=pymolpro.database.Database()
+        db.add_molecule('H2','H 0 0 1\nH 0 0 -1')
+        newdb=pymolpro.database.run(db, check=False)
+        first_filename = newdb.projects['H2'].filename()
+        newdb=pymolpro.database.run(db, check=False)
+        second_filename = newdb.projects['H2'].filename()
+        shutil.rmtree(newdb.project_directory)
+        self.assertEqual(first_filename,second_filename) # because the second run should not have been done because input identical
+
     def test_units(self):
         from pymolpro.database import units
         self.assertEqual(units[None], 1.0)
