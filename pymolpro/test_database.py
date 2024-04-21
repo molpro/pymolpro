@@ -249,21 +249,23 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertEqual(len(results), 5)
 
     def test_cache(self):
-        db=pymolpro.database.Database()
-        db.add_molecule('H2','H 0 0 .35\nH 0 0 -.35')
-        newdb=pymolpro.database.run(db, check=False)
-        first_filename = newdb.projects['H2'].filename()
-        newdb=pymolpro.database.run(db, check=False)
-        second_filename = newdb.projects['H2'].filename()
-        shutil.rmtree(newdb.project_directory)
-        self.assertEqual(first_filename,second_filename) # because the second run should not have been done because input identical
+        if pymolpro.Project('test').local_molpro_root:
+            db=pymolpro.database.Database()
+            db.add_molecule('H2','H 0 0 .35\nH 0 0 -.35')
+            newdb=pymolpro.database.run(db, check=False)
+            first_filename = newdb.projects['H2'].filename()
+            newdb=pymolpro.database.run(db, check=False)
+            second_filename = newdb.projects['H2'].filename()
+            shutil.rmtree(newdb.project_directory)
+            self.assertEqual(first_filename,second_filename) # because the second run should not have been done because input identical
 
     def test_vector_energy(self):
-        db=pymolpro.database.Database()
-        db.add_molecule('CH2-a','C;H,C,2;H,C,2,H,110')
-        db.add_molecule('CH2-b','C;H,C,2;H,C,2,H,120')
-        db.add_reaction('bend',{'CH2-a':-1,'CH2-b':1})
-        pymolpro.database.run(db, method='ccsd(t)-F12',basis='cc-pVDZ') # to cover the case that the Molpro ENERGY variable is a vector
+        if pymolpro.Project('test').local_molpro_root:
+            db=pymolpro.database.Database()
+            db.add_molecule('CH2-a','C;H,C,2;H,C,2,H,110')
+            db.add_molecule('CH2-b','C;H,C,2;H,C,2,H,120')
+            db.add_reaction('bend',{'CH2-a':-1,'CH2-b':1})
+            pymolpro.database.run(db, method='ccsd(t)-F12',basis='cc-pVDZ') # to cover the case that the Molpro ENERGY variable is a vector
 
     def test_units(self):
         from pymolpro.database import units
