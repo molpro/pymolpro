@@ -443,6 +443,9 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
             if newdb.molecule_energies[molecule_name] is None:
                 raise ValueError('ENERGY variable is empty')
+            if type(newdb.molecule_energies[molecule_name]) == type([]):
+                newdb.molecule_energies[molecule_name] = newdb.molecule_energies[molecule_name][0]
+
         except:
             if not check:
                 raise ValueError(
