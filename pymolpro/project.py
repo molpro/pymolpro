@@ -149,8 +149,7 @@ basis={basis}
 {__method}
 {"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
 {"optg" if func[:3] == 'opt' else ""}
-{postamble if postamble is not None else ""}
-{{put,xml;noorbitals,nobasis}}
+{postamble if postamble is not None else "{{put,xml;noorbitals,nobasis}}"}
 """)
 
     def errors(self, ignore_warning=True):

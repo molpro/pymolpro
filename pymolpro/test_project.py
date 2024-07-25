@@ -56,5 +56,8 @@ class TestProject(unittest.TestCase):
             assert 'STATES' in self.project.registry('GMB')
             assert self.project.registry('GMB')['STATES']['set'] == 'GMB'
 
+    def test_orbitals(self):
+        assert len(self.project.orbitals()) == 2
+
 if __name__ == '__main__':
     unittest.main()

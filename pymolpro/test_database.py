@@ -120,6 +120,23 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print(results)
             self.assertAlmostEqual(results.molecule_energies['H2'], -1.13207566548333)
 
+    def test_orbitals(self):
+        if pymolpro.Project('test').local_molpro_root:
+            db = Database()
+            db.preamble = 'angstrom'
+            db.add_molecule('H2', 'H;H,H,0.7'
+                            # , preamble='angstrom'
+                            )
+            results = database.run(db, postamble='put,xml')
+            p_ = results.projects['H2']
+            m = p_.xpath('//molecule')[-1]
+            print(m)
+            orbitalSets = p_.xpath('orbitals', m)
+            print(orbitalSets)
+            print(p_.xml)
+            print(p_.orbitals())
+
+
     def test_compare_database_runs(self):
         if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
