@@ -22,7 +22,6 @@ def xyz_via_chemcoord_to_molprozmat(xyz):
     :param xyz: xyz-file
     :return: molprozmat , no check for errors
     """
-    import chemcoord
     chemcoordzmat = convert_xyz_to_chemcoordzmat(xyz)
     print ('z-matrix from chemcoord:')
     print(chemcoordzmat)
