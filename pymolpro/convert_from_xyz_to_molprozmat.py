@@ -1,9 +1,29 @@
 import string
 import re
-import chemcoord
 
-def convert_xyz_to_molprozmat(xyzinput):
-    chemcoordzmat = convert_xyz_to_chemcoordzmat(xyzinput)
+def xyz_to_zmat(xyz:str, algorithm='chemcoord'):
+    """
+    Converts from xyz to z-matrix coordinates.
+    :param xyz: xyz-file
+    :param algorithm: algorithm to choose, Default is the chemcoord-algorithm
+    :return: zmat or -1 in case of unknown algorithm,
+    no check for errors however in functions called
+    """
+
+    if (algorithm == 'chemcoord'):
+        zmat = xyz_via_chemcoord_to_molprozmat(xyz)
+    else:
+        zmat = -1
+    return zmat
+
+def xyz_via_chemcoord_to_molprozmat(xyz):
+    """
+    Converts from xyz to z-matrix coordinates, using chemcoord-algorithm
+    :param xyz: xyz-file
+    :return: molprozmat , no check for errors
+    """
+    import chemcoord
+    chemcoordzmat = convert_xyz_to_chemcoordzmat(xyz)
     print ('z-matrix from chemcoord:')
     print(chemcoordzmat)
     molprozmat = convert_chemcoordzmat_to_molprozmat(chemcoordzmat)
@@ -12,11 +32,26 @@ def convert_xyz_to_molprozmat(xyzinput):
     return molprozmat
 
 def convert_xyz_to_chemcoordzmat(xyzinput):
+    """
+    Converts from xyz to z-matrix coordinates in chemcoord-format
+    :param xyz: xyz-file
+    :return: chemcoordzmat , no check for errors
+    """
+    import chemcoord
     xyzfile = chemcoord.Cartesian.read_xyz(xyzinput, start_index = 1)
     chemcoordzmat = xyzfile.get_zmat()
     return chemcoordzmat
 
 def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
+    """
+    Converts z-matrix from chemcoord format to molpro format
+    :param chemcoordzmat: z-matrix in chemcoord format
+    :return: zmatrix , no check for errors
+    assumption is that axes e_z and e_x
+    are only used for the first two atoms (this may not be the case if
+    the ininital z-matrix form chemcoord is further transformed,
+    and dummies appear in the chemcoord z-matrix)
+    """
     f = str(chemcoordzmat)
     n = 0
     for x in f.splitlines():
@@ -44,3 +79,17 @@ def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
             zmatrix = zmatrix + line4+'\n'
     return zmatrix
 
+if (__name__ == "__main__"):
+    """
+    when called from the command line
+    :param xyz: xyz-file
+    :param algorithm: algorithm to choose, Default is the chemcoord-algorithm
+    :example: python pymolpro/convert_from_xyz_to_molprozmat.py ../../tests-fuer-xyz-to-zmat-conversion/glycine.xyz
+    """
+    import sys
+    import os
+    if len(sys.argv) >1:
+        if (os.path.isfile(sys.argv[1])):
+            xyz_to_zmat(sys.argv[1], algorithm='chemcoord')
+    else:
+        pass
