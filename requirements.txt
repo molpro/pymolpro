@@ -8,3 +8,4 @@ sphinx-rtd-theme>=1.0.0
 #numgrid==1.1.2
 pandas
 versioneer
+chemcoord
