@@ -26,9 +26,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          conda install $(grep -v numgrid requirements.txt)
           # numgrid isn't on conda-forge, and latest version is not available on mac/arm
           if [ $(uname) = Linux -o $(uname) = Darwin ]; then pip install numgrid==1.1.2 ; fi
-          conda install $(grep -v numgrid requirements.txt)
           pip install flake8 pytest
       - name: Lint with flake8
         run: |
