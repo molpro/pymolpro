@@ -5,35 +5,36 @@ import os
 def xyz_to_zmat(xyz:str, algorithm='chemcoord'):
     """
     Converts from xyz to z-matrix coordinates.
+
     :param xyz: xyz-file
-    :param algorithm: algorithm to choose, Default is the chemcoord-algorithm
-    :return: zmat or -1 in case of unknown algorithm,
-    no check for errors however in functions called
+    :param algorithm: algorithm to choose, default is the chemcoord algorithm
+    :return: The Z matrix as a string, or None in case of unknown algorithm,
+    :rtype: str
     """
 
     if (algorithm == 'chemcoord'):
-        zmat = xyz_via_chemcoord_to_molprozmat(xyz)
-    else:
-        zmat = -1
-    return zmat
+        return xyz_via_chemcoord_to_molprozmat(xyz)
+    return None
 
 def xyz_via_chemcoord_to_molprozmat(xyz):
     """
     Converts from xyz to z-matrix coordinates, using chemcoord-algorithm
+
     :param xyz: xyz-file
     :return: molprozmat , no check for errors
     """
     chemcoordzmat = convert_xyz_to_chemcoordzmat(xyz)
-    print ('z-matrix from chemcoord:')
-    print(chemcoordzmat)
+    # print ('z-matrix from chemcoord:')
+    # print(chemcoordzmat)
     molprozmat = convert_chemcoordzmat_to_molprozmat(chemcoordzmat)
-    print('\nz-matrix for Molpro:')
-    print(molprozmat)
+    # print('\nz-matrix for Molpro:')
+    # print(molprozmat)
     return molprozmat
 
 def convert_xyz_to_chemcoordzmat(xyzinput):
     """
     Converts from xyz to z-matrix coordinates in chemcoord-format
+
     :param xyz: xyz-file
     :return: chemcoordzmat , no check for errors
     """
@@ -91,7 +92,7 @@ if (__name__ == "__main__"):
     when called from the command line
     :param xyz: xyz-file
     :param algorithm: algorithm to choose, Default is the chemcoord-algorithm
-    :example: python pymolpro/convert_from_xyz_to_molprozmat.py ../../tests-fuer-xyz-to-zmat-conversion/glycine.xyz
+    :example: python pymolpro/geometry.py ../../tests-fuer-xyz-to-zmat-conversion/glycine.xyz
     """
     import sys
     import os
