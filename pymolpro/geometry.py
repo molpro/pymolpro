@@ -90,6 +90,7 @@ def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
 if (__name__ == "__main__"):
     """
     when called from the command line
+    
     :param xyz: xyz-file
     :param algorithm: algorithm to choose, Default is the chemcoord-algorithm
     :example: python pymolpro/geometry.py ../../tests-fuer-xyz-to-zmat-conversion/glycine.xyz
@@ -97,7 +98,4 @@ if (__name__ == "__main__"):
     import sys
     import os
     if len(sys.argv) >1:
-        if (os.path.isfile(sys.argv[1])):
-            xyz_to_zmat(sys.argv[1], algorithm='chemcoord')
-    else:
-        pass
+        print(xyz_to_zmat(sys.argv[1], algorithm='chemcoord'))
