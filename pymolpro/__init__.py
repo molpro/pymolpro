@@ -7,7 +7,7 @@ from pymolpro.tuple import Tuple, Single, Pair
 import pymolpro.database
 from . import _version
 # from . import convert_from_xyz_to_molprozmat
-from pymolpro.convert_from_xyz_to_molprozmat import xyz_to_zmat
+from pymolpro.geometry import xyz_to_zmat
 
 __all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict', 'Database', 'xyz_to_zmat']
 
