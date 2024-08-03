@@ -1,5 +1,6 @@
 import string
 import re
+import os
 
 def xyz_to_zmat(xyz:str, algorithm='chemcoord'):
     """
@@ -37,7 +38,14 @@ def convert_xyz_to_chemcoordzmat(xyzinput):
     :return: chemcoordzmat , no check for errors
     """
     import chemcoord
-    xyzfile = chemcoord.Cartesian.read_xyz(xyzinput, start_index = 1)
+    if os.access(xyzinput, os.R_OK):
+        xyzfile = chemcoord.Cartesian.read_xyz(xyzinput, start_index = 1)
+    else:
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix='.xyz') as f:
+            f.write(xyzinput.encode('utf-8'))
+            f.flush()
+            xyzfile = chemcoord.Cartesian.read_xyz(f.name, start_index = 1)
     chemcoordzmat = xyzfile.get_zmat()
     return chemcoordzmat
 
