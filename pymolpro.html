@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.4.29 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=56dd4102"></script>
+        <script src="_static/documentation_options.js?v=44dfd65d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -60,6 +60,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.Tuple"><code class="docutils literal notranslate"><span class="pre">Tuple</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.element_to_dict"><code class="docutils literal notranslate"><span class="pre">element_to_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.no_errors"><code class="docutils literal notranslate"><span class="pre">no_errors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.xyz_to_zmat"><code class="docutils literal notranslate"><span class="pre">xyz_to_zmat()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
@@ -394,6 +395,26 @@ Project(‘a.sjef`, suffix=’molpro’) # creates <code class="docutils literal
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True/False whether any projects have errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.xyz_to_zmat">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">xyz_to_zmat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'chemcoord'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.xyz_to_zmat" title="Link to this definition"></a></dt>
+<dd><p>Converts from xyz to z-matrix coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xyz</strong> – xyz-file</p></li>
+<li><p><strong>algorithm</strong> – algorithm to choose, default is the chemcoord algorithm</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Z matrix as a string, or None in case of unknown algorithm,</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1631,7 +1652,7 @@ In the case of <cite>statistics</cite>, the rows are</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.database.run">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.database.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc-pVTZ'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'local'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.database.run" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.database.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc-pVTZ'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'local'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.database.run" title="Link to this definition"></a></dt>
 <dd><p>Construct and run a Molpro job for each molecule in a <a class="reference internal" href="#pymolpro.database.Database" title="pymolpro.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a>,
 and compute reaction energies.</p>
 <dl class="field-list simple">
@@ -1653,6 +1674,7 @@ and compute reaction energies.</p>
 <li><p><strong>clean</strong> (<em>bool</em>) – Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of <a class="reference internal" href="#pymolpro.database.run" title="pymolpro.database.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> will use cached results when possible. If there are errors, this parameter is ignored.</p></li>
 <li><p><strong>initial</strong> (<em>str</em>) – Any valid molpro input to be placed before the geometry specification.</p></li>
 <li><p><strong>check</strong> (<em>bool</em>) – Whether to check for status of jobs instead of running them.</p></li>
+<li><p><strong>check_energy</strong> (<em>bool</em>) – Whether to throw an exception if any job did not set the Molpro ENERGY variable</p></li>
 <li><p><strong>kwargs</strong> – Any other options to pass to <code class="xref py py-meth docutils literal notranslate"><span class="pre">project.Project.run()</span></code>, including <cite>func</cite>, <cite>extrapolate</cite>, <cite>preamble</cite>, <cite>postamble</cite>.</p></li>
 </ul>
 </dd>
