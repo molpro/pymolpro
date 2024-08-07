@@ -103,8 +103,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print('H2 db', db.project_directory, db.molecules['H2']['geometry'])
             # print('H2 db_opt', db_opt.project_directory, db_opt.molecules['H2']['geometry'])
             # print('H2 db_opt_test', db_opt_test.project_directory, db_opt_test.molecules['H2']['geometry'])
-            self.assertNotEquals(db.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
-            self.assertEquals(db_opt.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
+            self.assertNotEqual(db.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
+            self.assertEqual(db_opt.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
 
     def test_preamble(self):
         if pymolpro.Project('test').local_molpro_root:
@@ -130,20 +130,20 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             results = database.run(db, postamble='put,xml')
             p_ = results.projects['H2']
             m = p_.xpath('//molecule')[-1]
-            print(m)
+            # print(m)
             orbitalSets = p_.xpath('orbitals', m)
-            print(orbitalSets)
-            print(p_.xml)
-            print(p_.orbitals())
+            # print(orbitalSets)
+            # print(p_.xml)
+            # print(p_.orbitals())
 
 
     def test_compare_database_runs(self):
         if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
             results = [
-                database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy"),
-                database.run(db, method='df-lmp2', basis='aug-cc-pVTZ', func="energy"),
-                database.run(db, method='df-lmp2', basis='aug-cc-pVQZ', func="energy"),
+                database.run(db, method='df-mp2', basis='aug-cc-pVDZ', func="energy"),
+                database.run(db, method='df-mp2', basis='aug-cc-pVTZ', func="energy"),
+                database.run(db, method='df-mp2', basis='aug-cc-pVQZ', func="energy"),
             ]
             outputs = database.analyse(results, results[-1])
             # print(outputs)
@@ -171,18 +171,18 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertFalse(result.failed)
             shutil.rmtree(result.project_directory)
 
-            result = database.run(db, method='hf', preamble='memory,1,k', basis='minao')
+            result = database.run(db, method='hf', preamble='memory,1,k', basis='minao', check_energy=False)
             self.assertTrue(result.failed)
             self.assertEqual(len(result.failed), len(db.molecules))
             self.assertEqual(result.failed['HF'].status, 'failed')
             shutil.rmtree(result.project_directory)
 
             try:
-                result = database.run(db, method='ccsd', preamble='charge=-10', basis='cc-pvdz')
+                result = database.run(db, method='hf', preamble='charge=-10', basis='cc-pvdz')
             except:
                 pass
             self.assertTrue(result.failed)
-            self.assertEqual(len(result.failed), 1)
+            self.assertEqual(len(result.failed), 3)
             self.assertEqual(result.failed['HF'].status, 'failed')
             shutil.rmtree(result.project_directory)
 

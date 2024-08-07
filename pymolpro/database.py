@@ -352,7 +352,7 @@ def library(expression=None):
 
 
 def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
-        clean=False, initial="", check=False, **kwargs):
+        clean=False, initial="", check=False, check_energy=True, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -372,6 +372,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     :param bool clean: Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of :py:meth:`run()` will use cached results when possible. If there are errors, this parameter is ignored.
     :param str initial: Any valid molpro input to be placed before the geometry specification.
     :param bool check: Whether to check for status of jobs instead of running them.
+    :param bool check_energy: Whether to throw an exception if any job did not set the Molpro ENERGY variable
     :param kwargs: Any other options to pass to :py:meth:`project.Project.run()`, including `func`, `extrapolate`, `preamble`, `postamble`.
     :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
     :rtype: Database
@@ -441,7 +442,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     for molecule_name in db.molecules:
         try:
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
-            if newdb.molecule_energies[molecule_name] is None:
+            if check_energy and newdb.molecule_energies[molecule_name] is None:
                 raise ValueError('ENERGY variable is empty')
             if type(newdb.molecule_energies[molecule_name]) == type([]):
                 newdb.molecule_energies[molecule_name] = newdb.molecule_energies[molecule_name][0]
