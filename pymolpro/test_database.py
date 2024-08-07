@@ -171,7 +171,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertFalse(result.failed)
             shutil.rmtree(result.project_directory)
 
-            result = database.run(db, method='hf', preamble='memory,1,k', basis='minao')
+            result = database.run(db, method='hf', preamble='memory,1,m', basis='minao')
             self.assertTrue(result.failed)
             self.assertEqual(len(result.failed), len(db.molecules))
             self.assertEqual(result.failed['HF'].status, 'failed')
