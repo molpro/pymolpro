@@ -103,8 +103,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print('H2 db', db.project_directory, db.molecules['H2']['geometry'])
             # print('H2 db_opt', db_opt.project_directory, db_opt.molecules['H2']['geometry'])
             # print('H2 db_opt_test', db_opt_test.project_directory, db_opt_test.molecules['H2']['geometry'])
-            self.assertNotEquals(db.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
-            self.assertEquals(db_opt.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
+            self.assertNotEqual(db.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
+            self.assertEqual(db_opt.molecules['H2']['geometry'], db_opt_test.molecules['H2']['geometry'])
 
     def test_preamble(self):
         if pymolpro.Project('test').local_molpro_root:
