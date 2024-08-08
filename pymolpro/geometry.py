@@ -24,11 +24,7 @@ def xyz_via_chemcoord_to_molprozmat(xyz):
     :return: molprozmat , no check for errors
     """
     chemcoordzmat = convert_xyz_to_chemcoordzmat(xyz)
-    # print ('z-matrix from chemcoord:')
-    # print(chemcoordzmat)
     molprozmat = convert_chemcoordzmat_to_molprozmat(chemcoordzmat)
-    # print('\nz-matrix for Molpro:')
-    # print(molprozmat)
     return molprozmat
 
 def convert_xyz_to_chemcoordzmat(xyzinput):
@@ -59,6 +55,8 @@ def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
     are only used for the first two atoms (this may not be the case if
     the ininital z-matrix form chemcoord is further transformed,
     and dummies appear in the chemcoord z-matrix)
+    some check for errors: chemcoordzmat must not have e_x e_z origin
+    in places which are not chopped off when transforming to molpro format
     """
     f = str(chemcoordzmat)
     n = 0
