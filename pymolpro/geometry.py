@@ -72,17 +72,26 @@ def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
             zmatrix = atomdict.get(x.split()[0]) + x.split()[0]+'\n'
         atomdict[x.split()[0]] = x.split()[1]
         if (n > 2):
+            if atomdict.get(x.split()[2]) is None:
+                print("row",n,":",x.split()[2], " - problem in the z-matrix!")
+                return None
             atom2 = atomdict.get(x.split()[2]) + (x.split()[2])
         if (n == 3):
             line2 = atom1 + " " + atom2 + " " + x.split()[3]
             zmatrix = zmatrix + line2+'\n'
         if (n > 3):
+            if atomdict.get(x.split()[4]) is None:
+                print("row",n,":",x.split()[4], " - problem in the z-matrix!")
+                return None
             atom3 = str(atomdict.get(x.split()[4])) + x.split()[4]
         if (n == 4):
             line3 = atom1 + " " + atom2 + " " + x.split()[3] + " " + atom3 + " " + x.split()[5]
             zmatrix = zmatrix + line3+'\n'
-        atom4 = str(atomdict.get(x.split()[6])) + x.split()[6]
         if (n > 4):
+            if atomdict.get(x.split()[6]) is None:
+                print("row",n,":",x.split()[6], " - problem in the z-matrix!")
+                return None
+            atom4 = str(atomdict.get(x.split()[6])) + x.split()[6]
             line4 = atom1 + " " + atom2 + " " + x.split()[3] + " " + atom3 + " " + x.split()[5] + " " + atom4 + " " + x.split()[7]
             zmatrix = zmatrix + line4+'\n'
     return zmatrix
