@@ -103,6 +103,5 @@ if (__name__ == "__main__"):
     :example: python pymolpro/geometry.py ../../tests-fuer-xyz-to-zmat-conversion/glycine.xyz
     """
     import sys
-    import os
     if len(sys.argv) >1:
         print(xyz_to_zmat(sys.argv[1], algorithm='chemcoord'))
