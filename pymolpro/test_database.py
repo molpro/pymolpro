@@ -83,8 +83,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
     def test_run_database(self):
         if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
-            results = database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
-            results2 = database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy")
+            results = database.run(db, method='df-mp2', basis='aug-cc-pVDZ', func="energy")
+            results2 = database.run(db, method='df-mp2', basis='aug-cc-pVDZ', func="energy")
             # del results['projects']
             # del results2['projects']
             self.assertEqual(results.molecule_energies, results2.molecule_energies)
@@ -92,7 +92,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             results2.molecule_energies['HF'] = 12345.0
             self.assertNotEqual(results.molecule_energies, results2.molecule_energies)
             self.assertNotEqual(results, results2)
-            database.run(db, method='df-lmp2', basis='aug-cc-pVDZ', func="energy", clean=True)
+            database.run(db, method='df-mp2', basis='aug-cc-pVDZ', func="energy", clean=True)
             # print(results)
 
     def test_run_opt(self):
