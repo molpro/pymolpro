@@ -5,7 +5,6 @@ lxml
 scipy>=1.9.3
 numpy<2
 sphinx-rtd-theme>=1.0.0
-#numgrid==1.1.2
+#numgrid==2.1.1
 pandas
-versioneer
 chemcoord
