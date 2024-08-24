@@ -186,7 +186,7 @@ def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False):
         return result[0] if ID else result
 
 
-def spherical_grid(radial_points, radial_weights, l):
+def spherical_grid(radial_points, radial_weights, l: int):
     """
     Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.
 
@@ -195,31 +195,27 @@ def spherical_grid(radial_points, radial_weights, l):
     :param l: Largest rank of spherical harmonic for which exact quadrature is wanted.
     :return: points and weights (numpy array [npt,4])
     """
-    import numgrid
-    nptang = __lebedev_select(l, True)
-    gridang = numgrid.angular_grid(nptang)
-    # print("gridang:",gridang)
+    from pylebedev import PyLebedev
+    pylebedev = PyLebedev()
+    orders = pylebedev.get_orders_list()
+    order = None
+    for order in orders:
+        if order >= l:
+            break
+    roots, weights = pylebedev.get_points_and_weights(order)
+
+    nptang = len(roots)
+
     nptrad = len(radial_points)
     npt3 = nptrad * nptang
     points3d = np.empty([npt3, 4])
     for j in range(nptrad):
         for k in range(nptang):
             for i in range(3):
-                points3d[k + j * nptang, i] = radial_points[j] * gridang[0][k][i]
-            points3d[k + j * nptang, 3] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * gridang[1][k]
+                points3d[k + j * nptang, i] = radial_points[j] * roots[k][i]
+            points3d[k + j * nptang, 3] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * weights[k]
     # print("in spherical_grid points3d",points3d)
     return points3d
-
-
-def __lebedev_select(l, size=False):
-    lebedev = {3: 6, 5: 14, 7: 26, 9: 38, 11: 50, 13: 74, 15: 86, 17: 110, 19: 146,
-               21: 170, 23: 194, 25: 230, 27: 266, 29: 302, 31: 350, 35: 434, 41: 590, 47: 770,
-               53: 974, 59: 1202, 65: 1454, 71: 1730, 77: 2030, 83: 2354, 89: 2702, 95: 3074, 101: 3470,
-               107: 3890, 113: 4334, 119: 4802, 125: 5294, 131: 5810}
-    for k, v in lebedev.items():
-        if l <= k:
-            return v if size else k
-    return lebedev[131] if size else 131
 
 
 def cubical_grid(points1d, weights1d):
