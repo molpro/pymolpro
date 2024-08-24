@@ -1,5 +1,3 @@
-import copy
-
 import pymolpro
 import os
 import re
@@ -9,7 +7,8 @@ if not os.path.isdir('Geometries_for_Minnesota_Database_2019'):
 
     resp = requests.get(
         'https://conservancy.umn.edu/bitstream/handle/11299/208752/Geometries_for_Minnesota_Database_2019.zip?sequence=6&isAllowed=y')
-    with open('Geometries_for_Minnesota_Database_2019.zip', 'wb') as f: f.write(resp.content)
+    with open('Geometries_for_Minnesota_Database_2019.zip', 'wb') as f:
+        f.write(resp.content)
     import shutil
 
     shutil.unpack_archive('Geometries_for_Minnesota_Database_2019.zip', '.')
@@ -19,7 +18,8 @@ for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
     handle = filename[:-9]
     db = pymolpro.database.Database(description='Minnesota 2019 ' + handle)
-    if handle in ['PEC4', 'MGBL193']: continue  # TODO handle these exceptional cases
+    if handle in ['PEC4', 'MGBL193']:
+        continue  # TODO handle these exceptional cases
     # if handle != 'SR-MGM-BE8': continue
     assert os.path.isfile(f)
     print(handle, f)
@@ -28,8 +28,10 @@ for filename in os.listdir(directory):
         while True:
             line = fh.readline()
             # print("first line", line)
-            if not line: break
-            if line.isspace(): continue
+            if not line:
+                break
+            if line.isspace():
+                continue
             while line[:5] != '%chk=':
                 line = fh.readline()
             # print("parsed line",line)
@@ -37,13 +39,16 @@ for filename in os.listdir(directory):
             assert (re.match(s, line))
             molecule_name = re.sub(s, r'\1', line).strip()
             # print("molecule_name",molecule_name)
-            if molecule_name[-1] == '\n': molecule_name = molecule_name[:-1]
+            if molecule_name[-1] == '\n':
+                molecule_name = molecule_name[:-1]
             # print("molecule_name", molecule_name[-4:])
-            if molecule_name[-4:] == ".chk": molecule_name = molecule_name[:-4]
+            if molecule_name[-4:] == ".chk":
+                molecule_name = molecule_name[:-4]
             # print("molecule_name", molecule_name)
             while True:
                 line = fh.readline()
-                if line[0] != '#' and not line.isspace() and line[0] != '%': break
+                if line[0] != '#' and not line.isspace() and line[0] != '%':
+                    break
             molecule_title = line[:-1]
             # print("molecule_title", molecule_title)
             assert fh.readline().isspace()
@@ -58,14 +63,16 @@ for filename in os.listdir(directory):
             geometry = ""
             while True:
                 line = fh.readline()
-                if line.isspace() or not line: break
+                if line.isspace() or not line:
+                    break
                 geometry += line
             # print("molecule geometry", geometry)
             # print("search for extra data")
             preamble = ""
             while True:
                 line = fh.readline()
-                if not line or re.match('>+', line): break
+                if not line or re.match('>+', line):
+                    break
                 if re.match('[A-Za-z][A-Za-z0-9]*=', line):
                     preamble += line + '\n'
             # print("preamble:",preamble)

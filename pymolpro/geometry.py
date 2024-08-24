@@ -1,8 +1,7 @@
-import string
-import re
 import os
 
-def xyz_to_zmat(xyz:str, algorithm='chemcoord'):
+
+def xyz_to_zmat(xyz: str, algorithm='chemcoord'):
     """
     Converts from xyz to z-matrix coordinates.
 
@@ -16,6 +15,7 @@ def xyz_to_zmat(xyz:str, algorithm='chemcoord'):
         return xyz_via_chemcoord_to_molprozmat(xyz)
     return None
 
+
 def xyz_via_chemcoord_to_molprozmat(xyz):
     """
     Converts from xyz to z-matrix coordinates, using chemcoord-algorithm
@@ -27,6 +27,7 @@ def xyz_via_chemcoord_to_molprozmat(xyz):
     molprozmat = convert_chemcoordzmat_to_molprozmat(chemcoordzmat)
     return molprozmat
 
+
 def convert_xyz_to_chemcoordzmat(xyzinput):
     """
     Converts from xyz to z-matrix coordinates in chemcoord-format
@@ -36,15 +37,16 @@ def convert_xyz_to_chemcoordzmat(xyzinput):
     """
     import chemcoord
     if os.access(xyzinput, os.R_OK):
-        xyzfile = chemcoord.Cartesian.read_xyz(xyzinput, start_index = 1)
+        xyzfile = chemcoord.Cartesian.read_xyz(xyzinput, start_index=1)
     else:
         import tempfile
         with tempfile.NamedTemporaryFile(suffix='.xyz') as f:
             f.write(xyzinput.encode('utf-8'))
             f.flush()
-            xyzfile = chemcoord.Cartesian.read_xyz(f.name, start_index = 1)
+            xyzfile = chemcoord.Cartesian.read_xyz(f.name, start_index=1)
     chemcoordzmat = xyzfile.get_zmat()
     return chemcoordzmat
+
 
 def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
     """
@@ -61,47 +63,50 @@ def convert_chemcoordzmat_to_molprozmat(chemcoordzmat):
     f = str(chemcoordzmat)
     n = 0
     for x in f.splitlines():
-        n = n +1
+        n = n + 1
         if (n == 1):
             continue
         atom1 = x.split()[1] + x.split()[0]
         if (n == 2):
-            atomdict = {x.split()[0] : x.split()[1]}
-            zmatrix = atomdict.get(x.split()[0]) + x.split()[0]+'\n'
+            atomdict = {x.split()[0]: x.split()[1]}
+            zmatrix = atomdict.get(x.split()[0]) + x.split()[0] + '\n'
         atomdict[x.split()[0]] = x.split()[1]
         if (n > 2):
             if atomdict.get(x.split()[2]) is None:
-                print("row",n,":",x.split()[2], " - problem in the z-matrix!")
+                print("row", n, ":", x.split()[2], " - problem in the z-matrix!")
                 return None
             atom2 = atomdict.get(x.split()[2]) + (x.split()[2])
         if (n == 3):
             line2 = atom1 + " " + atom2 + " " + x.split()[3]
-            zmatrix = zmatrix + line2+'\n'
+            zmatrix = zmatrix + line2 + '\n'
         if (n > 3):
             if atomdict.get(x.split()[4]) is None:
-                print("row",n,":",x.split()[4], " - problem in the z-matrix!")
+                print("row", n, ":", x.split()[4], " - problem in the z-matrix!")
                 return None
             atom3 = str(atomdict.get(x.split()[4])) + x.split()[4]
         if (n == 4):
             line3 = atom1 + " " + atom2 + " " + x.split()[3] + " " + atom3 + " " + x.split()[5]
-            zmatrix = zmatrix + line3+'\n'
+            zmatrix = zmatrix + line3 + '\n'
         if (n > 4):
             if atomdict.get(x.split()[6]) is None:
-                print("row",n,":",x.split()[6], " - problem in the z-matrix!")
+                print("row", n, ":", x.split()[6], " - problem in the z-matrix!")
                 return None
             atom4 = str(atomdict.get(x.split()[6])) + x.split()[6]
-            line4 = atom1 + " " + atom2 + " " + x.split()[3] + " " + atom3 + " " + x.split()[5] + " " + atom4 + " " + x.split()[7]
-            zmatrix = zmatrix + line4+'\n'
+            line4 = atom1 + " " + atom2 + " " + x.split()[3] + " " + atom3 + " " + x.split()[5] + " " + atom4 + " " + \
+                    x.split()[7]
+            zmatrix = zmatrix + line4 + '\n'
     return zmatrix
+
 
 if (__name__ == "__main__"):
     """
     when called from the command line
-    
+
     :param xyz: xyz-file
     :param algorithm: algorithm to choose, Default is the chemcoord-algorithm
     :example: python pymolpro/geometry.py ../../tests-fuer-xyz-to-zmat-conversion/glycine.xyz
     """
     import sys
-    if len(sys.argv) >1:
+
+    if len(sys.argv) > 1:
         print(xyz_to_zmat(sys.argv[1], algorithm='chemcoord'))

@@ -42,13 +42,11 @@ class TestOrbital(unittest.TestCase):
 
     def test_gauss_hermite(self):
         from scipy.special import factorial2
-        a=factorial2(-1)
-        b=factorial2(0)
         size = 15
         points = self.aligned_orbital.grid(size, 'Gauss-Hermite', scale=1.0)
         integrals = []
         for power in range(0, size // 2):
-            f2 = factorial2(2*power-1) if power > 0 else 1 # circumvent bug in scipy 1.11.1
+            f2 = factorial2(2 * power - 1) if power > 0 else 1  # circumvent bug in scipy 1.11.1
             integral002 = 0.0
             integral022 = 0.0
             for p in points:

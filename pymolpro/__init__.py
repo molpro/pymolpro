@@ -16,4 +16,3 @@ pysjef.project_factory.PROJECT_FACTORY["molpro"] = project.Project
 RootXml.TAG_TO_NAME['molpro'] = node_xml.tag_to_name
 RootXml.SPECIAL_NODES['molpro'] = {'property': node_xml.PropertyXml,
                                    'plot': node_xml.PlotXml}
-

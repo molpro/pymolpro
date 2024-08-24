@@ -1,3 +1,9 @@
+import sys
+import subprocess
+import pymolpro
+import os
+from pathlib import Path
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -10,14 +16,10 @@ project = 'pymolpro'
 copyright = '2022, Marat Sibaev, Peter Knowles'
 author = 'Marat Sibaev, Peter Knowles'
 
-import sys
-from pathlib import Path
 # sys.path.insert(0, Path(__file__).parent.parent.absolute())
-import subprocess
 
 subprocess.check_call(
     [sys.executable, "-m", "pip", "install", "--no-deps", "--force-reinstall", Path(__file__).parent.parent.parent])
-import pymolpro
 
 release = pymolpro.__version__
 
@@ -42,11 +44,11 @@ rst_epilog = '\n'.join(map(lambda x: f".. |{x}| replace:: {__frozen_locals[x]}",
 html_theme = "sphinx_rtd_theme"
 # html_static_path = ['_static']
 
-import os
 
 for dbname in pymolpro.database.library():
     dbname_pretty = dbname.replace('_', ' ')
     db = pymolpro.database.load(dbname)
-    if not os.path.exists('database'): os.makedirs('database')
+    if not os.path.exists('database'):
+        os.makedirs('database')
     with open('database/' + dbname + '.rst', 'w') as f:
-        f.write(db.__str__(rst=True,geometry=False,title=dbname_pretty))
+        f.write(db.__str__(rst=True, geometry=False, title=dbname_pretty))

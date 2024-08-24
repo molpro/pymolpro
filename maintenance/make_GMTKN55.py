@@ -1,6 +1,3 @@
-import copy
-import sys
-
 import pymolpro
 import os
 import re
@@ -76,7 +73,8 @@ def ensure_file(path):
     if not os.path.exists(path_):
         resp = requests.get(url_head + '/' + directory + '/' + path)
         os.makedirs(os.path.realpath(os.path.join(path_, '..')), exist_ok=True)
-        with open(path_, "wb") as f: f.write(resp.content)
+        with open(path_, "wb") as f:
+            f.write(resp.content)
     return path_
 
 
@@ -85,35 +83,36 @@ def html_repair(file):
     contents = t.readlines()
     t.close()
     with open(file, 'w') as t:
-        for l in contents:
-            l = l.replace(r'&tau;', 'tau')
-            l = l.replace(r'&omega;', 'omega')
-            l = l.replace(r'&aacute;', 'a')
-            l = l.replace(r'&iacute;', 'i')
-            l = l.replace(r'&acute;', '\'')
-            l = l.replace(r'&auml;', 'ae')
-            l = l.replace(r'&Rcaron;', 'R')
-            l = l.replace(r'&ccaron;', 'c')
-            l = re.sub(r'href=([A-Za-z0-9_-]+\.txt)>', r'href="\1">', l)
-            l = l.replace(r'<br>', r'<br/>')
-            l = l.replace(r'<A ', r'<a ')
-            l = l.replace(r'align=right', r'align="right"')
-            l = l.replace(r'Referenz<br/>', r'Referenz</p>')  # hack DIPCS10ref.html
-            l = re.sub(r'(<p>.*2824-2834.<br/>)$', r'\1</p>', l)  # hack YBDE18
-            l = re.sub(r'(<p>.*2012-2018.<br/>)$', r'\1</p>', l)  # hack FH51ref
-            l = re.sub(r'(<p>Taken from \(this work\).<br/>)$', r'\1</p>', l)  # hack RC21ref
-            l = re.sub(r'\&(downloads|lang|subsection)', r'%26\1', l)  # hack NBPRC
-            l = l.replace(r'</td><td> ADIM6', r' ADIM6')  # hack ADIM6ref.html
-            l = l.replace(r'</td><td> </h1>', r' </h1>')  # hack PNICO23ref.html
-            l = re.sub(r'^/table>', r'</table>', l)  # hack S66ref
-            l = re.sub(r'</strong>2012', r'<strong>2012', l)  # hack HAL59ref
-            l = re.sub(r'Theory Comput.<em>', r'Theory Comput.</em>', l)  # hack HAL59ref
-            l = re.sub(r'<td> FI pyr </td>', r'<td> FI </td><td>pyr </td>', l)  # hack HAL59ref
-            l = re.sub(r'(^Taken from A L. Goerigk and S. Grimme,.*107-126.*<br/> *)$', r'<p>\1', l)  # hack PCONF21ref
-            l = re.sub(r'(<td> * 13r_[0-9*]) 13', r'\1 </td><td> 13', l)  # hack HAL59ref
-            l = l.replace(r'propylthiophene H2O',r'propylthiophene </td><td> H2O')
-            l = l.replace(r'bz h2',r'bz </td><td> h2')
-            t.write(l)
+        for line in contents:
+            line = line.replace(r'&tau;', 'tau')
+            line = line.replace(r'&omega;', 'omega')
+            line = line.replace(r'&aacute;', 'a')
+            line = line.replace(r'&iacute;', 'i')
+            line = line.replace(r'&acute;', '\'')
+            line = line.replace(r'&auml;', 'ae')
+            line = line.replace(r'&Rcaron;', 'R')
+            line = line.replace(r'&ccaron;', 'c')
+            line = re.sub(r'href=([A-Za-z0-9_-]+\.txt)>', r'href="\1">', line)
+            line = line.replace(r'<br>', r'<br/>')
+            line = line.replace(r'<A ', r'<a ')
+            line = line.replace(r'align=right', r'align="right"')
+            line = line.replace(r'Referenz<br/>', r'Referenz</p>')  # hack DIPCS10ref.html
+            line = re.sub(r'(<p>.*2824-2834.<br/>)$', r'\1</p>', line)  # hack YBDE18
+            line = re.sub(r'(<p>.*2012-2018.<br/>)$', r'\1</p>', line)  # hack FH51ref
+            line = re.sub(r'(<p>Taken from \(this work\).<br/>)$', r'\1</p>', line)  # hack RC21ref
+            line = re.sub(r'\&(downloads|lang|subsection)', r'%26\1', line)  # hack NBPRC
+            line = line.replace(r'</td><td> ADIM6', r' ADIM6')  # hack ADIM6ref.html
+            line = line.replace(r'</td><td> </h1>', r' </h1>')  # hack PNICO23ref.html
+            line = re.sub(r'^/table>', r'</table>', line)  # hack S66ref
+            line = re.sub(r'</strong>2012', r'<strong>2012', line)  # hack HAL59ref
+            line = re.sub(r'Theory Comput.<em>', r'Theory Comput.</em>', line)  # hack HAL59ref
+            line = re.sub(r'<td> FI pyr </td>', r'<td> FI </td><td>pyr </td>', line)  # hack HAL59ref
+            line = re.sub(r'(^Taken from A L. Goerigk and S. Grimme,.*107-126.*<br/> *)$', r'<p>\1',
+                          line)  # hack PCONF21ref
+            line = re.sub(r'(<td> * 13r_[0-9*]) 13', r'\1 </td><td> 13', line)  # hack HAL59ref
+            line = line.replace(r'propylthiophene H2O', r'propylthiophene </td><td> H2O')
+            line = line.replace(r'bz h2', r'bz </td><td> h2')
+            t.write(line)
     return file
 
 
@@ -131,19 +130,20 @@ for subset in subsets:
     for filename in os.listdir(os.path.join(directory, molecule_subset)):
         f = os.path.join(directory, molecule_subset, filename, 'struc.xyz')
         # if subset[:4]=='BHPE': print("filename",filename,subset,f)
-        if not os.path.exists(f): continue
+        if not os.path.exists(f):
+            continue
         with open(f, 'r') as fh:
-            geometry = ' '.join(fh.readlines()).replace('\t',' ')
+            geometry = ' '.join(fh.readlines()).replace('\t', ' ')
         try:
             with open(os.path.join(directory, subset, filename, '.UHF'), 'r') as fh:
                 spin = int(' '.join(fh.readlines()))
-        except:
+        except FileNotFoundError:
             spin = None
         spin = spin if spin != 0 else None
         try:
             with open(os.path.join(directory, subset, filename, '.CHRG'), 'r') as fh:
                 charge = int(' '.join(fh.readlines()))
-        except:
+        except FileNotFoundError:
             charge = None
         charge = charge if charge != 0 else None
         # print(geometry)
@@ -158,12 +158,14 @@ for subset in subsets:
         db.references['reference data'] = url
     for row in ref.xpath("//table/tr"):
         cols = row.xpath('td/text()')
-        if len(cols) < 1: continue
+        if len(cols) < 1:
+            continue
         key = cols[0]
         ref = cols[-1]
         nvalue = (sum([1 if c.strip() else 0 for c in cols]) - 1) // 2
         offset = 1 + nvalue
-        while not cols[offset].strip(): offset += 1
+        while not cols[offset].strip():
+            offset += 1
         # print(cols,len(cols),len(cols)//2-1,nvalue,offset)
         stoichiometry = {}
         for i in range(nvalue):
@@ -172,9 +174,9 @@ for subset in subsets:
             # print("value",cols[i+offset])
             if str(cols[i + 1]).strip():
                 try:
-                    key = [k for k in db.molecules if k.upper() == str(cols[i+1]).strip().upper()][0]
-                except:
-                    print("subset ",subset,": cannot find ",str(cols[i+1]).strip()," in ",db.molecules.keys())
+                    key = [k for k in db.molecules if k.upper() == str(cols[i + 1]).strip().upper()][0]
+                except Exception:
+                    print("subset ", subset, ": cannot find ", str(cols[i + 1]).strip(), " in ", db.molecules.keys())
                 stoichiometry[key] = int(cols[i + offset])
         # print("stoichiometry:",stoichiometry)
         db.add_reaction(cols[0], stoichiometry, energy=float(cols[-1]) * kcal)

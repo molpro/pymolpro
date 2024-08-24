@@ -132,10 +132,10 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             m = p_.xpath('//molecule')[-1]
             # print(m)
             orbitalSets = p_.xpath('orbitals', m)
+            assert orbitalSets is not None
             # print(orbitalSets)
             # print(p_.xml)
             # print(p_.orbitals())
-
 
     def test_compare_database_runs(self):
         if pymolpro.Project('test').local_molpro_root:
@@ -156,7 +156,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertAlmostEqual((len(db.molecules) - 1) * pow(stdevd, 2),
                                    len(db.molecules) * (pow(rmsd, 2) - pow(msd, 2)))
             for title, output in outputs.items():
-                if type(output) == pandas.DataFrame: self.assertEqual(len(output.columns), 3)
+                if type(output) is pandas.DataFrame: self.assertEqual(len(output.columns), 3)
                 # print(title)
                 # print(output)
             db.reaction_energies = results[-1].reaction_energies
@@ -179,7 +179,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
 
             try:
                 result = database.run(db, method='hf', preamble='charge=-10', basis='cc-pvdz')
-            except:
+            except Exception:
                 pass
             self.assertTrue(result.failed)
             self.assertNotEqual(len(result.failed), 0)
@@ -188,13 +188,13 @@ F          0.0000000000        0.0000000000        3.6683721829"""
 
             try:
                 result = database.run(db, method='bad-method', basis='minao')
-            except:
+            except Exception:
                 pass
             self.assertNotEqual(len(result.failed), 0)
             # self.assertEqual(result.failed['HF'].status, 'failed')
             try:
                 shutil.rmtree(result.project_directory)
-            except:
+            except Exception:
                 pass
 
     def test_subset(self):
@@ -233,9 +233,9 @@ F          0.0000000000        0.0000000000        3.6683721829"""
 
         # print(pymolpro.database.elements(list(subset.molecules.values())[0]['geometry']))
         # print(pymolpro.database.electrons(list(subset.molecules.values())[0]['geometry']))
-        self.assertEqual(len(pymolpro.database.elements(list(subset.molecules.values())[0])),5)
-        self.assertEqual(pymolpro.database.electrons(list(subset.molecules.values())[0]['geometry']),18)
-        self.assertEqual(pymolpro.database.electrons(list(subset.molecules.values())[0]),18)
+        self.assertEqual(len(pymolpro.database.elements(list(subset.molecules.values())[0])), 5)
+        self.assertEqual(pymolpro.database.electrons(list(subset.molecules.values())[0]['geometry']), 18)
+        self.assertEqual(pymolpro.database.electrons(list(subset.molecules.values())[0]), 18)
 
         subset = pymolpro.database.load('GMTKN55_BH76').subset(max_electrons=10)
         # print(subset)
@@ -267,22 +267,24 @@ F          0.0000000000        0.0000000000        3.6683721829"""
 
     def test_cache(self):
         if pymolpro.Project('test').local_molpro_root:
-            db=pymolpro.database.Database()
-            db.add_molecule('H2','H 0 0 .35\nH 0 0 -.35')
-            newdb=pymolpro.database.run(db, check=False)
+            db = pymolpro.database.Database()
+            db.add_molecule('H2', 'H 0 0 .35\nH 0 0 -.35')
+            newdb = pymolpro.database.run(db, check=False)
             first_filename = newdb.projects['H2'].filename()
-            newdb=pymolpro.database.run(db, check=False)
+            newdb = pymolpro.database.run(db, check=False)
             second_filename = newdb.projects['H2'].filename()
             shutil.rmtree(newdb.project_directory)
-            self.assertEqual(first_filename,second_filename) # because the second run should not have been done because input identical
+            self.assertEqual(first_filename,
+                             second_filename)  # because the second run should not have been done because input identical
 
     def test_vector_energy(self):
         if pymolpro.Project('test').local_molpro_root:
-            db=pymolpro.database.Database()
-            db.add_molecule('CH2-a','C;H,C,2;H,C,2,H,110')
-            db.add_molecule('CH2-b','C;H,C,2;H,C,2,H,120')
-            db.add_reaction('bend',{'CH2-a':-1,'CH2-b':1})
-            pymolpro.database.run(db, method='ccsd(t)-F12',basis='cc-pVDZ') # to cover the case that the Molpro ENERGY variable is a vector
+            db = pymolpro.database.Database()
+            db.add_molecule('CH2-a', 'C;H,C,2;H,C,2,H,110')
+            db.add_molecule('CH2-b', 'C;H,C,2;H,C,2,H,120')
+            db.add_reaction('bend', {'CH2-a': -1, 'CH2-b': 1})
+            pymolpro.database.run(db, method='ccsd(t)-F12',
+                                  basis='cc-pVDZ')  # to cover the case that the Molpro ENERGY variable is a vector
 
     def test_units(self):
         from pymolpro.database import units
@@ -311,7 +313,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         # print(db12)
         self.assertEqual(len(db12), 2)
 
-    def test_library(self):
+    def test_library_gmtkn55(self):
         from pymolpro.database import library
         self.assertEqual(len(library('GMTKN55')), 55)
         self.assertEqual(len(library('^.MTKN55')), 55)

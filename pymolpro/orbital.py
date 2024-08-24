@@ -39,12 +39,12 @@ class Orbital:
         """
         # grids for second moment eigenvalues unity
         if method == 'erfinv':
-            assert type(npt) != list
+            assert type(npt) is not list
             points = [sp.special.erfinv(2 * (k + 1) / float(npt + 1) - 1) for k in range(npt)]
             weights = [1.0 / npt for k in range(npt)]
             points3d = pymolpro.grid.cubical_grid(points, weights)
         elif method == 'Gauss-Hermite':
-            assert type(npt) != list
+            assert type(npt) is not list
             import scipy.special
             x, w = scipy.special.roots_hermite(npt)
             points = [x[k] * math.sqrt(2) for k in range(npt)]
@@ -53,13 +53,13 @@ class Orbital:
         elif 'Lebedev' in method:
             import scipy.special
             if 'Laguerre' in method:
-                radial_points, radial_weights = scipy.special.roots_laguerre(npt[0] if type(npt) == list else npt)
+                radial_points, radial_weights = scipy.special.roots_laguerre(npt[0] if type(npt) is list else npt)
                 for i in range(len(radial_weights)):
                     radial_weights[i] *= math.exp(radial_points[i]) / 2
                 radial_points *= 0.5  # why?
             elif 'Mura' in method:
                 scalem = grid_parameters[1] if len(grid_parameters) > 1 else 10
-                n1 = npt[0] if type(npt) == list else npt
+                n1 = npt[0] if type(npt) is list else npt
                 m = grid_parameters[0] if len(grid_parameters) > 0 else 3
                 xpoints = [(float(i) + 0.5) / n1 for i in range(n1)]
                 radial_weights = [m * scalem * pow(x, m - 1) / (1 - pow(x, m)) / n1 for x in xpoints]
@@ -67,7 +67,7 @@ class Orbital:
             else:
                 assert False
             points3d = pymolpro.grid.spherical_grid(radial_points, radial_weights,
-                                                    npt[1] if type(npt) == list and len(npt) > 1 else len(
+                                                    npt[1] if type(npt) is list and len(npt) > 1 else len(
                                                         radial_weights))
         else:
             assert False
@@ -101,13 +101,14 @@ class Orbital:
         :param node: lxml.etree.Element holding a single orbital
         """
         self.node = node
-        self.occupation = float(self.attribute('occupation')) #: Occupation of the orbital
-        self.centroid = np.array([float(self.attribute('moments').split()[k]) for k in range(3)]) #: Centroid of the orbital
+        self.occupation = float(self.attribute('occupation'))  #: Occupation of the orbital
+        self.centroid = np.array(
+            [float(self.attribute('moments').split()[k]) for k in range(3)])  #: Centroid of the orbital
         #: Eigenvalues of the orbital second-moment tensor (origin at centre of charge) in ascending order
         self.second_moment_eigenvalues, self._second_moment_eigenvectors = np.linalg.eigh(self.local_second_moments)
         for i in range(3):
-            if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0: self._second_moment_eigenvectors[:,
-                                                                                  i] *= -1
+            if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0:
+                self._second_moment_eigenvectors[:, i] *= -1
         self.coefficients = self.node.text.split()
         self.coefficients = [float(c) for c in self.coefficients]
 

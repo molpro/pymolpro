@@ -1,7 +1,6 @@
 import numpy as np
 from pysjef import xpath
 from pymolpro.orbital import Orbital
-from lxml import etree
 
 
 class Tuple:
@@ -80,7 +79,8 @@ class Pair(Tuple):
         """
         axes = np.empty([3, 3], dtype=float)
         axes[:, 2] = self.orbitals[1].centroid - self.orbitals[0].centroid
-        if np.linalg.norm(axes[:, 2]) < 1e-8: return np.identity(3)
+        if np.linalg.norm(axes[:, 2]) < 1e-8:
+            return np.identity(3)
         axes[:, 2] = axes[:, 2] / np.linalg.norm(axes[:, 2])
         axes[0, 0] = axes[1, 2]
         axes[1, 0] = -axes[0, 2]

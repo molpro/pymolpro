@@ -3,9 +3,7 @@ import unittest
 import lxml.etree
 
 import pymolpro
-import math
 import numpy as np
-from lxml import etree
 
 
 class TestPair(unittest.TestCase):
@@ -82,5 +80,6 @@ class TestPair(unittest.TestCase):
         self.assertTrue(np.allclose(np.matmul(pair.axes.transpose(), pair.axes), np.identity(3)))
         self.assertTrue(np.allclose(pair.axes, np.identity(3)))
 
+
 if __name__ == '__main__':
-            unittest.main()
+    unittest.main()

@@ -52,7 +52,7 @@ def evaluateBasis(molecule, points):
     basisSet = basisSets[0]
 
     # print('Basis length =',basisSet.get('length'),' angular =',basisSet.get('angular'),' type =',basisSet.get('type'),' groups =',basisSet.get('groups'))
-    basisGroups = basisSet.xpath('molpro-output:basisGroup', namespaces=namespaces)
+    # basisGroups = basisSet.xpath('molpro-output:basisGroup', namespaces=namespaces)
     #    print
     # print(str(len(basisGroups))+' basisGroups:')
     # for basisGroup in basisGroups:
@@ -79,7 +79,7 @@ def evaluateBasis(molecule, points):
         basesString = basesString[basesString.find('[') + 1:].lstrip()
         basesString = basesString[:basesString.find(']')].rstrip()
         basesString = basesString.replace('or', '').replace('\n', '').replace("'", '')
-        list = basesString.split("@id=");
+        list = basesString.split("@id=")
         for item in list:
             item = item.lstrip().rstrip()
             if item.isalnum():
@@ -165,7 +165,8 @@ def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False):
     result = []
     from pymolpro import element_to_dict
     search = 'molpro-output:orbital'
-    if ID: search += '[@ID="' + ID + '"]'
+    if ID:
+        search += '[@ID="' + ID + '"]'
     for orbital in orbitalSets[0].xpath(search, namespaces=namespaces):
         occ = np.float64(orbital.get('occupation'))
         if occ >= minocc:
@@ -216,7 +217,8 @@ def __lebedev_select(l, size=False):
                53: 974, 59: 1202, 65: 1454, 71: 1730, 77: 2030, 83: 2354, 89: 2702, 95: 3074, 101: 3470,
                107: 3890, 113: 4334, 119: 4802, 125: 5294, 131: 5810}
     for k, v in lebedev.items():
-        if l <= k: return v if size else k
+        if l <= k:
+            return v if size else k
     return lebedev[131] if size else 131
 
 

@@ -289,5 +289,3 @@ class PlotXml(RootXml):
     Attributes: str table, str plot, str type
     Also attributes from http://www.w3.org/1999/xlink
     """
-
-

@@ -1,7 +1,6 @@
 import copy
 
 import pymolpro
-import os
 
 molecules = {}
 molecules["F2"] = {"De_exp": 163.35, "De_calc": 161.04, "geometry": "F;F,F,1.41134168", "stoichiometry": "FF"}

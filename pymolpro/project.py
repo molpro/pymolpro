@@ -69,7 +69,7 @@ def resolve_geometry(geometry):
         try:
             with open(geometry, "r") as file:
                 return file.read()
-        except:
+        except Exception:
             return geometry
 
 
@@ -111,6 +111,7 @@ class Project(pysjef.project.Project):
     :param int charge: Electrical charge of molecule
 
     """
+
     def __init__(self, name=None, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
                  preamble=None,
                  postamble=None,
@@ -121,21 +122,22 @@ class Project(pysjef.project.Project):
         self.local_molpro_root_ = None
         try:
             super().__init__(name=name, **kwargs)
-        except:
-            raise FileNotFoundError("Cannot open project "+name)
+        except Exception:
+            raise FileNotFoundError("Cannot open project " + name)
         if geometry != "":  # construct input
             __method = method.lower()
-            if __method[-2:] != 'hf' and __method[1:3] != 'hf' and __method[-2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
+            if __method[-2:] != 'hf' and __method[1:3] != 'hf' and __method[
+                                                                   -2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
                 if __method[:2] == 'df':
                     if __method[:4] == 'df-u':
-                        __method = 'df-uhf; df-'+__method[4:]
+                        __method = 'df-uhf; df-' + __method[4:]
                     else:
-                        __method = 'df-hf; '+__method
+                        __method = 'df-hf; ' + __method
                 else:
                     if __method[:1] == 'u':
-                        __method = 'uhf; '+__method[1:]
+                        __method = 'uhf; ' + __method[1:]
                     else:
-                        __method = 'hf; '+__method
+                        __method = 'hf; ' + __method
             self.write_input(f"""
 {initial if initial is not None else ""}
 {"symmetry, nosym" if not symm else ""}
@@ -144,8 +146,8 @@ geometry={{
 }}
 basis={basis}
 {preamble if preamble is not None else ""}
-{"charge="+str(charge) if charge is not None else ""}
-{"spin="+str(spin) if spin is not None else ""}
+{"charge=" + str(charge) if charge is not None else ""}
+{"spin=" + str(spin) if spin is not None else ""}
 {__method}
 {"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
 {"optg" if func[:3] == 'opt' else ""}
@@ -179,7 +181,8 @@ basis={basis}
         Shorthand for `p.select('//properties[name= {}, principal ={}, ... ]')`
         """
         string = f'name={name}'
-        if principal: string += ', principal=true'
+        if principal:
+            string += ', principal=true'
         for key, val in kwargs.items():
             string += f',{key}={val}'
         selector = f'//property[{string}]'
@@ -234,7 +237,9 @@ basis={basis}
         :param kwargs:
         :return:
         """
-        return self.properties("[ contains( translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'energy' ) ]", *args, **kwargs)
+        return self.properties(
+            "[ contains( translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'energy' ) ]",
+            *args, **kwargs)
 
     def property(self, *args, **kwargs):
         """
@@ -353,7 +358,8 @@ basis={basis}
             raise Exception('something is wrong: there should be just one orbital set')
         result = []
         search = 'orbital'
-        if ID: search += '[@ID="' + ID + '"]'
+        if ID:
+            search += '[@ID="' + ID + '"]'
         from pymolpro import Orbital
         for orbital in self.xpath(search, orbitalSets[0]):
             if float(orbital.get('occupation')) >= minocc:
@@ -372,7 +378,7 @@ basis={basis}
         :param values:
         :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
         """
-        if (type(points) == list):
+        if type(points) is list:
             return self.evaluateOrbitals(np.array(points), instance=instance, minocc=minocc,
                                          ID=ID, values=values)
         molecule = self.xpath('//*/molecule')[instance]
@@ -434,9 +440,11 @@ basis={basis}
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'})
         values = [node.text for node in value_nodes]
         type = 'xsd:string'
-        if len(matches[instance].xpath('@type')) > 0: type = matches[instance].xpath('@type')[0]
+        if len(matches[instance].xpath('@type')) > 0:
+            type = matches[instance].xpath('@type')[0]
         length = 1
-        if len(matches[instance].xpath('@length')) > 0: length = int(matches[instance].xpath('@length')[0])
+        if len(matches[instance].xpath('@length')) > 0:
+            length = int(matches[instance].xpath('@length')[0])
         if type == 'xsd:double':
             values = [float(k) for k in values] if list or length > 1 else float(values[0])
         if dict:
@@ -456,7 +464,8 @@ basis={basis}
         :return:
         """
         matches = self.xpath('//variables')
-        if len(matches) == 0: return []
+        if len(matches) == 0:
+            return []
         return [node.xpath('@name')[0] for node in (matches[instance].xpath('molpro-output:variable', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
 
@@ -468,22 +477,24 @@ basis={basis}
         :return:
         """
         matches = self.xpath('//input')
-        if len(matches) == 0: return []
+        if len(matches) == 0:
+            return []
         instance_ = matches[instance]
         return [node.text for node in (instance_.xpath('molpro-output:p', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
 
     def run_local_molpro(self, options: list):
         def get_first(string):
-            result=''
+            result = ''
             quoted = False
             for i in range(len(string)):
-                if string[i]=="'":
+                if string[i] == "'":
                     quoted = not quoted
                 elif string[i] == ' ' and not quoted:
                     return result
                 else:
                     result = result + string[i]
+
         command_ = (self.backend_get('local', 'run_command')).strip(' ')
         command_ = re.sub('mpiexec', 'mpiexec -n 1', re.sub('  *', ' ', re.sub('{.*?}', '', command_))).strip(' ')
         split_options = (['/bin/sh'] if shutil.which('/bin/sh') else []) + command_.split(' ') + options
@@ -497,18 +508,20 @@ basis={basis}
         :return:
         """
         if set:
-            if not hasattr(self, 'registry_cache'): self.registry_cache = {}
+            if not hasattr(self, 'registry_cache'):
+                self.registry_cache = {}
             if set not in self.registry_cache:
                 try:
                     run = self.run_local_molpro(['--registry', set])
-                    if not run.stdout: return None
+                    if not run.stdout:
+                        return None
                     l0 = str(run.stdout)
                     l1 = l0[l0.find(':\\n') + 1:].rstrip("'").replace('\\n', '')
                     # print('l1',l1)
-                    l = l1.replace('{', '').strip('\\n').strip('"').split('}')
+                    line = l1.replace('{', '').strip('\\n').strip('"').split('}')
                     # print('l',l)
                     self.registry_cache[set] = {}
-                    for li in l:
+                    for li in line:
                         # print('li',li)
                         name = re.sub('["\'].*', '', re.sub('.*name *= *["\']', '', li))
                         if name:
@@ -518,15 +531,16 @@ basis={basis}
                             self.registry_cache[set][name] = json.loads(json_)
                             if 'name' in self.registry_cache[set][name]:
                                 del self.registry_cache[set][name]['name']
-                except:
+                except Exception:
                     return None
             return self.registry_cache[set]
         else:
             try:
                 run = self.run_local_molpro(['--registry'])
-                if not run.stdout: return None
+                if not run.stdout:
+                    return None
                 return re.sub('.*: *', '', str(run.stdout)).replace('\\n', '').rstrip("'").split()
-            except:
+            except Exception:
                 return None
 
     import builtins
@@ -544,7 +558,7 @@ basis={basis}
                     self.local_molpro_root_ = pathlib.Path(
                         re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
                                                                                                                  '')).parent
-            except:
+            except Exception:
                 return None
         return self.local_molpro_root_
 
@@ -563,29 +577,30 @@ basis={basis}
                     if not re.match('^ *#', line) and line.strip(' ') != '':
                         all += line.replace('}', '').replace('\n', '')
             for record in all.split('{'):
-                if not record: continue
-                in_quotations=False
+                if not record:
+                    continue
+                in_quotations = False
                 for i in range(len(record)):
                     if record[i] == "'":
-                        in_quotations= not in_quotations
+                        in_quotations = not in_quotations
                     elif record[i] == ',' and in_quotations:
-                        record = record[:i] + '§' + record[i+1:]
+                        record = record[:i] + '§' + record[i + 1:]
                 fields = record.split(',')
-                entry={}
-                name=None
+                entry = {}
+                name = None
                 for field in fields:
-                    match = re.match(r"([^ =]+) *= *'?([^']+)'?",field)
+                    match = re.match(r"([^ =]+) *= *'?([^']+)'?", field)
                     if match:
-                        entry[match.group(1)]=int(match.group(2)) if re.search('^-?[0-9]+$',match.group(2).strip(' ')) else match.group(2)
-                        if match.group(1)=='name': name=match.group(2)
+                        entry[match.group(1)] = int(match.group(2)) if re.search('^-?[0-9]+$', match.group(2).strip(
+                            ' ')) else match.group(2)
+                        if match.group(1) == 'name':
+                            name = match.group(2)
                 if 'options' in entry:
                     entry['options'] = entry['options'].split('§')
-                entries[name]=entry
-        except:
+                entries[name] = entry
+        except Exception:
             pass
         return entries
-
-
 
     def basis_registry(self):
         r"""
@@ -594,7 +609,7 @@ basis={basis}
         :return:
         :rtype: dict
         """
-        entries={}
+        entries = {}
         try:
             with open(self.local_molpro_root / 'lib' / 'basis.registry', 'r') as f:
                 for line in f.readlines():
@@ -605,15 +620,15 @@ basis={basis}
                         for field in fields:
                             match = re.match(r"([^ =]+) *= *'?([^']+)'?", field)
                             if match:
-                                entry[match.group(1)] = int(match.group(2)) if re.search('^-?[0-9]+$', match.group(2).strip(
-                                    ' ')) else match.group(2)
-                                if match.group(1) == 'name': name = match.group(2)
+                                entry[match.group(1)] = int(match.group(2)) if re.search('^-?[0-9]+$',
+                                                                                         match.group(2).strip(
+                                                                                             ' ')) else match.group(2)
+                                if match.group(1) == 'name':
+                                    name = match.group(2)
                         if 'options' in entry:
                             entry['options'] = entry['options'].split(':')
                         if name is not None:
                             entries[name] = entry
-        except:
+        except Exception:
             pass
         return entries
-
-

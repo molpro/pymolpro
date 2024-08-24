@@ -15,17 +15,21 @@ class Database:
 
     * Descriptions of molecules: geometry, charge, spin state.
     * Descriptions of reactions between the molecules: stochiometric factors.
-    * Optionally, computed data: energies of molecules and/or reactions, the parameters used to obtain them, and references to persistent data that can be used to further query or restart.
+    * Optionally, computed data: energies of molecules and/or reactions,s
+      the parameters used to obtain them,
+      and references to persistent data that can be used to further query or restart.
     * Description and external URLs that serve to further define the provenance of the data.
     * Specification of recommended subsets of the reactions
 
     :param list molecules: Initial molecules to be added with default options to :py:meth:`add_molecule()`.
     :param list reactions: Initial reactions to be added with default options to :py:meth:`add_reaction()`.
     :param str description: Text describing the database
-    :param str method: A string specifying the ansatz that was used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.
+    :param str method: A string specifying the ansatz that was used to compute the energies.
+      In the Molpro context, this will be a valid fragment of Molpro input.
     :param str basis: A string specifying the orbital basis set that was used to compute the energies.
     :param str options: A string specifying any additional options used to compute energies.
-    :param str project_directory: The path of the directory where support files that were generated in calculating energies can be found.
+    :param str project_directory: The path of the directory where support files that were generated
+      in calculating energies can be found.
 
     """
 
@@ -58,7 +62,8 @@ class Database:
         return db
 
     def __eq__(self, other):
-        if other is None and not self is None: return False
+        if other is None and self is not None:
+            return False
         return all([getattr(self, attr) == getattr(other, attr) for attr in
                     ['molecules', 'reactions', 'molecule_energies', 'reaction_energies']])
 
@@ -111,11 +116,16 @@ class Database:
         self.molecules[_name]['description'] = description if description is not None else _name
         if energy is not None:
             self.molecule_energies[_name] = energy
-        if spin is not None: self.molecules[_name]['spin'] = spin
-        if charge is not None: self.molecules[_name]['charge'] = charge
-        if InChI is not None: self.molecules[_name]['InChI'] = InChI
-        if SMILES is not None: self.molecules[_name]['SMILES'] = SMILES
-        if preamble is not None: self.molecules[_name]['preamble'] = preamble
+        if spin is not None:
+            self.molecules[_name]['spin'] = spin
+        if charge is not None:
+            self.molecules[_name]['charge'] = charge
+        if InChI is not None:
+            self.molecules[_name]['InChI'] = InChI
+        if SMILES is not None:
+            self.molecules[_name]['SMILES'] = SMILES
+        if preamble is not None:
+            self.molecules[_name]['preamble'] = preamble
         return self.molecules[_name]
 
     def add_reaction(self, name, stoichiometry, energy=None, description=None):
@@ -138,18 +148,19 @@ class Database:
                 __reference_energy = 0.0
                 for reagent, stoi in stoichiometry.items():
                     __reference_energy += stoi * self.molecule_energies[reagent]
-            except:
+            except Exception:
                 __reference_energy = None
         self.reactions[_name] = {
             'stoichiometry': Stoichiometry(stoichiometry),
         }
         if __reference_energy is not None:
             self.reaction_energies[_name] = __reference_energy
-        if description is not None: self.reactions[_name]['description'] = description
+        if description is not None:
+            self.reactions[_name]['description'] = description
         return self.reactions[_name]
 
     def add_subset(self, subset_name, subset):
-        self.subsets[subset_name.strip()] = subset if type(subset) == list else [subset]
+        self.subsets[subset_name.strip()] = subset if type(subset) is list else [subset]
         assert all([reaction in self.reactions for reaction in self.subsets[subset_name.strip()]])
 
     def add_reference(self, key, url):
@@ -166,7 +177,7 @@ class Database:
         :return: The subset
         :rtype: Database
         """
-        subset_list = subset if type(subset) == list else self.reactions.keys() if subset is None else self.subsets[
+        subset_list = subset if type(subset) is list else self.reactions.keys() if subset is None else self.subsets[
             subset]
         if not open_shell:
             subset_list = [kr for kr in subset_list if not any(
@@ -191,10 +202,14 @@ class Database:
                 if molecule in self.molecule_energies:
                     db.molecule_energies[molecule] = self.molecule_energies[molecule]
         db.preamble = str(self.preamble)
-        if subset: db.description += " (subset " + str(subset) + ")"
-        if not open_shell: db.description += " (closed shell only)"
-        if max_atoms: db.description += " (maximum number of atoms " + str(max_atoms) + ")"
-        if max_electrons: db.description += " (maximum number of electrons " + str(max_electrons) + ")"
+        if subset:
+            db.description += " (subset " + str(subset) + ")"
+        if not open_shell:
+            db.description += " (closed shell only)"
+        if max_atoms:
+            db.description += " (maximum number of atoms " + str(max_atoms) + ")"
+        if max_electrons:
+            db.description += " (maximum number of electrons " + str(max_electrons) + ")"
         return db
 
     def dump(self, filename=None):
@@ -261,10 +276,11 @@ class Database:
                 if not check:
                     self.reaction_energies[reaction_name] = 0.0
                     for reagent, stoichiometry in reaction['stoichiometry'].items():
-                        if not self.molecule_energies[reagent]: raise ValueError(
-                            "Missing database molecule energy for " + reagent + ", method=" + str(
-                                self.method) + ", basis=" + self.basis + ", project directory=" + self.project_directory + str(
-                                self.molecule_energies))
+                        if not self.molecule_energies[reagent]:
+                            raise ValueError(
+                                "Missing database molecule energy for " + reagent + ", method=" + str(
+                                    self.method) + ", basis=" + self.basis + ", project directory=" + self.project_directory + str(
+                                    self.molecule_energies))
                         self.reaction_energies[reaction_name] += stoichiometry * self.molecule_energies[reagent]
 
     def __str__(self, rst=False, geometry=True, title=None):
@@ -290,7 +306,8 @@ class Database:
         if len(self.reactions) > 0:
             result += _header('Reactions', rst)
             for name, reaction in self.reactions.items():
-                if rst: result += '| '
+                if rst:
+                    result += '| '
                 result += name + ': ' + str(reaction['stoichiometry']) + (
                     ' (' + reaction['description'] + ')' if 'description' in reaction else '') + (', energy = ' + str(
                     self.reaction_energies[name]) if name in self.reaction_energies else "") + '\n'
@@ -345,8 +362,10 @@ def library(expression=None):
     result = []
     library = os.path.realpath(os.path.join(__file__, '..', 'share', 'database'))
     for file in os.listdir(library):
-        if pathlib.Path(file).suffix != '.json': continue
-        if expression and not re.match(expression, pathlib.Path(file).stem): continue
+        if pathlib.Path(file).suffix != '.json':
+            continue
+        if expression and not re.match(expression, pathlib.Path(file).stem):
+            continue
         result.append(pathlib.Path(file).stem)
     return result
 
@@ -388,7 +407,8 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     from operator import methodcaller
     from pymolpro import Project
     import os
-    if type(db) == str: db = load(db)
+    if type(db) is str:
+        db = load(db)
     newdb = db.copy()
     newdb.project_directory = os.path.realpath(
         os.path.join(location,
@@ -399,12 +419,13 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
         os.makedirs(newdb.project_directory)
     newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
-        method_ = method if type(method) == str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
+        method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
             method[0]
         initial_ = initial + '\n' + db.preamble
         if 'preamble' in molecule:
             initial_ += '\n' + molecule['preamble']
-        if re.match('^(\n+;+ +)*$', initial_): initial_ = None
+        if re.match('^(\n+;+ +)*$', initial_):
+            initial_ = None
         try:
             newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
                                                     method=method_,
@@ -414,7 +435,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
                                                     spin=molecule['spin'] if 'spin' in molecule else None,
                                                     charge=molecule['charge'] if 'charge' in molecule else None,
                                                     **kwargs)
-        except:
+        except Exception:
             raise FileNotFoundError(
                 "pymolpro project " + molecule_name + " in directory " + newdb.project_directory + " cannot be opened and might be corrupt")
     if check:
@@ -427,27 +448,34 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     newdb.failed = {}
     for molecule in db.molecules:
         project = newdb.projects[molecule]
-        if check: print("checking for failure of", molecule, project.filename())
-        if check: print("status", project.status)
-        if check: print("no_errors", pymolpro.no_errors([project]))
+        if check:
+            print("checking for failure of", molecule, project.filename())
+        if check:
+            print("status", project.status)
+        if check:
+            print("no_errors", pymolpro.no_errors([project]))
         if project.status != 'completed' or not pymolpro.no_errors([project]):
-            if check: print("failed")
+            if check:
+                print("failed")
             newdb.failed[molecule] = project
         else:
-            if check: print("not failed")
-    if check: print("after storing failed")
+            if check:
+                print("not failed")
+    if check:
+        print("after storing failed")
 
     newdb.molecule_energies = {}
-    if check: print('constructing newdb and getting run results')
+    if check:
+        print('constructing newdb and getting run results')
     for molecule_name in db.molecules:
         try:
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
             if check_energy and newdb.molecule_energies[molecule_name] is None:
                 raise ValueError('ENERGY variable is empty')
-            if type(newdb.molecule_energies[molecule_name]) == type([]):
+            if type(newdb.molecule_energies[molecule_name]) is type([]):
                 newdb.molecule_energies[molecule_name] = newdb.molecule_energies[molecule_name][0]
 
-        except:
+        except Exception:
             if not check:
                 raise ValueError(
                     "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
@@ -457,12 +485,14 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
                 newdb.molecules[molecule_name]['geometry'] = '\n'.join(
                     [atom['elementType'] + ' ' + ' '.join([str(c / Angstrom) for c in atom['xyz']]) for atom in
                      (newdb.projects[molecule_name].geometry())])
-            except:
+            except Exception:
                 if not check:
                     raise ValueError(
                         "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
-            if check: print('got geometry', newdb.molecules[molecule_name]['geometry'])
-    if check: print("after getting molecule_energies")
+            if check:
+                print('got geometry', newdb.molecules[molecule_name]['geometry'])
+    if check:
+        print("after getting molecule_energies")
     newdb.method = method
     newdb.basis = basis
     newdb.options = sorted(kwargs.items())
@@ -493,8 +523,10 @@ class Units(collections.abc.Mapping):
         return iter(self._s)
 
     def __getitem__(self, k):
-        if k is None: return 1.0
-        if type(k) == float or type(k) == int: return float(k)
+        if k is None:
+            return 1.0
+        if type(k) is float or type(k) is int:
+            return float(k)
         return self._d[self._s[k.lower()]]
 
     def keys(self):
@@ -504,7 +536,8 @@ class Units(collections.abc.Mapping):
         return self._d.items()
 
     def __str__(self):
-        if len(self) == 0: return ""
+        if len(self) == 0:
+            return ""
         s = "Defined units:\n"
         for k, v in self.items():
             s += "1 " + k + " = " + str(v) + " a.u.\n"
@@ -560,20 +593,22 @@ def analyse(databases, reference_database=None, unit=None, **kwargs):
     """
     import statistics
     from math import sqrt
-    databases_ = list(databases) if type(databases) == list else [databases]
+    databases_ = list(databases) if type(databases) is list else [databases]
     output = {}
     for typ in ['reaction', 'molecule']:
         results = []
         for database in databases_:
-            if len(getattr(database, typ + '_energies')) == 0: continue
+            if len(getattr(database, typ + '_energies')) == 0:
+                continue
             results.append({})
             results[-1]['method'] = database.method
             results[-1]['basis'] = database.basis
             results[-1]['unit'] = unit if unit else 'Hartree'
-            if len(getattr(database, typ + '_energies')) == 0: continue
+            if len(getattr(database, typ + '_energies')) == 0:
+                continue
             results[-1][typ + ' energies'] = {key: value / units[unit] for key, value in
                                               getattr(database, typ + '_energies').items()}
-            if reference_database != None and len(getattr(reference_database, typ + '_energies')) > 0:
+            if reference_database is not None and len(getattr(reference_database, typ + '_energies')) > 0:
                 results[-1][typ + ' energy deviations'] = {
                     key: value - getattr(reference_database, typ + '_energies')[key] / units[unit]
                     for
@@ -595,8 +630,10 @@ def analyse(databases, reference_database=None, unit=None, **kwargs):
         for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
             if results and all([table in result for result in results]):
                 output[table] = __compare_database_runs_format_table(results, table)
-    output['molecule violin plot'] = violin_plot(output, reactions=False, reference_method=reference_database.method, **kwargs)
-    output['reaction violin plot'] = violin_plot(output, reactions=True, reference_method=reference_database.method, **kwargs)
+    output['molecule violin plot'] = violin_plot(output, reactions=False, reference_method=reference_database.method,
+                                                 **kwargs)
+    output['reaction violin plot'] = violin_plot(output, reactions=True, reference_method=reference_database.method,
+                                                 **kwargs)
     return output
 
 
@@ -612,7 +649,8 @@ def __compare_database_runs_format_table(results, dataset):
         + ("/" + result['basis'] if 'basis' in result and result['basis'] else "")
         for result in results
     ]
-    if all(column_headers): output.columns = column_headers
+    if all(column_headers):
+        output.columns = column_headers
     output.style.set_table_attributes("style='display:inline'").set_caption(dataset)
     return output
 
@@ -631,9 +669,9 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
     """
     # print("analysis keys",analysis.keys())
     if reference_method:
-     ref_meth = reference_method
+        ref_meth = reference_method
     else:
-        for k in ['reaction energy deviations','molecule energy deviations']:
+        for k in ['reaction energy deviations', 'molecule energy deviations']:
             if k in analysis:
                 ref_meth = analysis[k].keys()[-1]
     if not ref_meth: return None
@@ -644,17 +682,21 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
         return None
     fig, pane = plt.subplots(nrows=1, ncols=1, sharey=True, figsize=(6, 6))
     deviations = 'reaction energy deviations' if reactions else 'molecule energy deviations'
-    if deviations not in analysis: return None
+    if deviations not in analysis:
+        return None
     methods_pruned = [method for method in analysis[deviations] if
                       method not in omitted_methods and method != ref_meth]
-    if  len(methods_pruned)==0: return None
-    data = analysis[deviations] [methods_pruned].to_numpy()
-    if data.size==0: return None
+    if len(methods_pruned) == 0:
+        return None
+    data = analysis[deviations][methods_pruned].to_numpy()
+    if data.size == 0:
+        return None
     pane.violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method='silverman')
     pane.set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
     pane.set_title(title if title else analysis['results'][-1]['basis'])
     pane.set_ylabel('Error relative to ' + str(ref_meth) + ' / ' + analysis['results'][-1]['unit'])
-    if zero_hline: plt.axhline(color='gray', linestyle=':', linewidth=0.5)
+    if zero_hline:
+        plt.axhline(color='gray', linestyle=':', linewidth=0.5)
     plt.close()
     return fig
 
@@ -688,10 +730,11 @@ def basis_extrapolate(results, hf_results, x=None):
                     [list(hf_results)[i] for i in range(len(results)) if i != first],
                     [x[i] for i in range(len(results)) if i != first]
                 )
-            except:
+            except Exception:
                 pass
         return []
-    if len(x) < 2 or x[1] != x[0] + 1: return []
+    if len(x) < 2 or x[1] != x[0] + 1:
+        return []
     assert len(results) == 2
     newdb = results[0].copy()
     for molecule_name in results[0].molecule_energies:
@@ -734,11 +777,11 @@ class Stoichiometry(dict):
 
 
 def elements(geo):
-    geom = geo if type(geo) == str else geo['geometry']
+    geom = geo if type(geo) is str else geo['geometry']
     lines = geom.replace(';', '\n').strip().split('\n')
     try:
         natom = len(lines) - 2 if (int(lines[0]) == len(lines) - 2) else len(lines)
-    except:
+    except Exception:
         natom = len(lines)
     return [line.replace(',', ' ').strip().split(' ')[0] for line in lines[-natom:]]
 
