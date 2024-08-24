@@ -5,6 +5,6 @@ lxml
 scipy>=1.9.3
 numpy<2
 sphinx-rtd-theme>=1.0.0
-pylebedev>=1.1.0
+quadpy>=0.16.10
 pandas
 chemcoord

@@ -195,16 +195,10 @@ def spherical_grid(radial_points, radial_weights, l: int):
     :param l: Largest rank of spherical harmonic for which exact quadrature is wanted.
     :return: points and weights (numpy array [npt,4])
     """
-    from pylebedev import PyLebedev
-    pylebedev = PyLebedev()
-    orders = pylebedev.get_orders_list()
-    order = None
-    for order in orders:
-        if order >= l:
-            break
-    roots, weights = pylebedev.get_points_and_weights(order)
+    import quadpy
+    scheme = quadpy.u3.get_good_scheme(l)
 
-    nptang = len(roots)
+    nptang = len(scheme.weights)
 
     nptrad = len(radial_points)
     npt3 = nptrad * nptang
@@ -212,8 +206,8 @@ def spherical_grid(radial_points, radial_weights, l: int):
     for j in range(nptrad):
         for k in range(nptang):
             for i in range(3):
-                points3d[k + j * nptang, i] = radial_points[j] * roots[k][i]
-            points3d[k + j * nptang, 3] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * weights[k]
+                points3d[k + j * nptang, i] = radial_points[j] * scheme.points[i][k]
+            points3d[k + j * nptang, 3] = 4 * np.pi * pow(radial_points[j], 2) * radial_weights[j] * scheme.weights[k]
     # print("in spherical_grid points3d",points3d)
     return points3d
 
