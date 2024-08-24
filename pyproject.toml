@@ -21,7 +21,7 @@ Issues = "https://github.com/molpro/pymolpro/issues"
 Documentation = "https://molpro.github.io/pymolpro"
 
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm>=8", "wheel", "numgrid==2.1.1" ]
+requires = ["setuptools>=64", "setuptools_scm>=8", "wheel", ]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
