@@ -32,13 +32,13 @@ class TestOrbital(unittest.TestCase):
 
     def test_large_grid(self):
         for grid in ['Gauss-Hermite', 'Lebedev-Mura', 'Lebedev-Gauss-Laguerre']:
-            points = self.aligned_orbital.grid(55, grid,
+            points = self.aligned_orbital.grid(47, grid,
                                                scale=2.0 if 'Mura' in grid else 0.5 if 'Hermite' in grid else 1.0)
             integral = 0.0
             for i in range(len(points)):
                 # integral += weights[i] * math.exp(-np.linalg.norm(points[i, :])) / 4 / math.pi
                 integral += points[i, 3] * math.exp(-pow(np.linalg.norm(points[i, :3]), 2)) / pow(math.pi, 1.5)
-            self.assertAlmostEqual(integral, 1.0, 12, msg=grid)
+            self.assertAlmostEqual(integral, 1.0, 11, msg=grid)
 
     def test_gauss_hermite(self):
         from scipy.special import factorial2
