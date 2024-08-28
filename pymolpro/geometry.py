@@ -41,7 +41,7 @@ def convert_xyz_to_chemcoordzmat(xyzinput):
     else:
         import tempfile
         with tempfile.NamedTemporaryFile(suffix='.xyz') as f:
-            f.write(xyzinput.encode('utf-8'))
+            f.write(xyzinput.strip().encode('utf-8'))
             f.flush()
             xyzfile = chemcoord.Cartesian.read_xyz(f.name, start_index=1)
     chemcoordzmat = xyzfile.get_zmat()
