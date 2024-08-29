@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.6.1 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.6.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=d6a008b6"></script>
+        <script src="_static/documentation_options.js?v=452006c5"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -1360,7 +1360,9 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <ul class="simple">
 <li><p>Descriptions of molecules: geometry, charge, spin state.</p></li>
 <li><p>Descriptions of reactions between the molecules: stochiometric factors.</p></li>
-<li><p>Optionally, computed data: energies of molecules and/or reactions, the parameters used to obtain them, and references to persistent data that can be used to further query or restart.</p></li>
+<li><p>Optionally, computed data: energies of molecules and/or reactions,s
+the parameters used to obtain them,
+and references to persistent data that can be used to further query or restart.</p></li>
 <li><p>Description and external URLs that serve to further define the provenance of the data.</p></li>
 <li><p>Specification of recommended subsets of the reactions</p></li>
 </ul>
@@ -1370,10 +1372,12 @@ contains the value of a specified attribute, or if the attribute is omitted, the
 <li><p><strong>molecules</strong> (<em>list</em>) – Initial molecules to be added with default options to <a class="reference internal" href="#pymolpro.database.Database.add_molecule" title="pymolpro.database.Database.add_molecule"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_molecule()</span></code></a>.</p></li>
 <li><p><strong>reactions</strong> (<em>list</em>) – Initial reactions to be added with default options to <a class="reference internal" href="#pymolpro.database.Database.add_reaction" title="pymolpro.database.Database.add_reaction"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_reaction()</span></code></a>.</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Text describing the database</p></li>
-<li><p><strong>method</strong> (<em>str</em>) – A string specifying the ansatz that was used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – A string specifying the ansatz that was used to compute the energies.
+In the Molpro context, this will be a valid fragment of Molpro input.</p></li>
 <li><p><strong>basis</strong> (<em>str</em>) – A string specifying the orbital basis set that was used to compute the energies.</p></li>
 <li><p><strong>options</strong> (<em>str</em>) – A string specifying any additional options used to compute energies.</p></li>
-<li><p><strong>project_directory</strong> (<em>str</em>) – The path of the directory where support files that were generated in calculating energies can be found.</p></li>
+<li><p><strong>project_directory</strong> (<em>str</em>) – The path of the directory where support files that were generated
+in calculating energies can be found.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1758,7 +1762,7 @@ and compute reaction energies.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.grid.spherical_grid">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">spherical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radial_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.spherical_grid" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">spherical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radial_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.spherical_grid" title="Link to this definition"></a></dt>
 <dd><p>Take a one-dimensional grid, and use it for radial integration, together with a Lebedev grid of specified order, to generate a 3-dimensional grid (cartesian coordinates, weights) for quadrature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
