@@ -7,6 +7,9 @@ class TestProject(unittest.TestCase):
     def setUp(self):
         self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)))
 
+    def test_local_molpro(self):
+        print('local molpro root',self.project.local_molpro_root)
+
     def test_pairs_discovery(self):
         pair_energies = 0.0
         for tuple in self.project.singles() + self.project.pairs():
