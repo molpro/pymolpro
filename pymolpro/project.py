@@ -497,8 +497,9 @@ basis={basis}
 
         command_ = (self.backend_get('local', 'run_command')).strip(' ')
         command_ = re.sub('mpiexec', 'mpiexec -n 1', re.sub('  *', ' ', re.sub('{.*?}', '', command_))).strip(' ')
-        split_options = (['/bin/sh'] if shutil.which('/bin/sh') else []) + command_.split(' ') + options
-        return subprocess.run(split_options, capture_output=True)
+        split_options = command_.split(' ')[1:] + options
+        run = subprocess.run([shutil.which(command_.split(' ')[0])] + split_options, capture_output=True, shell=False)
+        return run
 
     def registry(self, set=None):
         """
