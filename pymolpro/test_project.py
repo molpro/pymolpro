@@ -1,4 +1,7 @@
 import unittest
+
+import pytest
+
 import pymolpro
 import os
 
@@ -25,17 +28,17 @@ class TestProject(unittest.TestCase):
         newproject = self.project.copy('copied', location=os.path.dirname(os.path.abspath(__file__)))
         newproject.erase()
 
-    # def test_corrupt_project(self):
-    #     import os, shutil
-    #     import pysjef
-    #     pname = 'check_empty.molpro'
-    #     shutil.rmtree(pname,ignore_errors=True)
-    #     os.mkdir(pname)
-    #     open(pname + '/Info.plist', 'w').write('')
-    #     try:
-    #         p = pysjef.Project(pname)
-    #     except:
-    #         print("exception caught")
+    def test_corrupt_project(self):
+        import os, shutil
+        import pysjef
+        pname = 'check_empty.molpro'
+        shutil.rmtree(pname,ignore_errors=True)
+        os.mkdir(pname)
+        with open(pname + '/Info.plist', 'w') as f:
+            f.write('')
+        with pytest.raises(FileNotFoundError, match=r'Cannot open project') as e:
+            p = pysjef.Project(pname)
+        assert e.type is FileNotFoundError
 
     def test_procedures_registry(self):
         proc_reg = self.project.procedures_registry()
