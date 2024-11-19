@@ -4,6 +4,7 @@ import pytest
 
 import pymolpro
 import os
+import shutil
 
 
 class TestProject(unittest.TestCase):
@@ -64,6 +65,31 @@ class TestProject(unittest.TestCase):
 
     def test_orbitals(self):
         assert len(self.project.orbitals()) == 2
+
+    def test_run_needed(self):
+        print(self.project.run_needed())
+        print(pymolpro.__version__)
+        # %%
+        dir = 'run_needed'
+        shutil.rmtree(dir, ignore_errors=True)
+        os.mkdir(dir)
+        # %%
+        p = pymolpro.Project('one', location=dir)
+        p.write_input('geometry={He};rhf')
+        print('Should be True:', p.run_needed())
+        # %%
+        p.run(wait=True)
+        print('Should be False:', p.run_needed())
+        # %%
+        p = pymolpro.Project('one', location=dir)
+        p.write_input('geometry={He};rhf;mp3')
+        print('Should be True:', p.run_needed())
+        # %%
+        p2 = pymolpro.Project('two', location=dir)
+        p2.write_input('geometry={He};rhf;mp3')
+        print('Should be True:', p2.run_needed())
+        # %%
+        shutil.rmtree(dir, ignore_errors=True)
 
 if __name__ == '__main__':
     unittest.main()
