@@ -165,7 +165,7 @@ class Project(pysjef.project.Project):
             if charge is not None: input += 'charge=' + str(charge) + '\n'
             if spin is not None: input += 'spin=' + str(spin) + '\n'
             if geometry_method is not None:
-                input += 'basis=' + geometry_basis + ';' + self.commandify_method(geometry_method) + '\n'
+                input += 'basis=' + geometry_basis + ';' + self.commandify_method(geometry_method) + '; optg\n'
             input += 'basis=' + basis + '\n'
             input += self.commandify_method(method) + '\n'
             if extrapolate != '': input += 'extrapolate,basis=' + extrapolate + '\n'
