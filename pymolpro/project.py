@@ -73,6 +73,12 @@ def resolve_geometry(geometry):
             return geometry
 
 
+def method_from_commands(commands):
+    method = re.sub(r'^(df-)?[ur]?hf[\s;]*$', 'HF', commands.strip(), flags=re.IGNORECASE)
+    method = re.sub(r'^(df-)?[ur]?hf\s*; *', '', method.strip(), flags=re.IGNORECASE)
+    method = re.sub(r'^(df-)?[ur]?ks\s*,', '', method, flags=re.IGNORECASE)
+    return method
+
 class Project(pysjef.project.Project):
     r"""
     A :py:class:`Project` holds all the data associated with a single Molpro job. This includes input, output, any auxiliary files, and information about
@@ -101,6 +107,8 @@ class Project(pysjef.project.Project):
         Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
     :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
     :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
+    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the
+    method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
     :param str func: This should be one of
 
         * `energy` for a single geometry
@@ -112,49 +120,111 @@ class Project(pysjef.project.Project):
 
     """
 
-    def __init__(self, name=None, geometry="", method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
+    def __init__(self, name=None, geometry=None, method="hf", basis="cc-pVTZ", func="energy", extrapolate="", symm=True,
+                 ansatz=None,
+                 geometry_method=None,
+                 geometry_basis=None,
                  preamble=None,
                  postamble=None,
                  initial=None,
                  charge=None,
                  spin=None,
                  **kwargs):
-        self.local_molpro_root_ = None
-        try:
-            super().__init__(name=name, **kwargs)
-        except Exception:
-            raise FileNotFoundError("Cannot open project " + name)
-        if geometry != "":  # construct input
-            __method = method.lower()
-            if __method[-2:] != 'hf' and __method[1:3] != 'hf' and __method[
-                                                                   -2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
-                if __method[:2] == 'df':
-                    if __method[:4] == 'df-u':
-                        __method = 'df-uhf; df-' + __method[4:]
-                    else:
-                        __method = 'df-hf; ' + __method
-                else:
-                    if __method[:1] == 'u':
-                        __method = 'uhf; ' + __method[1:]
-                    else:
-                        __method = 'hf; ' + __method
-            self.write_input(f"""
-{initial if initial is not None else ""}
-{"symmetry, nosym" if not symm else ""}
-geometry={{
-{resolve_geometry(geometry)}
-}}
-basis={basis}
-{preamble if preamble is not None else ""}
-{"charge=" + str(charge) if charge is not None else ""}
-{"spin=" + str(spin) if spin is not None else ""}
-{__method}
-{"extrapolate,basis=" + extrapolate if extrapolate != "" else ""}
-{"optg" if func[:3] == 'opt' else ""}
-{postamble if postamble is not None else ""}
-{"{put,xml;noorbitals,nobasis}" if postamble is None or 'put,xml' not in postamble else ""}
-""")
+        if not hasattr(self,'__initialized'):
+            try:
+                super().__init__(name=name, **kwargs)
+                self.__initialized = True
+            except Exception:
+                raise FileNotFoundError("Cannot open project " + name)
 
+        if ansatz is not None:
+            self.__init__(name=name, geometry=geometry,
+                                method=self.parse_ansatz(ansatz)['method'], basis=self.parse_ansatz(ansatz)['basis'], func=func,
+                                extrapolate=extrapolate, symm=symm,
+                                geometry_method=self.parse_ansatz(ansatz)['geometry_method'],
+                                geometry_basis=self.parse_ansatz(ansatz)['geometry_basis'],
+                                preamble=preamble, postamble=postamble, initial=initial, charge=charge, spin=spin,
+                                **kwargs
+                                )
+            return
+        self.local_molpro_root_ = None
+
+        self.ansatz = None
+        if geometry is not None:  # construct input
+            # print('method',method,':',self.commandify_method(method),':',method_from_commands(method))
+            # print('basis',basis)
+            self.ansatz = (method_from_commands(method) + '/' + basis.strip()).strip()
+            # print('self.ansatz', self.ansatz, 'ansatz', ansatz)
+            if geometry_method is not None and geometry_basis is not None:
+                self.ansatz += '//' + method_from_commands(geometry_method) + '/' + geometry_basis.strip()
+            input = ''
+            if initial is not None: input += initial + '\n'
+            if not symm: input += 'symmetry, nosym\n'
+            input += 'geometry={' + resolve_geometry(geometry) + '}\n'
+            if preamble is not None: input += 'preamble=' + preamble + '\n'
+            if charge is not None: input += 'charge=' + str(charge) + '\n'
+            if spin is not None: input += 'spin=' + str(spin) + '\n'
+            if geometry_method is not None:
+                input += 'basis=' + geometry_basis + ';' + self.commandify_method(geometry_method) + '\n'
+            input += 'basis=' + basis + '\n'
+            input += self.commandify_method(method) + '\n'
+            if extrapolate != '': input += 'extrapolate,basis=' + extrapolate + '\n'
+            if func[:3] == 'opt': input += 'optg\n'
+            if postamble is not None: input += 'postamble=' + str(postamble) + '\n'
+            if postamble is None or 'put,xml' not in postamble: input += '{put,xml;noorbitals,nobasis}\n'
+            self.write_input(input)
+
+    # def set_method(self,method,basis="cc-pVTZ",geometry_method=None, geometry_basis=None):
+    #     pass
+    def commandify_method(self,method):
+        if method.strip().upper() in self.registry('DFUNC').keys():
+          return 'df-ks,' + method
+        __method = method.lower().strip()
+        if re.match(r'^(df-)?[ur]?(hf|ks).*', __method):
+            return method
+        if __method[-2:] != 'hf' and __method[1:3] != 'hf' and __method[:2] != 'hf' and __method[
+                                                               -2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
+            if __method[:2] == 'df':
+                if __method[:4] == 'df-u':
+                    __method = 'df-uhf; df-' + __method[4:]
+                else:
+                    __method = 'df-hf; ' + __method
+            else:
+                if __method[:1] == 'u':
+                    __method = 'uhf; ' + __method[1:]
+                else:
+                    __method = 'hf; ' + __method
+        return __method
+
+    def parse_ansatz(self,ansatz):
+        parsed={}
+        parts = ansatz.split('//')
+        # if len(parts) == 1:
+        #     parts.append(parts[0])
+        result = []
+        for part in parts:
+            bits = part.split('/')
+            # print('part',part,'bits',bits)
+            if bits[0].strip().lower() == 'hf':
+                bits[0] = 'df-hf'
+            # elif bits[0].strip().lower() == 'mp2':
+            #     bits[0] = 'df-hf;df-mp2'
+            elif bits[0].strip().upper() in self.registry('DFUNC').keys():
+                bits[0] = 'df-ks,' + bits[0]
+            elif bits[0].strip().lower()[:3] == 'df-' and not re.match(bits[0].strip().lower()[3:], '[ur]?hf'):
+                bits[0] = 'df-hf; ' + bits[0]
+            else:
+                bits[0] = 'hf; ' + bits[0]
+            if len(bits) == 1:
+                bits.append('cc-pVDZ')
+            # print('bits',bits)
+            result += bits
+        parsed['ansatz'] = ansatz
+        parsed['method'] = result[0]
+        parsed['basis'] = result[1]
+        parsed['geometry_method'] = result[2] if len(result) > 2 else None
+        parsed['geometry_basis'] = result[3] if len(result) > 3 else None
+        return parsed
     def errors(self, ignore_warning=True):
         '''
         Return all error nodes
