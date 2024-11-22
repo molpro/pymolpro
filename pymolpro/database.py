@@ -370,7 +370,7 @@ def library(expression=None):
     return result
 
 
-def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
+def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
         clean=False, initial="", check=False, check_energy=True, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
@@ -379,6 +379,8 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     :param Database db:  The database that defines molecules and reactions.
     :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
     :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
+    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the
+    method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
     :param str func: This should be one of
 
         * `energy` for a single geometry
@@ -413,14 +415,14 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
     newdb.project_directory = os.path.realpath(
         os.path.join(location,
                      hashlib.sha256(
-                         (str(method) + str(basis) + str(initial) +
+                         ((str(ansatz) if ansatz is not None else str(method) + str(basis)) + str(initial) +
                           str(tuple(sorted(kwargs.items())))).encode('utf-8')).hexdigest()[-8:]))
     if not os.path.exists(newdb.project_directory):
         os.makedirs(newdb.project_directory)
     newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
         method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
-            method[0]
+            method[0] # TODO implement this for ansatz too
         initial_ = initial + '\n' + db.preamble
         if 'preamble' in molecule:
             initial_ += '\n' + molecule['preamble']
@@ -428,6 +430,7 @@ def run(db, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="
             initial_ = None
         try:
             newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
+                                                    ansatz=ansatz,
                                                     method=method_,
                                                     basis=basis,
                                                     location=newdb.project_directory,
