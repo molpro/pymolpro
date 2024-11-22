@@ -10,6 +10,17 @@ import shutil
 class TestProject(unittest.TestCase):
     def setUp(self):
         self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)))
+        self.projects = []
+
+    def tearDown(self):
+        for project in self.projects:
+            project.erase()
+        pass
+
+    def new_project(self, *args, **kwargs):
+        self.projects.append(pymolpro.Project(*args, **kwargs))
+        return self.projects[-1]
+
 
     def test_local_molpro(self):
         print('local molpro root',self.project.local_molpro_root)
@@ -26,6 +37,7 @@ class TestProject(unittest.TestCase):
         # print(self.project.properties('correlation energy')) #TODO fix xpath search where attribute has embedded spaces
 
     def test_copy(self):
+        shutil.rmtree(os.path.dirname(os.path.abspath(__file__))+'/copied.molpro',ignore_errors=True)
         newproject = self.project.copy('copied', location=os.path.dirname(os.path.abspath(__file__)))
         newproject.erase()
 
@@ -90,6 +102,17 @@ class TestProject(unittest.TestCase):
         print('Should be True:', p2.run_needed())
         # %%
         shutil.rmtree(dir, ignore_errors=True)
+
+    def test_ansatz(self):
+        for ansatz in [
+            'B3LYP/cc-pVTZ',
+            'CCSD(T)-F12A/cc-pVTZ//B3LYP/cc-pVDZ',
+            'DF-MP2/aug-cc-pvdz',
+            'UmP2/aug-cc-pvdz',
+            'HF/cc-pvdz',
+        ]:
+            p1 = self.new_project('test_ansatz' + ansatz.replace('/', '_'), ansatz=ansatz, geometry='He')
+            self.assertEqual(ansatz, p1.ansatz, open(p1.filename('inp'), 'r').read())
 
 if __name__ == '__main__':
     unittest.main()
