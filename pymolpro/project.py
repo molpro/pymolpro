@@ -605,8 +605,8 @@ class Project(pysjef.project.Project):
                 except Exception:
                     if set == 'DFUNC':  # to keep unit testing quiet when there's no molpro
                         self.registry_cache[set] = {'B3LYP': {'set': 'DFUNC'}}
-                    return None
-            print( self.registry_cache[set])
+                    else:
+                        return None
             return self.registry_cache[set]
         else:
             try:
