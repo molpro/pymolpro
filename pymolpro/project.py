@@ -161,7 +161,7 @@ class Project(pysjef.project.Project):
             if initial is not None: input += initial + '\n'
             if not symm: input += 'symmetry, nosym\n'
             input += 'geometry={' + resolve_geometry(geometry) + '}\n'
-            if preamble is not None: input += 'preamble=' + preamble + '\n'
+            if preamble is not None: input +=  preamble + '\n'
             if charge is not None: input += 'charge=' + str(charge) + '\n'
             if spin is not None: input += 'spin=' + str(spin) + '\n'
             if geometry_method is not None:
@@ -170,7 +170,7 @@ class Project(pysjef.project.Project):
             input += self.commandify_method(method) + '\n'
             if extrapolate != '': input += 'extrapolate,basis=' + extrapolate + '\n'
             if func[:3] == 'opt': input += 'optg\n'
-            if postamble is not None: input += 'postamble=' + str(postamble) + '\n'
+            if postamble is not None: input += str(postamble) + '\n'
             if postamble is None or 'put,xml' not in postamble: input += '{put,xml;noorbitals,nobasis}\n'
             self.write_input(input)
 
