@@ -733,7 +733,7 @@ class Project(pysjef.project.Project):
         result['atomic_masses'] = np.array(
             [float(x) for x in ''.join(self.xpath('masses', vibration_set)[0].text.strip().splitlines()).split()])
         sqrt_mass_matrix = np.diag(
-            np.array([math.sqrt(mass- * 1822.88848621731) for mass in result['atomic_masses'] for i in range(3)]))
+            np.array([math.sqrt(mass* 1822.88848621731) for mass in result['atomic_masses'] for i in range(3)]))
         result['energies'] = result['wavenumbers'] / 219474.63
         mass_weighted_normal_coordinates = normal_coordinates @ sqrt_mass_matrix
         for i in range(len(mass_weighted_normal_coordinates)):
