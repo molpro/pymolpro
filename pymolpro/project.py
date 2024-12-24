@@ -1,3 +1,4 @@
+import math
 import pathlib
 
 import pysjef
@@ -706,3 +707,39 @@ class Project(pysjef.project.Project):
         except Exception:
             pass
         return entries
+
+    @builtins.property
+    def vibrations(self, instance=-1):
+        r"""
+        Give information on normal vibrational modes
+
+        :param instance:
+        :type instance: int
+        :return: Mass-weighted normal coordinates, vibrational wavenumbers, atomic masses, force constant matrix
+        :rtype: dict
+        """
+        result = {}
+        vibrations = self.xpath('//vibrations')
+        if vibrations is None or len(vibrations) == 0:
+            return None
+        vibration_set = vibrations[instance]
+        nodes = self.xpath('normalCoordinate', vibration_set)
+        result['wavenumbers'] = np.array([float(k.get('wavenumber')) for k in nodes])
+        if len(nodes) > 0 and nodes[0].get('IRintensity') is not None:
+            result['IRintensity'] = np.array([float(k.get('IRintensity')) for k in nodes])
+        normal_coordinates = np.array(
+            [[float(x) for x in ''.join(node.text.strip().splitlines()).split()] for node in nodes])
+        result['normal_coordinates'] = normal_coordinates
+        result['atomic_masses'] = np.array(
+            [float(x) for x in ''.join(self.xpath('masses', vibration_set)[0].text.strip().splitlines()).split()])
+        sqrt_mass_matrix = np.diag(
+            np.array([math.sqrt(mass- * 1822.88848621731) for mass in result['atomic_masses'] for i in range(3)]))
+        result['energies'] = result['wavenumbers'] / 219474.63
+        mass_weighted_normal_coordinates = normal_coordinates @ sqrt_mass_matrix
+        for i in range(len(mass_weighted_normal_coordinates)):
+            mass_weighted_normal_coordinates[i, :] = mass_weighted_normal_coordinates[i, :] / np.linalg.norm(
+                mass_weighted_normal_coordinates[i, :])
+        result['mass_weighted_normal_coordinates'] = mass_weighted_normal_coordinates
+        result['force_constants'] = sqrt_mass_matrix @ mass_weighted_normal_coordinates.transpose() @ np.diag(
+            result['energies']) @ np.diag(result['energies']) @ mass_weighted_normal_coordinates @ sqrt_mass_matrix
+        return result
