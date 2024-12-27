@@ -708,6 +708,14 @@ class Project(pysjef.project.Project):
             pass
         return entries
 
+    def gradient(self, instance=-1):
+        try:
+            grad = np.array([[float(x) for x in line.split()] for line in
+                             self.xpath_search('//gradient')[instance].strip().split('\n')])
+            return grad.reshape([grad.size])
+        except:
+            return None
+
     @builtins.property
     def vibrations(self, instance=-1):
         r"""
