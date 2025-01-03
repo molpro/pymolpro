@@ -748,6 +748,7 @@ class Project(pysjef.project.Project):
             mass_weighted_normal_coordinates[i, :] = mass_weighted_normal_coordinates[i, :] / np.linalg.norm(
                 mass_weighted_normal_coordinates[i, :])
         result['mass_weighted_normal_coordinates'] = mass_weighted_normal_coordinates
+        result['real_zero_imag'] = np.array([0.0 if k.get('real_zero_imag')=='Z' else -1.0 if k.get('real_zero_imag')=='I' else 1.0 for k in nodes])
         result['force_constants'] = sqrt_mass_matrix @ mass_weighted_normal_coordinates.transpose() @ np.diag(
-            result['energies']) @ np.diag(result['energies']) @ mass_weighted_normal_coordinates @ sqrt_mass_matrix
+            result['energies']) @ np.diag(result['real_zero_imag']) @ np.diag(result['energies']) @ mass_weighted_normal_coordinates @ sqrt_mass_matrix
         return result

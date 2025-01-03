@@ -116,32 +116,35 @@ class TestProject(unittest.TestCase):
 
     def test_force_constants(self):
         import numpy as np
-        p = self.new_project('test_hessian')
-        p.write_input('basis,svp;bohr;geometry={F,0,0,0;H,0,0,2};rhf;frequencies,analytic')
-        if p.local_molpro_root is not None:
-            p.run(wait=True)
-            # print('gradient', p.gradient())
-            try:
+        for r in [2.0, 4.0]:
+            p = self.new_project('test_hessian')
+            dr=.001
+            p.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r}}};rhf;frequencies,analytic')
+            if p.local_molpro_root is not None:
+                p.run(wait=True)
+                # print('gradient', p.gradient())
                 hessian_0 = p.vibrations['force_constants']
-                # print('hessian', hessian_0 )
-            except:
-                print(p.out)
-            pp = self.new_project('test_hessianp')
-            pp.write_input('basis,svp;bohr;geometry={F,0,0,0;H,0,0,2.001};rhf;forces')
-            pm = self.new_project('test_hessianm')
-            pm.write_input('basis,svp;bohr;geometry={F,0,0,0;H,0,0,1.999};rhf;forces')
-            pp.run()
-            pm.run()
-            pp.wait()
-            pm.wait()
-            numhess = (pp.gradient()-pm.gradient())/(0.002)
-            np.testing.assert_almost_equal(numhess, hessian_0[5,:],decimal=6)
-            np.testing.assert_almost_equal(-numhess, hessian_0[2,:],decimal=6)
-            # print('numhess', numhess)
-            # print(p.gradient())
-            # print(pp.gradient())
-            # print(pm.gradient())
-            # print((pp.gradient()+pm.gradient())/2)
+                try:
+                    # print('hessian', hessian_0 )
+                    pass
+                except:
+                    print(p.out)
+                pp = self.new_project('test_hessianp')
+                pp.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r+dr}}};rhf;forces')
+                pm = self.new_project('test_hessianm')
+                pm.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r-dr}}};rhf;forces')
+                pp.run()
+                pm.run()
+                pp.wait()
+                pm.wait()
+                numhess = (pp.gradient()-pm.gradient())/(2*dr)
+                np.testing.assert_almost_equal(numhess, hessian_0[5,:],decimal=6)
+                np.testing.assert_almost_equal(-numhess, hessian_0[2,:],decimal=6)
+                # print('numhess', numhess)
+                # print(p.gradient())
+                # print(pp.gradient())
+                # print(pm.gradient())
+                # print((pp.gradient()+pm.gradient())/2)
 
 if __name__ == '__main__':
     unittest.main()
