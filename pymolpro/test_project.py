@@ -1,3 +1,4 @@
+import subprocess
 import unittest
 
 import pytest
@@ -21,6 +22,10 @@ class TestProject(unittest.TestCase):
         self.projects.append(pymolpro.Project(*args, **kwargs))
         return self.projects[-1]
 
+    # def test_project_from_files(self):
+    #     shutil.rmtree('test_project_from_files.molpro', ignore_errors=True)
+    #     self.projects.append(pymolpro.Project("test_project_from_files", files=['/tmp/molpro.xml','/tmp/whatsit.xyz','/tmp/whatsit.molden']))
+    #     subprocess.run(['ls','-lR','test_project_from_files.molpro'])
 
     def test_local_molpro(self):
         print('local molpro root',self.project.local_molpro_root)
