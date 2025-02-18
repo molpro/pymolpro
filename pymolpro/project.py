@@ -1,4 +1,5 @@
 import math
+import os
 import pathlib
 
 import pysjef
@@ -130,6 +131,7 @@ class Project(pysjef.project.Project):
                  initial=None,
                  charge=None,
                  spin=None,
+                 files=[],
                  **kwargs):
         if not hasattr(self,'__initialized'):
             try:
@@ -174,6 +176,29 @@ class Project(pysjef.project.Project):
             if postamble is not None: input += str(postamble) + '\n'
             if postamble is None or 'put,xml' not in postamble: input += '{put,xml;noorbitals,nobasis}\n'
             self.write_input(input)
+        if files is not None and len(files) > 0:
+            project_directory = pathlib.Path(self.filename('', '', -1))
+            run_directory = project_directory
+            project_name = str(project_directory.stem)
+            rundir = False
+            for file in files:
+                if (os.path.isfile(file)):
+                    path = pathlib.Path(file)
+                    if path.suffix in ['.out', '.xml']:
+                        if not rundir:
+                            self.run_directory_new()
+                            rundir = True
+                        shutil.copyfile(file,self.filename(path.suffix[1:]))
+                        if path.suffix == '.xml':
+                            input_from_output = self.input_from_output()
+                            self.write_input('\n'.join(input_from_output))
+                    elif path.suffix in ['.inp','.xyz'] and path.stem != 'optimised':
+                        shutil.copyfile(file,pathlib.Path(self.filename('',run=-1))/path.name)
+                    else:
+                        if not rundir:
+                            self.run_directory_new()
+                            rundir = True
+                        shutil.copyfile(file,pathlib.Path(self.filename(''))/path.name)
 
     # def set_method(self,method,basis="cc-pVTZ",geometry_method=None, geometry_basis=None):
     #     pass
