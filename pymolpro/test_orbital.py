@@ -3,13 +3,14 @@ import pymolpro
 import math
 import numpy as np
 from lxml import etree
+import pathlib
 
 
 class TestOrbital(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.root = etree.Element("molpro")
-        orbitals_node = etree.SubElement(cls.root, "orbitals", attrib={'sidecar': '../example.xml-sidecar'})
+        orbitals_node = etree.SubElement(cls.root, "orbitals", attrib={'sidecar': str(pathlib.Path(__file__).parent.parent / 'example.xml-sidecar')})
         orbital_node = etree.SubElement(orbitals_node, "orbital", occupation='2.0', ID='1.1',
                                         moments='0.0 0.0 0.0 1.0 2.0 3.0 1.0 0.7 -0.4 0.0')
         orbital_node.text = '1.0 2.0'
@@ -34,7 +35,7 @@ class TestOrbital(unittest.TestCase):
     def test_construction(self):
         self.assertEqual(self.orbital.ID, '1.1')  # add assertion here
         self.assertEqual(self.orbital.occupation, 2.0)  # add assertion here
-        self.assertEqual(self.orbital.coefficients, [1.0, 2.0])
+        np.testing.assert_array_equal(self.orbital.coefficients, np.array([1.0, 2.0]))
 
     def test_sidecar(self):
         # print(self.orbital_from_sidecar.coefficients)

@@ -249,8 +249,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             hfresults = []
             results = []
             for basis in ['cc-pvdz', 'cc-pvtz']:
-                hfresults.append(database.run(db, 'hf', basis))
-                results.append(database.run(db, 'mp2', basis))
+                hfresults.append(database.run(db, 'hf', basis=basis))
+                results.append(database.run(db, 'mp2', basis=basis))
             results += database.basis_extrapolate(results, hfresults, [2, 3])
             results += database.basis_extrapolate(results, hfresults)
             # print(database.analyse(results))
@@ -259,8 +259,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             hfresults = []
             results = []
             for basis in ['cc-pvdz', 'cc-pvtz', 'cc-pvqz']:
-                hfresults.append(database.run(db, 'hf', basis))
-                results.append(database.run(db, 'mp2', basis))
+                hfresults.append(database.run(db, 'hf', basis=basis))
+                results.append(database.run(db, 'mp2', basis=basis))
             results += database.basis_extrapolate(results, hfresults)
             # print(database.analyse(results))
             self.assertEqual(len(results), 5)

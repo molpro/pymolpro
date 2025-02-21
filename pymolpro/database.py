@@ -633,10 +633,12 @@ def analyse(databases, reference_database=None, unit=None, **kwargs):
         for table in [typ + ' energies', typ + ' energy deviations', typ + ' statistics']:
             if results and all([table in result for result in results]):
                 output[table] = __compare_database_runs_format_table(results, table)
-    output['molecule violin plot'] = violin_plot(output, reactions=False, reference_method=reference_database.method,
-                                                 **kwargs)
-    output['reaction violin plot'] = violin_plot(output, reactions=True, reference_method=reference_database.method,
-                                                 **kwargs)
+    if reference_database is not None:
+        output['molecule violin plot'] = violin_plot(output, reactions=False,
+                                                     reference_method=reference_database.method,
+                                                     **kwargs)
+        output['reaction violin plot'] = violin_plot(output, reactions=True, reference_method=reference_database.method,
+                                                     **kwargs)
     return output
 
 
