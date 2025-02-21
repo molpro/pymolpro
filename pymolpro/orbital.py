@@ -4,7 +4,7 @@ import math
 import scipy.special
 
 import pymolpro.grid
-
+from . import sparse_dump
 
 class Orbital:
     """
@@ -109,8 +109,13 @@ class Orbital:
         for i in range(3):
             if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0:
                 self._second_moment_eigenvectors[:, i] *= -1
-        self.coefficients = self.node.text.split()
-        self.coefficients = [float(c) for c in self.coefficients]
+        coefficients_text = self.node.text
+        if coefficients_text is not None:
+            self.coefficients = coefficients_text.split()
+            self.coefficients = np.array([float(c) for c in self.coefficients])
+        elif self.attribute('sidecar_offset') not in (None, ''):
+            sidecar_file = node.getparent().get('sidecar')
+            self.coefficients,nothing = sparse_dump.sparse_dump_get(sidecar_file,int(self.attribute('sidecar_offset')))
 
     @property
     def local_second_moments(self):

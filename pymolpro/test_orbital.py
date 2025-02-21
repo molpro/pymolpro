@@ -9,19 +9,44 @@ class TestOrbital(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.root = etree.Element("molpro")
-        orbital_node = etree.SubElement(cls.root, "orbital", occupation='2.0', ID='1.1',
+        orbitals_node = etree.SubElement(cls.root, "orbitals", attrib={'sidecar': '../example.xml-sidecar'})
+        orbital_node = etree.SubElement(orbitals_node, "orbital", occupation='2.0', ID='1.1',
                                         moments='0.0 0.0 0.0 1.0 2.0 3.0 1.0 0.7 -0.4 0.0')
         orbital_node.text = '1.0 2.0'
         cls.orbital = pymolpro.Orbital(orbital_node)
-        orbital_node = etree.SubElement(cls.root, "orbital", occupation='2.0', ID='1.1',
+        orbital_node = etree.SubElement(orbitals_node, "orbital", occupation='2.0', ID='2.1',
                                         moments='0.0 0.0 0.0 1.0 1.0 1.0 0.0 0.0 0.0 0.0')
         orbital_node.text = '1.0 2.0'
         cls.aligned_orbital = pymolpro.Orbital(orbital_node)
+        # <orbital occupation="2.0" energy="-0.592155" ID="1.1" symmetryID="1"
+# moments="0.0 0.0 0.0 0.756290094524172 0.756290094524172 1.02438877380231 0.0 0.0 0.0 0.548208235906381" sidecar_offset="0">
+# 0.686764493914786 -0.170271973364213 0.0 0.0 0.22485148746517E-01 0.686764493914786 -0.170271973364213 0.0 0.0 -0.22485148746517E-01
+# </orbital>
+        from_xml_node = etree.SubElement(orbitals_node, "orbital", occupation='2.0', ID='3.1',
+        moments='0.0 0.0 0.0 0.756290094524172 0.756290094524172 1.02438877380231 0.0 0.0 0.0 0.548208235906381')
+        from_xml_node.text = '0.686764493914786 -0.170271973364213 0.0 0.0 0.22485148746517E-01 0.686764493914786 -0.170271973364213 0.0 0.0 -0.22485148746517E-01'
+        cls.orbital_from_xml = pymolpro.Orbital(from_xml_node)
+        from_sidecar_node = etree.SubElement(orbitals_node, "orbital", occupation='2.0', ID='4.1', sidecar_offset='0',
+        moments='0.0 0.0 0.0 0.756290094524172 0.756290094524172 1.02438877380231 0.0 0.0 0.0 0.548208235906381')
+        cls.orbital_from_sidecar = pymolpro.Orbital(from_sidecar_node)
+
 
     def test_construction(self):
         self.assertEqual(self.orbital.ID, '1.1')  # add assertion here
         self.assertEqual(self.orbital.occupation, 2.0)  # add assertion here
         self.assertEqual(self.orbital.coefficients, [1.0, 2.0])
+
+    def test_sidecar(self):
+        # print(self.orbital_from_sidecar.coefficients)
+        # print(self.orbital_from_xml.coefficients)
+        # print(np.array(self.orbital_from_xml.coefficients))
+        # self.assertAlmostEqual(self.orbital_from_sidecar.coefficients[0], self.orbital_from_xml.coefficients[0])
+        np.testing.assert_array_almost_equal(np.array(self.orbital_from_sidecar.coefficients), self.orbital_from_xml.coefficients)
+        try:
+            np.testing.assert_array_equal(np.array(self.orbital_from_sidecar.coefficients), self.orbital_from_xml.coefficients)
+        except:
+            return
+        raise "Should have raised an exception"
 
     def test_axes(self):
         self.assertEqual(self.orbital.ID, '1.1')
