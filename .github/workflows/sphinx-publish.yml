@@ -4,7 +4,7 @@ on:
     tags:
       - '*'
     branches:
-    - master
+    - CI-pages
 jobs:
   build:
     runs-on: ubuntu-latest
