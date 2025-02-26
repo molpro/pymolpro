@@ -36,7 +36,7 @@ jobs:
       with:
         documentation_path: './docs/source'
         checkout: 'false'
-        requirements_path: '/dev/null'
+        requirements_path: 'does_not_exist'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
