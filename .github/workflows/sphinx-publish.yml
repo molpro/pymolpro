@@ -3,8 +3,8 @@ on:
   push:
     tags:
       - '*'
-#    branches:
-#    - master
+    branches:
+    - CI-debug-2
 jobs:
   build:
     runs-on: ubuntu-latest
