@@ -26,6 +26,7 @@ jobs:
         python -m pip install --no-deps --force-reinstall .
 #    - run: sphinx-apidoc -o docs/source pymolpro
     - name: Build and Commit
+      shell: bash -el {0}
       uses: sphinx-notes/pages@v2
       with:
         documentation_path: './docs/source'
