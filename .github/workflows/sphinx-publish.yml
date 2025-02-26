@@ -46,7 +46,7 @@ jobs:
       - id: deployment
         uses: sphinx-notes/pages@v3
         with:
-          pyproject_extras: sphinx_rtd_theme nbsphinx
+#          pyproject_extras: sphinx_rtd_theme nbsphinx
           documentation_path: './docs/source'
 #      - name: Push changes
 #        uses: ad-m/github-push-action@master
