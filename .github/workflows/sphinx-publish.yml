@@ -4,7 +4,7 @@ on:
     tags:
       - '*'
     branches:
-    - CI-pages
+    - master
 jobs:
 #  build:
 #    runs-on: ubuntu-latest
@@ -48,8 +48,8 @@ jobs:
         with:
           pyproject_extras: 'sphinx_rtd_theme nbsphinx'
           documentation_path: './docs/source'
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
+#      - name: Push changes
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          branch: gh-pages
