@@ -74,6 +74,20 @@ class TestProject(unittest.TestCase):
         if self.project.local_molpro_root:
             assert os.path.exists(self.project.local_molpro_root / 'lib' / 'defbas')
 
+    def test_orbitals_to_molden(self):
+        if self.project.local_molpro_root:
+            assert os.path.exists(self.project.local_molpro_root / 'lib' / 'defbas')
+            filename = 'test_orbitals_to_molden'
+            shutil.rmtree(filename+'.molpro',ignore_errors=True)
+            p=pymolpro.Project(filename)
+            p.clean()
+            p.write_input('geometry={Be;H,Be,2};df-uhf;{put,xml;compress};{put,molden,put.molden}')
+            p.run(wait=True,force=True)
+            file = p.orbitals_to_molden()
+            print('file ',file)
+            with open(file,'r') as f:
+                print(f.read())
+
     def test_registry(self):
         if self.project.registry():
             assert 'GMB' in self.project.registry()

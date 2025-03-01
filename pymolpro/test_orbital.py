@@ -29,7 +29,7 @@ class TestOrbital(unittest.TestCase):
         cls.orbital_from_xml = pymolpro.Orbital(from_xml_node)
         from_sidecar_node = etree.SubElement(orbitals_node, "orbital", occupation='2.0', ID='4.1', sidecar_offset='0',
         moments='0.0 0.0 0.0 0.756290094524172 0.756290094524172 1.02438877380231 0.0 0.0 0.0 0.548208235906381')
-        cls.orbital_from_sidecar = pymolpro.Orbital(from_sidecar_node)
+        cls.orbital_from_sidecar = pymolpro.Orbital(from_sidecar_node,'/')
 
 
     def test_construction(self):

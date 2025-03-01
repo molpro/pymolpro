@@ -1,3 +1,5 @@
+import pathlib
+
 import numpy as np
 import scipy as sp
 import math
@@ -94,13 +96,16 @@ class Orbital:
         return pymolpro.grid.evaluateOrbitals(self.node.xpath('./parent::*/parent::*')[-1], points, ID=self.ID,
                                               values=values)
 
-    def __init__(self, node):
+    def __init__(self, node, directory=None):
         """
         Initialise from a node on a Molpro output xml tree
 
         :param node: lxml.etree.Element holding a single orbital
+        :param directory: the directory in which the xml file, and its sidecar, live
         """
         self.node = node
+        if self.attribute('energy') not in ['',None]:
+            self.energy = float(self.attribute('energy'))  #: energy of the orbital
         self.occupation = float(self.attribute('occupation'))  #: Occupation of the orbital
         self.centroid = np.array(
             [float(self.attribute('moments').split()[k]) for k in range(3)])  #: Centroid of the orbital
@@ -110,11 +115,11 @@ class Orbital:
             if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0:
                 self._second_moment_eigenvectors[:, i] *= -1
         coefficients_text = self.node.text
-        if coefficients_text is not None:
+        if coefficients_text is not None and coefficients_text.strip() != '':
             self.coefficients = coefficients_text.split()
             self.coefficients = np.array([float(c) for c in self.coefficients])
-        elif self.attribute('sidecar_offset') not in (None, ''):
-            sidecar_file = node.getparent().get('sidecar')
+        elif self.attribute('sidecar_offset') not in (None, '') and directory is not None:
+            sidecar_file = pathlib.Path(directory) / pathlib.Path(node.getparent().get('sidecar'))
             self.coefficients,nothing = sparse_dump.sparse_dump_get(sidecar_file,int(self.attribute('sidecar_offset')))
 
     @property
