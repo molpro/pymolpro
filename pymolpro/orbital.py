@@ -104,7 +104,8 @@ class Orbital:
         :param directory: the directory in which the xml file, and its sidecar, live
         """
         self.node = node
-        self.energy = float(self.attribute('energy'))  #: energy of the orbital
+        if self.attribute('energy') not in ['',None]:
+            self.energy = float(self.attribute('energy'))  #: energy of the orbital
         self.occupation = float(self.attribute('occupation'))  #: Occupation of the orbital
         self.centroid = np.array(
             [float(self.attribute('moments').split()[k]) for k in range(3)])  #: Centroid of the orbital
