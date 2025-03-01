@@ -9,6 +9,21 @@ import json
 import numpy as np
 import shutil
 
+periodic_table= ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
+            'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
+            'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni',
+            'Cu', 'Zn', 'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
+            'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru',
+            'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb', 'Te',
+            'I', 'Xe', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm',
+            'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm',
+            'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir',
+            'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
+            'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am',
+            'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr',
+            'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn',
+            'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og']
+
 
 def no_errors(projects, ignore_warning=True):
     """
@@ -243,7 +258,6 @@ class Project(pysjef.project.Project):
                 bits[0] = 'hf; ' + bits[0]
             if len(bits) == 1:
                 bits.append('cc-pVDZ')
-            # print('bits',bits)
             result += bits
         parsed['ansatz'] = ansatz
         parsed['method'] = result[0]
@@ -439,27 +453,112 @@ class Project(pysjef.project.Project):
                 result[-1] += '\n'
         return result
 
-    def orbitals(self, instance=-1, minocc=1.0, ID=None):
+    def orbitals_to_molden(self, filename=None, instance=-1, minocc=1.0, ID=None):
+        molecule = self.xpath('//*/molecule')[instance]
+        orbitalSets = self.xpath('orbitals', molecule)
+        if len(orbitalSets) < 1:
+            raise Exception('No orbital sets found')
+
+        file = self.filename('molden', filename) if filename is not None else self.filename('molden')
+        if instance != -1:
+            file = file.replace('.molden','_'+str(instance)+'.molden')
+        with open(file, 'w') as f:
+            f.write('[Molden Format]\n')
+            f.write('[Atoms] Angs\n')
+            atoms = self.geometries(preamble=f'//*/molecule[{"last()" if (instance < 0) else instance}]/')[0]
+            atomindex=0
+            for atom in atoms:
+                atomindex += 1
+                f.write(atom['elementType'] + ' ' + str(atomindex) + ' ' + str(periodic_table.index(atom['elementType'])+1) + ' '+ ' '.join([str(c) for c in atom['xyz']]) + '\n')
+
+            f.write('[GTO]\n')
+            for answer in self.xpath(
+                    'variables/variable[@name="_ANGSTROM"]/value',
+                    molecule):
+                Angstrom = np.float64(answer.text)
+            basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule)
+            if len(basisSets) != 1:
+                raise Exception('something is wrong: there should be just one orbital basisSet')
+            basisSet = basisSets[0]
+
+
+
+            count = 0
+            for atom in atoms:
+                count += 1
+                f.write(str(count)+' 0\n')
+                nuclearCoordinates = [np.float64(atom.get('x3')) * Angstrom, np.float64(atom.get('y3')) * Angstrom,
+                                      np.float64(atom.get('z3')) * Angstrom]
+                query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
+                    'id') + '\'")]]/..'
+                basisGroupAssociation = self.xpath(query, basisSet)
+                if len(basisGroupAssociation) != 1:
+                    raise Exception('something is wrong: there should be a unique association of an atom with a basis set')
+                bases = self.xpath('bases',basisGroupAssociation[0])
+                if len(bases) != 1:
+                    raise Exception('something is wrong: there should be a bases node in association')
+                basesString = bases[0].get('{http://www.w3.org/1999/xlink}href')
+                basesString = basesString[basesString.find('basisGroup['):]
+                basesString = basesString[basesString.find('[') + 1:].lstrip()
+                basesString = basesString[:basesString.find(']')].rstrip()
+                basesString = basesString.replace('or', '').replace('\n', '').replace("'", '')
+                list = basesString.split("@id=")
+                for item in list:
+                    item = item.lstrip().rstrip()
+                    if item.isalnum():
+                        basisGroup = self.xpath('basisGroup[@id="' + item + '"]', basisSet)[0]
+                        lquant = int(basisGroup.get('minL'))
+                        if lquant > 5:
+                            raise Exception("Sorry, I was too lazy to write this for i basis functions and higher")
+                        if lquant != int(basisGroup.get('maxL')):
+                            raise Exception("This program cannot handle multiple-angular momentum sets")
+                        alpha = np.float64(re.sub(' +', ' ',
+                                                  self.xpath('basisExponents', basisGroup)[
+                                                      0].text.replace('\n', '').lstrip().rstrip()).split(" "))
+                        for basisContraction in self.xpath('basisContraction', basisGroup):
+                            cc = np.float64(
+                            re.sub(' +', ' ', basisContraction.text.replace('\n', '').lstrip().rstrip()).split(" "))
+                            f.write('spdfghiklmnopqrst'[lquant]+' '+str(len(cc))+' 1.00\n')
+                            for i in range(len(cc)):
+                                f.write(str(alpha[i])+' '+str(cc[i])+'\n')
+                f.write('\n')
+
+            for orbital_instance in range(min(2,len(orbitalSets))): # forces that we just get the UHF alpha and beta, not natural
+                spin = orbitalSets[orbital_instance].get('spin')
+                orbitals = self.orbitals(instance=instance,minocc=minocc,ID=ID,orbital_instance=orbital_instance)
+                for orb in orbitals:
+                    f.write('[MO]\nSym='+orb.ID+'\n')
+                    f.write('Ene= '+str(orb.energy)+'\n')
+                    f.write('Spin= '+spin+'\n')
+                    f.write('Occup= '+str(orb.occupation)+'\n')
+                    count=0
+                    for c in orb.coefficients:
+                        count += 1
+                        f.write(str(count)+' '+str(c)+'\n')
+        return file
+
+    def orbitals(self, instance=-1, minocc=1.0, ID=None, orbital_instance=-1):
         """
         Obtain some or all of the orbitals in the job output
 
-        :param instance: Which set of orbitals
+        :param instance: Which molecule object to get orbitals for
         :param minocc: Only orbitals with at least this occupation will be returned
         :param ID: Only the orbital whose ID attribute matches this will be selected
+        :param orbital_instance: Which set of orbitals
         :return: a list of Orbital objects
         """
         molecule = self.xpath('//*/molecule')[instance]
         orbitalSets = self.xpath('orbitals', molecule)
-        if len(orbitalSets) != 1:
-            raise Exception('something is wrong: there should be just one orbital set')
+        if len(orbitalSets) < 1:
+            raise Exception('No orbital set found')
         result = []
         search = 'orbital'
         if ID:
             search += '[@ID="' + ID + '"]'
         from pymolpro import Orbital
-        for orbital in self.xpath(search, orbitalSets[0]):
+        for orbital in self.xpath(search, orbitalSets[orbital_instance]):
             if float(orbital.get('occupation')) >= minocc:
-                result.append(Orbital(orbital))
+                result.append(Orbital(orbital,self.filename()))
         assert not ID or len(result) == 1
         return result
 
