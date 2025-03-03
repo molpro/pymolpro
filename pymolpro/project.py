@@ -393,7 +393,7 @@ class Project(pysjef.project.Project):
         """
         return self.geometries(preamble=preamble)[instance]
 
-    def geometries(self, preamble='//'):
+    def geometries(self, preamble='//', parent_node=None):
         """
          Obtain all geometries from the job output
 
@@ -401,7 +401,7 @@ class Project(pysjef.project.Project):
          :return: list of dictionaries holding the geometry. Coordinates are in bohr
          """
         search = preamble + "*/cml:atomArray"
-        nodes = self.xpath(search)
+        nodes = self.xpath(search, parent_node)
         Angstrom = 1.88972612462577
         geoms = []
         for node in nodes:
@@ -454,8 +454,9 @@ class Project(pysjef.project.Project):
         return result
 
     def orbitals_to_molden(self, filename=None, instance=-1, minocc=1.0, ID=None):
-        molecule = self.xpath('//*/molecule')[instance]
-        orbitalSets = self.xpath('orbitals', molecule)
+        molecule_node = self.xpath('//*/molecule')[instance]
+        molecule_info = self.molecule(instance)
+        orbitalSets = molecule_info['orbitalSets']
         if len(orbitalSets) < 1:
             raise Exception('No orbital sets found')
 
@@ -465,7 +466,7 @@ class Project(pysjef.project.Project):
         with open(file, 'w') as f:
             f.write('[Molden Format]\n')
             f.write('[Atoms] Angs\n')
-            atoms = self.geometries(preamble=f'//*/molecule[{"last()" if (instance < 0) else instance}]/')[0]
+            atoms = molecule_info['geometry']
             atomindex=0
             for atom in atoms:
                 atomindex += 1
@@ -474,9 +475,9 @@ class Project(pysjef.project.Project):
             f.write('[GTO]\n')
             for answer in self.xpath(
                     'variables/variable[@name="_ANGSTROM"]/value',
-                    molecule):
+                    molecule_node):
                 Angstrom = np.float64(answer.text)
-            basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule)
+            basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule_node)
             if len(basisSets) != 1:
                 raise Exception('something is wrong: there should be just one orbital basisSet')
             basisSet = basisSets[0]
@@ -524,8 +525,8 @@ class Project(pysjef.project.Project):
                 f.write('\n')
 
             for orbital_instance in range(min(2,len(orbitalSets))): # forces that we just get the UHF alpha and beta, not natural
-                spin = orbitalSets[orbital_instance].get('spin')
-                orbitals = self.orbitals(instance=instance,minocc=minocc,ID=ID,orbital_instance=orbital_instance)
+                spin = orbitalSets[orbital_instance]['spin']
+                orbitals = orbitalSets[orbital_instance]['orbitals']
                 for orb in orbitals:
                     f.write('[MO]\nSym='+orb.ID+'\n')
                     f.write('Ene= '+str(orb.energy)+'\n')
@@ -535,7 +536,9 @@ class Project(pysjef.project.Project):
                     for c in orb.coefficients:
                         count += 1
                         f.write(str(count)+' '+str(c)+'\n')
-        return file
+        label = molecule_info['orbitalSets'][0]['method']
+        if len(orbitalSets)==1: label +='/'+ molecule_info['orbitalSets'][0]['type']
+        return file, label
 
     def orbitals(self, instance=-1, minocc=1.0, ID=None, orbital_instance=-1):
         """
@@ -547,10 +550,60 @@ class Project(pysjef.project.Project):
         :param orbital_instance: Which set of orbitals
         :return: a list of Orbital objects
         """
+        # molecule = self.molecule(instance=instance)
+        # if 'orbitals' not in molecule:
+        #     raise Exception('No orbital set found')
+        return self.orbitals_old(instance=instance, ID=ID, minocc=minocc, orbital_instance=orbital_instance)
+
+    def molecule(self, instance=-1):
+        """
+        Obtain a molecule in the job output
+
+        :param instance: Which molecule object to get
+        :return: a dictionary containing all the information available
+        """
+        from pymolpro import Orbital
+        molecule = {}
+        molecule_node = self.xpath('//*/molecule')[instance]
+        molecule['id'] = molecule_node.get('id')
+        molecule['method'] = molecule_node.get('method')
+        if molecule_node.get('energy') not in ['',None]:
+            molecule['energy'] = molecule_node.get('energy')
+        orbitalSets = self.xpath('orbitals', molecule_node)
+        molecule['orbitalSets'] = []
+        for orbitalSet in orbitalSets:
+            molecule['orbitalSets'].append({})
+            for attribute in orbitalSet.keys():
+                molecule['orbitalSets'][-1][attribute] = orbitalSet.get(attribute)
+            molecule['orbitalSets'][-1]['orbitals'] = []
+            for orbital in self.xpath('orbital', orbitalSet):
+                molecule['orbitalSets'][-1]['orbitals'].append(Orbital(orbital,self.filename()))
+        geometry_nodes = self.xpath('//*/molecule[@id="'+molecule['id']+'"]/cml:molecule/cml:atomArray', molecule_node)
+        assert len(geometry_nodes) ==1
+        Angstrom = 1.88972612462577
+        atoms = []
+        for atom in geometry_nodes[0].xpath("cml:atom", namespaces={'cml': "http://www.xml-cml.org/schema"}):
+            atoms.append({
+                'id': atom.xpath("@id")[0],
+                'elementType': atom.xpath("@elementType")[0],
+                'xyz': [Angstrom * float(atom.xpath("@x3")[0]), Angstrom * float(atom.xpath("@y3")[0]),
+                        Angstrom * float(atom.xpath("@z3")[0])]
+            })
+        molecule['geometry'] = atoms
+        return molecule
+
+    def orbitals_old(self, instance=-1, minocc=1.0, ID=None, orbital_instance=-1):
+        """
+        Obtain some or all of the orbitals in the job output
+
+        :param instance: Which molecule object to get orbitals for
+        :param minocc: Only orbitals with at least this occupation will be returned
+        :param ID: Only the orbital whose ID attribute matches this will be selected
+        :param orbital_instance: Which set of orbitals
+        :return: a list of Orbital objects
+        """
         molecule = self.xpath('//*/molecule')[instance]
         orbitalSets = self.xpath('orbitals', molecule)
-        if len(orbitalSets) < 1:
-            raise Exception('No orbital set found')
         result = []
         search = 'orbital'
         if ID:
@@ -558,6 +611,7 @@ class Project(pysjef.project.Project):
         from pymolpro import Orbital
         for orbital in self.xpath(search, orbitalSets[orbital_instance]):
             if float(orbital.get('occupation')) >= minocc:
+                print('found orbital with energy',orbital.get('energy'))
                 result.append(Orbital(orbital,self.filename()))
         assert not ID or len(result) == 1
         return result

@@ -81,12 +81,28 @@ class TestProject(unittest.TestCase):
             shutil.rmtree(filename+'.molpro',ignore_errors=True)
             p=pymolpro.Project(filename)
             p.clean()
-            p.write_input('geometry={Be;H,Be,2};df-uhf;{put,xml;compress};{put,molden,put.molden}')
-            p.run(wait=True,force=True)
-            file = p.orbitals_to_molden()
-            print('file ',file)
+            p.write_input('symmetry,nosym;geometry={He;He,He,2};df-hf;{ibba};{put,xml;compress}')
+#             p.write_input("""
+#             symmetry,nosym
+# !geometry={O;H,O,r;H,O,r,H,theta}
+# geometry={He;He,He,2}
+# r=1 angstrom, theta=104
+# basis=cc-pV(D+d)Z-PP
+# {df-rhf}
+# put,xml
+# {ibba}
+# put,xml
+# """)
+            p.run(wait=True,force=True,options='--xml-orbdump')
+            file, label = p.orbitals_to_molden(instance=0)
+            print('file ',file, label)
             with open(file,'r') as f:
                 print(f.read())
+            file, label = p.orbitals_to_molden(instance=1)
+            print('file ',file, label)
+            with open(file,'r') as f:
+                print(f.read())
+            self.assertRaises(IndexError, p.orbitals_to_molden,instance=2)
 
     def test_registry(self):
         if self.project.registry():
