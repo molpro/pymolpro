@@ -463,6 +463,10 @@ class Project(pysjef.project.Project):
         file = self.filename('molden', filename) if filename is not None else self.filename('molden')
         if instance != -1:
             file = file.replace('.molden','_'+str(instance)+'.molden')
+        for answer in self.xpath(
+                'variables/variable[@name="_ANGSTROM"]/value',
+                molecule_node):
+            Angstrom = np.float64(answer.text)
         with open(file, 'w') as f:
             f.write('[Molden Format]\n')
             f.write('[Atoms] Angs\n')
@@ -470,13 +474,10 @@ class Project(pysjef.project.Project):
             atomindex=0
             for atom in atoms:
                 atomindex += 1
-                f.write(atom['elementType'] + ' ' + str(atomindex) + ' ' + str(periodic_table.index(atom['elementType'])+1) + ' '+ ' '.join([str(c) for c in atom['xyz']]) + '\n')
+                f.write(atom['elementType'] + ' ' + str(atomindex) + ' ' + str(periodic_table.index(atom['elementType'])+1) + ' '+ ' '.join([str(c/Angstrom) for c in atom['xyz']]) + '\n')
 
             f.write('[GTO]\n')
-            for answer in self.xpath(
-                    'variables/variable[@name="_ANGSTROM"]/value',
-                    molecule_node):
-                Angstrom = np.float64(answer.text)
+
             basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule_node)
             if len(basisSets) != 1:
                 raise Exception('something is wrong: there should be just one orbital basisSet')
