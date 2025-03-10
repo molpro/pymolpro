@@ -454,6 +454,7 @@ class Project(pysjef.project.Project):
         return result
 
     def orbitals_to_molden(self, filename=None, instance=-1, minocc=1.0, ID=None):
+        Angstrom = 1.88972612462577
         molecule_node = self.xpath('//*/molecule')[instance]
         molecule_info = self.molecule(instance)
         orbitalSets = molecule_info['orbitalSets']
@@ -463,10 +464,6 @@ class Project(pysjef.project.Project):
         file = self.filename('molden', filename) if filename is not None else self.filename('molden')
         if instance != -1:
             file = file.replace('.molden','_'+str(instance)+'.molden')
-        for answer in self.xpath(
-                'variables/variable[@name="_ANGSTROM"]/value',
-                molecule_node):
-            Angstrom = np.float64(answer.text)
         with open(file, 'w') as f:
             f.write('[Molden Format]\n')
             f.write('[Atoms] Angs\n')
