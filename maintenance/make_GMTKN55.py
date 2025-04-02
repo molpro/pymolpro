@@ -66,7 +66,6 @@ directory = 'GMTKN55'
 
 
 def ensure_file(path):
-    global directory
     from pathlib import Path
     url_head = 'http://www.thch.uni-bonn.de/tc.old/downloads/GMTKN'
     path_ = Path(directory) / Path(path)
