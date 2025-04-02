@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A24x8 &mdash; pymolpro 1.13.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8f5b6f32"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bak2000 atomisations" href="Bak2000_atomisations.html" />
+    <link rel="prev" title="Database library" href="../databases.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pymolpro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../databases.html">Database library</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">A24x8</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#molecules">Molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reactions">Reactions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_atomisations.html">Bak2000 atomisations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_reactions.html">Bak2000 reactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BHPERI.html">GMTKN30 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DARC.html">GMTKN30 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DC9.html">GMTKN30 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_O3ADD6.html">GMTKN30 O3ADD6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ACONF.html">GMTKN55 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ADIM6.html">GMTKN55 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AHB21.html">GMTKN55 AHB21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AL2X6.html">GMTKN55 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALK8.html">GMTKN55 ALK8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALKBDE10.html">GMTKN55 ALKBDE10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_Amino20x4.html">GMTKN55 Amino20x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76.html">GMTKN55 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76RC.html">GMTKN55 BH76RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHDIV10.html">GMTKN55 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHPERI.html">GMTKN55 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHROT27.html">GMTKN55 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BSR36.html">GMTKN55 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BUT14DIOL.html">GMTKN55 BUT14DIOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_C60ISO.html">GMTKN55 C60ISO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CARBHB12.html">GMTKN55 CARBHB12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CDIE20.html">GMTKN55 CDIE20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CHB6.html">GMTKN55 CHB6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DARC.html">GMTKN55 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DC13.html">GMTKN55 DC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DIPCS10.html">GMTKN55 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_FH51.html">GMTKN55 FH51</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21EA.html">GMTKN55 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21IP.html">GMTKN55 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G2RC.html">GMTKN55 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HAL59.html">GMTKN55 HAL59</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVY28.html">GMTKN55 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVYSB11.html">GMTKN55 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ICONF.html">GMTKN55 ICONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IDISP.html">GMTKN55 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IL16.html">GMTKN55 IL16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_INV24.html">GMTKN55 INV24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISO34.html">GMTKN55 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISOL24.html">GMTKN55 ISOL24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MB16-43.html">GMTKN55 MB16-43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MCONF.html">GMTKN55 MCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_NBPRC.html">GMTKN55 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PA26.html">GMTKN55 PA26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PArel.html">GMTKN55 PArel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PCONF21.html">GMTKN55 PCONF21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PNICO23.html">GMTKN55 PNICO23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PX13.html">GMTKN55 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RC21.html">GMTKN55 RC21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RG18.html">GMTKN55 RG18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RSE43.html">GMTKN55 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S22.html">GMTKN55 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S66.html">GMTKN55 S66</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SCONF.html">GMTKN55 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SIE4x4.html">GMTKN55 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_TAUT15.html">GMTKN55 TAUT15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_UPU23.html">GMTKN55 UPU23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_W4-11.html">GMTKN55 W4-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WATER27.html">GMTKN55 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WCPT18.html">GMTKN55 WCPT18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_YBDE18.html">GMTKN55 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Karton_CRBH20.html">Karton CRBH20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_2pIsoE4.html">Minnesota 2019 2pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_3dEE8.html">Minnesota 2019 3dEE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4dAEE5.html">Minnesota 2019 4dAEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4pIsoE4.html">Minnesota 2019 4pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ABDE13.html">Minnesota 2019 ABDE13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AE17.html">Minnesota 2019 AE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AEE15.html">Minnesota 2019 AEE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AL2X6.html">Minnesota 2019 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ASNC2.html">Minnesota 2019 ASNC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHDIV10.html">Minnesota 2019 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHPERI26.html">Minnesota 2019 BHPERI26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHROT27.html">Minnesota 2019 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DC9.html">Minnesota 2019 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGH4.html">Minnesota 2019 DGH4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGL6.html">Minnesota 2019 DGL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DIPCS10.html">Minnesota 2019 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DM79.html">Minnesota 2019 DM79</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EA13.html">Minnesota 2019 EA13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE23.html">Minnesota 2019 EE23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE69.html">Minnesota 2019 EE69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEA11.html">Minnesota 2019 EEA11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEAroT5.html">Minnesota 2019 EEAroT5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EER5.html">Minnesota 2019 EER5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HC7.html">Minnesota 2019 HC7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HEAVYSB11.html">Minnesota 2019 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HTBH38.html">Minnesota 2019 HTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_IP23.html">Minnesota 2019 IP23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ISOL6.html">Minnesota 2019 ISOL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE2.html">Minnesota 2019 LRCTEE2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE9.html">Minnesota 2019 LRCTEE9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGM-BE4.html">Minnesota 2019 MR-MGM-BE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGN-BE17.html">Minnesota 2019 MR-MGN-BE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TM-BE12.html">Minnesota 2019 MR-TM-BE12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TMD-BE3.html">Minnesota 2019 MR-TMD-BE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NCCE30.html">Minnesota 2019 NCCE30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NGD21.html">Minnesota 2019 NGD21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NHTBH38.html">Minnesota 2019 NHTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NaCl.html">Minnesota 2019 NaCl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PA8.html">Minnesota 2019 PA8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PX13.html">Minnesota 2019 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.90.html">Minnesota 2019 S66 0.90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.95.html">Minnesota 2019 S66 0.95</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.00.html">Minnesota 2019 S66 1.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.05.html">Minnesota 2019 S66 1.05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.10.html">Minnesota 2019 S66 1.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.25.html">Minnesota 2019 S66 1.25</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.50.html">Minnesota 2019 S66 1.50</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_2.00.html">Minnesota 2019 S66 2.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_A.html">Minnesota 2019 S66 A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_B.html">Minnesota 2019 S66 B</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SIE4x4.html">Minnesota 2019 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SMAE3.html">Minnesota 2019 SMAE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGM-BE8.html">Minnesota 2019 SR-MGM-BE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGN-BE107.html">Minnesota 2019 SR-MGN-BE107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-TM-BE15.html">Minnesota 2019 SR-TM-BE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMBH22.html">Minnesota 2019 TMBH22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMDBL10.html">Minnesota 2019 TMDBL10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TSG48.html">Minnesota 2019 TSG48</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_WCCR10.html">Minnesota 2019 WCCR10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_YBDE18.html">Minnesota 2019 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pEE5.html">Minnesota 2019 pEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pTC13.html">Minnesota 2019 pTC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_BDE_99.html">Weizmann W411 BDE 99</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_HAT_707.html">Weizmann W411 HAT 707</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_ISOMERIZATION_20.html">Weizmann W411 ISOMERIZATION 20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_SN_13.html">Weizmann W411 SN 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_140.html">Weizmann W411 TAE 140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_MR_16.html">Weizmann W411 TAE MR 16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAEnonMR_124.html">Weizmann W411 TAEnonMR 124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarks_N2minimal.html">benchmarks N2minimal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+<p class="caption">
+    <span class="caption-text">Indices</span>
+</p>
+<ul>
+    <li class="toctree-l1"><a href= "../genindex.html">Everything</a></li>
+    <li class="toctree-l1"><a href= "../py-modindex.html">Module Index</a></li>
+</ul>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymolpro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../databases.html">Database library</a></li>
+      <li class="breadcrumb-item active">A24x8</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/database/A24x8.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="a24x8">
+<h1>A24x8<a class="headerlink" href="#a24x8" title="Link to this heading"></a></h1>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">V Fishman, E Semidalas, M Shepelenko, JML Martin, Journal of Computational Chemistry 46 (1), e70006: <a class="reference external" href="https://doi.org/10.1002/jcc.70007">https://doi.org/10.1002/jcc.70007</a></div>
+</div>
+</section>
+<section id="molecules">
+<h2>Molecules<a class="headerlink" href="#molecules" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="mailto:01-water_ammonia_0&#37;&#52;&#48;90re">01-water_ammonia_0<span>&#64;</span>90re</a>, energy = 0.009253216840015455
+<a class="reference external" href="mailto:01-water_ammonia_0&#37;&#52;&#48;95re">01-water_ammonia_0<span>&#64;</span>95re</a>, energy = 0.010142055637992087
+<a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;00re">01-water_ammonia_1<span>&#64;</span>00re</a>, energy = 0.010359582063010464
+<a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;05re">01-water_ammonia_1<span>&#64;</span>05re</a>, energy = 0.010156505518004622
+<a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;10re">01-water_ammonia_1<span>&#64;</span>10re</a>, energy = 0.009691485219001095
+<a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;25re">01-water_ammonia_1<span>&#64;</span>25re</a>, energy = 0.0077261141649884735
+<a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;50re">01-water_ammonia_1<span>&#64;</span>50re</a>, energy = 0.004754129994999801
+<a class="reference external" href="mailto:01-water_ammonia_2&#37;&#52;&#48;00re">01-water_ammonia_2<span>&#64;</span>00re</a>, energy = 0.0018579941780032527
+01-water_ammonia_monomerA, energy = 0.0
+01-water_ammonia_monomerB, energy = 0.0
+<a class="reference external" href="mailto:02-water_water_0&#37;&#52;&#48;90re">02-water_water_0<span>&#64;</span>90re</a>, energy = 0.007085204383983523
+<a class="reference external" href="mailto:02-water_water_0&#37;&#52;&#48;95re">02-water_water_0<span>&#64;</span>95re</a>, energy = 0.007822973094008034
+<a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;00re">02-water_water_1<span>&#64;</span>00re</a>, energy = 0.007999662943987573
+<a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;05re">02-water_water_1<span>&#64;</span>05re</a>, energy = 0.007827798571995004
+<a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;10re">02-water_water_1<span>&#64;</span>10re</a>, energy = 0.007451227111985759
+<a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;25re">02-water_water_1<span>&#64;</span>25re</a>, energy = 0.0058881000120010185
+<a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;50re">02-water_water_1<span>&#64;</span>50re</a>, energy = 0.003631583845006503
+<a class="reference external" href="mailto:02-water_water_2&#37;&#52;&#48;00re">02-water_water_2<span>&#64;</span>00re</a>, energy = 0.001491961973002276
+02-water_water_monomerA, energy = 0.0
+02-water_water_monomerB, energy = 0.0
+<a class="reference external" href="mailto:03-HCN_HCN_0&#37;&#52;&#48;90re">03-HCN_HCN_0<span>&#64;</span>90re</a>, energy = 0.0067747721519992865
+<a class="reference external" href="mailto:03-HCN_HCN_0&#37;&#52;&#48;95re">03-HCN_HCN_0<span>&#64;</span>95re</a>, energy = 0.0074299193289846235
+<a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;00re">03-HCN_HCN_1<span>&#64;</span>00re</a>, energy = 0.007582699183984687
+<a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;05re">03-HCN_HCN_1<span>&#64;</span>05re</a>, energy = 0.0074248210949861004
+<a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;10re">03-HCN_HCN_1<span>&#64;</span>10re</a>, energy = 0.007093845229007911
+<a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;25re">03-HCN_HCN_1<span>&#64;</span>25re</a>, energy = 0.0057367497809934775
+<a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;50re">03-HCN_HCN_1<span>&#64;</span>50re</a>, energy = 0.003785863541992285
+<a class="reference external" href="mailto:03-HCN_HCN_2&#37;&#52;&#48;00re">03-HCN_HCN_2<span>&#64;</span>00re</a>, energy = 0.0018543164459856598
+03-HCN_HCN_monomerA, energy = 0.0
+03-HCN_HCN_monomerB, energy = 0.0
+<a class="reference external" href="mailto:04-HF_HF_0&#37;&#52;&#48;90re">04-HF_HF_0<span>&#64;</span>90re</a>, energy = 0.006474060907024182
+<a class="reference external" href="mailto:04-HF_HF_0&#37;&#52;&#48;95re">04-HF_HF_0<span>&#64;</span>95re</a>, energy = 0.007177555062000351
+<a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;00re">04-HF_HF_1<span>&#64;</span>00re</a>, energy = 0.007340173803001449
+<a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;05re">04-HF_HF_1<span>&#64;</span>05re</a>, energy = 0.007173883035008544
+<a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;10re">04-HF_HF_1<span>&#64;</span>10re</a>, energy = 0.006823627717025715
+<a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;25re">04-HF_HF_1<span>&#64;</span>25re</a>, energy = 0.00539329150400647
+<a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;50re">04-HF_HF_1<span>&#64;</span>50re</a>, energy = 0.0033576530019985285
+<a class="reference external" href="mailto:04-HF_HF_2&#37;&#52;&#48;00re">04-HF_HF_2<span>&#64;</span>00re</a>, energy = 0.0014266731340200067
+04-HF_HF_monomerA, energy = 0.0
+04-HF_HF_monomerB, energy = 0.0
+<a class="reference external" href="mailto:05-NH3_NH3_0&#37;&#52;&#48;90re">05-NH3_NH3_0<span>&#64;</span>90re</a>, energy = 0.004421318458000201
+<a class="reference external" href="mailto:05-NH3_NH3_0&#37;&#52;&#48;95re">05-NH3_NH3_0<span>&#64;</span>95re</a>, energy = 0.004871530274002112
+<a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;00re">05-NH3_NH3_1<span>&#64;</span>00re</a>, energy = 0.0049909319180017064
+<a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;05re">05-NH3_NH3_1<span>&#64;</span>05re</a>, energy = 0.004890723971001876
+<a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;10re">05-NH3_NH3_1<span>&#64;</span>10re</a>, energy = 0.0046571034390012755
+<a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;25re">05-NH3_NH3_1<span>&#64;</span>25re</a>, energy = 0.0036338189100035834
+<a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;50re">05-NH3_NH3_1<span>&#64;</span>50re</a>, energy = 0.002072883644004264
+<a class="reference external" href="mailto:05-NH3_NH3_2&#37;&#52;&#48;00re">05-NH3_NH3_2<span>&#64;</span>00re</a>, energy = 0.0005932958130046018
+05-NH3_NH3_monomerA, energy = 0.0
+05-NH3_NH3_monomerB, energy = 0.0
+<a class="reference external" href="mailto:06-methane_HF_0&#37;&#52;&#48;90re">06-methane_HF_0<span>&#64;</span>90re</a>, energy = 0.0020887766739861036
+<a class="reference external" href="mailto:06-methane_HF_0&#37;&#52;&#48;95re">06-methane_HF_0<span>&#64;</span>95re</a>, energy = 0.0025506279060039105
+<a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;00re">06-methane_HF_1<span>&#64;</span>00re</a>, energy = 0.002654194998001458
+<a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;05re">06-methane_HF_1<span>&#64;</span>05re</a>, energy = 0.0025568858339966027
+<a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;10re">06-methane_HF_1<span>&#64;</span>10re</a>, energy = 0.002356717489988114
+<a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;25re">06-methane_HF_1<span>&#64;</span>25re</a>, energy = 0.001622890912983621
+<a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;50re">06-methane_HF_1<span>&#64;</span>50re</a>, energy = 0.0007708032709956569
+<a class="reference external" href="mailto:06-methane_HF_2&#37;&#52;&#48;00re">06-methane_HF_2<span>&#64;</span>00re</a>, energy = 0.0002005340780044662
+06-methane_HF_monomerA, energy = 0.0
+06-methane_HF_monomerB, energy = 0.0
+<a class="reference external" href="mailto:07-NH3_CH4_0&#37;&#52;&#48;90re">07-NH3_CH4_0<span>&#64;</span>90re</a>, energy = 0.000904415297007688
+<a class="reference external" href="mailto:07-NH3_CH4_0&#37;&#52;&#48;95re">07-NH3_CH4_0<span>&#64;</span>95re</a>, energy = 0.001152631846998986
+<a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;00re">07-NH3_CH4_1<span>&#64;</span>00re</a>, energy = 0.001214568062003707
+<a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;05re">07-NH3_CH4_1<span>&#64;</span>05re</a>, energy = 0.0011740575899992223
+<a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;10re">07-NH3_CH4_1<span>&#64;</span>10re</a>, energy = 0.0010820991580047234
+<a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;25re">07-NH3_CH4_1<span>&#64;</span>25re</a>, energy = 0.0007375527530015802
+<a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;50re">07-NH3_CH4_1<span>&#64;</span>50re</a>, energy = 0.0003414364510021528
+<a class="reference external" href="mailto:07-NH3_CH4_2&#37;&#52;&#48;00re">07-NH3_CH4_2<span>&#64;</span>00re</a>, energy = 8.446974300824195e-05
+07-NH3_CH4_monomerA, energy = 0.0
+07-NH3_CH4_monomerB, energy = 0.0
+<a class="reference external" href="mailto:08-methane_water_0&#37;&#52;&#48;90re">08-methane_water_0<span>&#64;</span>90re</a>, energy = 0.0007791437899982157
+<a class="reference external" href="mailto:08-methane_water_0&#37;&#52;&#48;95re">08-methane_water_0<span>&#64;</span>95re</a>, energy = 0.0010044297910098976
+<a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;00re">08-methane_water_1<span>&#64;</span>00re</a>, energy = 0.0010595525729968358
+<a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;05re">08-methane_water_1<span>&#64;</span>05re</a>, energy = 0.0010222017349974521
+<a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;10re">08-methane_water_1<span>&#64;</span>10re</a>, energy = 0.0009392060030108952
+<a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;25re">08-methane_water_1<span>&#64;</span>25re</a>, energy = 0.0006384151749898592
+<a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;50re">08-methane_water_1<span>&#64;</span>50re</a>, energy = 0.0002995620309889091
+<a class="reference external" href="mailto:08-methane_water_2&#37;&#52;&#48;00re">08-methane_water_2<span>&#64;</span>00re</a>, energy = 7.797890600613755e-05
+08-methane_water_monomerA, energy = 0.0
+08-methane_water_monomerB, energy = 0.0
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_0&#37;&#52;&#48;90re">09-formaldehyde_formaldehyde_0<span>&#64;</span>90re</a>, energy = 0.0048908973020189705
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_0&#37;&#52;&#48;95re">09-formaldehyde_formaldehyde_0<span>&#64;</span>95re</a>, energy = 0.006786472606009398
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;00re">09-formaldehyde_formaldehyde_1<span>&#64;</span>00re</a>, energy = 0.00724390959301502
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;05re">09-formaldehyde_formaldehyde_1<span>&#64;</span>05re</a>, energy = 0.006967316428003301
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;10re">09-formaldehyde_formaldehyde_1<span>&#64;</span>10re</a>, energy = 0.006362044466001748
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;25re">09-formaldehyde_formaldehyde_1<span>&#64;</span>25re</a>, energy = 0.004268865006011424
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;50re">09-formaldehyde_formaldehyde_1<span>&#64;</span>50re</a>, energy = 0.0020810919180149767
+<a class="reference external" href="mailto:09-formaldehyde_formaldehyde_2&#37;&#52;&#48;00re">09-formaldehyde_formaldehyde_2<span>&#64;</span>00re</a>, energy = 0.0006697164780149478
+09-formaldehyde_formaldehyde_monomerA, energy = 0.0
+09-formaldehyde_formaldehyde_monomerB, energy = 0.0
+<a class="reference external" href="mailto:10-water_ethene_0&#37;&#52;&#48;90re">10-water_ethene_0<span>&#64;</span>90re</a>, energy = 0.0033770016869851815
+<a class="reference external" href="mailto:10-water_ethene_0&#37;&#52;&#48;95re">10-water_ethene_0<span>&#64;</span>95re</a>, energy = 0.003942953474009414
+<a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;00re">10-water_ethene_1<span>&#64;</span>00re</a>, energy = 0.004088221445996965
+<a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;05re">10-water_ethene_1<span>&#64;</span>05re</a>, energy = 0.003985185493988297
+<a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;10re">10-water_ethene_1<span>&#64;</span>10re</a>, energy = 0.003743384526003979
+<a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;25re">10-water_ethene_1<span>&#64;</span>25re</a>, energy = 0.0027676789919865996
+<a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;50re">10-water_ethene_1<span>&#64;</span>50re</a>, energy = 0.0014833966439908863
+<a class="reference external" href="mailto:10-water_ethene_2&#37;&#52;&#48;00re">10-water_ethene_2<span>&#64;</span>00re</a>, energy = 0.00046491048099994714
+10-water_ethene_monomerA, energy = 0.0
+10-water_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:11-formaldehyde_ethene_0&#37;&#52;&#48;90re">11-formaldehyde_ethene_0<span>&#64;</span>90re</a>, energy = 0.0019465762790105148
+<a class="reference external" href="mailto:11-formaldehyde_ethene_0&#37;&#52;&#48;95re">11-formaldehyde_ethene_0<span>&#64;</span>95re</a>, energy = 0.002459240453987377
+<a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;00re">11-formaldehyde_ethene_1<span>&#64;</span>00re</a>, energy = 0.0025898569199966914
+<a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;05re">11-formaldehyde_ethene_1<span>&#64;</span>05re</a>, energy = 0.002504226703990753
+<a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;10re">11-formaldehyde_ethene_1<span>&#64;</span>10re</a>, energy = 0.0023072026939985335
+<a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;25re">11-formaldehyde_ethene_1<span>&#64;</span>25re</a>, energy = 0.0015655937639849071
+<a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;50re">11-formaldehyde_ethene_1<span>&#64;</span>50re</a>, energy = 0.0007004389649978293
+<a class="reference external" href="mailto:11-formaldehyde_ethene_2&#37;&#52;&#48;00re">11-formaldehyde_ethene_2<span>&#64;</span>00re</a>, energy = 0.0001401326549910209
+11-formaldehyde_ethene_monomerA, energy = 0.0
+11-formaldehyde_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:12-ethyne_ethyne_0&#37;&#52;&#48;90re">12-ethyne_ethyne_0<span>&#64;</span>90re</a>, energy = 0.0019068407230093953
+<a class="reference external" href="mailto:12-ethyne_ethyne_0&#37;&#52;&#48;95re">12-ethyne_ethyne_0<span>&#64;</span>95re</a>, energy = 0.0023261477300167144
+<a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;00re">12-ethyne_ethyne_1<span>&#64;</span>00re</a>, energy = 0.0024339993619975075
+<a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;05re">12-ethyne_ethyne_1<span>&#64;</span>05re</a>, energy = 0.002363989632996777
+<a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;10re">12-ethyne_ethyne_1<span>&#64;</span>10re</a>, energy = 0.0022015085780111576
+<a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;25re">12-ethyne_ethyne_1<span>&#64;</span>25re</a>, energy = 0.001575099810011693
+<a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;50re">12-ethyne_ethyne_1<span>&#64;</span>50re</a>, energy = 0.0008072230350109066
+<a class="reference external" href="mailto:12-ethyne_ethyne_2&#37;&#52;&#48;00re">12-ethyne_ethyne_2<span>&#64;</span>00re</a>, energy = 0.00024301089901257455
+12-ethyne_ethyne_monomerA, energy = 0.0
+12-ethyne_ethyne_monomerB, energy = 0.0
+<a class="reference external" href="mailto:13-ammonia_ethene_0&#37;&#52;&#48;90re">13-ammonia_ethene_0<span>&#64;</span>90re</a>, energy = 0.0017280233249863386
+<a class="reference external" href="mailto:13-ammonia_ethene_0&#37;&#52;&#48;95re">13-ammonia_ethene_0<span>&#64;</span>95re</a>, energy = 0.0020992560399832882
+<a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;00re">13-ammonia_ethene_1<span>&#64;</span>00re</a>, energy = 0.00219569293899724
+<a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;05re">13-ammonia_ethene_1<span>&#64;</span>05re</a>, energy = 0.0021373358570002665
+<a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;10re">13-ammonia_ethene_1<span>&#64;</span>10re</a>, energy = 0.001985642733004056
+<a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;25re">13-ammonia_ethene_1<span>&#64;</span>25re</a>, energy = 0.0014085581419891469
+<a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;50re">13-ammonia_ethene_1<span>&#64;</span>50re</a>, energy = 0.0006937625409904058
+<a class="reference external" href="mailto:13-ammonia_ethene_2&#37;&#52;&#48;00re">13-ammonia_ethene_2<span>&#64;</span>00re</a>, energy = 0.00018115817100294862
+13-ammonia_ethene_monomerA, energy = 0.0
+13-ammonia_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:14-ethene_ethene_0&#37;&#52;&#48;90re">14-ethene_ethene_0<span>&#64;</span>90re</a>, energy = 0.0007657091650088432
+<a class="reference external" href="mailto:14-ethene_ethene_0&#37;&#52;&#48;95re">14-ethene_ethene_0<span>&#64;</span>95re</a>, energy = 0.0015535413670164644
+<a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;00re">14-ethene_ethene_1<span>&#64;</span>00re</a>, energy = 0.0017435788290214302
+<a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;05re">14-ethene_ethene_1<span>&#64;</span>05re</a>, energy = 0.0016538977080102766
+<a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;10re">14-ethene_ethene_1<span>&#64;</span>10re</a>, energy = 0.0014553067360196792
+<a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;25re">14-ethene_ethene_1<span>&#64;</span>25re</a>, energy = 0.0008318224169983067
+<a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;50re">14-ethene_ethene_1<span>&#64;</span>50re</a>, energy = 0.00030162065500860535
+<a class="reference external" href="mailto:14-ethene_ethene_2&#37;&#52;&#48;00re">14-ethene_ethene_2<span>&#64;</span>00re</a>, energy = 5.756251501054521e-05
+14-ethene_ethene_monomerA, energy = 0.0
+14-ethene_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:15-methane_ethene_0&#37;&#52;&#48;90re">15-methane_ethene_0<span>&#64;</span>90re</a>, energy = 0.0005582391609948445
+<a class="reference external" href="mailto:15-methane_ethene_0&#37;&#52;&#48;95re">15-methane_ethene_0<span>&#64;</span>95re</a>, energy = 0.0007475573169983818
+<a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;00re">15-methane_ethene_1<span>&#64;</span>00re</a>, energy = 0.0008031658839939838
+<a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;05re">15-methane_ethene_1<span>&#64;</span>05re</a>, energy = 0.0007778453120010909
+<a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;10re">15-methane_ethene_1<span>&#64;</span>10re</a>, energy = 0.0007141663219982775
+<a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;25re">15-methane_ethene_1<span>&#64;</span>25re</a>, energy = 0.0004765515510030127
+<a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;50re">15-methane_ethene_1<span>&#64;</span>50re</a>, energy = 0.0002113533460033068
+<a class="reference external" href="mailto:15-methane_ethene_2&#37;&#52;&#48;00re">15-methane_ethene_2<span>&#64;</span>00re</a>, energy = 4.752249499517802e-05
+15-methane_ethene_monomerA, energy = 0.0
+15-methane_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:16-borane_methane_0&#37;&#52;&#48;90re">16-borane_methane_0<span>&#64;</span>90re</a>, energy = 0.0014430798149902557
+<a class="reference external" href="mailto:16-borane_methane_0&#37;&#52;&#48;95re">16-borane_methane_0<span>&#64;</span>95re</a>, energy = 0.0021797594439902923
+<a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;00re">16-borane_methane_1<span>&#64;</span>00re</a>, energy = 0.0023592990589946794
+<a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;05re">16-borane_methane_1<span>&#64;</span>05re</a>, energy = 0.0022497895189985684
+<a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;10re">16-borane_methane_1<span>&#64;</span>10re</a>, energy = 0.0020091886370039447
+<a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;25re">16-borane_methane_1<span>&#64;</span>25re</a>, energy = 0.0011979077049915077
+<a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;50re">16-borane_methane_1<span>&#64;</span>50re</a>, energy = 0.0004350811889963779
+<a class="reference external" href="mailto:16-borane_methane_2&#37;&#52;&#48;00re">16-borane_methane_2<span>&#64;</span>00re</a>, energy = 7.411926499401034e-05
+16-borane_methane_monomerA, energy = 0.0
+16-borane_methane_monomerB, energy = 0.0
+<a class="reference external" href="mailto:17-methane_ethane_0&#37;&#52;&#48;90re">17-methane_ethane_0<span>&#64;</span>90re</a>, energy = 0.0005280124089921401
+<a class="reference external" href="mailto:17-methane_ethane_0&#37;&#52;&#48;95re">17-methane_ethane_0<span>&#64;</span>95re</a>, energy = 0.0011673652600023843
+<a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;00re">17-methane_ethane_1<span>&#64;</span>00re</a>, energy = 0.0013138769080001111
+<a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;05re">17-methane_ethane_1<span>&#64;</span>05re</a>, energy = 0.0012369605479989332
+<a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;10re">17-methane_ethane_1<span>&#64;</span>10re</a>, energy = 0.0010754961270009744
+<a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;25re">17-methane_ethane_1<span>&#64;</span>25re</a>, energy = 0.0005906264389921034
+<a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;50re">17-methane_ethane_1<span>&#64;</span>50re</a>, energy = 0.0001991913609913354
+<a class="reference external" href="mailto:17-methane_ethane_2&#37;&#52;&#48;00re">17-methane_ethane_2<span>&#64;</span>00re</a>, energy = 3.286496300347608e-05
+17-methane_ethane_monomerA, energy = 0.0
+17-methane_ethane_monomerB, energy = 0.0
+<a class="reference external" href="mailto:18-methane_ethane_0&#37;&#52;&#48;90re">18-methane_ethane_0<span>&#64;</span>90re</a>, energy = 0.0003284336060005444
+<a class="reference external" href="mailto:18-methane_ethane_0&#37;&#52;&#48;95re">18-methane_ethane_0<span>&#64;</span>95re</a>, energy = 0.0008507348699993145
+<a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;00re">18-methane_ethane_1<span>&#64;</span>00re</a>, energy = 0.0009690266030020213
+<a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;05re">18-methane_ethane_1<span>&#64;</span>05re</a>, energy = 0.0009086772249986552
+<a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;10re">18-methane_ethane_1<span>&#64;</span>10re</a>, energy = 0.0007840935099920898
+<a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;25re">18-methane_ethane_1<span>&#64;</span>25re</a>, energy = 0.00042254756699833257
+<a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;50re">18-methane_ethane_1<span>&#64;</span>50re</a>, energy = 0.0001396384650007576
+<a class="reference external" href="mailto:18-methane_ethane_2&#37;&#52;&#48;00re">18-methane_ethane_2<span>&#64;</span>00re</a>, energy = 2.1832325003856567e-05
+18-methane_ethane_monomerA, energy = 0.0
+18-methane_ethane_monomerB, energy = 0.0
+<a class="reference external" href="mailto:19-methane_methane_0&#37;&#52;&#48;90re">19-methane_methane_0<span>&#64;</span>90re</a>, energy = 0.000253700730006301
+<a class="reference external" href="mailto:19-methane_methane_0&#37;&#52;&#48;95re">19-methane_methane_0<span>&#64;</span>95re</a>, energy = 0.0007308653510094132
+<a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;00re">19-methane_methane_1<span>&#64;</span>00re</a>, energy = 0.0008392826570045032
+<a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;05re">19-methane_methane_1<span>&#64;</span>05re</a>, energy = 0.0007874820409980998
+<a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;10re">19-methane_methane_1<span>&#64;</span>10re</a>, energy = 0.0006783353819983517
+<a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;25re">19-methane_methane_1<span>&#64;</span>25re</a>, energy = 0.00036068413900380847
+<a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;50re">19-methane_methane_1<span>&#64;</span>50re</a>, energy = 0.00011771084800926701
+<a class="reference external" href="mailto:19-methane_methane_2&#37;&#52;&#48;00re">19-methane_methane_2<span>&#64;</span>00re</a>, energy = 1.8732611998473203e-05
+19-methane_methane_monomerA, energy = 0.0
+19-methane_methane_monomerB, energy = 0.0
+<a class="reference external" href="mailto:20-ar_methane_0&#37;&#52;&#48;90re">20-ar_methane_0<span>&#64;</span>90re</a>, energy = 0.00020437258899619337
+<a class="reference external" href="mailto:20-ar_methane_0&#37;&#52;&#48;95re">20-ar_methane_0<span>&#64;</span>95re</a>, energy = 0.0005830515800653302
+<a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;00re">20-ar_methane_1<span>&#64;</span>00re</a>, energy = 0.0006639203480744982
+<a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;05re">20-ar_methane_1<span>&#64;</span>05re</a>, energy = 0.0006190812140403068
+<a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;10re">20-ar_methane_1<span>&#64;</span>10re</a>, energy = 0.000531276976062145
+<a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;25re">20-ar_methane_1<span>&#64;</span>25re</a>, energy = 0.00028103397801260144
+<a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;50re">20-ar_methane_1<span>&#64;</span>50re</a>, energy = 9.0621368030952e-05
+<a class="reference external" href="mailto:20-ar_methane_2&#37;&#52;&#48;00re">20-ar_methane_2<span>&#64;</span>00re</a>, energy = 1.5172142070696282e-05
+20-ar_methane_monomerA, energy = 0.0
+20-ar_methane_monomerB, energy = 0.0
+<a class="reference external" href="mailto:21-ar_ethene_0&#37;&#52;&#48;90re">21-ar_ethene_0<span>&#64;</span>90re</a>, energy = 0.0001957815370587923
+<a class="reference external" href="mailto:21-ar_ethene_0&#37;&#52;&#48;95re">21-ar_ethene_0<span>&#64;</span>95re</a>, energy = 0.0005128820130266831
+<a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;00re">21-ar_ethene_1<span>&#64;</span>00re</a>, energy = 0.0005904430420287099
+<a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;05re">21-ar_ethene_1<span>&#64;</span>05re</a>, energy = 0.000559897155994804
+<a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;10re">21-ar_ethene_1<span>&#64;</span>10re</a>, energy = 0.0004881852891003291
+<a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;25re">21-ar_ethene_1<span>&#64;</span>25re</a>, energy = 0.00026805728907675075
+<a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;50re">21-ar_ethene_1<span>&#64;</span>50re</a>, energy = 9.008683309730259e-05
+<a class="reference external" href="mailto:21-ar_ethene_2&#37;&#52;&#48;00re">21-ar_ethene_2<span>&#64;</span>00re</a>, energy = 1.505545503732719e-05
+21-ar_ethene_monomerA, energy = 0.0
+21-ar_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:22-ethene_ethyne_0&#37;&#52;&#48;90re">22-ethene_ethyne_0<span>&#64;</span>90re</a>, energy = -0.004926872588995934
+<a class="reference external" href="mailto:22-ethene_ethyne_0&#37;&#52;&#48;95re">22-ethene_ethyne_0<span>&#64;</span>95re</a>, energy = -0.0026172820640084637
+<a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;00re">22-ethene_ethyne_1<span>&#64;</span>00re</a>, energy = -0.0013051198740043901
+<a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;05re">22-ethene_ethyne_1<span>&#64;</span>05re</a>, energy = -0.0005829074859917682
+<a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;10re">22-ethene_ethyne_1<span>&#64;</span>10re</a>, energy = -0.00020326076101184753
+<a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;25re">22-ethene_ethyne_1<span>&#64;</span>25re</a>, energy = 8.304665500702413e-05
+<a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;50re">22-ethene_ethyne_1<span>&#64;</span>50re</a>, energy = 1.0436117989343074e-05
+<a class="reference external" href="mailto:22-ethene_ethyne_2&#37;&#52;&#48;00re">22-ethene_ethyne_2<span>&#64;</span>00re</a>, energy = -2.5624033000326563e-05
+22-ethene_ethyne_monomerA, energy = 0.0
+22-ethene_ethyne_monomerB, energy = 0.0
+<a class="reference external" href="mailto:23-ethene_ethene_0&#37;&#52;&#48;90re">23-ethene_ethene_0<span>&#64;</span>90re</a>, energy = -0.005519993599989448
+<a class="reference external" href="mailto:23-ethene_ethene_0&#37;&#52;&#48;95re">23-ethene_ethene_0<span>&#64;</span>95re</a>, energy = -0.0029557392250012526
+<a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;00re">23-ethene_ethene_1<span>&#64;</span>00re</a>, energy = -0.0014789544239874886
+<a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;05re">23-ethene_ethene_1<span>&#64;</span>05re</a>, energy = -0.000650176682000847
+<a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;10re">23-ethene_ethene_1<span>&#64;</span>10re</a>, energy = -0.00020688987498829192
+<a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;25re">23-ethene_ethene_1<span>&#64;</span>25re</a>, energy = 0.00014009085899147067
+<a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;50re">23-ethene_ethene_1<span>&#64;</span>50re</a>, energy = 4.694434198881936e-05
+<a class="reference external" href="mailto:23-ethene_ethene_2&#37;&#52;&#48;00re">23-ethene_ethene_2<span>&#64;</span>00re</a>, energy = -1.91534099940327e-05
+23-ethene_ethene_monomerA, energy = 0.0
+23-ethene_ethene_monomerB, energy = 0.0
+<a class="reference external" href="mailto:24-ethyne_ethyne_0&#37;&#52;&#48;90re">24-ethyne_ethyne_0<span>&#64;</span>90re</a>, energy = -0.00544205413601162
+<a class="reference external" href="mailto:24-ethyne_ethyne_0&#37;&#52;&#48;95re">24-ethyne_ethyne_0<span>&#64;</span>95re</a>, energy = -0.003117800563018136
+<a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;00re">24-ethyne_ethyne_1<span>&#64;</span>00re</a>, energy = -0.001785554588991545
+<a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;05re">24-ethyne_ethyne_1<span>&#64;</span>05re</a>, energy = -0.0010351629649960614
+<a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;10re">24-ethyne_ethyne_1<span>&#64;</span>10re</a>, energy = -0.0006199347469930672
+<a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;25re">24-ethyne_ethyne_1<span>&#64;</span>25re</a>, energy = -0.00021332011101549145
+<a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;50re">24-ethyne_ethyne_1<span>&#64;</span>50re</a>, energy = -0.00013598050500718273
+<a class="reference external" href="mailto:24-ethyne_ethyne_2&#37;&#52;&#48;00re">24-ethyne_ethyne_2<span>&#64;</span>00re</a>, energy = -6.444040201358803e-05
+24-ethyne_ethyne_monomerA, energy = 0.0
+24-ethyne_ethyne_monomerB, energy = 0.0</p>
+</section>
+<section id="reactions">
+<h2>Reactions<a class="headerlink" href="#reactions" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">01-water_ammonia_0.90re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_0&#37;&#52;&#48;90re">01-water_ammonia_0<span>&#64;</span>90re</a> (01-water_ammonia_0.90re), energy = 0.009253216840015455</div>
+<div class="line">01-water_ammonia_0.95re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_0&#37;&#52;&#48;95re">01-water_ammonia_0<span>&#64;</span>95re</a> (01-water_ammonia_0.95re), energy = 0.010142055637992087</div>
+<div class="line">01-water_ammonia_1.00re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;00re">01-water_ammonia_1<span>&#64;</span>00re</a> (01-water_ammonia_1.00re), energy = 0.010359582063010464</div>
+<div class="line">01-water_ammonia_1.05re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;05re">01-water_ammonia_1<span>&#64;</span>05re</a> (01-water_ammonia_1.05re), energy = 0.010156505518004622</div>
+<div class="line">01-water_ammonia_1.10re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;10re">01-water_ammonia_1<span>&#64;</span>10re</a> (01-water_ammonia_1.10re), energy = 0.009691485219001095</div>
+<div class="line">01-water_ammonia_1.25re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;25re">01-water_ammonia_1<span>&#64;</span>25re</a> (01-water_ammonia_1.25re), energy = 0.0077261141649884735</div>
+<div class="line">01-water_ammonia_1.50re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_1&#37;&#52;&#48;50re">01-water_ammonia_1<span>&#64;</span>50re</a> (01-water_ammonia_1.50re), energy = 0.004754129994999801</div>
+<div class="line">01-water_ammonia_2.00re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -&gt; <a class="reference external" href="mailto:01-water_ammonia_2&#37;&#52;&#48;00re">01-water_ammonia_2<span>&#64;</span>00re</a> (01-water_ammonia_2.00re), energy = 0.0018579941780032527</div>
+<div class="line">02-water_water_0.90re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_0&#37;&#52;&#48;90re">02-water_water_0<span>&#64;</span>90re</a> (02-water_water_0.90re), energy = 0.007085204383983523</div>
+<div class="line">02-water_water_0.95re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_0&#37;&#52;&#48;95re">02-water_water_0<span>&#64;</span>95re</a> (02-water_water_0.95re), energy = 0.007822973094008034</div>
+<div class="line">02-water_water_1.00re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;00re">02-water_water_1<span>&#64;</span>00re</a> (02-water_water_1.00re), energy = 0.007999662943987573</div>
+<div class="line">02-water_water_1.05re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;05re">02-water_water_1<span>&#64;</span>05re</a> (02-water_water_1.05re), energy = 0.007827798571995004</div>
+<div class="line">02-water_water_1.10re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;10re">02-water_water_1<span>&#64;</span>10re</a> (02-water_water_1.10re), energy = 0.007451227111985759</div>
+<div class="line">02-water_water_1.25re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;25re">02-water_water_1<span>&#64;</span>25re</a> (02-water_water_1.25re), energy = 0.0058881000120010185</div>
+<div class="line">02-water_water_1.50re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_1&#37;&#52;&#48;50re">02-water_water_1<span>&#64;</span>50re</a> (02-water_water_1.50re), energy = 0.003631583845006503</div>
+<div class="line">02-water_water_2.00re: 02-water_water_monomerA + 02-water_water_monomerB -&gt; <a class="reference external" href="mailto:02-water_water_2&#37;&#52;&#48;00re">02-water_water_2<span>&#64;</span>00re</a> (02-water_water_2.00re), energy = 0.001491961973002276</div>
+<div class="line">03-HCN_HCN_0.90re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_0&#37;&#52;&#48;90re">03-HCN_HCN_0<span>&#64;</span>90re</a> (03-HCN_HCN_0.90re), energy = 0.0067747721519992865</div>
+<div class="line">03-HCN_HCN_0.95re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_0&#37;&#52;&#48;95re">03-HCN_HCN_0<span>&#64;</span>95re</a> (03-HCN_HCN_0.95re), energy = 0.0074299193289846235</div>
+<div class="line">03-HCN_HCN_1.00re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;00re">03-HCN_HCN_1<span>&#64;</span>00re</a> (03-HCN_HCN_1.00re), energy = 0.007582699183984687</div>
+<div class="line">03-HCN_HCN_1.05re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;05re">03-HCN_HCN_1<span>&#64;</span>05re</a> (03-HCN_HCN_1.05re), energy = 0.0074248210949861004</div>
+<div class="line">03-HCN_HCN_1.10re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;10re">03-HCN_HCN_1<span>&#64;</span>10re</a> (03-HCN_HCN_1.10re), energy = 0.007093845229007911</div>
+<div class="line">03-HCN_HCN_1.25re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;25re">03-HCN_HCN_1<span>&#64;</span>25re</a> (03-HCN_HCN_1.25re), energy = 0.0057367497809934775</div>
+<div class="line">03-HCN_HCN_1.50re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_1&#37;&#52;&#48;50re">03-HCN_HCN_1<span>&#64;</span>50re</a> (03-HCN_HCN_1.50re), energy = 0.003785863541992285</div>
+<div class="line">03-HCN_HCN_2.00re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -&gt; <a class="reference external" href="mailto:03-HCN_HCN_2&#37;&#52;&#48;00re">03-HCN_HCN_2<span>&#64;</span>00re</a> (03-HCN_HCN_2.00re), energy = 0.0018543164459856598</div>
+<div class="line">04-HF_HF_0.90re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_0&#37;&#52;&#48;90re">04-HF_HF_0<span>&#64;</span>90re</a> (04-HF_HF_0.90re), energy = 0.006474060907024182</div>
+<div class="line">04-HF_HF_0.95re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_0&#37;&#52;&#48;95re">04-HF_HF_0<span>&#64;</span>95re</a> (04-HF_HF_0.95re), energy = 0.007177555062000351</div>
+<div class="line">04-HF_HF_1.00re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;00re">04-HF_HF_1<span>&#64;</span>00re</a> (04-HF_HF_1.00re), energy = 0.007340173803001449</div>
+<div class="line">04-HF_HF_1.05re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;05re">04-HF_HF_1<span>&#64;</span>05re</a> (04-HF_HF_1.05re), energy = 0.007173883035008544</div>
+<div class="line">04-HF_HF_1.10re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;10re">04-HF_HF_1<span>&#64;</span>10re</a> (04-HF_HF_1.10re), energy = 0.006823627717025715</div>
+<div class="line">04-HF_HF_1.25re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;25re">04-HF_HF_1<span>&#64;</span>25re</a> (04-HF_HF_1.25re), energy = 0.00539329150400647</div>
+<div class="line">04-HF_HF_1.50re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_1&#37;&#52;&#48;50re">04-HF_HF_1<span>&#64;</span>50re</a> (04-HF_HF_1.50re), energy = 0.0033576530019985285</div>
+<div class="line">04-HF_HF_2.00re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -&gt; <a class="reference external" href="mailto:04-HF_HF_2&#37;&#52;&#48;00re">04-HF_HF_2<span>&#64;</span>00re</a> (04-HF_HF_2.00re), energy = 0.0014266731340200067</div>
+<div class="line">05-NH3_NH3_0.90re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_0&#37;&#52;&#48;90re">05-NH3_NH3_0<span>&#64;</span>90re</a> (05-NH3_NH3_0.90re), energy = 0.004421318458000201</div>
+<div class="line">05-NH3_NH3_0.95re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_0&#37;&#52;&#48;95re">05-NH3_NH3_0<span>&#64;</span>95re</a> (05-NH3_NH3_0.95re), energy = 0.004871530274002112</div>
+<div class="line">05-NH3_NH3_1.00re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;00re">05-NH3_NH3_1<span>&#64;</span>00re</a> (05-NH3_NH3_1.00re), energy = 0.0049909319180017064</div>
+<div class="line">05-NH3_NH3_1.05re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;05re">05-NH3_NH3_1<span>&#64;</span>05re</a> (05-NH3_NH3_1.05re), energy = 0.004890723971001876</div>
+<div class="line">05-NH3_NH3_1.10re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;10re">05-NH3_NH3_1<span>&#64;</span>10re</a> (05-NH3_NH3_1.10re), energy = 0.0046571034390012755</div>
+<div class="line">05-NH3_NH3_1.25re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;25re">05-NH3_NH3_1<span>&#64;</span>25re</a> (05-NH3_NH3_1.25re), energy = 0.0036338189100035834</div>
+<div class="line">05-NH3_NH3_1.50re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_1&#37;&#52;&#48;50re">05-NH3_NH3_1<span>&#64;</span>50re</a> (05-NH3_NH3_1.50re), energy = 0.002072883644004264</div>
+<div class="line">05-NH3_NH3_2.00re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -&gt; <a class="reference external" href="mailto:05-NH3_NH3_2&#37;&#52;&#48;00re">05-NH3_NH3_2<span>&#64;</span>00re</a> (05-NH3_NH3_2.00re), energy = 0.0005932958130046018</div>
+<div class="line">06-methane_HF_0.90re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_0&#37;&#52;&#48;90re">06-methane_HF_0<span>&#64;</span>90re</a> (06-methane_HF_0.90re), energy = 0.0020887766739861036</div>
+<div class="line">06-methane_HF_0.95re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_0&#37;&#52;&#48;95re">06-methane_HF_0<span>&#64;</span>95re</a> (06-methane_HF_0.95re), energy = 0.0025506279060039105</div>
+<div class="line">06-methane_HF_1.00re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;00re">06-methane_HF_1<span>&#64;</span>00re</a> (06-methane_HF_1.00re), energy = 0.002654194998001458</div>
+<div class="line">06-methane_HF_1.05re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;05re">06-methane_HF_1<span>&#64;</span>05re</a> (06-methane_HF_1.05re), energy = 0.0025568858339966027</div>
+<div class="line">06-methane_HF_1.10re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;10re">06-methane_HF_1<span>&#64;</span>10re</a> (06-methane_HF_1.10re), energy = 0.002356717489988114</div>
+<div class="line">06-methane_HF_1.25re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;25re">06-methane_HF_1<span>&#64;</span>25re</a> (06-methane_HF_1.25re), energy = 0.001622890912983621</div>
+<div class="line">06-methane_HF_1.50re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_1&#37;&#52;&#48;50re">06-methane_HF_1<span>&#64;</span>50re</a> (06-methane_HF_1.50re), energy = 0.0007708032709956569</div>
+<div class="line">06-methane_HF_2.00re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -&gt; <a class="reference external" href="mailto:06-methane_HF_2&#37;&#52;&#48;00re">06-methane_HF_2<span>&#64;</span>00re</a> (06-methane_HF_2.00re), energy = 0.0002005340780044662</div>
+<div class="line">07-NH3_CH4_0.90re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_0&#37;&#52;&#48;90re">07-NH3_CH4_0<span>&#64;</span>90re</a> (07-NH3_CH4_0.90re), energy = 0.000904415297007688</div>
+<div class="line">07-NH3_CH4_0.95re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_0&#37;&#52;&#48;95re">07-NH3_CH4_0<span>&#64;</span>95re</a> (07-NH3_CH4_0.95re), energy = 0.001152631846998986</div>
+<div class="line">07-NH3_CH4_1.00re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;00re">07-NH3_CH4_1<span>&#64;</span>00re</a> (07-NH3_CH4_1.00re), energy = 0.001214568062003707</div>
+<div class="line">07-NH3_CH4_1.05re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;05re">07-NH3_CH4_1<span>&#64;</span>05re</a> (07-NH3_CH4_1.05re), energy = 0.0011740575899992223</div>
+<div class="line">07-NH3_CH4_1.10re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;10re">07-NH3_CH4_1<span>&#64;</span>10re</a> (07-NH3_CH4_1.10re), energy = 0.0010820991580047234</div>
+<div class="line">07-NH3_CH4_1.25re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;25re">07-NH3_CH4_1<span>&#64;</span>25re</a> (07-NH3_CH4_1.25re), energy = 0.0007375527530015802</div>
+<div class="line">07-NH3_CH4_1.50re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_1&#37;&#52;&#48;50re">07-NH3_CH4_1<span>&#64;</span>50re</a> (07-NH3_CH4_1.50re), energy = 0.0003414364510021528</div>
+<div class="line">07-NH3_CH4_2.00re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -&gt; <a class="reference external" href="mailto:07-NH3_CH4_2&#37;&#52;&#48;00re">07-NH3_CH4_2<span>&#64;</span>00re</a> (07-NH3_CH4_2.00re), energy = 8.446974300824195e-05</div>
+<div class="line">08-methane_water_0.90re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_0&#37;&#52;&#48;90re">08-methane_water_0<span>&#64;</span>90re</a> (08-methane_water_0.90re), energy = 0.0007791437899982157</div>
+<div class="line">08-methane_water_0.95re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_0&#37;&#52;&#48;95re">08-methane_water_0<span>&#64;</span>95re</a> (08-methane_water_0.95re), energy = 0.0010044297910098976</div>
+<div class="line">08-methane_water_1.00re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;00re">08-methane_water_1<span>&#64;</span>00re</a> (08-methane_water_1.00re), energy = 0.0010595525729968358</div>
+<div class="line">08-methane_water_1.05re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;05re">08-methane_water_1<span>&#64;</span>05re</a> (08-methane_water_1.05re), energy = 0.0010222017349974521</div>
+<div class="line">08-methane_water_1.10re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;10re">08-methane_water_1<span>&#64;</span>10re</a> (08-methane_water_1.10re), energy = 0.0009392060030108952</div>
+<div class="line">08-methane_water_1.25re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;25re">08-methane_water_1<span>&#64;</span>25re</a> (08-methane_water_1.25re), energy = 0.0006384151749898592</div>
+<div class="line">08-methane_water_1.50re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_1&#37;&#52;&#48;50re">08-methane_water_1<span>&#64;</span>50re</a> (08-methane_water_1.50re), energy = 0.0002995620309889091</div>
+<div class="line">08-methane_water_2.00re: 08-methane_water_monomerA + 08-methane_water_monomerB -&gt; <a class="reference external" href="mailto:08-methane_water_2&#37;&#52;&#48;00re">08-methane_water_2<span>&#64;</span>00re</a> (08-methane_water_2.00re), energy = 7.797890600613755e-05</div>
+<div class="line">09-formaldehyde_formaldehyde_0.90re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_0&#37;&#52;&#48;90re">09-formaldehyde_formaldehyde_0<span>&#64;</span>90re</a> (09-formaldehyde_formaldehyde_0.90re), energy = 0.0048908973020189705</div>
+<div class="line">09-formaldehyde_formaldehyde_0.95re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_0&#37;&#52;&#48;95re">09-formaldehyde_formaldehyde_0<span>&#64;</span>95re</a> (09-formaldehyde_formaldehyde_0.95re), energy = 0.006786472606009398</div>
+<div class="line">09-formaldehyde_formaldehyde_1.00re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;00re">09-formaldehyde_formaldehyde_1<span>&#64;</span>00re</a> (09-formaldehyde_formaldehyde_1.00re), energy = 0.00724390959301502</div>
+<div class="line">09-formaldehyde_formaldehyde_1.05re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;05re">09-formaldehyde_formaldehyde_1<span>&#64;</span>05re</a> (09-formaldehyde_formaldehyde_1.05re), energy = 0.006967316428003301</div>
+<div class="line">09-formaldehyde_formaldehyde_1.10re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;10re">09-formaldehyde_formaldehyde_1<span>&#64;</span>10re</a> (09-formaldehyde_formaldehyde_1.10re), energy = 0.006362044466001748</div>
+<div class="line">09-formaldehyde_formaldehyde_1.25re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;25re">09-formaldehyde_formaldehyde_1<span>&#64;</span>25re</a> (09-formaldehyde_formaldehyde_1.25re), energy = 0.004268865006011424</div>
+<div class="line">09-formaldehyde_formaldehyde_1.50re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_1&#37;&#52;&#48;50re">09-formaldehyde_formaldehyde_1<span>&#64;</span>50re</a> (09-formaldehyde_formaldehyde_1.50re), energy = 0.0020810919180149767</div>
+<div class="line">09-formaldehyde_formaldehyde_2.00re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -&gt; <a class="reference external" href="mailto:09-formaldehyde_formaldehyde_2&#37;&#52;&#48;00re">09-formaldehyde_formaldehyde_2<span>&#64;</span>00re</a> (09-formaldehyde_formaldehyde_2.00re), energy = 0.0006697164780149478</div>
+<div class="line">10-water_ethene_0.90re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_0&#37;&#52;&#48;90re">10-water_ethene_0<span>&#64;</span>90re</a> (10-water_ethene_0.90re), energy = 0.0033770016869851815</div>
+<div class="line">10-water_ethene_0.95re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_0&#37;&#52;&#48;95re">10-water_ethene_0<span>&#64;</span>95re</a> (10-water_ethene_0.95re), energy = 0.003942953474009414</div>
+<div class="line">10-water_ethene_1.00re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;00re">10-water_ethene_1<span>&#64;</span>00re</a> (10-water_ethene_1.00re), energy = 0.004088221445996965</div>
+<div class="line">10-water_ethene_1.05re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;05re">10-water_ethene_1<span>&#64;</span>05re</a> (10-water_ethene_1.05re), energy = 0.003985185493988297</div>
+<div class="line">10-water_ethene_1.10re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;10re">10-water_ethene_1<span>&#64;</span>10re</a> (10-water_ethene_1.10re), energy = 0.003743384526003979</div>
+<div class="line">10-water_ethene_1.25re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;25re">10-water_ethene_1<span>&#64;</span>25re</a> (10-water_ethene_1.25re), energy = 0.0027676789919865996</div>
+<div class="line">10-water_ethene_1.50re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_1&#37;&#52;&#48;50re">10-water_ethene_1<span>&#64;</span>50re</a> (10-water_ethene_1.50re), energy = 0.0014833966439908863</div>
+<div class="line">10-water_ethene_2.00re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -&gt; <a class="reference external" href="mailto:10-water_ethene_2&#37;&#52;&#48;00re">10-water_ethene_2<span>&#64;</span>00re</a> (10-water_ethene_2.00re), energy = 0.00046491048099994714</div>
+<div class="line">11-formaldehyde_ethene_0.90re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_0&#37;&#52;&#48;90re">11-formaldehyde_ethene_0<span>&#64;</span>90re</a> (11-formaldehyde_ethene_0.90re), energy = 0.0019465762790105148</div>
+<div class="line">11-formaldehyde_ethene_0.95re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_0&#37;&#52;&#48;95re">11-formaldehyde_ethene_0<span>&#64;</span>95re</a> (11-formaldehyde_ethene_0.95re), energy = 0.002459240453987377</div>
+<div class="line">11-formaldehyde_ethene_1.00re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;00re">11-formaldehyde_ethene_1<span>&#64;</span>00re</a> (11-formaldehyde_ethene_1.00re), energy = 0.0025898569199966914</div>
+<div class="line">11-formaldehyde_ethene_1.05re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;05re">11-formaldehyde_ethene_1<span>&#64;</span>05re</a> (11-formaldehyde_ethene_1.05re), energy = 0.002504226703990753</div>
+<div class="line">11-formaldehyde_ethene_1.10re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;10re">11-formaldehyde_ethene_1<span>&#64;</span>10re</a> (11-formaldehyde_ethene_1.10re), energy = 0.0023072026939985335</div>
+<div class="line">11-formaldehyde_ethene_1.25re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;25re">11-formaldehyde_ethene_1<span>&#64;</span>25re</a> (11-formaldehyde_ethene_1.25re), energy = 0.0015655937639849071</div>
+<div class="line">11-formaldehyde_ethene_1.50re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_1&#37;&#52;&#48;50re">11-formaldehyde_ethene_1<span>&#64;</span>50re</a> (11-formaldehyde_ethene_1.50re), energy = 0.0007004389649978293</div>
+<div class="line">11-formaldehyde_ethene_2.00re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -&gt; <a class="reference external" href="mailto:11-formaldehyde_ethene_2&#37;&#52;&#48;00re">11-formaldehyde_ethene_2<span>&#64;</span>00re</a> (11-formaldehyde_ethene_2.00re), energy = 0.0001401326549910209</div>
+<div class="line">12-ethyne_ethyne_0.90re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_0&#37;&#52;&#48;90re">12-ethyne_ethyne_0<span>&#64;</span>90re</a> (12-ethyne_ethyne_0.90re), energy = 0.0019068407230093953</div>
+<div class="line">12-ethyne_ethyne_0.95re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_0&#37;&#52;&#48;95re">12-ethyne_ethyne_0<span>&#64;</span>95re</a> (12-ethyne_ethyne_0.95re), energy = 0.0023261477300167144</div>
+<div class="line">12-ethyne_ethyne_1.00re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;00re">12-ethyne_ethyne_1<span>&#64;</span>00re</a> (12-ethyne_ethyne_1.00re), energy = 0.0024339993619975075</div>
+<div class="line">12-ethyne_ethyne_1.05re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;05re">12-ethyne_ethyne_1<span>&#64;</span>05re</a> (12-ethyne_ethyne_1.05re), energy = 0.002363989632996777</div>
+<div class="line">12-ethyne_ethyne_1.10re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;10re">12-ethyne_ethyne_1<span>&#64;</span>10re</a> (12-ethyne_ethyne_1.10re), energy = 0.0022015085780111576</div>
+<div class="line">12-ethyne_ethyne_1.25re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;25re">12-ethyne_ethyne_1<span>&#64;</span>25re</a> (12-ethyne_ethyne_1.25re), energy = 0.001575099810011693</div>
+<div class="line">12-ethyne_ethyne_1.50re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_1&#37;&#52;&#48;50re">12-ethyne_ethyne_1<span>&#64;</span>50re</a> (12-ethyne_ethyne_1.50re), energy = 0.0008072230350109066</div>
+<div class="line">12-ethyne_ethyne_2.00re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:12-ethyne_ethyne_2&#37;&#52;&#48;00re">12-ethyne_ethyne_2<span>&#64;</span>00re</a> (12-ethyne_ethyne_2.00re), energy = 0.00024301089901257455</div>
+<div class="line">13-ammonia_ethene_0.90re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_0&#37;&#52;&#48;90re">13-ammonia_ethene_0<span>&#64;</span>90re</a> (13-ammonia_ethene_0.90re), energy = 0.0017280233249863386</div>
+<div class="line">13-ammonia_ethene_0.95re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_0&#37;&#52;&#48;95re">13-ammonia_ethene_0<span>&#64;</span>95re</a> (13-ammonia_ethene_0.95re), energy = 0.0020992560399832882</div>
+<div class="line">13-ammonia_ethene_1.00re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;00re">13-ammonia_ethene_1<span>&#64;</span>00re</a> (13-ammonia_ethene_1.00re), energy = 0.00219569293899724</div>
+<div class="line">13-ammonia_ethene_1.05re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;05re">13-ammonia_ethene_1<span>&#64;</span>05re</a> (13-ammonia_ethene_1.05re), energy = 0.0021373358570002665</div>
+<div class="line">13-ammonia_ethene_1.10re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;10re">13-ammonia_ethene_1<span>&#64;</span>10re</a> (13-ammonia_ethene_1.10re), energy = 0.001985642733004056</div>
+<div class="line">13-ammonia_ethene_1.25re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;25re">13-ammonia_ethene_1<span>&#64;</span>25re</a> (13-ammonia_ethene_1.25re), energy = 0.0014085581419891469</div>
+<div class="line">13-ammonia_ethene_1.50re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_1&#37;&#52;&#48;50re">13-ammonia_ethene_1<span>&#64;</span>50re</a> (13-ammonia_ethene_1.50re), energy = 0.0006937625409904058</div>
+<div class="line">13-ammonia_ethene_2.00re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -&gt; <a class="reference external" href="mailto:13-ammonia_ethene_2&#37;&#52;&#48;00re">13-ammonia_ethene_2<span>&#64;</span>00re</a> (13-ammonia_ethene_2.00re), energy = 0.00018115817100294862</div>
+<div class="line">14-ethene_ethene_0.90re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_0&#37;&#52;&#48;90re">14-ethene_ethene_0<span>&#64;</span>90re</a> (14-ethene_ethene_0.90re), energy = 0.0007657091650088432</div>
+<div class="line">14-ethene_ethene_0.95re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_0&#37;&#52;&#48;95re">14-ethene_ethene_0<span>&#64;</span>95re</a> (14-ethene_ethene_0.95re), energy = 0.0015535413670164644</div>
+<div class="line">14-ethene_ethene_1.00re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;00re">14-ethene_ethene_1<span>&#64;</span>00re</a> (14-ethene_ethene_1.00re), energy = 0.0017435788290214302</div>
+<div class="line">14-ethene_ethene_1.05re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;05re">14-ethene_ethene_1<span>&#64;</span>05re</a> (14-ethene_ethene_1.05re), energy = 0.0016538977080102766</div>
+<div class="line">14-ethene_ethene_1.10re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;10re">14-ethene_ethene_1<span>&#64;</span>10re</a> (14-ethene_ethene_1.10re), energy = 0.0014553067360196792</div>
+<div class="line">14-ethene_ethene_1.25re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;25re">14-ethene_ethene_1<span>&#64;</span>25re</a> (14-ethene_ethene_1.25re), energy = 0.0008318224169983067</div>
+<div class="line">14-ethene_ethene_1.50re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_1&#37;&#52;&#48;50re">14-ethene_ethene_1<span>&#64;</span>50re</a> (14-ethene_ethene_1.50re), energy = 0.00030162065500860535</div>
+<div class="line">14-ethene_ethene_2.00re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:14-ethene_ethene_2&#37;&#52;&#48;00re">14-ethene_ethene_2<span>&#64;</span>00re</a> (14-ethene_ethene_2.00re), energy = 5.756251501054521e-05</div>
+<div class="line">15-methane_ethene_0.90re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_0&#37;&#52;&#48;90re">15-methane_ethene_0<span>&#64;</span>90re</a> (15-methane_ethene_0.90re), energy = 0.0005582391609948445</div>
+<div class="line">15-methane_ethene_0.95re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_0&#37;&#52;&#48;95re">15-methane_ethene_0<span>&#64;</span>95re</a> (15-methane_ethene_0.95re), energy = 0.0007475573169983818</div>
+<div class="line">15-methane_ethene_1.00re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;00re">15-methane_ethene_1<span>&#64;</span>00re</a> (15-methane_ethene_1.00re), energy = 0.0008031658839939838</div>
+<div class="line">15-methane_ethene_1.05re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;05re">15-methane_ethene_1<span>&#64;</span>05re</a> (15-methane_ethene_1.05re), energy = 0.0007778453120010909</div>
+<div class="line">15-methane_ethene_1.10re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;10re">15-methane_ethene_1<span>&#64;</span>10re</a> (15-methane_ethene_1.10re), energy = 0.0007141663219982775</div>
+<div class="line">15-methane_ethene_1.25re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;25re">15-methane_ethene_1<span>&#64;</span>25re</a> (15-methane_ethene_1.25re), energy = 0.0004765515510030127</div>
+<div class="line">15-methane_ethene_1.50re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_1&#37;&#52;&#48;50re">15-methane_ethene_1<span>&#64;</span>50re</a> (15-methane_ethene_1.50re), energy = 0.0002113533460033068</div>
+<div class="line">15-methane_ethene_2.00re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -&gt; <a class="reference external" href="mailto:15-methane_ethene_2&#37;&#52;&#48;00re">15-methane_ethene_2<span>&#64;</span>00re</a> (15-methane_ethene_2.00re), energy = 4.752249499517802e-05</div>
+<div class="line">16-borane_methane_0.90re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_0&#37;&#52;&#48;90re">16-borane_methane_0<span>&#64;</span>90re</a> (16-borane_methane_0.90re), energy = 0.0014430798149902557</div>
+<div class="line">16-borane_methane_0.95re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_0&#37;&#52;&#48;95re">16-borane_methane_0<span>&#64;</span>95re</a> (16-borane_methane_0.95re), energy = 0.0021797594439902923</div>
+<div class="line">16-borane_methane_1.00re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;00re">16-borane_methane_1<span>&#64;</span>00re</a> (16-borane_methane_1.00re), energy = 0.0023592990589946794</div>
+<div class="line">16-borane_methane_1.05re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;05re">16-borane_methane_1<span>&#64;</span>05re</a> (16-borane_methane_1.05re), energy = 0.0022497895189985684</div>
+<div class="line">16-borane_methane_1.10re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;10re">16-borane_methane_1<span>&#64;</span>10re</a> (16-borane_methane_1.10re), energy = 0.0020091886370039447</div>
+<div class="line">16-borane_methane_1.25re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;25re">16-borane_methane_1<span>&#64;</span>25re</a> (16-borane_methane_1.25re), energy = 0.0011979077049915077</div>
+<div class="line">16-borane_methane_1.50re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_1&#37;&#52;&#48;50re">16-borane_methane_1<span>&#64;</span>50re</a> (16-borane_methane_1.50re), energy = 0.0004350811889963779</div>
+<div class="line">16-borane_methane_2.00re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -&gt; <a class="reference external" href="mailto:16-borane_methane_2&#37;&#52;&#48;00re">16-borane_methane_2<span>&#64;</span>00re</a> (16-borane_methane_2.00re), energy = 7.411926499401034e-05</div>
+<div class="line">17-methane_ethane_0.90re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_0&#37;&#52;&#48;90re">17-methane_ethane_0<span>&#64;</span>90re</a> (17-methane_ethane_0.90re), energy = 0.0005280124089921401</div>
+<div class="line">17-methane_ethane_0.95re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_0&#37;&#52;&#48;95re">17-methane_ethane_0<span>&#64;</span>95re</a> (17-methane_ethane_0.95re), energy = 0.0011673652600023843</div>
+<div class="line">17-methane_ethane_1.00re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;00re">17-methane_ethane_1<span>&#64;</span>00re</a> (17-methane_ethane_1.00re), energy = 0.0013138769080001111</div>
+<div class="line">17-methane_ethane_1.05re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;05re">17-methane_ethane_1<span>&#64;</span>05re</a> (17-methane_ethane_1.05re), energy = 0.0012369605479989332</div>
+<div class="line">17-methane_ethane_1.10re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;10re">17-methane_ethane_1<span>&#64;</span>10re</a> (17-methane_ethane_1.10re), energy = 0.0010754961270009744</div>
+<div class="line">17-methane_ethane_1.25re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;25re">17-methane_ethane_1<span>&#64;</span>25re</a> (17-methane_ethane_1.25re), energy = 0.0005906264389921034</div>
+<div class="line">17-methane_ethane_1.50re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_1&#37;&#52;&#48;50re">17-methane_ethane_1<span>&#64;</span>50re</a> (17-methane_ethane_1.50re), energy = 0.0001991913609913354</div>
+<div class="line">17-methane_ethane_2.00re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:17-methane_ethane_2&#37;&#52;&#48;00re">17-methane_ethane_2<span>&#64;</span>00re</a> (17-methane_ethane_2.00re), energy = 3.286496300347608e-05</div>
+<div class="line">18-methane_ethane_0.90re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_0&#37;&#52;&#48;90re">18-methane_ethane_0<span>&#64;</span>90re</a> (18-methane_ethane_0.90re), energy = 0.0003284336060005444</div>
+<div class="line">18-methane_ethane_0.95re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_0&#37;&#52;&#48;95re">18-methane_ethane_0<span>&#64;</span>95re</a> (18-methane_ethane_0.95re), energy = 0.0008507348699993145</div>
+<div class="line">18-methane_ethane_1.00re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;00re">18-methane_ethane_1<span>&#64;</span>00re</a> (18-methane_ethane_1.00re), energy = 0.0009690266030020213</div>
+<div class="line">18-methane_ethane_1.05re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;05re">18-methane_ethane_1<span>&#64;</span>05re</a> (18-methane_ethane_1.05re), energy = 0.0009086772249986552</div>
+<div class="line">18-methane_ethane_1.10re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;10re">18-methane_ethane_1<span>&#64;</span>10re</a> (18-methane_ethane_1.10re), energy = 0.0007840935099920898</div>
+<div class="line">18-methane_ethane_1.25re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;25re">18-methane_ethane_1<span>&#64;</span>25re</a> (18-methane_ethane_1.25re), energy = 0.00042254756699833257</div>
+<div class="line">18-methane_ethane_1.50re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_1&#37;&#52;&#48;50re">18-methane_ethane_1<span>&#64;</span>50re</a> (18-methane_ethane_1.50re), energy = 0.0001396384650007576</div>
+<div class="line">18-methane_ethane_2.00re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -&gt; <a class="reference external" href="mailto:18-methane_ethane_2&#37;&#52;&#48;00re">18-methane_ethane_2<span>&#64;</span>00re</a> (18-methane_ethane_2.00re), energy = 2.1832325003856567e-05</div>
+<div class="line">19-methane_methane_0.90re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_0&#37;&#52;&#48;90re">19-methane_methane_0<span>&#64;</span>90re</a> (19-methane_methane_0.90re), energy = 0.000253700730006301</div>
+<div class="line">19-methane_methane_0.95re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_0&#37;&#52;&#48;95re">19-methane_methane_0<span>&#64;</span>95re</a> (19-methane_methane_0.95re), energy = 0.0007308653510094132</div>
+<div class="line">19-methane_methane_1.00re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;00re">19-methane_methane_1<span>&#64;</span>00re</a> (19-methane_methane_1.00re), energy = 0.0008392826570045032</div>
+<div class="line">19-methane_methane_1.05re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;05re">19-methane_methane_1<span>&#64;</span>05re</a> (19-methane_methane_1.05re), energy = 0.0007874820409980998</div>
+<div class="line">19-methane_methane_1.10re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;10re">19-methane_methane_1<span>&#64;</span>10re</a> (19-methane_methane_1.10re), energy = 0.0006783353819983517</div>
+<div class="line">19-methane_methane_1.25re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;25re">19-methane_methane_1<span>&#64;</span>25re</a> (19-methane_methane_1.25re), energy = 0.00036068413900380847</div>
+<div class="line">19-methane_methane_1.50re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_1&#37;&#52;&#48;50re">19-methane_methane_1<span>&#64;</span>50re</a> (19-methane_methane_1.50re), energy = 0.00011771084800926701</div>
+<div class="line">19-methane_methane_2.00re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -&gt; <a class="reference external" href="mailto:19-methane_methane_2&#37;&#52;&#48;00re">19-methane_methane_2<span>&#64;</span>00re</a> (19-methane_methane_2.00re), energy = 1.8732611998473203e-05</div>
+<div class="line">20-ar_methane_0.90re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_0&#37;&#52;&#48;90re">20-ar_methane_0<span>&#64;</span>90re</a> (20-ar_methane_0.90re), energy = 0.00020437258899619337</div>
+<div class="line">20-ar_methane_0.95re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_0&#37;&#52;&#48;95re">20-ar_methane_0<span>&#64;</span>95re</a> (20-ar_methane_0.95re), energy = 0.0005830515800653302</div>
+<div class="line">20-ar_methane_1.00re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;00re">20-ar_methane_1<span>&#64;</span>00re</a> (20-ar_methane_1.00re), energy = 0.0006639203480744982</div>
+<div class="line">20-ar_methane_1.05re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;05re">20-ar_methane_1<span>&#64;</span>05re</a> (20-ar_methane_1.05re), energy = 0.0006190812140403068</div>
+<div class="line">20-ar_methane_1.10re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;10re">20-ar_methane_1<span>&#64;</span>10re</a> (20-ar_methane_1.10re), energy = 0.000531276976062145</div>
+<div class="line">20-ar_methane_1.25re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;25re">20-ar_methane_1<span>&#64;</span>25re</a> (20-ar_methane_1.25re), energy = 0.00028103397801260144</div>
+<div class="line">20-ar_methane_1.50re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_1&#37;&#52;&#48;50re">20-ar_methane_1<span>&#64;</span>50re</a> (20-ar_methane_1.50re), energy = 9.0621368030952e-05</div>
+<div class="line">20-ar_methane_2.00re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -&gt; <a class="reference external" href="mailto:20-ar_methane_2&#37;&#52;&#48;00re">20-ar_methane_2<span>&#64;</span>00re</a> (20-ar_methane_2.00re), energy = 1.5172142070696282e-05</div>
+<div class="line">21-ar_ethene_0.90re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_0&#37;&#52;&#48;90re">21-ar_ethene_0<span>&#64;</span>90re</a> (21-ar_ethene_0.90re), energy = 0.0001957815370587923</div>
+<div class="line">21-ar_ethene_0.95re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_0&#37;&#52;&#48;95re">21-ar_ethene_0<span>&#64;</span>95re</a> (21-ar_ethene_0.95re), energy = 0.0005128820130266831</div>
+<div class="line">21-ar_ethene_1.00re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;00re">21-ar_ethene_1<span>&#64;</span>00re</a> (21-ar_ethene_1.00re), energy = 0.0005904430420287099</div>
+<div class="line">21-ar_ethene_1.05re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;05re">21-ar_ethene_1<span>&#64;</span>05re</a> (21-ar_ethene_1.05re), energy = 0.000559897155994804</div>
+<div class="line">21-ar_ethene_1.10re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;10re">21-ar_ethene_1<span>&#64;</span>10re</a> (21-ar_ethene_1.10re), energy = 0.0004881852891003291</div>
+<div class="line">21-ar_ethene_1.25re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;25re">21-ar_ethene_1<span>&#64;</span>25re</a> (21-ar_ethene_1.25re), energy = 0.00026805728907675075</div>
+<div class="line">21-ar_ethene_1.50re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_1&#37;&#52;&#48;50re">21-ar_ethene_1<span>&#64;</span>50re</a> (21-ar_ethene_1.50re), energy = 9.008683309730259e-05</div>
+<div class="line">21-ar_ethene_2.00re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -&gt; <a class="reference external" href="mailto:21-ar_ethene_2&#37;&#52;&#48;00re">21-ar_ethene_2<span>&#64;</span>00re</a> (21-ar_ethene_2.00re), energy = 1.505545503732719e-05</div>
+<div class="line">22-ethene_ethyne_0.90re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_0&#37;&#52;&#48;90re">22-ethene_ethyne_0<span>&#64;</span>90re</a> (22-ethene_ethyne_0.90re), energy = -0.004926872588995934</div>
+<div class="line">22-ethene_ethyne_0.95re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_0&#37;&#52;&#48;95re">22-ethene_ethyne_0<span>&#64;</span>95re</a> (22-ethene_ethyne_0.95re), energy = -0.0026172820640084637</div>
+<div class="line">22-ethene_ethyne_1.00re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;00re">22-ethene_ethyne_1<span>&#64;</span>00re</a> (22-ethene_ethyne_1.00re), energy = -0.0013051198740043901</div>
+<div class="line">22-ethene_ethyne_1.05re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;05re">22-ethene_ethyne_1<span>&#64;</span>05re</a> (22-ethene_ethyne_1.05re), energy = -0.0005829074859917682</div>
+<div class="line">22-ethene_ethyne_1.10re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;10re">22-ethene_ethyne_1<span>&#64;</span>10re</a> (22-ethene_ethyne_1.10re), energy = -0.00020326076101184753</div>
+<div class="line">22-ethene_ethyne_1.25re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;25re">22-ethene_ethyne_1<span>&#64;</span>25re</a> (22-ethene_ethyne_1.25re), energy = 8.304665500702413e-05</div>
+<div class="line">22-ethene_ethyne_1.50re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_1&#37;&#52;&#48;50re">22-ethene_ethyne_1<span>&#64;</span>50re</a> (22-ethene_ethyne_1.50re), energy = 1.0436117989343074e-05</div>
+<div class="line">22-ethene_ethyne_2.00re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -&gt; <a class="reference external" href="mailto:22-ethene_ethyne_2&#37;&#52;&#48;00re">22-ethene_ethyne_2<span>&#64;</span>00re</a> (22-ethene_ethyne_2.00re), energy = -2.5624033000326563e-05</div>
+<div class="line">23-ethene_ethene_0.90re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_0&#37;&#52;&#48;90re">23-ethene_ethene_0<span>&#64;</span>90re</a> (23-ethene_ethene_0.90re), energy = -0.005519993599989448</div>
+<div class="line">23-ethene_ethene_0.95re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_0&#37;&#52;&#48;95re">23-ethene_ethene_0<span>&#64;</span>95re</a> (23-ethene_ethene_0.95re), energy = -0.0029557392250012526</div>
+<div class="line">23-ethene_ethene_1.00re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;00re">23-ethene_ethene_1<span>&#64;</span>00re</a> (23-ethene_ethene_1.00re), energy = -0.0014789544239874886</div>
+<div class="line">23-ethene_ethene_1.05re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;05re">23-ethene_ethene_1<span>&#64;</span>05re</a> (23-ethene_ethene_1.05re), energy = -0.000650176682000847</div>
+<div class="line">23-ethene_ethene_1.10re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;10re">23-ethene_ethene_1<span>&#64;</span>10re</a> (23-ethene_ethene_1.10re), energy = -0.00020688987498829192</div>
+<div class="line">23-ethene_ethene_1.25re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;25re">23-ethene_ethene_1<span>&#64;</span>25re</a> (23-ethene_ethene_1.25re), energy = 0.00014009085899147067</div>
+<div class="line">23-ethene_ethene_1.50re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_1&#37;&#52;&#48;50re">23-ethene_ethene_1<span>&#64;</span>50re</a> (23-ethene_ethene_1.50re), energy = 4.694434198881936e-05</div>
+<div class="line">23-ethene_ethene_2.00re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -&gt; <a class="reference external" href="mailto:23-ethene_ethene_2&#37;&#52;&#48;00re">23-ethene_ethene_2<span>&#64;</span>00re</a> (23-ethene_ethene_2.00re), energy = -1.91534099940327e-05</div>
+<div class="line">24-ethyne_ethyne_0.90re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_0&#37;&#52;&#48;90re">24-ethyne_ethyne_0<span>&#64;</span>90re</a> (24-ethyne_ethyne_0.90re), energy = -0.00544205413601162</div>
+<div class="line">24-ethyne_ethyne_0.95re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_0&#37;&#52;&#48;95re">24-ethyne_ethyne_0<span>&#64;</span>95re</a> (24-ethyne_ethyne_0.95re), energy = -0.003117800563018136</div>
+<div class="line">24-ethyne_ethyne_1.00re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;00re">24-ethyne_ethyne_1<span>&#64;</span>00re</a> (24-ethyne_ethyne_1.00re), energy = -0.001785554588991545</div>
+<div class="line">24-ethyne_ethyne_1.05re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;05re">24-ethyne_ethyne_1<span>&#64;</span>05re</a> (24-ethyne_ethyne_1.05re), energy = -0.0010351629649960614</div>
+<div class="line">24-ethyne_ethyne_1.10re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;10re">24-ethyne_ethyne_1<span>&#64;</span>10re</a> (24-ethyne_ethyne_1.10re), energy = -0.0006199347469930672</div>
+<div class="line">24-ethyne_ethyne_1.25re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;25re">24-ethyne_ethyne_1<span>&#64;</span>25re</a> (24-ethyne_ethyne_1.25re), energy = -0.00021332011101549145</div>
+<div class="line">24-ethyne_ethyne_1.50re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_1&#37;&#52;&#48;50re">24-ethyne_ethyne_1<span>&#64;</span>50re</a> (24-ethyne_ethyne_1.50re), energy = -0.00013598050500718273</div>
+<div class="line">24-ethyne_ethyne_2.00re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -&gt; <a class="reference external" href="mailto:24-ethyne_ethyne_2&#37;&#52;&#48;00re">24-ethyne_ethyne_2<span>&#64;</span>00re</a> (24-ethyne_ethyne_2.00re), energy = -6.444040201358803e-05</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../databases.html" class="btn btn-neutral float-left" title="Database library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Bak2000_atomisations.html" class="btn btn-neutral float-right" title="Bak2000 atomisations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marat Sibaev, Peter Knowles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
