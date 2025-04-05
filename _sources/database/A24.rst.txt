@@ -1,0 +1,110 @@
+A24
+---
+A24x8 (subset ['01-water ammonia 1.00re', '02-water water 1.00re', '03-HCN HCN 1.00re', '04-HF HF 1.00re', '05-NH3 NH3 1.00re', '06-methane HF 1.00re', '07-NH3 CH4 1.00re', '08-methane water 1.00re', '09-formaldehyde formaldehyde 1.00re', '10-water ethene 1.00re', '11-formaldehyde ethene 1.00re', '12-ethyne ethyne 1.00re', '13-ammonia ethene 1.00re', '14-ethene ethene 1.00re', '15-methane ethene 1.00re', '16-borane methane 1.00re', '17-methane ethane 1.00re', '18-methane ethane 1.00re', '19-methane methane 1.00re', '20-ar methane 1.00re', '21-ar ethene 1.00re', '22-ethene ethyne 1.00re', '23-ethene ethene 1.00re', '24-ethyne ethyne 1.00re'])
+
+References
+^^^^^^^^^^
+| V Fishman, E Semidalas, M Shepelenko, JML Martin, Journal of Computational Chemistry 46 (1), e70006: https://doi.org/10.1002/jcc.70007
+
+Molecules
+^^^^^^^^^
+01-water_ammonia_1@00re, energy = 0.010359582063010464
+01-water_ammonia_monomerA, energy = 0.0
+01-water_ammonia_monomerB, energy = 0.0
+02-water_water_1@00re, energy = 0.007999662943987573
+02-water_water_monomerA, energy = 0.0
+02-water_water_monomerB, energy = 0.0
+03-HCN_HCN_1@00re, energy = 0.007582699183984687
+03-HCN_HCN_monomerA, energy = 0.0
+03-HCN_HCN_monomerB, energy = 0.0
+04-HF_HF_1@00re, energy = 0.007340173803001449
+04-HF_HF_monomerA, energy = 0.0
+04-HF_HF_monomerB, energy = 0.0
+05-NH3_NH3_1@00re, energy = 0.0049909319180017064
+05-NH3_NH3_monomerA, energy = 0.0
+05-NH3_NH3_monomerB, energy = 0.0
+06-methane_HF_1@00re, energy = 0.002654194998001458
+06-methane_HF_monomerA, energy = 0.0
+06-methane_HF_monomerB, energy = 0.0
+07-NH3_CH4_1@00re, energy = 0.001214568062003707
+07-NH3_CH4_monomerA, energy = 0.0
+07-NH3_CH4_monomerB, energy = 0.0
+08-methane_water_1@00re, energy = 0.0010595525729968358
+08-methane_water_monomerA, energy = 0.0
+08-methane_water_monomerB, energy = 0.0
+09-formaldehyde_formaldehyde_1@00re, energy = 0.00724390959301502
+09-formaldehyde_formaldehyde_monomerA, energy = 0.0
+09-formaldehyde_formaldehyde_monomerB, energy = 0.0
+10-water_ethene_1@00re, energy = 0.004088221445996965
+10-water_ethene_monomerA, energy = 0.0
+10-water_ethene_monomerB, energy = 0.0
+11-formaldehyde_ethene_1@00re, energy = 0.0025898569199966914
+11-formaldehyde_ethene_monomerA, energy = 0.0
+11-formaldehyde_ethene_monomerB, energy = 0.0
+12-ethyne_ethyne_1@00re, energy = 0.0024339993619975075
+12-ethyne_ethyne_monomerA, energy = 0.0
+12-ethyne_ethyne_monomerB, energy = 0.0
+13-ammonia_ethene_1@00re, energy = 0.00219569293899724
+13-ammonia_ethene_monomerA, energy = 0.0
+13-ammonia_ethene_monomerB, energy = 0.0
+14-ethene_ethene_1@00re, energy = 0.0017435788290214302
+14-ethene_ethene_monomerA, energy = 0.0
+14-ethene_ethene_monomerB, energy = 0.0
+15-methane_ethene_1@00re, energy = 0.0008031658839939838
+15-methane_ethene_monomerA, energy = 0.0
+15-methane_ethene_monomerB, energy = 0.0
+16-borane_methane_1@00re, energy = 0.0023592990589946794
+16-borane_methane_monomerA, energy = 0.0
+16-borane_methane_monomerB, energy = 0.0
+17-methane_ethane_1@00re, energy = 0.0013138769080001111
+17-methane_ethane_monomerA, energy = 0.0
+17-methane_ethane_monomerB, energy = 0.0
+18-methane_ethane_1@00re, energy = 0.0009690266030020213
+18-methane_ethane_monomerA, energy = 0.0
+18-methane_ethane_monomerB, energy = 0.0
+19-methane_methane_1@00re, energy = 0.0008392826570045032
+19-methane_methane_monomerA, energy = 0.0
+19-methane_methane_monomerB, energy = 0.0
+20-ar_methane_1@00re, energy = 0.0006639203480744982
+20-ar_methane_monomerA, energy = 0.0
+20-ar_methane_monomerB, energy = 0.0
+21-ar_ethene_1@00re, energy = 0.0005904430420287099
+21-ar_ethene_monomerA, energy = 0.0
+21-ar_ethene_monomerB, energy = 0.0
+22-ethene_ethyne_1@00re, energy = -0.0013051198740043901
+22-ethene_ethyne_monomerA, energy = 0.0
+22-ethene_ethyne_monomerB, energy = 0.0
+23-ethene_ethene_1@00re, energy = -0.0014789544239874886
+23-ethene_ethene_monomerA, energy = 0.0
+23-ethene_ethene_monomerB, energy = 0.0
+24-ethyne_ethyne_1@00re, energy = -0.001785554588991545
+24-ethyne_ethyne_monomerA, energy = 0.0
+24-ethyne_ethyne_monomerB, energy = 0.0
+
+Reactions
+^^^^^^^^^
+| 01-water_ammonia_1.00re: 01-water_ammonia_monomerA + 01-water_ammonia_monomerB -> 01-water_ammonia_1@00re (01-water_ammonia_1.00re), energy = 0.010359582063010464
+| 02-water_water_1.00re: 02-water_water_monomerA + 02-water_water_monomerB -> 02-water_water_1@00re (02-water_water_1.00re), energy = 0.007999662943987573
+| 03-HCN_HCN_1.00re: 03-HCN_HCN_monomerA + 03-HCN_HCN_monomerB -> 03-HCN_HCN_1@00re (03-HCN_HCN_1.00re), energy = 0.007582699183984687
+| 04-HF_HF_1.00re: 04-HF_HF_monomerA + 04-HF_HF_monomerB -> 04-HF_HF_1@00re (04-HF_HF_1.00re), energy = 0.007340173803001449
+| 05-NH3_NH3_1.00re: 05-NH3_NH3_monomerA + 05-NH3_NH3_monomerB -> 05-NH3_NH3_1@00re (05-NH3_NH3_1.00re), energy = 0.0049909319180017064
+| 06-methane_HF_1.00re: 06-methane_HF_monomerA + 06-methane_HF_monomerB -> 06-methane_HF_1@00re (06-methane_HF_1.00re), energy = 0.002654194998001458
+| 07-NH3_CH4_1.00re: 07-NH3_CH4_monomerA + 07-NH3_CH4_monomerB -> 07-NH3_CH4_1@00re (07-NH3_CH4_1.00re), energy = 0.001214568062003707
+| 08-methane_water_1.00re: 08-methane_water_monomerA + 08-methane_water_monomerB -> 08-methane_water_1@00re (08-methane_water_1.00re), energy = 0.0010595525729968358
+| 09-formaldehyde_formaldehyde_1.00re: 09-formaldehyde_formaldehyde_monomerA + 09-formaldehyde_formaldehyde_monomerB -> 09-formaldehyde_formaldehyde_1@00re (09-formaldehyde_formaldehyde_1.00re), energy = 0.00724390959301502
+| 10-water_ethene_1.00re: 10-water_ethene_monomerA + 10-water_ethene_monomerB -> 10-water_ethene_1@00re (10-water_ethene_1.00re), energy = 0.004088221445996965
+| 11-formaldehyde_ethene_1.00re: 11-formaldehyde_ethene_monomerA + 11-formaldehyde_ethene_monomerB -> 11-formaldehyde_ethene_1@00re (11-formaldehyde_ethene_1.00re), energy = 0.0025898569199966914
+| 12-ethyne_ethyne_1.00re: 12-ethyne_ethyne_monomerA + 12-ethyne_ethyne_monomerB -> 12-ethyne_ethyne_1@00re (12-ethyne_ethyne_1.00re), energy = 0.0024339993619975075
+| 13-ammonia_ethene_1.00re: 13-ammonia_ethene_monomerA + 13-ammonia_ethene_monomerB -> 13-ammonia_ethene_1@00re (13-ammonia_ethene_1.00re), energy = 0.00219569293899724
+| 14-ethene_ethene_1.00re: 14-ethene_ethene_monomerA + 14-ethene_ethene_monomerB -> 14-ethene_ethene_1@00re (14-ethene_ethene_1.00re), energy = 0.0017435788290214302
+| 15-methane_ethene_1.00re: 15-methane_ethene_monomerA + 15-methane_ethene_monomerB -> 15-methane_ethene_1@00re (15-methane_ethene_1.00re), energy = 0.0008031658839939838
+| 16-borane_methane_1.00re: 16-borane_methane_monomerA + 16-borane_methane_monomerB -> 16-borane_methane_1@00re (16-borane_methane_1.00re), energy = 0.0023592990589946794
+| 17-methane_ethane_1.00re: 17-methane_ethane_monomerA + 17-methane_ethane_monomerB -> 17-methane_ethane_1@00re (17-methane_ethane_1.00re), energy = 0.0013138769080001111
+| 18-methane_ethane_1.00re: 18-methane_ethane_monomerA + 18-methane_ethane_monomerB -> 18-methane_ethane_1@00re (18-methane_ethane_1.00re), energy = 0.0009690266030020213
+| 19-methane_methane_1.00re: 19-methane_methane_monomerA + 19-methane_methane_monomerB -> 19-methane_methane_1@00re (19-methane_methane_1.00re), energy = 0.0008392826570045032
+| 20-ar_methane_1.00re: 20-ar_methane_monomerA + 20-ar_methane_monomerB -> 20-ar_methane_1@00re (20-ar_methane_1.00re), energy = 0.0006639203480744982
+| 21-ar_ethene_1.00re: 21-ar_ethene_monomerA + 21-ar_ethene_monomerB -> 21-ar_ethene_1@00re (21-ar_ethene_1.00re), energy = 0.0005904430420287099
+| 22-ethene_ethyne_1.00re: 22-ethene_ethyne_monomerA + 22-ethene_ethyne_monomerB -> 22-ethene_ethyne_1@00re (22-ethene_ethyne_1.00re), energy = -0.0013051198740043901
+| 23-ethene_ethene_1.00re: 23-ethene_ethene_monomerA + 23-ethene_ethene_monomerB -> 23-ethene_ethene_1@00re (23-ethene_ethene_1.00re), energy = -0.0014789544239874886
+| 24-ethyne_ethyne_1.00re: 24-ethyne_ethyne_monomerA + 24-ethyne_ethyne_monomerB -> 24-ethyne_ethyne_1@00re (24-ethyne_ethyne_1.00re), energy = -0.001785554588991545
+
