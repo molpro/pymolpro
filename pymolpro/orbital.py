@@ -104,16 +104,24 @@ class Orbital:
         :param directory: the directory in which the xml file, and its sidecar, live
         """
         self.node = node
-        if self.attribute('energy') not in ['',None]:
+        try:
             self.energy = float(self.attribute('energy'))  #: energy of the orbital
-        self.occupation = float(self.attribute('occupation'))  #: Occupation of the orbital
-        self.centroid = np.array(
-            [float(self.attribute('moments').split()[k]) for k in range(3)])  #: Centroid of the orbital
+        except:
+            self.energy = 0.0
+        try:
+          self.occupation = float(self.attribute('occupation'))  #: Occupation of the orbital
+        except:
+          self.occupation = 2.0
+        try:
+          self.centroid = np.array(
+              [float(self.attribute('moments').split()[k]) for k in range(3)])  #: Centroid of the orbital
         #: Eigenvalues of the orbital second-moment tensor (origin at centre of charge) in ascending order
-        self.second_moment_eigenvalues, self._second_moment_eigenvectors = np.linalg.eigh(self.local_second_moments)
-        for i in range(3):
-            if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0:
-                self._second_moment_eigenvectors[:, i] *= -1
+          self.second_moment_eigenvalues, self._second_moment_eigenvectors = np.linalg.eigh(self.local_second_moments)
+          for i in range(3):
+              if max([abs(c) for c in self._second_moment_eigenvectors[:, i]]) < 0:
+                  self._second_moment_eigenvectors[:, i] *= -1
+        except:
+          pass
         coefficients_text = self.node.text
         if coefficients_text is not None and coefficients_text.strip() != '':
             self.coefficients = coefficients_text.split()

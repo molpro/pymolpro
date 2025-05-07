@@ -527,9 +527,9 @@ class Project(pysjef.project.Project):
                 orbitals = orbitalSets[orbital_instance]['orbitals']
                 for orb in orbitals:
                     f.write('[MO]\nSym='+orb.ID+'\n')
-                    f.write('Ene= '+str(orb.energy)+'\n')
+                    if hasattr(orb,'energy'): f.write('Ene= '+str(orb.energy)+'\n')
                     f.write('Spin= '+spin+'\n')
-                    f.write('Occup= '+str(orb.occupation)+'\n')
+                    if hasattr(orb,'occupation'): f.write('Occup= '+str(orb.occupation)+'\n')
                     count=0
                     for c in orb.coefficients:
                         count += 1

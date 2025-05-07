@@ -81,7 +81,7 @@ class TestProject(unittest.TestCase):
             shutil.rmtree(filename+'.molpro',ignore_errors=True)
             p=pymolpro.Project(filename)
             p.clean()
-            p.write_input('symmetry,nosym;geometry={He;He,He,2};df-hf;{ibba};{put,xml;compress}')
+            p.write_input('symmetry,nosym;geometry={He;He,He,2};df-hf;{ibba}')
 #             p.write_input("""
 #             symmetry,nosym
 # !geometry={O;H,O,r;H,O,r,H,theta}
