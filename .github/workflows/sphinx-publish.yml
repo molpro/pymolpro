@@ -3,8 +3,8 @@ on:
   push:
     tags:
       - '*'
-#    branches:
-#    - master
+    branches:
+    - trexio
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +15,8 @@ jobs:
       with:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - run: |
-        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy
+        conda install -y -c conda-forge --file requirements.txt
+        conda install -y -c conda-forge --file sphinx_rtd_theme nbsphinx scipy
         python -m pip install --no-deps --force-reinstall .
     - name: Build and Commit
       uses: sphinx-notes/pages@v2
