@@ -15,12 +15,12 @@ jobs:
     - uses: actions/checkout@master
       with:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - run: conda install -y -c conda-forge 'numpy<2'
     - run: conda install -y -c conda-forge 'pysjef>=1.41.2'
     - run: conda install -y -c conda-forge pytest
     - run: conda install -y -c conda-forge regex
     - run: conda install -y -c conda-forge lxml
     - run: conda install -y -c conda-forge 'scipy>=1.9.3'
-    - run: conda install -y -c conda-forge 'numpy<2'
     - run: conda install -y -c conda-forge 'sphinx-rtd-theme>=1.0.0'
     - run: conda install -y -c conda-forge 'quadpy>=0.16.10'
     - run: conda install -y -c conda-forge pandas
