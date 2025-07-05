@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-python@v2
-    - uses: s-weigand/setup-conda@v1.0.7
+#    - uses: s-weigand/setup-conda@v1.0.7
+    - uses: conda-incubator/setup-miniconda@v3
     - uses: actions/checkout@master
       with:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - run: |
-        conda install -y -c conda-forge sphinx_rtd_theme nbsphinx scipy
-#        conda install -y -c conda-forge --file requirements.txt
+        conda install -y -c conda-forge --file sphinx_rtd_theme nbsphinx scipy
+        conda install -y -c conda-forge --file requirements.txt
         python -m pip install --no-deps --force-reinstall .
     - name: Build and Commit
       uses: sphinx-notes/pages@v2
