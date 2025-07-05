@@ -23,7 +23,7 @@ jobs:
 #        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - run: python --version
     - run: conda list
-    - run: conda install -y -c conda-forge 'numpy<2'
+    - run: conda install -y -c conda-forge 'numpy'
     - run: conda install -y -c conda-forge 'pysjef>=1.41.2'
     - run: conda install -y -c conda-forge pytest
     - run: conda install -y -c conda-forge regex
