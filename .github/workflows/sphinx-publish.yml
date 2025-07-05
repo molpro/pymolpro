@@ -12,30 +12,30 @@ jobs:
 #    - uses: actions/setup-python@v2
 #    - uses: s-weigand/setup-conda@v1.0.7
     - uses: conda-incubator/setup-miniconda@v2
-      with:
-        python-version: '3.13'
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.13'
-    - uses: actions/checkout@v3
+#      with:
+#        python-version: '3.13'
+#    - name: Set up Python
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: '3.13'
+#    - uses: actions/checkout@v3
 #      with:
 #        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - run: python --version
-    - run: conda list
-    - run: conda install -y -c conda-forge 'numpy'
-    - run: conda install -y -c conda-forge 'pysjef>=1.41.2'
-    - run: conda install -y -c conda-forge pytest
-    - run: conda install -y -c conda-forge regex
-    - run: conda install -y -c conda-forge lxml
-    - run: conda install -y -c conda-forge 'scipy>=1.9.3'
-    - run: conda install -y -c conda-forge 'sphinx-rtd-theme>=1.0.0'
-    - run: conda install -y -c conda-forge 'quadpy>=0.16.10'
-    - run: conda install -y -c conda-forge pandas
-    - run: conda install -y -c conda-forge chemcoord
+#    - run: conda list
+#    - run: conda install -y -c conda-forge 'numpy'
+#    - run: conda install -y -c conda-forge 'pysjef>=1.41.2'
+#    - run: conda install -y -c conda-forge pytest
+#    - run: conda install -y -c conda-forge regex
+#    - run: conda install -y -c conda-forge lxml
+#    - run: conda install -y -c conda-forge 'scipy>=1.9.3'
+#    - run: conda install -y -c conda-forge 'sphinx-rtd-theme>=1.0.0'
+#    - run: conda install -y -c conda-forge 'quadpy>=0.16.10'
+#    - run: conda install -y -c conda-forge pandas
+#    - run: conda install -y -c conda-forge chemcoord
     - run: |
-        conda install -y -c conda-forge sphinx_rtd_theme nbsphinx scipy
-        conda install -y -c conda-forge --file requirements.txt
+#        conda install -y -c conda-forge sphinx_rtd_theme nbsphinx scipy
+        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy
         python -m pip install --no-deps --force-reinstall .
     - name: Build and Commit
       uses: sphinx-notes/pages@v2
