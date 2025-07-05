@@ -41,12 +41,14 @@ jobs:
         conda list
         conda install -y -c conda-forge pysjef
         conda list
-    - name: Build and Commit
+    - name: Build
       uses: sphinx-notes/pages@v3
       with:
         documentation_path: './docs/source'
         checkout: false
-        requirements_path: '/dev/null'
+        python_version: '3.13'
+#        requirements_path: '/dev/null'
+#      run: make -C docs html
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
