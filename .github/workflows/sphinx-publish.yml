@@ -15,7 +15,7 @@ jobs:
       with:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - run: |
-        conda install -y -c conda-forge --file sphinx_rtd_theme nbsphinx scipy
+        conda install -y -c conda-forge sphinx_rtd_theme nbsphinx scipy
         conda install -y -c conda-forge --file requirements.txt
         python -m pip install --no-deps --force-reinstall .
     - name: Build and Commit
