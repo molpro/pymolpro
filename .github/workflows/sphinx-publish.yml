@@ -34,7 +34,6 @@ jobs:
 #    - run: conda install -y -c conda-forge pandas
 #    - run: conda install -y -c conda-forge chemcoord
     - run: |
-#        conda install -y -c conda-forge sphinx_rtd_theme nbsphinx scipy
         conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy
         python -m pip install --no-deps --force-reinstall .
     - name: Build and Commit
