@@ -9,20 +9,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-#    - uses: actions/setup-python@v2
-#    - uses: s-weigand/setup-conda@v1.0.7
     - uses: conda-incubator/setup-miniconda@v3
       with:
-#        python-version: '3.13'
         miniconda-version: "latest"
         channels: conda-forge, defaults
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-    - name: Set up Python
-      uses: actions/setup-python@v5
-#      with:
-#        python-version: '3.13'
+        fetch-depth: 0 # otherwise, you will faile to push refs to dest repo
     - name: set up environment
       shell: bash -el {0}
       run: |
