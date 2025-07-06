@@ -36,7 +36,7 @@ jobs:
     - run: |
         pwd
         ls
-        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy
+        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
         python -m pip install --no-deps --force-reinstall .
         conda list
         conda install -y -c conda-forge pysjef
