@@ -36,13 +36,16 @@ jobs:
     - run: |
         pwd
         ls
-        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
+        conda create -n pymolpro -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
+        conda activate pymolpro
         python -m pip install --no-deps --force-reinstall .
         conda list
-        echo $PATH
+        echo PATH=$PATH
+        echo CONDA_PREFIX=$CONDA_PREFIX
+        conda info
         ls $CONDA_PREFIX/bin/s*
-        pip install sphinx
-        ls $CONDA_PREFIX/bin/s*
+#        pip install sphinx
+#        ls $CONDA_PREFIX/bin/s*
 #        conda install -y -c conda-forge pysjef
 #        conda list
     - name: Build
