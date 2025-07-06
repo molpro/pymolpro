@@ -46,6 +46,7 @@ jobs:
 #        checkout: false
 #        python_version: '3.13'
 #        requirements_path: '/dev/null'
+      shell: bash -el {0}
       run: |
         echo $PATH
         make -C docs html
