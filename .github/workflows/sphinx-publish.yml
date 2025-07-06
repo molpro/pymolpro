@@ -13,7 +13,7 @@ jobs:
 #    - uses: s-weigand/setup-conda@v1.0.7
     - uses: conda-incubator/setup-miniconda@v3
       with:
-        python-version: '3.13'
+#        python-version: '3.13'
         miniconda-version: "latest"
         channels: conda-forge, defaults
     - uses: actions/checkout@v4
@@ -22,40 +22,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.13'
+#        python-version: '3.13'
     - name: set up environment
       shell: bash -el {0}
       run: |
-        pwd
-        ls
         conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
         python -m pip install --no-deps --force-reinstall .
-        conda list
-        echo PATH=$PATH
-        echo CONDA_PREFIX=$CONDA_PREFIX
-        conda info
-        ls $CONDA_PREFIX/bin/s*
-#        pip install sphinx
-#        ls $CONDA_PREFIX/bin/s*
-#        conda install -y -c conda-forge pysjef
-#        conda list
     - name: Build
-#      uses: sphinx-notes/pages@v3
-#      with:
-#        documentation_path: './docs/source'
-#        checkout: false
-#        python_version: '3.13'
-#        requirements_path: '/dev/null'
       shell: bash -el {0}
-      run: |
-        echo $PATH
-        make -C docs html
-#    - name: Push changes
-#      uses: ad-m/github-push-action@master
-#      with:
-#        github_token: ${{ secrets.GITHUB_TOKEN }}
-#        directory: './docs/build/html'
-#        branch: gh-pages
+      run: make -C docs html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
       with:

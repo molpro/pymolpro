@@ -483,7 +483,8 @@ class Project(pysjef.project.Project):
 
     def orbitals_to_trexio(self, filename=None, instance=-1, overwrite=True):
         r"""
-        Create a TrexIO dump containing the geometry and orbitals
+        Create a TrexIO dump containing the geometry and orbitals.
+
         :param filename: Name of the Trexio file to be placed in the run directory
         :type filename: str
         :param instance: Which instance of the molecule node in the xml file
