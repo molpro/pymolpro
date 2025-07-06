@@ -50,9 +50,14 @@ jobs:
       run: |
         echo $PATH
         make -C docs html
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+#    - name: Push changes
+#      uses: ad-m/github-push-action@master
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        directory: './docs/build/html'
+#        branch: gh-pages
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        directory: './docs/build/html'
-        branch: gh-pages
+        publish_dir: 'docs/build/html'
