@@ -39,8 +39,10 @@ jobs:
         conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
         python -m pip install --no-deps --force-reinstall .
         conda list
-        conda install -y -c conda-forge pysjef
-        conda list
+        which sphinx-build
+        echo $PATH
+#        conda install -y -c conda-forge pysjef
+#        conda list
     - name: Build
 #      uses: sphinx-notes/pages@v3
 #      with:
@@ -48,7 +50,10 @@ jobs:
 #        checkout: false
 #        python_version: '3.13'
 #        requirements_path: '/dev/null'
-      run: make -C docs html
+      run: |
+        echo $PATH
+        which sphinx-build
+        make -C docs html
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
