@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.13.3.dev40+g75ee8f1 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.13.3.dev42+g2df63a7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=866f6d9d"></script>
+      <script src="_static/documentation_options.js?v=4175db3b"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -994,15 +994,22 @@ Defaults to same directory as current project.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.project.Project.orbitals_to_trexio">
 <span class="sig-name descname"><span class="pre">orbitals_to_trexio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.project.Project.orbitals_to_trexio" title="Link to this definition"></a></dt>
-<dd><p>Create a TrexIO dump containing the geometry and orbitals
-:param filename: Name of the Trexio file to be placed in the run directory
-:type filename: str
-:param instance: Which instance of the molecule node in the xml file
-:type instance: int
-:param overwrite: Overwrite existing TrexIO file
-:type overwrite: bool
-:return: file, label
-:rtype: str, str</p>
+<dd><p>Create a TrexIO dump containing the geometry and orbitals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Name of the Trexio file to be placed in the run directory</p></li>
+<li><p><strong>instance</strong> (<em>int</em>) – Which instance of the molecule node in the xml file</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – Overwrite existing TrexIO file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>file, label</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str, str</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
