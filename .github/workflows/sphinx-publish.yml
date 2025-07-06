@@ -23,25 +23,12 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.13'
-#    - run: python --version
-#    - run: conda list
-#    - run: conda install -y -c conda-forge 'numpy'
-#    - run: conda install -y -c conda-forge 'pysjef>=1.41.2'
-#    - run: conda install -y -c conda-forge pytest
-#    - run: conda install -y -c conda-forge regex
-#    - run: conda install -y -c conda-forge lxml
-#    - run: conda install -y -c conda-forge 'scipy>=1.9.3'
-#    - run: conda install -y -c conda-forge 'sphinx-rtd-theme>=1.0.0'
-#    - run: conda install -y -c conda-forge 'quadpy>=0.16.10'
-#    - run: conda install -y -c conda-forge pandas
-#    - run: conda install -y -c conda-forge chemcoord
     - name: set up environment
       shell: bash -el {0}
       run: |
         pwd
         ls
-#        conda create -n pymolpro -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
-#        conda activate pymolpro
+        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
         python -m pip install --no-deps --force-reinstall .
         conda list
         echo PATH=$PATH
