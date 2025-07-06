@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.13.3.dev42+g2df63a7 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.13.3.dev43+ga7c367b documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=4175db3b"></script>
+      <script src="_static/documentation_options.js?v=723e44c3"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -460,21 +460,13 @@ If specified, the input for the job will be constructed, without the need for a 
 Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or <cite>;</cite>. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.</p></li>
 <li><p><strong>method</strong> (<em>str</em>) – The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.</p></li>
 <li><p><strong>basis</strong> (<em>str</em>) – The orbital basis set for constructed input. Anything that can appear after <cite>basis=</cite> in Molpro input is accepted.</p></li>
-<li><p><strong>ansatz</strong> (<em>str</em>) – String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the</p></li>
-</ul>
-</dd>
-</dl>
-<p>method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
-:param str func: This should be one of</p>
-<blockquote>
-<div><ul class="simple">
+<li><p><strong>ansatz</strong> (<em>str</em>) – String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.</p></li>
+<li><p><strong>func</strong> (<em>str</em>) – <p>This should be one of</p>
+<ul>
 <li><p><cite>energy</cite> for a single geometry</p></li>
 <li><p><cite>opt</cite> for a geometry optimisation</p></li>
 </ul>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+</p></li>
 <li><p><strong>extrapolate</strong> (<em>str</em>) – If specified, carry out basis-set extrapolation. Anything that can appear after <cite>extrapolate,basis=</cite> in Molpro input is accepted.</p></li>
 <li><p><strong>spin</strong> (<em>int</em>) – The spin multiplicity minus one</p></li>
 <li><p><strong>charge</strong> (<em>int</em>) – Electrical charge of molecule</p></li>
@@ -901,9 +893,15 @@ be overwritten</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.project.Project.local_molpro_root">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">local_molpro_root</span></span><a class="headerlink" href="#pymolpro.project.Project.local_molpro_root" title="Link to this definition"></a></dt>
-<dd><p>Get the directory of the Molpro installation in the local backend
-:return: directory
-:rtype: pathlib.Path</p>
+<dd><p>Get the directory of the Molpro installation in the local backend</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>directory</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pathlib.Path</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
