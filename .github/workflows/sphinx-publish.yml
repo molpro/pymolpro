@@ -4,25 +4,28 @@ on:
     tags:
       - '*'
 #    branches:
-#    - master
+#      - trexio
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v2
-    - uses: s-weigand/setup-conda@v1.0.7
-    - uses: actions/checkout@master
-      with:
-        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-    - run: |
-        conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy
-        python -m pip install --no-deps --force-reinstall .
-    - name: Build and Commit
-      uses: sphinx-notes/pages@v2
-      with:
-        documentation_path: './docs/source'
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          channels: conda-forge, defaults
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+      - name: set up environment
+        shell: bash -el {0}
+        run: |
+          conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
+          python -m pip install --no-deps --force-reinstall .
+      - name: Build
+        shell: bash -el {0}
+        run: make -C docs html
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: 'docs/build/html'

@@ -152,8 +152,7 @@ class Project(pysjef.project.Project):
         Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
     :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
     :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
-    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the
-    method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
+    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
     :param str func: This should be one of
 
         * `energy` for a single geometry
@@ -483,7 +482,8 @@ class Project(pysjef.project.Project):
 
     def orbitals_to_trexio(self, filename=None, instance=-1, overwrite=True):
         r"""
-        Create a TrexIO dump containing the geometry and orbitals
+        Create a TrexIO dump containing the geometry and orbitals.
+
         :param filename: Name of the Trexio file to be placed in the run directory
         :type filename: str
         :param instance: Which instance of the molecule node in the xml file
@@ -964,6 +964,7 @@ class Project(pysjef.project.Project):
     def local_molpro_root(self):
         r"""
         Get the directory of the Molpro installation in the local backend
+
         :return: directory
         :rtype: pathlib.Path
         """
