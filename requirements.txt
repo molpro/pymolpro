@@ -8,3 +8,4 @@ sphinx-rtd-theme>=1.0.0
 quadpy>=0.16.10
 pandas
 chemcoord
+ase>=3.25.0
