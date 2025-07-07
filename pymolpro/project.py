@@ -743,7 +743,8 @@ class Project(pysjef.project.Project):
             for orbital in self.xpath('orbital', orbitalSet):
                 molecule['orbitalSets'][-1]['orbitals'].append(Orbital(orbital,self.filename()))
         geometry_nodes = self.xpath('//*/molecule[@id="'+molecule['id']+'"]/cml:molecule/cml:atomArray', molecule_node)
-        assert len(geometry_nodes) ==1
+        if len(geometry_nodes) != 1:
+            raise IndexError('Molecule node does not contain exactly one geometry node')
         Angstrom = 1.88972612462577
         atoms = []
         for atom in geometry_nodes[0].xpath("cml:atom", namespaces={'cml': "http://www.xml-cml.org/schema"}):
