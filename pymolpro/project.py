@@ -8,6 +8,7 @@ import re
 import json
 import numpy as np
 import shutil
+from scipy.special import factorial2
 
 periodic_table = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
                   'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
@@ -537,6 +538,14 @@ class Project(pysjef.project.Project):
             ao_shell = []
             ao_num = 0
             map_aos = []
+            ao_normalization = []
+            # normfac = np.array(
+            #     [1, # s
+            #     1, 1, 1, # p
+            #     3, 3, 3, 1, 1, 1, # d
+            #     15, 15, 15, 3, 3, 3, 3, 3, 3, 1, # f
+            #     105, 105, 105, 15, 15, 15, 15, 15, 15, 9, 9, 9, 1, 1, 1, # g
+            #     945, 105, 105, 45, 15, 45, 45, 9, 9, 45, 105, 15, 9, 15, 105, 945, 105, 45, 45, 105, 945]) # h
             for atom_index, atom in enumerate(atoms):
                 query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
                     'id') + '\'")]]/..'
@@ -558,8 +567,6 @@ class Project(pysjef.project.Project):
                     if item.isalnum():
                         basisGroup = self.xpath('basisGroup[@id="' + item + '"]', basisSet)[0]
                         lquant = int(basisGroup.get('minL'))
-                        if lquant > 5:
-                            raise Exception("Sorry, I was too lazy to write this for i basis functions and higher")
                         if lquant != int(basisGroup.get('maxL')):
                             raise Exception("This program cannot handle multiple-angular momentum sets")
                         alpha = np.float64(re.sub(' +', ' ',
@@ -578,6 +585,11 @@ class Project(pysjef.project.Project):
                                 for j, mp in enumerate(molpro_powers):
                                     if powers == mp:
                                         map_aos.append(ao_num_base + j)
+                                nfac = 1
+                                for k in range(3):
+                                    if powers[k] > 0:
+                                        nfac = nfac * round(factorial2(2*powers[k]-1))
+                                ao_normalization.append(1.0 / np.sqrt(nfac))
                                 ao_num += 1
                             for i in range(len(cc)):
                                 shell_index.append(shell_num)
@@ -603,7 +615,7 @@ class Project(pysjef.project.Project):
             trexio.write_ao_cartesian(f, 1)
             trexio.write_ao_num(f, int(ao_num))
             trexio.write_ao_shell(f, ao_shell)
-            trexio.write_ao_normalization(f, [1.0 for _ in ao_shell])
+            trexio.write_ao_normalization(f, ao_normalization)
 
             mo_num = 0
             mo_energies = []
@@ -617,7 +629,7 @@ class Project(pysjef.project.Project):
                 for orb in orbitals:
                     mo_num += 1
                     if hasattr(orb, 'energy'): mo_energies.append(orb.energy)
-                    mo_spins.append(1 if spin=='alpha' else -1 if spin=='beta' else 0)
+                    mo_spins.append(1 if spin == 'beta' else 0)
                     if hasattr(orb, 'occupation'):
                         mo_occupations.append(orb.occupation)
                     mo_coefficients += [orb.coefficients[map_aos[i]] for i, c in enumerate(orb.coefficients)]
@@ -629,11 +641,13 @@ class Project(pysjef.project.Project):
             label = molecule_info['orbitalSets'][0]['method']
             if len(orbitalSets) == 1: label += '/' + molecule_info['orbitalSets'][0]['type']
             trexio.write_mo_type(f, label)
+
             nelec = int(orbitalSets[orbital_instance]['state_nelec'])
             ms2 = int(orbitalSets[orbital_instance]['state_ms2'])
             trexio.write_electron_num(f, nelec)
             trexio.write_electron_up_num(f, (nelec + ms2) // 2)
             trexio.write_electron_dn_num(f, (nelec - ms2) // 2)
+
             f.close()
         return file, label
 
