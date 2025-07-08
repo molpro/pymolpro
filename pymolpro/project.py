@@ -8,21 +8,22 @@ import re
 import json
 import numpy as np
 import shutil
+from scipy.special import factorial2
 
-periodic_table= ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
-            'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
-            'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni',
-            'Cu', 'Zn', 'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
-            'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru',
-            'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb', 'Te',
-            'I', 'Xe', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm',
-            'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm',
-            'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir',
-            'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
-            'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am',
-            'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr',
-            'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn',
-            'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og']
+periodic_table = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
+                  'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
+                  'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni',
+                  'Cu', 'Zn', 'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr',
+                  'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru',
+                  'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb', 'Te',
+                  'I', 'Xe', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm',
+                  'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm',
+                  'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir',
+                  'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn',
+                  'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np', 'Pu', 'Am',
+                  'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr',
+                  'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn',
+                  'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og']
 
 
 def no_errors(projects, ignore_warning=True):
@@ -96,20 +97,24 @@ def method_from_commands(commands):
     method = re.sub(r'^(df-)?[ur]?ks\s*,', '', method, flags=re.IGNORECASE)
     return method
 
+
 def molpro_xyz_powers(l):
-    cartesianAngularQuantumNumbers = [[0, 1, 0, 0, 2, 0, 0, 1, 1, 0, 3, 0, 0, 2, 2, 1, 0, 1, 0, 1, 4, 0, 0, 3, 3, 1, 0, 1, 0, 2, 2, 0, 2, 1, 1, 5, 4,
-          4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 6, 5, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1,
-          1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 1, 0, 0, 2, 0, 1, 0, 1, 0, 3, 0, 1, 0, 2, 2, 0, 1, 1, 0, 4, 0, 1, 0, 3, 3, 0, 1, 2, 0, 2, 1, 2, 1, 0, 1,
-          0, 2, 1, 0, 3, 2, 1, 0, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0, 0, 1, 0, 2, 1, 0, 3, 2, 1, 0, 4, 3, 2, 1, 0, 5, 4, 3,
-          2, 1, 0, 6, 5, 4, 3, 2, 1, 0],
-         [0, 0, 0, 1, 0, 0, 2, 0, 1, 1, 0, 0, 3, 0, 1, 0, 1, 2, 2, 1, 0, 0, 4, 0, 1, 0, 1, 3, 3, 0, 2, 2, 1, 1, 2, 0, 0,
-          1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 0, 0, 1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, 1, 2,
-          3, 4, 5, 0, 1, 2, 3, 4, 5, 6]]
+    cartesianAngularQuantumNumbers = [
+        [0, 1, 0, 0, 2, 0, 0, 1, 1, 0, 3, 0, 0, 2, 2, 1, 0, 1, 0, 1, 4, 0, 0, 3, 3, 1, 0, 1, 0, 2, 2, 0, 2, 1, 1, 5, 4,
+         4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 6, 5, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1,
+         1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 2, 0, 1, 0, 1, 0, 3, 0, 1, 0, 2, 2, 0, 1, 1, 0, 4, 0, 1, 0, 3, 3, 0, 1, 2, 0, 2, 1, 2, 1, 0, 1,
+         0, 2, 1, 0, 3, 2, 1, 0, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0, 0, 1, 0, 2, 1, 0, 3, 2, 1, 0, 4, 3, 2, 1, 0, 5, 4, 3,
+         2, 1, 0, 6, 5, 4, 3, 2, 1, 0],
+        [0, 0, 0, 1, 0, 0, 2, 0, 1, 1, 0, 0, 3, 0, 1, 0, 1, 2, 2, 1, 0, 0, 4, 0, 1, 0, 1, 3, 3, 0, 2, 2, 1, 1, 2, 0, 0,
+         1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 0, 0, 1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, 1, 2,
+         3, 4, 5, 0, 1, 2, 3, 4, 5, 6]]
     offset = 0
     for previous_l in range(l):
-        offset += (previous_l+1)*(previous_l+2)//2
-    return [[cartesianAngularQuantumNumbers[xyz][offset+m] for xyz in range(3)] for m in range((l+1)*(l+2)//2)]
+        offset += (previous_l + 1) * (previous_l + 2) // 2
+    return [[cartesianAngularQuantumNumbers[xyz][offset + m] for xyz in range(3)] for m in
+            range((l + 1) * (l + 2) // 2)]
+
 
 def lexical_xyz_powers(l):
     powers = [l, 0, 0]
@@ -123,6 +128,7 @@ def lexical_xyz_powers(l):
         else:
             powers[0] -= 1
             powers[1] = l - powers[0]
+
 
 class Project(pysjef.project.Project):
     r"""
@@ -175,7 +181,7 @@ class Project(pysjef.project.Project):
                  spin=None,
                  files=[],
                  **kwargs):
-        if not hasattr(self,'__initialized'):
+        if not hasattr(self, '__initialized'):
             try:
                 super().__init__(name=name, **kwargs)
                 self.__initialized = True
@@ -184,13 +190,14 @@ class Project(pysjef.project.Project):
 
         if ansatz is not None:
             self.__init__(name=name, geometry=geometry,
-                                method=self.parse_ansatz(ansatz)['method'], basis=self.parse_ansatz(ansatz)['basis'], func=func,
-                                extrapolate=extrapolate, symm=symm,
-                                geometry_method=self.parse_ansatz(ansatz)['geometry_method'],
-                                geometry_basis=self.parse_ansatz(ansatz)['geometry_basis'],
-                                preamble=preamble, postamble=postamble, initial=initial, charge=charge, spin=spin,
-                                **kwargs
-                                )
+                          method=self.parse_ansatz(ansatz)['method'], basis=self.parse_ansatz(ansatz)['basis'],
+                          func=func,
+                          extrapolate=extrapolate, symm=symm,
+                          geometry_method=self.parse_ansatz(ansatz)['geometry_method'],
+                          geometry_basis=self.parse_ansatz(ansatz)['geometry_basis'],
+                          preamble=preamble, postamble=postamble, initial=initial, charge=charge, spin=spin,
+                          **kwargs
+                          )
             return
         self.local_molpro_root_ = None
 
@@ -206,7 +213,7 @@ class Project(pysjef.project.Project):
             if initial is not None: input += initial + '\n'
             if not symm: input += 'symmetry, nosym\n'
             input += 'geometry={' + resolve_geometry(geometry) + '}\n'
-            if preamble is not None: input +=  preamble + '\n'
+            if preamble is not None: input += preamble + '\n'
             if charge is not None: input += 'charge=' + str(charge) + '\n'
             if spin is not None: input += 'spin=' + str(spin) + '\n'
             if geometry_method is not None:
@@ -230,28 +237,28 @@ class Project(pysjef.project.Project):
                         if not rundir:
                             self.run_directory_new()
                             rundir = True
-                        shutil.copyfile(file,self.filename(path.suffix[1:]))
+                        shutil.copyfile(file, self.filename(path.suffix[1:]))
                         if path.suffix == '.xml':
                             input_from_output = self.input_from_output()
                             self.write_input('\n'.join(input_from_output))
-                    elif path.suffix in ['.inp','.xyz'] and path.stem != 'optimised':
-                        shutil.copyfile(file,pathlib.Path(self.filename('',run=-1))/path.name)
+                    elif path.suffix in ['.inp', '.xyz'] and path.stem != 'optimised':
+                        shutil.copyfile(file, pathlib.Path(self.filename('', run=-1)) / path.name)
                     else:
                         if not rundir:
                             self.run_directory_new()
                             rundir = True
-                        shutil.copyfile(file,pathlib.Path(self.filename(''))/path.name)
+                        shutil.copyfile(file, pathlib.Path(self.filename('')) / path.name)
 
     # def set_method(self,method,basis="cc-pVTZ",geometry_method=None, geometry_basis=None):
     #     pass
-    def commandify_method(self,method):
+    def commandify_method(self, method):
         if method.strip().upper() in self.registry('DFUNC').keys():
-          return 'df-ks,' + method
+            return 'df-ks,' + method
         __method = method.lower().strip()
         if re.match(r'^(df-)?[ur]?(hf|ks).*', __method):
             return method
         if __method[-2:] != 'hf' and __method[1:3] != 'hf' and __method[:2] != 'hf' and __method[
-                                                               -2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
+                                                                                        -2:] != 'ks' and 'ks,' not in __method and 'ks ' not in __method:
             if __method[:2] == 'df':
                 if __method[:4] == 'df-u':
                     __method = 'df-uhf; df-' + __method[4:]
@@ -264,8 +271,8 @@ class Project(pysjef.project.Project):
                     __method = 'hf; ' + __method
         return __method
 
-    def parse_ansatz(self,ansatz):
-        parsed={}
+    def parse_ansatz(self, ansatz):
+        parsed = {}
         parts = ansatz.split('//')
         # if len(parts) == 1:
         #     parts.append(parts[0])
@@ -292,6 +299,7 @@ class Project(pysjef.project.Project):
         parsed['geometry_method'] = result[2] if len(result) > 2 else None
         parsed['geometry_basis'] = result[3] if len(result) > 3 else None
         return parsed
+
     def errors(self, ignore_warning=True):
         '''
         Return all error nodes
@@ -496,7 +504,6 @@ class Project(pysjef.project.Project):
         import trexio
         Angstrom = 1.88972612462577
         molecule_node = self.xpath('//*/molecule')[instance]
-        print('instance',instance)
         molecule_info = self.molecule(instance)
         orbitalSets = molecule_info['orbitalSets']
         if len(orbitalSets) < 1:
@@ -512,6 +519,7 @@ class Project(pysjef.project.Project):
             trexio.write_nucleus_num(f, len(atoms))
             trexio.write_nucleus_label(f, [atom['elementType'] for atom in atoms])
             trexio.write_nucleus_coord(f, [[c for c in atom['xyz']] for atom in atoms])
+            trexio.write_nucleus_charge(f, [float(periodic_table.index(atom['elementType']) + 1) for atom in atoms])
 
             basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule_node)
             if len(basisSets) != 1:
@@ -530,7 +538,152 @@ class Project(pysjef.project.Project):
             ao_shell = []
             ao_num = 0
             map_aos = []
+            ao_normalization = []
+            # normfac = np.array(
+            #     [1, # s
+            #     1, 1, 1, # p
+            #     3, 3, 3, 1, 1, 1, # d
+            #     15, 15, 15, 3, 3, 3, 3, 3, 3, 1, # f
+            #     105, 105, 105, 15, 15, 15, 15, 15, 15, 9, 9, 9, 1, 1, 1, # g
+            #     945, 105, 105, 45, 15, 45, 45, 9, 9, 45, 105, 15, 9, 15, 105, 945, 105, 45, 45, 105, 945]) # h
             for atom_index, atom in enumerate(atoms):
+                query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
+                    'id') + '\'")]]/..'
+                basisGroupAssociation = self.xpath(query, basisSet)
+                if len(basisGroupAssociation) != 1:
+                    raise Exception(
+                        'something is wrong: there should be a unique association of an atom with a basis set')
+                bases = self.xpath('bases', basisGroupAssociation[0])
+                if len(bases) != 1:
+                    raise Exception('something is wrong: there should be a bases node in association')
+                basesString = bases[0].get('{http://www.w3.org/1999/xlink}href')
+                basesString = basesString[basesString.find('basisGroup['):]
+                basesString = basesString[basesString.find('[') + 1:].lstrip()
+                basesString = basesString[:basesString.find(']')].rstrip()
+                basesString = basesString.replace('or', '').replace('\n', '').replace("'", '')
+                list = basesString.split("@id=")
+                for item in list:
+                    item = item.lstrip().rstrip()
+                    if item.isalnum():
+                        basisGroup = self.xpath('basisGroup[@id="' + item + '"]', basisSet)[0]
+                        lquant = int(basisGroup.get('minL'))
+                        if lquant != int(basisGroup.get('maxL')):
+                            raise Exception("This program cannot handle multiple-angular momentum sets")
+                        alpha = np.float64(re.sub(' +', ' ',
+                                                  self.xpath('basisExponents', basisGroup)[
+                                                      0].text.replace('\n', '').lstrip().rstrip()).split(" "))
+                        for basisContraction in self.xpath('basisContraction', basisGroup):
+                            nucleus_index.append(atom_index)
+                            shell_ang_mom.append(lquant)
+                            shell_factor.append(1.0)
+                            cc = np.float64(
+                                re.sub(' +', ' ', basisContraction.text.replace('\n', '').lstrip().rstrip()).split(" "))
+                            ao_num_base = int(ao_num)
+                            molpro_powers = molpro_xyz_powers(lquant)
+                            for i, powers in enumerate(lexical_xyz_powers(lquant)):
+                                ao_shell.append(shell_num)
+                                for j, mp in enumerate(molpro_powers):
+                                    if powers == mp:
+                                        map_aos.append(ao_num_base + j)
+                                nfac = 1
+                                for k in range(3):
+                                    if powers[k] > 0:
+                                        nfac = nfac * round(factorial2(2*powers[k]-1))
+                                ao_normalization.append(1.0 / np.sqrt(nfac))
+                                ao_num += 1
+                            for i in range(len(cc)):
+                                shell_index.append(shell_num)
+                                exponent.append(alpha[i])
+                                coefficient.append(cc[i])
+                                normalization = (2.0 * alpha[i] / np.pi) ** 0.75 * np.sqrt(2.0 ** lquant) * (
+                                            np.sqrt(2.0 * alpha[i]) ** lquant)
+                                prim_factor.append(normalization)
+                                prim_num += 1
+                            shell_num += 1
+
+            trexio.write_basis_type(f, "Gaussian")
+            trexio.write_basis_prim_num(f, int(prim_num))
+            trexio.write_basis_shell_num(f, int(shell_num))
+            trexio.write_basis_nucleus_index(f, nucleus_index)
+            trexio.write_basis_shell_ang_mom(f, shell_ang_mom)
+            trexio.write_basis_shell_factor(f, shell_factor)
+            trexio.write_basis_shell_index(f, shell_index)
+            trexio.write_basis_r_power(f, [0 for _ in range(shell_num)])
+            trexio.write_basis_exponent(f, exponent)
+            trexio.write_basis_coefficient(f, coefficient)
+            trexio.write_basis_prim_factor(f, prim_factor)
+            trexio.write_ao_cartesian(f, 1)
+            trexio.write_ao_num(f, int(ao_num))
+            trexio.write_ao_shell(f, ao_shell)
+            trexio.write_ao_normalization(f, ao_normalization)
+
+            mo_num = 0
+            mo_energies = []
+            mo_occupations = []
+            mo_spins = []
+            mo_coefficients = []
+            for orbital_instance in range(
+                    min(2, len(orbitalSets))):  # forces that we just get the UHF alpha and beta, not natural
+                spin = orbitalSets[orbital_instance]['spin']
+                orbitals = orbitalSets[orbital_instance]['orbitals']
+                for orb in orbitals:
+                    mo_num += 1
+                    if hasattr(orb, 'energy'): mo_energies.append(orb.energy)
+                    mo_spins.append(1 if spin == 'beta' else 0)
+                    if hasattr(orb, 'occupation'):
+                        mo_occupations.append(orb.occupation)
+                    mo_coefficients += [orb.coefficients[map_aos[i]] for i, c in enumerate(orb.coefficients)]
+            trexio.write_mo_num(f, mo_num)
+            trexio.write_mo_spin(f, mo_spins)
+            if len(mo_energies) > 0: trexio.write_mo_energy(f, mo_energies)
+            if len(mo_occupations) > 0: trexio.write_mo_occupation(f, mo_occupations)
+            trexio.write_mo_coefficient(f, mo_coefficients)
+            label = molecule_info['orbitalSets'][0]['method']
+            if len(orbitalSets) == 1: label += '/' + molecule_info['orbitalSets'][0]['type']
+            trexio.write_mo_type(f, label)
+
+            nelec = int(orbitalSets[orbital_instance]['state_nelec'])
+            ms2 = int(orbitalSets[orbital_instance]['state_ms2'])
+            trexio.write_electron_num(f, nelec)
+            trexio.write_electron_up_num(f, (nelec + ms2) // 2)
+            trexio.write_electron_dn_num(f, (nelec - ms2) // 2)
+
+            f.close()
+        return file, label
+
+    def orbitals_to_molden(self, filename=None, instance=-1, minocc=1.0, ID=None):
+        Angstrom = 1.88972612462577
+        molecule_node = self.xpath('//*/molecule')[instance]
+        molecule_info = self.molecule(instance)
+        orbitalSets = molecule_info['orbitalSets']
+        if len(orbitalSets) < 1:
+            raise Exception('No orbital sets found')
+
+        file = self.filename('molden', filename) if filename is not None else self.filename('molden')
+        if instance != -1:
+            file = file.replace('.molden', '_' + str(instance) + '.molden')
+        with open(file, 'w') as f:
+            f.write('[Molden Format]\n')
+            f.write('[Atoms] Angs\n')
+            atoms = molecule_info['geometry']
+            atomindex = 0
+            for atom in atoms:
+                atomindex += 1
+                f.write(atom['elementType'] + ' ' + str(atomindex) + ' ' + str(
+                    periodic_table.index(atom['elementType']) + 1) + ' ' + ' '.join(
+                    [str(c / Angstrom) for c in atom['xyz']]) + '\n')
+
+            f.write('[GTO]\n')
+
+            basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule_node)
+            if len(basisSets) != 1:
+                raise Exception('something is wrong: there should be just one orbital basisSet')
+            basisSet = basisSets[0]
+
+            count = 0
+            for atom in atoms:
+                count += 1
+                f.write(str(count) + ' 0\n')
                 query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
                     'id') + '\'")]]/..'
                 basisGroupAssociation = self.xpath(query, basisSet)
@@ -559,149 +712,28 @@ class Project(pysjef.project.Project):
                                                   self.xpath('basisExponents', basisGroup)[
                                                       0].text.replace('\n', '').lstrip().rstrip()).split(" "))
                         for basisContraction in self.xpath('basisContraction', basisGroup):
-                            nucleus_index.append(atom_index)
-                            shell_ang_mom.append(lquant)
-                            shell_factor.append(1.0)
                             cc = np.float64(
                                 re.sub(' +', ' ', basisContraction.text.replace('\n', '').lstrip().rstrip()).split(" "))
-                            ao_num_base = int(ao_num)
-                            molpro_powers = molpro_xyz_powers(lquant)
-                            for i, powers in enumerate(lexical_xyz_powers(lquant)):
-                                ao_shell.append(shell_num)
-                                for j, mp in enumerate(molpro_powers):
-                                    if powers == mp:
-                                        map_aos.append(ao_num_base + j)
-                                ao_num += 1
+                            f.write('spdfghiklmnopqrst'[lquant] + ' ' + str(len(cc)) + ' 1.00\n')
                             for i in range(len(cc)):
-                                shell_index.append(shell_num)
-                                exponent.append(alpha[i])
-                                coefficient.append(cc[i])
-                                prim_factor.append(1.0)
-                                prim_num += 1
-                            shell_num += 1
+                                f.write(str(alpha[i]) + ' ' + str(cc[i]) + '\n')
+                f.write('\n')
 
-            trexio.write_basis_type(f, "Gaussian")
-            trexio.write_basis_prim_num(f, int(prim_num))
-            trexio.write_basis_shell_num(f, int(shell_num))
-            trexio.write_basis_nucleus_index(f, nucleus_index)
-            trexio.write_basis_shell_ang_mom(f, shell_ang_mom)
-            trexio.write_basis_shell_factor(f, shell_factor)
-            trexio.write_basis_shell_index(f, shell_index)
-            trexio.write_basis_r_power(f, [0 for _ in range(shell_num)])
-            trexio.write_basis_exponent(f, exponent)
-            trexio.write_basis_coefficient(f, coefficient)
-            trexio.write_basis_prim_factor(f, prim_factor)
-            trexio.write_ao_cartesian(f, 1)
-            trexio.write_ao_num(f, int(ao_num))
-            trexio.write_ao_shell(f, ao_shell)
-            trexio.write_ao_normalization(f, [1.0 for _ in ao_shell])
-
-            mo_num = 0
-            mo_energies = []
-            mo_occupations = []
-            mo_spins = []
-            mo_coefficients = []
             for orbital_instance in range(
                     min(2, len(orbitalSets))):  # forces that we just get the UHF alpha and beta, not natural
                 spin = orbitalSets[orbital_instance]['spin']
                 orbitals = orbitalSets[orbital_instance]['orbitals']
                 for orb in orbitals:
-                    mo_num += 1
-                    if hasattr(orb, 'energy'): mo_energies.append(orb.energy)
-                    mo_spins.append(spin)
-                    if hasattr(orb, 'occupation'): mo_occupations.append(orb.occupation)
-                    mo_coefficients += [orb.coefficients[map_aos[i]] for i, c in enumerate(orb.coefficients)]
-            trexio.write_mo_num(f, mo_num)
-            if len(mo_energies) > 0: trexio.write_mo_energy(f, mo_energies)
-            if len(mo_occupations) > 0: trexio.write_mo_occupation(f, mo_occupations)
-            trexio.write_mo_coefficient(f, mo_coefficients)
-            label = molecule_info['orbitalSets'][0]['method']
-            if len(orbitalSets) == 1: label += '/' + molecule_info['orbitalSets'][0]['type']
-            trexio.write_mo_type(f, label)
-            f.close()
-        return file, label
-
-    def orbitals_to_molden(self, filename=None, instance=-1, minocc=1.0, ID=None):
-        Angstrom = 1.88972612462577
-        molecule_node = self.xpath('//*/molecule')[instance]
-        molecule_info = self.molecule(instance)
-        orbitalSets = molecule_info['orbitalSets']
-        if len(orbitalSets) < 1:
-            raise Exception('No orbital sets found')
-
-        file = self.filename('molden', filename) if filename is not None else self.filename('molden')
-        if instance != -1:
-            file = file.replace('.molden','_'+str(instance)+'.molden')
-        with open(file, 'w') as f:
-            f.write('[Molden Format]\n')
-            f.write('[Atoms] Angs\n')
-            atoms = molecule_info['geometry']
-            atomindex=0
-            for atom in atoms:
-                atomindex += 1
-                f.write(atom['elementType'] + ' ' + str(atomindex) + ' ' + str(periodic_table.index(atom['elementType'])+1) + ' '+ ' '.join([str(c/Angstrom) for c in atom['xyz']]) + '\n')
-
-            f.write('[GTO]\n')
-
-            basisSets = self.xpath('basisSet[@id="ORBITAL"]', molecule_node)
-            if len(basisSets) != 1:
-                raise Exception('something is wrong: there should be just one orbital basisSet')
-            basisSet = basisSets[0]
-
-
-
-            count = 0
-            for atom in atoms:
-                count += 1
-                f.write(str(count)+' 0\n')
-                query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
-                    'id') + '\'")]]/..'
-                basisGroupAssociation = self.xpath(query, basisSet)
-                if len(basisGroupAssociation) != 1:
-                    raise Exception('something is wrong: there should be a unique association of an atom with a basis set')
-                bases = self.xpath('bases',basisGroupAssociation[0])
-                if len(bases) != 1:
-                    raise Exception('something is wrong: there should be a bases node in association')
-                basesString = bases[0].get('{http://www.w3.org/1999/xlink}href')
-                basesString = basesString[basesString.find('basisGroup['):]
-                basesString = basesString[basesString.find('[') + 1:].lstrip()
-                basesString = basesString[:basesString.find(']')].rstrip()
-                basesString = basesString.replace('or', '').replace('\n', '').replace("'", '')
-                list = basesString.split("@id=")
-                for item in list:
-                    item = item.lstrip().rstrip()
-                    if item.isalnum():
-                        basisGroup = self.xpath('basisGroup[@id="' + item + '"]', basisSet)[0]
-                        lquant = int(basisGroup.get('minL'))
-                        if lquant > 5:
-                            raise Exception("Sorry, I was too lazy to write this for i basis functions and higher")
-                        if lquant != int(basisGroup.get('maxL')):
-                            raise Exception("This program cannot handle multiple-angular momentum sets")
-                        alpha = np.float64(re.sub(' +', ' ',
-                                                  self.xpath('basisExponents', basisGroup)[
-                                                      0].text.replace('\n', '').lstrip().rstrip()).split(" "))
-                        for basisContraction in self.xpath('basisContraction', basisGroup):
-                            cc = np.float64(
-                            re.sub(' +', ' ', basisContraction.text.replace('\n', '').lstrip().rstrip()).split(" "))
-                            f.write('spdfghiklmnopqrst'[lquant]+' '+str(len(cc))+' 1.00\n')
-                            for i in range(len(cc)):
-                                f.write(str(alpha[i])+' '+str(cc[i])+'\n')
-                f.write('\n')
-
-            for orbital_instance in range(min(2,len(orbitalSets))): # forces that we just get the UHF alpha and beta, not natural
-                spin = orbitalSets[orbital_instance]['spin']
-                orbitals = orbitalSets[orbital_instance]['orbitals']
-                for orb in orbitals:
-                    f.write('[MO]\nSym='+orb.ID+'\n')
-                    if hasattr(orb,'energy'): f.write('Ene= '+str(orb.energy)+'\n')
-                    f.write('Spin= '+spin+'\n')
-                    if hasattr(orb,'occupation'): f.write('Occup= '+str(orb.occupation)+'\n')
-                    count=0
+                    f.write('[MO]\nSym=' + orb.ID + '\n')
+                    if hasattr(orb, 'energy'): f.write('Ene= ' + str(orb.energy) + '\n')
+                    f.write('Spin= ' + spin + '\n')
+                    if hasattr(orb, 'occupation'): f.write('Occup= ' + str(orb.occupation) + '\n')
+                    count = 0
                     for c in orb.coefficients:
                         count += 1
-                        f.write(str(count)+' '+str(c)+'\n')
+                        f.write(str(count) + ' ' + str(c) + '\n')
         label = molecule_info['orbitalSets'][0]['method']
-        if len(orbitalSets)==1: label +='/'+ molecule_info['orbitalSets'][0]['type']
+        if len(orbitalSets) == 1: label += '/' + molecule_info['orbitalSets'][0]['type']
         return file, label
 
     def orbitals(self, instance=-1, minocc=1.0, ID=None, orbital_instance=-1):
@@ -731,7 +763,7 @@ class Project(pysjef.project.Project):
         molecule_node = self.xpath('//*/molecule')[instance]
         molecule['id'] = molecule_node.get('id')
         molecule['method'] = molecule_node.get('method')
-        if molecule_node.get('energy') not in ['',None]:
+        if molecule_node.get('energy') not in ['', None]:
             molecule['energy'] = molecule_node.get('energy')
         orbitalSets = self.xpath('orbitals', molecule_node)
         molecule['orbitalSets'] = []
@@ -741,8 +773,9 @@ class Project(pysjef.project.Project):
                 molecule['orbitalSets'][-1][attribute] = orbitalSet.get(attribute)
             molecule['orbitalSets'][-1]['orbitals'] = []
             for orbital in self.xpath('orbital', orbitalSet):
-                molecule['orbitalSets'][-1]['orbitals'].append(Orbital(orbital,self.filename()))
-        geometry_nodes = self.xpath('//*/molecule[@id="'+molecule['id']+'"]/cml:molecule/cml:atomArray', molecule_node)
+                molecule['orbitalSets'][-1]['orbitals'].append(Orbital(orbital, self.filename()))
+        geometry_nodes = self.xpath('//*/molecule[@id="' + molecule['id'] + '"]/cml:molecule/cml:atomArray',
+                                    molecule_node)
         if len(geometry_nodes) != 1:
             raise IndexError('Molecule node does not contain exactly one geometry node')
         Angstrom = 1.88972612462577
@@ -776,7 +809,7 @@ class Project(pysjef.project.Project):
         from pymolpro import Orbital
         for orbital in self.xpath(search, orbitalSets[orbital_instance]):
             if float(orbital.get('occupation')) >= minocc:
-                result.append(Orbital(orbital,self.filename()))
+                result.append(Orbital(orbital, self.filename()))
         assert not ID or len(result) == 1
         return result
 
@@ -1084,14 +1117,16 @@ class Project(pysjef.project.Project):
         result['atomic_masses'] = np.array(
             [float(x) for x in ''.join(self.xpath('masses', vibration_set)[0].text.strip().splitlines()).split()])
         sqrt_mass_matrix = np.diag(
-            np.array([math.sqrt(mass* 1822.88848621731) for mass in result['atomic_masses'] for i in range(3)]))
+            np.array([math.sqrt(mass * 1822.88848621731) for mass in result['atomic_masses'] for i in range(3)]))
         result['energies'] = result['wavenumbers'] / 219474.63
         mass_weighted_normal_coordinates = normal_coordinates @ sqrt_mass_matrix
         for i in range(len(mass_weighted_normal_coordinates)):
             mass_weighted_normal_coordinates[i, :] = mass_weighted_normal_coordinates[i, :] / np.linalg.norm(
                 mass_weighted_normal_coordinates[i, :])
         result['mass_weighted_normal_coordinates'] = mass_weighted_normal_coordinates
-        result['real_zero_imag'] = np.array([0.0 if k.get('real_zero_imag')=='Z' else -1.0 if k.get('real_zero_imag')=='I' else 1.0 for k in nodes])
+        result['real_zero_imag'] = np.array(
+            [0.0 if k.get('real_zero_imag') == 'Z' else -1.0 if k.get('real_zero_imag') == 'I' else 1.0 for k in nodes])
         result['force_constants'] = sqrt_mass_matrix @ mass_weighted_normal_coordinates.transpose() @ np.diag(
-            result['energies']) @ np.diag(result['real_zero_imag']) @ np.diag(result['energies']) @ mass_weighted_normal_coordinates @ sqrt_mass_matrix
+            result['energies']) @ np.diag(result['real_zero_imag']) @ np.diag(
+            result['energies']) @ mass_weighted_normal_coordinates @ sqrt_mass_matrix
         return result
