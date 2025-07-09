@@ -1,5 +1,6 @@
 import math
 import os
+import pwd
 import pathlib
 
 import pysjef
@@ -9,6 +10,8 @@ import json
 import numpy as np
 import shutil
 from scipy.special import factorial2
+
+import pymolpro
 
 periodic_table = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
                   'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
@@ -536,13 +539,6 @@ class Project(pysjef.project.Project):
             ao_num = 0
             map_aos = []
             ao_normalization = []
-            # normfac = np.array(
-            #     [1, # s
-            #     1, 1, 1, # p
-            #     3, 3, 3, 1, 1, 1, # d
-            #     15, 15, 15, 3, 3, 3, 3, 3, 3, 1, # f
-            #     105, 105, 105, 15, 15, 15, 15, 15, 15, 9, 9, 9, 1, 1, 1, # g
-            #     945, 105, 105, 45, 15, 45, 45, 9, 9, 45, 105, 15, 9, 15, 105, 945, 105, 45, 45, 105, 945]) # h
             for atom_index, atom in enumerate(atoms):
                 query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
                     'id') + '\'")]]/..'
@@ -597,6 +593,11 @@ class Project(pysjef.project.Project):
                                 prim_factor.append(normalization)
                                 prim_num += 1
                             shell_num += 1
+
+            trexio.write_metadata_author_num(f,1)
+            trexio.write_metadata_author(f,[pwd.getpwuid(os.getuid()).pw_gecos])
+            trexio.write_metadata_code_num(f,1)
+            trexio.write_metadata_code(f,["pymolpro "+pymolpro.__version__])
 
             trexio.write_basis_type(f, "Gaussian")
             trexio.write_basis_prim_num(f, int(prim_num))
