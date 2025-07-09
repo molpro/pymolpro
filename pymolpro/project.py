@@ -539,13 +539,6 @@ class Project(pysjef.project.Project):
             ao_num = 0
             map_aos = []
             ao_normalization = []
-            # normfac = np.array(
-            #     [1, # s
-            #     1, 1, 1, # p
-            #     3, 3, 3, 1, 1, 1, # d
-            #     15, 15, 15, 3, 3, 3, 3, 3, 3, 1, # f
-            #     105, 105, 105, 15, 15, 15, 15, 15, 15, 9, 9, 9, 1, 1, 1, # g
-            #     945, 105, 105, 45, 15, 45, 45, 9, 9, 45, 105, 15, 9, 15, 105, 945, 105, 45, 45, 105, 945]) # h
             for atom_index, atom in enumerate(atoms):
                 query = 'association/atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
                     'id') + '\'")]]/..'
