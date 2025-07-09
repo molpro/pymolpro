@@ -99,21 +99,18 @@ def method_from_commands(commands):
 
 
 def molpro_xyz_powers(l):
-    cartesianAngularQuantumNumbers = [
-        [0, 1, 0, 0, 2, 0, 0, 1, 1, 0, 3, 0, 0, 2, 2, 1, 0, 1, 0, 1, 4, 0, 0, 3, 3, 1, 0, 1, 0, 2, 2, 0, 2, 1, 1, 5, 4,
-         4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 6, 5, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1,
-         1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 2, 0, 1, 0, 1, 0, 3, 0, 1, 0, 2, 2, 0, 1, 1, 0, 4, 0, 1, 0, 3, 3, 0, 1, 2, 0, 2, 1, 2, 1, 0, 1,
-         0, 2, 1, 0, 3, 2, 1, 0, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0, 0, 1, 0, 2, 1, 0, 3, 2, 1, 0, 4, 3, 2, 1, 0, 5, 4, 3,
-         2, 1, 0, 6, 5, 4, 3, 2, 1, 0],
-        [0, 0, 0, 1, 0, 0, 2, 0, 1, 1, 0, 0, 3, 0, 1, 0, 1, 2, 2, 1, 0, 0, 4, 0, 1, 0, 1, 3, 3, 0, 2, 2, 1, 1, 2, 0, 0,
-         1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 0, 0, 1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, 1, 2,
-         3, 4, 5, 0, 1, 2, 3, 4, 5, 6]]
-    offset = 0
-    for previous_l in range(l):
-        offset += (previous_l + 1) * (previous_l + 2) // 2
-    return [[cartesianAngularQuantumNumbers[xyz][offset + m] for xyz in range(3)] for m in
-            range((l + 1) * (l + 2) // 2)]
+    components = ['',
+                  'x', 'y', 'z',
+                  'xx', 'yy', 'zz', 'xy', 'xz', 'yz',
+                  'xxx', 'yyy', 'zzz', 'xxy', 'xxz', 'xyy', 'yyz', 'xzz', 'yzz', 'xyz',
+                  'xxxx', 'yyyy', 'zzzz', 'xxxy', 'xxxz', 'xyyy', 'yyyz', 'xzzz', 'yzzz', 'xxyy', 'xxzz', 'yyzz',
+                  'xxyz', 'xyyz', 'xyzz']
+    if l < 5:
+        result = [[components[l * (l + 1) * (l + 2) // 6 + m].count('xyz'[xyz]) for xyz in range(3)] for m in
+                  range((l + 1) * (l + 2) // 2)]
+    else:
+        result = [[p[xyz] for xyz in range(3)] for p in lexical_xyz_powers(l)]
+    return result
 
 
 def lexical_xyz_powers(l):
@@ -588,7 +585,7 @@ class Project(pysjef.project.Project):
                                 nfac = 1
                                 for k in range(3):
                                     if powers[k] > 0:
-                                        nfac = nfac * round(factorial2(2*powers[k]-1))
+                                        nfac = nfac * round(factorial2(2 * powers[k] - 1))
                                 ao_normalization.append(1.0 / np.sqrt(nfac))
                                 ao_num += 1
                             for i in range(len(cc)):
@@ -596,7 +593,7 @@ class Project(pysjef.project.Project):
                                 exponent.append(alpha[i])
                                 coefficient.append(cc[i])
                                 normalization = (2.0 * alpha[i] / np.pi) ** 0.75 * np.sqrt(2.0 ** lquant) * (
-                                            np.sqrt(2.0 * alpha[i]) ** lquant)
+                                        np.sqrt(2.0 * alpha[i]) ** lquant)
                                 prim_factor.append(normalization)
                                 prim_num += 1
                             shell_num += 1
