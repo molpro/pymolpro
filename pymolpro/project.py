@@ -1,5 +1,6 @@
 import math
 import os
+import pwd
 import pathlib
 
 import pysjef
@@ -9,6 +10,8 @@ import json
 import numpy as np
 import shutil
 from scipy.special import factorial2
+
+import pymolpro
 
 periodic_table = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
                   'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K', 'Ca',
@@ -597,6 +600,11 @@ class Project(pysjef.project.Project):
                                 prim_factor.append(normalization)
                                 prim_num += 1
                             shell_num += 1
+
+            trexio.write_metadata_author_num(f,1)
+            trexio.write_metadata_author(f,[pwd.getpwuid(os.getuid()).pw_gecos])
+            trexio.write_metadata_code_num(f,1)
+            trexio.write_metadata_code(f,["pymolpro "+pymolpro.__version__])
 
             trexio.write_basis_type(f, "Gaussian")
             trexio.write_basis_prim_num(f, int(prim_num))
