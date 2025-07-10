@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optimise and view the structure of ammonia dimer &mdash; pymolpro 1.14.3 documentation</title>
+  <title>Optimise and view the structure of ammonia dimer &mdash; pymolpro 1.14.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=36f81496"></script>
+      <script src="../_static/documentation_options.js?v=fd71845b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -101,7 +101,7 @@
   <section id="Optimise-and-view-the-structure-of-ammonia-dimer">
 <h1>Optimise and view the structure of ammonia dimer<a class="headerlink" href="#Optimise-and-view-the-structure-of-ammonia-dimer" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from ase.collections import s22
@@ -109,250 +109,224 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>name=&#39;Ammonia_dimer&#39;
-initial = s22[name]
+atoms = s22[name]
 </pre></div>
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>type(atoms)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ase.atoms.Atoms
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import ase.visualize
+ase.visualize.view(atoms, viewer=&#39;x3d&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<html>
+    <head>
+        <title>ASE atomic visualization</title>
+        <link rel="stylesheet" type="text/css"             href="https://www.x3dom.org/release/x3dom.css"></link>
+        <script type="text/javascript"             src="https://www.x3dom.org/release/x3dom.js"></script>
+    </head>
+    <body>
+        <X3D width="400px"; height="300px";>
+
+<!--Inserting Generated X3D Scene-->
+<scene>
+  <viewpoint position="0 0 8.634484">
+    <group/>
+  </viewpoint>
+  <transform translation="-0.0 -0.0 -0.0">
+    <group>
+      <group>
+        <transform translation="0 0 0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+        <transform translation="0.0 0.0 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+        <transform translation="0 0 0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+        <transform translation="0.0 0.0 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+      </group>
+      <group>
+        <transform translation="-1.578718 -0.046611 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0.188 0.314 0.973"/>
+            </appearance>
+            <sphere radius="0.71"/>
+          </shape>
+        </transform>
+        <transform translation="-2.158621 0.136396 -0.809565">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="-2.158621 0.136396 0.809565">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="-0.849471 0.658193 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="1.578718 0.046611 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0.188 0.314 0.973"/>
+            </appearance>
+            <sphere radius="0.71"/>
+          </shape>
+        </transform>
+        <transform translation="2.158621 -0.136396 -0.809565">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="0.849471 -0.658193 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="2.158621 -0.136396 0.809565">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+      </group>
+    </group>
+  </transform>
+</scene>
+<!--End of Inserted Scene-->
+
+        </X3D>
+    </body>
+</html></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import ase.visualize
-ase.visualize.view(initial, viewer=&#39;x3d&#39;)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import ASEMolpro
+from ase.optimize import BFGS
+atoms.calc = ASEMolpro(ansatz=&#39;df-lmp2/aug-cc-pVTZ&#39;)
+with BFGS(atoms) as opt:
+    opt.run(fmax=0.0001)
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<html>
-
- <head>
-
-  <title>ASE atomic visualization</title>
-
-  <link rel="stylesheet" type="text/css"
-
-   href="https://www.x3dom.org/x3dom/release/x3dom.css">
-
-  </link>
-
-  <script type="text/javascript"
-
-   src="https://www.x3dom.org/x3dom/release/x3dom.js">
-
-  </script>
-
- </head>
-
- <body>
-
-  <X3D>
-
-   <Scene>
-
-    <Transform translation="-1.58 -0.05 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="0.188 0.314 0.973" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.71">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="-2.16 0.14 -0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="-2.16 0.14 0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="-0.85 0.66 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="1.58 0.05 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="0.188 0.314 0.973" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.71">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="2.16 -0.14 -0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="0.85 -0.66 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="2.16 -0.14 0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-   </Scene>
-
-  </X3D>
-
- </body>
-
-</html></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
-p = Project(name)
-import ase.io
-ase.io.write(p.filename() + &#39;/initial.xyz&#39;, initial)
-p.write_input(&quot;&quot;&quot;
-geometry=initial.xyz
-basis,aug-cc-pvtz
-df-rhf; df-lmp2; optg; put,xyz,final.xyz&quot;&quot;&quot;)
-p.run(wait=True)
-assert p.status == &#39;completed&#39;
-method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+      Step     Time          Energy          fmax
+BFGS:    0 17:13:35    -3072.767830        0.039808
+BFGS:    1 17:13:51    -3072.767945        0.031691
+BFGS:    2 17:14:08    -3072.768093        0.038783
+BFGS:    3 17:14:24    -3072.768165        0.024396
+BFGS:    4 17:14:41    -3072.768200        0.014780
+BFGS:    5 17:14:57    -3072.768213        0.012905
+BFGS:    6 17:15:14    -3072.768237        0.015387
+BFGS:    7 17:15:31    -3072.768293        0.029246
+BFGS:    8 17:15:48    -3072.768409        0.044499
+BFGS:    9 17:16:05    -3072.768583        0.048781
+BFGS:   10 17:16:22    -3072.768728        0.031805
+BFGS:   11 17:16:38    -3072.768776        0.011471
+BFGS:   12 17:16:56    -3072.768786        0.007871
+BFGS:   13 17:17:12    -3072.768791        0.009934
+BFGS:   14 17:17:29    -3072.768798        0.010301
+BFGS:   15 17:17:45    -3072.768809        0.008511
+BFGS:   16 17:18:03    -3072.768821        0.009436
+BFGS:   17 17:18:20    -3072.768835        0.009928
+BFGS:   18 17:18:37    -3072.768852        0.012732
+BFGS:   19 17:18:54    -3072.768871        0.012696
+BFGS:   20 17:19:12    -3072.768885        0.007342
+BFGS:   21 17:19:29    -3072.768890        0.001984
+BFGS:   22 17:19:46    -3072.768890        0.000276
+BFGS:   23 17:20:03    -3072.768890        0.000033
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>final = ase.io.read(p.filename() + &#39;/final.xyz&#39;)
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>def closest_interatomic(atoms):
@@ -370,7 +344,49 @@ method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print(&quot;Initial H-bond length:&quot;,closest_interatomic(initial),&quot;\n&quot;+method+&quot; H-bond length:&quot;,closest_interatomic(final))
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print(&quot;H-bond length:&quot;,closest_interatomic(atoms))
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+H-bond length: 2.1971031666750096
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
+p = Project(name)
+import ase.io
+ase.io.write(p.filename() + &#39;/initial.xyz&#39;, s22[name])
+p.write_input(&quot;&quot;&quot;
+geometry=initial.xyz
+basis,aug-cc-pvtz
+df-rhf; df-lmp2; optg,gradient=0.00001; put,xyz,final.xyz&quot;&quot;&quot;)
+p.run(wait=True)
+assert p.status == &#39;completed&#39;
+method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>final = ase.io.read(p.filename() + &#39;/final.xyz&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print(&quot;Initial H-bond length:&quot;,closest_interatomic(s22[name]),&quot;\n&quot;+method+&quot; H-bond length:&quot;,closest_interatomic(final))
 </pre></div>
 </div>
 </div>
@@ -380,11 +396,11 @@ method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Initial H-bond length: 2.149250106516224
-DF-LMP2/aug-cc-pVTZ//DF-LMP2/aug-cc-pVTZ H-bond length: 2.196265045752414
+DF-LMP2/aug-cc-pVTZ//DF-LMP2/aug-cc-pVTZ H-bond length: 2.1971082552648555
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>ase.visualize.view(final, viewer=&#39;x3d&#39;)
@@ -392,202 +408,141 @@ DF-LMP2/aug-cc-pVTZ//DF-LMP2/aug-cc-pVTZ H-bond length: 2.196265045752414
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <html>
-
- <head>
-
-  <title>ASE atomic visualization</title>
-
-  <link rel="stylesheet" type="text/css"
-
-   href="https://www.x3dom.org/x3dom/release/x3dom.css">
-
-  </link>
-
-  <script type="text/javascript"
-
-   src="https://www.x3dom.org/x3dom/release/x3dom.js">
-
-  </script>
-
- </head>
-
- <body>
-
-  <X3D>
-
-   <Scene>
-
-    <Transform translation="-1.60 -0.04 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="0.188 0.314 0.973" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.71">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="-2.18 0.14 -0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="-2.18 0.14 0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="-0.87 0.67 -0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="1.60 0.04 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="0.188 0.314 0.973" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.71">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="2.18 -0.14 -0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="0.87 -0.67 0.00">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-    <Transform translation="2.18 -0.14 0.81">
-
-     <Shape>
-
-      <Appearance>
-
-       <Material diffuseColor="1.000 1.000 1.000" specularColor="0.5 0.5 0.5">
-
-       </Material>
-
-      </Appearance>
-
-      <Sphere radius="0.31">
-
-      </Sphere>
-
-     </Shape>
-
-    </Transform>
-
-   </Scene>
-
-  </X3D>
-
- </body>
-
+    <head>
+        <title>ASE atomic visualization</title>
+        <link rel="stylesheet" type="text/css"             href="https://www.x3dom.org/release/x3dom.css"></link>
+        <script type="text/javascript"             src="https://www.x3dom.org/release/x3dom.js"></script>
+    </head>
+    <body>
+        <X3D width="400px"; height="300px";>
+
+<!--Inserting Generated X3D Scene-->
+<scene>
+  <viewpoint position="0 0 8.7368817292">
+    <group/>
+  </viewpoint>
+  <transform translation="-0.0 -0.0 -0.0">
+    <group>
+      <group>
+        <transform translation="0 0 0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+        <transform translation="0.0 0.0 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+        <transform translation="0 0 0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+        <transform translation="0.0 0.0 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0 0 0"/>
+            </appearance>
+            <lineset vertexCount="5">
+              <coordinate point="0 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0"/>
+            </lineset>
+          </shape>
+        </transform>
+      </group>
+      <group>
+        <transform translation="-1.6041929044 -0.0396803719 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0.188 0.314 0.973"/>
+            </appearance>
+            <sphere radius="0.71"/>
+          </shape>
+        </transform>
+        <transform translation="-2.1842204323 0.1376509327 -0.8112643311">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="-2.1842204323 0.1376509327 0.8112643311">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="-0.8737382559 0.6645916699 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="1.6041929044 0.0396803719 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="0.188 0.314 0.973"/>
+            </appearance>
+            <sphere radius="0.71"/>
+          </shape>
+        </transform>
+        <transform translation="2.1842204323 -0.1376509327 -0.8112643311">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="0.8737382559 -0.6645916699 0.0">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+        <transform translation="2.1842204323 -0.1376509327 0.8112643311">
+          <shape>
+            <appearance>
+              <material diffuseColor="1.0 1.0 1.0"/>
+            </appearance>
+            <sphere radius="0.31"/>
+          </shape>
+        </transform>
+      </group>
+    </group>
+  </transform>
+</scene>
+<!--End of Inserted Scene-->
+
+        </X3D>
+    </body>
 </html></div>
 </div>
 </section>
