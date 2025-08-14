@@ -8,6 +8,7 @@ import pymolpro.database
 from ._version import __version__, __version_tuple__
 from pymolpro.geometry import xyz_to_zmat
 from pymolpro.ase import ASEMolpro
+from pymolpro.registry import local_molpro_root, allowed_methods, basis_registry, registry, procedures_registry
 
 __all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict', 'Database', 'xyz_to_zmat', 'ASEMolpro']
 
