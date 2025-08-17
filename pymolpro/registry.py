@@ -18,6 +18,7 @@ def ensure_registry_project():
         atexit.register(_registry_project_delete)
 
 def _registry_project_delete():
+    _registry_project.erase()
     shutil.rmtree(_registry_project_directory, ignore_errors=True)
 
 def local_molpro_root():
