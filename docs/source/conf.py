@@ -29,6 +29,7 @@ release = pymolpro.__version__
 extensions = [
     'sphinx.ext.autodoc',
     'nbsphinx',
+    'sphinx-jsonschema',
 ]
 
 templates_path = ['_templates']

@@ -19,7 +19,7 @@ jobs:
       - name: set up environment
         shell: bash -el {0}
         run: |
-          conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx
+          conda install -y -c conda-forge --file requirements.txt sphinx_rtd_theme nbsphinx scipy sphinx sphinx-jsonschema
           python -m pip install --no-deps --force-reinstall .
       - name: Build
         shell: bash -el {0}
