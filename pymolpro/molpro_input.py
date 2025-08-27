@@ -12,7 +12,7 @@ from dataclasses import dataclass
 import jsonschema
 import pymolpro
 
-with open((pathlib.Path(__file__).parent/'molpro_input.json').as_posix(), 'r') as f:
+with open((pathlib.Path(__file__).parent / 'molpro_input.json').as_posix(), 'r') as f:
     schema = json.load(f)
 
 _logger = logging.getLogger(__name__)
@@ -531,8 +531,9 @@ class InputSpecification(UserDict):
                     self['job_type_commands'][self['job_type']] = self['job_type_commands'].pop('OPT')
                 else:
                     self['job_type'] = \
-                    [k for k, v in _default_job_type_commands.items() if v and re.sub(r'[,;].*$', '', v[0]) == command][
-                        0]
+                        [k for k, v in _default_job_type_commands.items() if
+                         v and re.sub(r'[,;].*$', '', v[0]) == command][
+                            0]
                     self['job_type_commands'] = {}
                     self['job_type_commands'][self['job_type']] = []
                 self['job_type_commands'][self['job_type']].append(
@@ -1118,60 +1119,3 @@ def _split_comma(string):
         string_ = string__
         string__ = re.sub(r'(\[.*),(.*\])', r'\1@@@\2', string_)
     return [field.replace('@@@', ',') for field in (string__.split(','))]
-
-
-if __name__ == '__main__':
-    import argparse
-    import tempfile
-
-    import time
-
-
-    def follow(thefile):
-        '''generator function that yields new lines in a file
-        '''
-        while True:
-            line = thefile.readline()
-            if not line:
-                time.sleep(0.1)
-                continue
-            yield line
-
-
-    parser = argparse.ArgumentParser(
-        prog='Molpro'
-    )
-    parser.add_argument('input', nargs=1)
-    parser.add_argument('project_name', nargs='?', default=None)
-    args = parser.parse_args()
-    spec = InputSpecification(specification=args.input[0])
-    # print('spec',spec)
-    try:
-        jsonschema.validate(instance=dict(spec), schema=schema)
-        input = spec.molpro_input()
-    except Exception as ex:
-        # print('not taking spec',ex)
-        input = args.input[0]
-
-    # print('input',input)
-    # print('json of input',json.dumps(dict(InputSpecification(input))))
-    # exit()
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        if args.project_name is not None:
-            fully_qualified_project_directory = pathlib.Path(args.project_name).absolute()
-        else:
-            fully_qualified_project_directory = (pathlib.Path(tmpdir) / 'project')
-        location = fully_qualified_project_directory.parent
-        project_name = fully_qualified_project_directory.name
-        project = pymolpro.Project(project_name, location=location)
-        project.write_input(input)
-        project.run(wait=False)
-        while not os.path.exists(project.filename('out', '', 0)):
-            time.sleep(0.1)
-        with open(project.filename('out', '', run=0), 'r') as o:
-            lines = follow(o)
-            for line in lines:
-                print(line.rstrip())
-                if 'Molpro calculation terminated' in line or (not line and o.tell() >= os.fstat(o.fileno()).st_size):
-                    break
