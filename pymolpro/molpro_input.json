@@ -1,0 +1,231 @@
+{
+  "$id": "https://www.molpro.net/molpro-input.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Simple Molpro Input",
+  "description": "Structured input for Molpro that covers the case of a single ansatz, with a given basis set at a given geometry. All fields are optional, with reasonable defaults, although at least geometry, method and basis will normally be specified",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "geometry": {
+      "description": "The geometry, in any form that Molpro will accept. If the value is the name of a readable file, that file will be the source of the geometry specification; otherwise, the value will be interpreted directly, with or without enclosing {}.",
+      "default": "He",
+      "type": "string"
+    },
+    "job_type": {
+      "description": "The job type - single point, optimisation, frequencies etc.",
+      "default": "SP",
+      "anyOf": [
+        {
+          "const": "SP",
+          "title": "Single point",
+          "description": "Calculate at a single geometry",
+          "default": ""
+        },
+        {
+          "const": "OPT",
+          "title": "Geometry optimisation",
+          "description": "Optimise the geometry"
+        },
+        {
+          "const": "FREQ",
+          "title": "Hessian",
+          "description": "Calculate harmonic force constants and normal modes"
+        },
+        {
+          "const": "OPT+FREQ",
+          "title": "Optimise + vib frequencies",
+          "description": "Optimise the geometry and then calculate normal modes"
+        },
+        {
+          "const": "INTERACT",
+          "description": "",
+          "title": "Non-covalent complex"
+        }
+      ]
+    },
+    "method": {
+      "default": "hf",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "hamiltonian": {
+      "description": "The Hamiltonian to be used - Schrödinger all-electron, pseudopotential or scalar-relativistic.",
+      "default": "PP",
+      "enum": [
+        "AE",
+        "PP",
+        "DK",
+        "DK3"
+      ]
+    },
+    "basis": {
+      "type": "object",
+      "description": "Specification of the orbital basis set",
+      "properties": {
+        "default": {
+          "default": "cc-pVTZ-PP",
+          "type": "string"
+        },
+        "elements": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "core_correlation": {
+      "type": "string",
+      "description": "Specification of core correlation"
+    },
+    "properties": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "orbitals": {
+      "description": "Types of localised orbitals to be calculated.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "ibo",
+          "pipek",
+          "nbo",
+          "boys"
+        ]
+      }
+    },
+    "variables": {
+      "description": "Variables to be defined at the start of the job",
+      "type": "object"
+    },
+    "parameter": {
+      "description": "Items for gparam in Molpro input",
+      "type": "object"
+    },
+    "threshold": {
+      "description": "Items for gthresh in Molpro input",
+      "type": "object"
+    },
+    "print": {
+      "description": "Items for gprint in Molpro input",
+      "type": "object"
+    },
+    "job_type_commands": {
+      "description": "Commands for the job_type drivers",
+      "uniqueItems": true,
+      "type": "object",
+      "items": {
+        "SP": {
+          "type": "array",
+          "default": []
+        },
+        "OPT": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "optg,savexyz=optimised.xyz"
+          ]
+        },
+        "FREQ": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "frequencies"
+          ]
+        },
+        "OPT+FREQ": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "optg,savexyz=optimised.xyz",
+            "frequencies;thermo"
+          ]
+        },
+        "INTERACT": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "interact"
+          ]
+        }
+      }
+    },
+    "angstrom": {
+      "type": "boolean",
+      "description": "Whether geometry is expressed in Ångstrom instead of Bohr."
+    },
+    "orientation": {
+      "description": "Weighting of geometry to define centroid and principal axes.",
+      "default": "mass",
+      "enum": [
+        "mass",
+        "charge",
+        "none"
+      ]
+    },
+    "symmetry": {
+      "description": "Whether to use molecular symmetry.",
+      "default": "automatic",
+      "enum": [
+        "automatic",
+        "none"
+      ]
+    },
+    "density_fitting": {
+      "description": "Whether density fitting algorithms are to be used where possible.",
+      "default": false,
+      "type": "boolean"
+    },
+    "prologue": {
+      "description": "Arbitrary Molpro commands to appear at the start of the job",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "epilogue": {
+      "description": "Arbitrary Molpro commands to appear at the end of the job",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  }
+}
+
