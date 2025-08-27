@@ -95,6 +95,11 @@ For a complete set-up of pymolpro within Jupyter notebooks on Windows,
    databases
    examples
 
+
+.. jsonschema:: pymolpro.molpro_input.schema
+    :lift_title: True
+    :auto_target: True
+
 Indices and tables
 ==================
 
