@@ -295,20 +295,18 @@ def test_json():
         '{"geometry":"He", "method":"hf", "basis": {"default":"cc-pvdz", "elements":{"Cu":1,"Zn":2}}}',
         '{ "method": [ "rhf",  "mp2"], "symmetry": "none", "geometry": "PubChem-962.xyz", "basis": {"default": "cc-pV(T+d)Z", "elements": {}}, "density_fitting": true, "orbitals": ["ibo", "pipek", "nbo", "ibo"], "hamiltonian": "AE"}',
     ]
-    with open('molpro_input.json', 'r') as f:
-        schema = json.load(f)
     for string in good_strings:
         obj = json.loads(string)
         # print('string', string)
         # print('obj',obj)
-        validate(instance=obj, schema=schema)
+        validate(instance=obj, schema=(molpro_input.schema))
         # print(molpro_input.InputSpecification(specification=obj).molpro_input())
     for string in bad_strings:
         with pytest.raises(jsonschema.exceptions.ValidationError) as excinfo:
             obj = json.loads(string)
             # print('string', string)
             # print('obj',obj)
-            validate(instance=obj, schema=schema)
+            validate(instance=obj, schema=(molpro_input.schema))
     # print('schema',schema['properties']['orientation']['enum'])
 
 def test_keyval():
