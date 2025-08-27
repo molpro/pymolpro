@@ -323,5 +323,5 @@ def test_keyval():
     }
     for test in tests:
         converted = molpro_input._convert_keyval_to_json(test)
-        assert re.sub('\s+','',converted) == re.sub('\s+','',tests[test])
+        assert re.sub(r'\s+','',converted) == re.sub(r'\s+','',tests[test])
         jsonschema.validate(instance=json.loads(converted), schema=molpro_input.schema)
