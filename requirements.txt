@@ -9,3 +9,4 @@ quadpy>=0.16.10
 pandas
 chemcoord
 ase>=3.23.0
+jsonschema>=4.0.0
