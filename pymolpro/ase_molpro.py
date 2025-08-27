@@ -1,4 +1,5 @@
 import numpy as np
+import ase
 from ase.calculators.calculator import BaseCalculator, CalculationFailed
 from pymolpro import Project
 import hashlib
