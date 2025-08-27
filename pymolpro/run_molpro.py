@@ -22,14 +22,14 @@ if __name__ == '__main__':
 
 
     parser = argparse.ArgumentParser(
-        prog='Molpro'
+        prog='run_molpro'
     )
     parser.add_argument('input', nargs=1)
     parser.add_argument('project_name', nargs='?', default=None)
     args = parser.parse_args()
-    spec = InputSpecification(specification=args.input[0])
-    # print('spec',spec)
     try:
+        spec = InputSpecification(specification=args.input[0])
+        # print('spec',spec)
         jsonschema.validate(instance=dict(spec), schema=schema)
         input = spec.molpro_input()
     except Exception as ex:
