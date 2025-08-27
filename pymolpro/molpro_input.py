@@ -1,3 +1,4 @@
+#!env python
 import logging
 from pymolpro.defbas import periodic_table
 import os
