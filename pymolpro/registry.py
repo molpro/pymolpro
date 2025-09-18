@@ -4,6 +4,8 @@ import tempfile
 import pathlib
 
 from pymolpro import Project
+from pysjef import __version__ as pysjef_version
+from packaging.version import Version
 
 _registry_project = None
 _registry_project_directory = None
@@ -14,7 +16,11 @@ def ensure_registry_project():
     global _registry_project_directory
     if _registry_project is None:
         _registry_project_directory = tempfile.mkdtemp()
-        _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix())
+
+        if Version(pysjef_version) < Version("1.42"):
+            _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix())
+        else:
+            _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix(), record_as_recent=False)
         atexit.register(_registry_project_delete)
 
 def _registry_project_delete():
