@@ -17,7 +17,7 @@ def ensure_registry_project():
     if _registry_project is None:
         _registry_project_directory = tempfile.mkdtemp()
 
-        if Version(pysjef_version) < Version("1.42"):
+        if Version(pysjef_version) < Version("1.42.1"):
             _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix())
         else:
             _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix(), record_as_recent=False)
