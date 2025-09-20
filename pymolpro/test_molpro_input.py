@@ -309,6 +309,20 @@ def test_json():
             validate(instance=obj, schema=(molpro_input.schema))
     # print('schema',schema['properties']['orientation']['enum'])
 
+
+def test_input_from_json():
+    tests = {
+        '{"geometry":"F;H,F,1.7", "method":"hf"}': 'geometry={f;h,f,1.7};{hf}',
+        '{"geometry":"F;H,F,1.7", "geometry_basis":{"default":"cc-pVDZ"}, "geometry_method":"ks,b3lyp", "basis":{"default":"cc-pVTZ"}, "method": "mp2", "job_type": "OPT"}': 'geometry={f;h,f,1.7};basis=cc-pvdz;proc ansatz;{ks,b3lyp};endproc;{optg,savexyz=optimised.xyz,proc=ansatz}; basis=cc-pvtz;hf; mp2',
+        '{"geometry":"F;H,F,1.7", "geometry_method":"ks,b3lyp", "basis":{"default":"cc-pVTZ"}, "method": "mp2", "job_type": "OPT"}': 'geometry={f;h,f,1.7};basis=cc-pvtz;proc ansatz;{ks,b3lyp};endproc;{optg,savexyz=optimised.xyz,proc=ansatz}; hf; mp2',
+        '{"geometry":"F;H,F,1.7", "geometry_basis":{"default":"6-31G*"}, "geometry_method":"ks,b3lyp", "extrapolate":"basis=cc-pVTZ:cc-pVQZ", "method": "mp2", "job_type": "OPT"}': 'geometry={f;h,f,1.7};basis=6-31G*;proc ansatz;{ks,b3lyp};endproc;{optg,savexyz=optimised.xyz,proc=ansatz}; hf; mp2; extrapolate,basis=cc-pVTZ:CC-pVQZ',
+    }
+    for test, expected in tests.items():
+        specification = molpro_input.InputSpecification(specification=test)
+        generated = specification.molpro_input()
+        assert canonicalise(generated) == canonicalise(expected)
+
+
 def test_keyval():
     tests = {
         'method=ccsd' : '{"method" :\n"ccsd"}',

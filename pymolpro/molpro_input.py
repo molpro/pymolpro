@@ -669,12 +669,15 @@ class InputSpecification(UserDict):
             else:
                 _input += 'geometry=' + '{' + _geometry + '}' + '\n'
 
-        if 'basis' in self:
-            _input += 'basis=' + self['basis']['default']
-            if 'elements' in self['basis']:
-                for e, b in self['basis']['elements'].items():
-                    _input += ',' + e + '=' + b
-            _input += '\n'
+        _job_type = defaulted_spec['job_type']
+        if _job_type[:3] == 'OPT':
+            if 'geometry_basis' in self:
+                _input += self.input_from_basis(self['geometry_basis'])
+            elif 'basis' in self:
+                _input += self.input_from_basis(self['basis'])
+        else:
+            if 'basis' in self:
+                _input += self.input_from_basis(self['basis'])
 
         if 'hamiltonian' in self and self['hamiltonian'][:2] == 'DK':
             _input += 'dkho=' + self['hamiltonian'][2] if len(self['hamiltonian']) > 2 else '1' + '\n'
@@ -698,14 +701,62 @@ class InputSpecification(UserDict):
         if 'core_correlation' in self:
             _input += 'core,' + self['core_correlation'] + '\n'
 
-        _job_type = defaulted_spec['job_type']
         _job_type_commands = defaulted_spec['job_type_commands'][_job_type]
-        if _job_type != 'SP':
+        if len(_job_type_commands) > 0:
             _input += '\nproc ' + self.procname + '\n'
-        _method = self.with_defaults['method']
-        if type(_method) is str:
-            _method = [_method]
-        for step in _method:
+        _method = self.with_defaults['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
+        _input += self.input_from_method(_method)
+
+        if len(_job_type_commands) > 0:
+            _input += 'endproc\n\n'
+            for step in _job_type_commands:
+                _step = JobStep(step)
+                for option in _step.options:
+                    if re.match(r'^proc=.*$', option):
+                        _index = step.options.index(option)
+                try:
+                    _step.options[_index] = 'proc=' + self.procname
+                except NameError:
+                    _step.options.append('proc=' + self.procname)
+                _input += _step.dump() + '\n'
+
+        if _job_type[:3] == 'OPT' and (self.with_defaults['method'] != self.with_defaults['geometry_method']
+                                       or self.with_defaults['geometry_basis'] != self.with_defaults['basis']
+        ):
+            if 'geometry_basis' in self and 'basis' in self and self.with_defaults['geometry_basis'] != self.with_defaults['basis']:
+                _input += self.input_from_basis(self['basis'])
+            _input += self.input_from_method(self.with_defaults['method'])
+
+        if 'extrapolate' in self:
+            _input += 'extrapolate,' + self['extrapolate'] + '\n'
+
+        if 'orbitals' in self:
+            for k in self['orbitals']:
+                if _local_orbital_types[k]['command'].strip(): _input += '{' + _local_orbital_types[k][
+                    'command'] + '}\n'
+
+        if 'epilogue' in self:
+            if type(self['epilogue']) is list:
+                for epilogue in self['epilogue']:
+                    _input += epilogue + '\n'
+            else:
+                _input += self['epilogue'] + '\n'
+        return _input.rstrip('\n') + '\n'
+
+    def input_from_basis(self, basis):
+        _input = 'basis=' + basis['default']
+        if 'elements' in basis:
+            for e, b in basis['elements'].items():
+                _input += ',' + e + '=' + b
+        _input += '\n'
+        return _input
+
+    def input_from_method(self, method) -> str:
+        print('input_from_method', method)
+        _input = ''
+        if type(method) is str:
+            method = [method]
+        for step in method:
             _input += '{'
             if 'density_fitting' in self and self['density_fitting'] and step.lower()[:4] != 'pno-' and \
                     step.lower()[:4] != 'ldf-':
@@ -729,32 +780,7 @@ class InputSpecification(UserDict):
                             for option in directive['options']:
                                 _input += ',' + str(option)
             _input += '}\n'
-
-        if len(_job_type_commands) > 0:
-            _input += 'endproc\n\n'
-            for step in _job_type_commands:
-                _step = JobStep(step)
-                for option in _step.options:
-                    if re.match(r'^proc=.*$', option):
-                        _index = step.options.index(option)
-                try:
-                    _step.options[_index] = 'proc=' + self.procname
-                except NameError:
-                    _step.options.append('proc=' + self.procname)
-                _input += _step.dump() + '\n'
-
-        if 'orbitals' in self:
-            for k in self['orbitals']:
-                if _local_orbital_types[k]['command'].strip(): _input += '{' + _local_orbital_types[k][
-                    'command'] + '}\n'
-
-        if 'epilogue' in self:
-            if type(self['epilogue']) is list:
-                for epilogue in self['epilogue']:
-                    _input += epilogue + '\n'
-            else:
-                _input += self['epilogue'] + '\n'
-        return _input.rstrip('\n') + '\n'
+        return _input
 
     def set_job_type(self, new_job_type):
         if self['job_type'] == new_job_type: return

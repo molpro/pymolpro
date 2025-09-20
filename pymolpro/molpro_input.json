@@ -44,7 +44,22 @@
       ]
     },
     "method": {
+      "description": "The quantum-chemical method used",
       "default": "hf",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "geometry_method": {
+      "description": "The quantum-chemical method used to optimise the geometry",
       "oneOf": [
         {
           "type": "string"
@@ -70,6 +85,27 @@
     "basis": {
       "type": "object",
       "description": "Specification of the orbital basis set",
+      "properties": {
+        "default": {
+          "default": "cc-pVTZ-PP",
+          "type": "string"
+        },
+        "elements": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "extrapolate": {
+      "type": "string",
+      "description": "If specified, carry out basis-set extrapolation. Anything that can appear after `extrapolate,basis=` in Molpro input is accepted."
+    },
+    "geometry_basis": {
+      "type": "object",
+      "description": "Specification of the orbital basis set for the geometry optimisation",
       "properties": {
         "default": {
           "default": "cc-pVTZ-PP",
