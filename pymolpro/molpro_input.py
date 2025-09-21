@@ -730,8 +730,6 @@ class InputSpecification(UserDict):
             _input += 'core,' + self['core_correlation'] + '\n'
 
         _job_type_commands = defaulted_spec['job_type_commands'][_job_type]
-        print('_job_type', _job_type)
-        print('_job_type_commands', _job_type_commands)
         if len(_job_type_commands) > 0:
             _input += '\nproc ' + self.procname + '\n'
         _method = self.with_defaults['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
@@ -783,7 +781,6 @@ class InputSpecification(UserDict):
         return _input
 
     def input_from_method(self, method) -> str:
-        print('input_from_method', method)
         _input = ''
         if type(method) is str:
             method = [method]

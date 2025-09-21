@@ -19,7 +19,6 @@ class TestProject(unittest.TestCase):
         pass
 
     def new_project(self, *args, **kwargs):
-        print('new_project', args, kwargs)
         self.projects.append(pymolpro.Project(*args, **kwargs))
         self.projects.append(pymolpro.Project(*args, **kwargs))
         return self.projects[-1]

@@ -186,36 +186,27 @@ class Project(pysjef.project.Project):
                 raise FileNotFoundError("Cannot open project " + name)
 
         if ansatz is not None:
-            print('enter Project() with ansatz=', ansatz, 'specification=',specification)
             _parsed_ansatz = self.parse_ansatz(ansatz)
-            print('_parsed_ansatz', _parsed_ansatz)
             _kwargs = {k: v for k, v in kwargs.items()}
             for k,v in _parsed_ansatz.items():
                if k != 'ansatz' and v is not None:  _kwargs[k] = v
             if 'geometry_method' in _parsed_ansatz and _parsed_ansatz['geometry_method'] is not None and 'job_type' not in _kwargs:
                 _kwargs['job_type'] = 'OPT'
-            print('_kwargs', _kwargs)
             self.__init__(name=name, geometry=geometry, files=files, **_kwargs )
             return
-        else:
-            print('enter Project() without ansatz, specification=', specification)
 
         self.local_molpro_root_ = None
 
         _input = copy.deepcopy(specification)
-        print('initial _input', _input)
         if geometry is not None:  # construct input
             _input['geometry'] = geometry
             for key in [k for k in kwargs if k in schema['properties']]:
-                print('schema argument',key,kwargs[key])
                 if kwargs[key] is not None:
                     _input[key] = kwargs[key]
             for key in ['basis','geometry_basis']:
                 if key in _input and type(_input[key]) is str:
                     _input[key] = {"default": _input[key]}
-            print('_input', _input)
             self.input_specification = InputSpecification(specification=_input)
-            print('input_specification', self.input_specification)
             self.write_input(self.input_specification.molpro_input())
             self.property_set({'input_specification':json.dumps(dict(self.input_specification))})
         if files is not None and len(files) > 0:
@@ -270,14 +261,12 @@ class Project(pysjef.project.Project):
         return self.input_specification.ansatz
 
     def parse_ansatz(self, ansatz):
-        print('parsing ansatz',ansatz)
         parsed = {}
         parts = ansatz.split('//')
         # if len(parts) == 1:
         #     parts.append(parts[0])
         result = []
         for part in parts:
-            print('part',part)
             bits = part.split('/')
             # print('part',part,'bits',bits)
             if bits[0].lower()[:3] == 'df-':
@@ -294,13 +283,11 @@ class Project(pysjef.project.Project):
             # else:
             #     bits[0] = 'hf; ' + bits[0]
             result += bits
-        print('result',result)
         parsed['ansatz'] = ansatz
         parsed['method'] = result[0]
         parsed['basis'] = result[1] if len(result) > 1 else None
         parsed['geometry_method'] = result[2] if len(result) > 2 else None
         parsed['geometry_basis'] = result[3] if len(result) > 3 else None
-        print('parsed',parsed)
         return parsed
 
     def errors(self, ignore_warning=True):
