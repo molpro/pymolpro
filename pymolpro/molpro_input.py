@@ -352,6 +352,34 @@ class InputSpecification(UserDict):
         jsonschema.validate(instance=json.loads(json.dumps(dict(self))), schema=schema)
         pass
 
+    @property
+    def ansatz(self) -> str:
+        _method = self.with_defaults['method']
+        _basis = self.with_defaults['basis']['default']
+        if 'elements' in self.with_defaults['basis']:
+            return ''
+        if type(_method) is list:
+            _method = _method[-1]
+        # if _method[:3].lower() == 'df-':
+        #     _method = _method[3:]
+        if _method[:3].lower() != 'df-' and self.with_defaults['density_fitting'] :
+            _method = 'DF-'+_method
+        _method = re.sub('[ru]?ks,','',_method, flags=re.IGNORECASE)
+        result = _method.upper() + '/' + _basis
+        _geometry_method = self['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
+        _geometry_basis = self['geometry_basis'] if 'geometry_basis' in self else self.with_defaults['basis']
+        if self.with_defaults['job_type'][:3] == 'OPT': # and (_geometry_method != self.with_defaults['method'] or _geometry_basis != self.with_defaults['basis']):
+            if 'elements' in _geometry_basis:
+                return ''
+            _geometry_basis = _geometry_basis['default']
+            if type(_geometry_method) is list:
+                _geometry_method = _geometry_method[-1]
+            if _geometry_method[:3].lower() == 'df-':
+                _geometry_method = _geometry_method[3:]
+            _geometry_method = re.sub('[ru]?ks,','',_geometry_method, flags=re.IGNORECASE)
+            result += '//' + _geometry_method.upper() + '/' + _geometry_basis
+        return result
+
     def parse(self, input: str, debug=False):
         r"""
         Take a molpro input, and logically parse it
@@ -407,7 +435,7 @@ class InputSpecification(UserDict):
                         break
                     elif canonicalised_input_[j] in ';\n':
                         canonicalised_input_ = canonicalised_input_[:j] + line_end_protected_ + canonicalised_input_[
-                                                                                                j + 1:]
+                            j + 1:]
         canonicalised_input_ = canonicalised_input_.replace(';', '\n').replace(line_end_protected_, ';')
         methods_still_possible = True
         methods_started = False
@@ -702,6 +730,8 @@ class InputSpecification(UserDict):
             _input += 'core,' + self['core_correlation'] + '\n'
 
         _job_type_commands = defaulted_spec['job_type_commands'][_job_type]
+        print('_job_type', _job_type)
+        print('_job_type_commands', _job_type_commands)
         if len(_job_type_commands) > 0:
             _input += '\nproc ' + self.procname + '\n'
         _method = self.with_defaults['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
@@ -723,7 +753,8 @@ class InputSpecification(UserDict):
         if _job_type[:3] == 'OPT' and (self.with_defaults['method'] != self.with_defaults['geometry_method']
                                        or self.with_defaults['geometry_basis'] != self.with_defaults['basis']
         ):
-            if 'geometry_basis' in self and 'basis' in self and self.with_defaults['geometry_basis'] != self.with_defaults['basis']:
+            if 'geometry_basis' in self and 'basis' in self and self.with_defaults['geometry_basis'] != \
+                    self.with_defaults['basis']:
                 _input += self.input_from_basis(self['basis'])
             _input += self.input_from_method(self.with_defaults['method'])
 

@@ -371,7 +371,7 @@ def library(expression=None):
 
 
 def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
-        clean=False, initial="", check=False, check_energy=True, **kwargs):
+        clean=False, prologue="", check=False, check_energy=True, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -391,7 +391,7 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
     :param int parallel: The number of simultaneous jobs to be launched. The default is the number of cores on the local machine.
     :param str backend: The sjef backend to be used for running jobs.
     :param bool clean: Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of :py:meth:`run()` will use cached results when possible. If there are errors, this parameter is ignored.
-    :param str initial: Any valid molpro input to be placed before the geometry specification.
+    :param str prologue: Any valid molpro input to be placed before the geometry specification.
     :param bool check: Whether to check for status of jobs instead of running them.
     :param bool check_energy: Whether to throw an exception if any job did not set the Molpro ENERGY variable
     :param kwargs: Any other options to pass to :py:meth:`project.Project.run()`, including `func`, `extrapolate`, `preamble`, `postamble`.
@@ -415,7 +415,7 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
     newdb.project_directory = os.path.realpath(
         os.path.join(location,
                      hashlib.sha256(
-                         ((str(ansatz) if ansatz is not None else str(method) + str(basis)) + str(initial) +
+                         ((str(ansatz) if ansatz is not None else str(method) + str(basis)) + str(prologue) +
                           str(tuple(sorted(kwargs.items())))).encode('utf-8')).hexdigest()[-8:]))
     if not os.path.exists(newdb.project_directory):
         os.makedirs(newdb.project_directory)
@@ -423,7 +423,7 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
     for molecule_name, molecule in db.molecules.items():
         method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
             method[0] # TODO implement this for ansatz too
-        initial_ = initial + '\n' + db.preamble
+        initial_ = prologue + '\n' + db.preamble
         if 'preamble' in molecule:
             initial_ += '\n' + molecule['preamble']
         if re.match('^(\n+;+ +)*$', initial_):
@@ -434,10 +434,11 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
                                                     method=method_,
                                                     basis=basis,
                                                     location=newdb.project_directory,
-                                                    initial=initial_,
+                                                    prologue=initial_,
                                                     spin=molecule['spin'] if 'spin' in molecule else None,
                                                     charge=molecule['charge'] if 'charge' in molecule else None,
-                                                    **kwargs)
+                                                    # **kwargs,
+                                                    )
         except Exception:
             raise FileNotFoundError(
                 "pymolpro project " + molecule_name + " in directory " + newdb.project_directory + " cannot be opened and might be corrupt")

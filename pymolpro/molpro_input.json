@@ -124,6 +124,15 @@
       "type": "string",
       "description": "Specification of core correlation"
     },
+    "spin": {
+      "type": "integer",
+      "description": "Spin multiplicity minus 1, ie twice the spin quantum number"
+    },
+    "charge": {
+      "type": "integer",
+      "description": "Overall electrical charge",
+      "default" : 0
+    },
     "properties": {
       "type": "array",
       "uniqueItems": true,
