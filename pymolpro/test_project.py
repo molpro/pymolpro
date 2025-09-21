@@ -141,14 +141,14 @@ class TestProject(unittest.TestCase):
 
     def test_ansatz(self):
         for ansatz in [
-            # 'B3LYP/cc-pVTZ',
+            'B3LYP/cc-pVTZ',
             'CCSD(T)-F12A/cc-pVTZ//B3LYP/cc-pVDZ',
             'DF-MP2/aug-cc-pvdz',
-            # 'UmP2/aug-cc-pvdz',
-            # 'HF/cc-pvdz',
+            'UMP2/aug-cc-pvdz',
+            'HF/cc-pvdz',
         ]:
             p1 = self.new_project('test_ansatz' + ansatz.replace('/', '_'), ansatz=ansatz, geometry='He')
-            print(p1.input_specification)
+            # print(p1.input_specification)
             self.assertEqual(ansatz, p1.ansatz, open(p1.filename('inp'), 'r').read())
 
     def test_force_constants(self):

@@ -260,6 +260,8 @@ class InputSpecification(UserDict):
                     result[k][k2] = v2
             else:
                 result[k] = v
+        if 'spin' not in self:
+            result['spin'] = (self.open_shell_electrons) % 2 - 2
         return result
 
     @property
@@ -715,6 +717,13 @@ class InputSpecification(UserDict):
                 if v != '' and (k != 'charge' or v != '0'):
                     _input += k + '=' + v + '\n'
 
+        if 'spin' in self:
+            # print('spin=' + self['spin'])
+            _input += 'spin=' + self['spin'] + '\n'
+
+        if 'charge' in self:
+            _input += 'charge=' + self['charge'] + '\n'
+
         if 'properties' in self:
             for p in self['properties']:
                 _input += properties[p] + '\n'  # TODO review. It looks wrong
@@ -977,6 +986,8 @@ class InputSpecification(UserDict):
         :return:
         :rtype: int
         """
+        if 'spin' in self:
+            return self['spin']
         # TODO set up a cache if input has not changed and geometry file has not changed
         if 'geometry' not in self: return 0
         # print('enter open_shell_electrons')
@@ -1001,9 +1012,7 @@ class InputSpecification(UserDict):
                 except ValueError:
                     atomic_number = 0
                 total_nuclear_charge += atomic_number
-        charge = int(self['variables']['charge']) if 'variables' in self and 'charge' in self['variables'] and \
-                                                     self['variables']['charge'] != '' and self['variables'][
-                                                         'charge'] != '-' else 0
+        charge = self['charge'] if 'charge' in self else 0
         total_electrons = total_nuclear_charge - charge
         # print('total_nuclear_charge',total_nuclear_charge,'total_electrons',total_electrons)
         electrons = total_electrons % 2
@@ -1015,7 +1024,7 @@ class InputSpecification(UserDict):
         return electrons
 
     @property
-    def spin(self):
+    def spin_old(self):
         r"""
         Evaluate 2*S
         :return: 2*S, or if unspecified, minus the electron count %2
@@ -1027,8 +1036,8 @@ class InputSpecification(UserDict):
         # print('calculated spin',spin)
         return spin
 
-    @spin.setter
-    def spin(self, value):
+    @spin_old.setter
+    def spin_old(self, value):
         if value is None:
             if 'variables' in self and 'spin' in self['variables']:
                 del self['variables']['spin']
