@@ -13,7 +13,7 @@ import pytest
 @pytest.fixture
 def methods():
     molpro_input._supported_methods = ['RHF', 'CCSD', 'RKS', 'CASSCF', 'MRCI', 'UHF', 'UKS', 'OCC', 'OPTG',
-                                      'FREQUENCIES', 'THERMO']
+                                       'FREQUENCIES', 'THERMO']
     return molpro_input._supported_methods
     # yield supported_methods
 
@@ -31,7 +31,7 @@ def test_create_input(methods):
         {'geometry': 'F\nH,F,1.7',
          'basis': {'default': 'cc-pVTZ', 'elements': {}},
          # 'steps': [{'command': 'rks', 'options': ['b3lyp']}, {'command': 'ccsd'}],
-            'method': ['rks,b3lyp','ccsd'],
+         'method': ['rks,b3lyp', 'ccsd'],
          'hamiltonian': 'AE',
          },
     ]:
@@ -108,6 +108,9 @@ def test_recreate_input(methods):
         'geometry={Ne};basis=cc-pV(T+d)Z-PP;gprint,basis;{df-rhf}',
         'geometry={Ne;He,Ne,2};basis={default=cc-pV(T+d)Z-PP,He=vdz(s)};gprint,basis;{df-rhf}',
         'geometry={Ne};basis=cc-pV(T+d)Z-PP;gexpec,sm;{df-rhf}',
+        'geometry={Ne};basis=cc-pV(T+d)Z-PP;charge=1;gexpec,sm;{df-rhf}',
+        'geometry={N};spin=3;{df-rhf}',
+        'geometry={N};charge=1;spin=2;{df-rhf}',
     ]:
         specification = InputSpecification(input)
         regenerated_input = specification.molpro_input()
@@ -131,7 +134,7 @@ def test_variables(methods):
     # print('recreated input', create_input(specification))
     # print('parsed recreated input', InputSpecification(create_input(specification)))
     assert InputSpecification(specification.molpro_input()) == specification
-    assert specification['variables']['spin'] == '2'
+    assert specification['spin'] == 2
     assert specification['variables']['occ'] == '[3,1,1]'
 
 
@@ -213,7 +216,7 @@ def test_method_options(methods):
         if specification.method is not None:
             options = {'option1': 'value1', 'option2': 'value2'}
             specification.method_options = options
-            assert specification.method_options == [k+'='+v for k,v in options.items()]
+            assert specification.method_options == [k + '=' + v for k, v in options.items()]
 
 
 def test_job_type(methods):
@@ -224,7 +227,7 @@ def test_job_type(methods):
         'proc ansatz;rhf;ccsd;endproc;optg,proc=ansatz;frequencies,proc=ansatz': 'OPT+FREQ',
         'proc ansatz;rhf;ccsd;endproc;{optg,proc=ansatz};frequencies,proc=ansatz': 'OPT+FREQ',
         'proc ansatz;rhf;ccsd;mrci;endproc;{optg,proc=ansatz};frequencies,proc=ansatz': 'OPT+FREQ',
-        'proc ansatz;rhf;ccsd;{optg};mrci;endproc;frequencies,proc=ansatz': 'OPT+FREQ', # TODO really?
+        'proc ansatz;rhf;ccsd;{optg};mrci;endproc;frequencies,proc=ansatz': 'OPT+FREQ',  # TODO really?
     }.items():
         specification = InputSpecification(test)
         assert specification['job_type'] == outcome
@@ -309,17 +312,31 @@ def test_json():
             validate(instance=obj, schema=(molpro_input.schema))
     # print('schema',schema['properties']['orientation']['enum'])
 
+
+def test_input_from_json():
+    tests = {
+        '{"geometry":"F;H,F,1.7", "method":"hf"}': 'geometry={f;h,f,1.7};{hf}',
+        '{"geometry":"F;H,F,1.7", "geometry_basis":{"default":"cc-pVDZ"}, "geometry_method":"ks,b3lyp", "basis":{"default":"cc-pVTZ"}, "method": "mp2", "job_type": "OPT"}': 'geometry={f;h,f,1.7};basis=cc-pvdz;proc ansatz;{ks,b3lyp};endproc;{optg,savexyz=optimised.xyz,proc=ansatz}; basis=cc-pvtz;hf; mp2',
+        '{"geometry":"F;H,F,1.7", "geometry_method":"ks,b3lyp", "basis":{"default":"cc-pVTZ"}, "method": "mp2", "job_type": "OPT"}': 'geometry={f;h,f,1.7};basis=cc-pvtz;proc ansatz;{ks,b3lyp};endproc;{optg,savexyz=optimised.xyz,proc=ansatz}; hf; mp2',
+        '{"geometry":"F;H,F,1.7", "geometry_basis":{"default":"6-31G*"}, "geometry_method":"ks,b3lyp", "extrapolate":"basis=cc-pVTZ:cc-pVQZ", "method": "mp2", "job_type": "OPT"}': 'geometry={f;h,f,1.7};basis=6-31G*;proc ansatz;{ks,b3lyp};endproc;{optg,savexyz=optimised.xyz,proc=ansatz}; hf; mp2; extrapolate,basis=cc-pVTZ:CC-pVQZ',
+    }
+    for test, expected in tests.items():
+        specification = molpro_input.InputSpecification(specification=test)
+        generated = specification.molpro_input()
+        assert canonicalise(generated) == canonicalise(expected)
+
+
 def test_keyval():
     tests = {
-        'method=ccsd' : '{"method" :\n"ccsd"}',
-        'geometry="F;H,F,1.732"':'{"geometry":"F;H,F,1.732"}',
-        'geometry="F;H,F,1.732", method=ccsd"':'{"geometry":"F;H,F,1.732","method":"ccsd"}',
-        'geometry="F;H,F,1.732", method=ccsd,basis=cc-pvdz':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
-        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz"':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
-        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Cu=cc-vtz"':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Cu":"cc-vtz"}}}',
-        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Ni=cc-pvqz,Cu=cc-vtz"':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Ni":"cc-pvqz","Cu":"cc-vtz"}}}',
+        'method=ccsd': '{"method" :\n"ccsd"}',
+        'geometry="F;H,F,1.732"': '{"geometry":"F;H,F,1.732"}',
+        'geometry="F;H,F,1.732", method=ccsd"': '{"geometry":"F;H,F,1.732","method":"ccsd"}',
+        'geometry="F;H,F,1.732", method=ccsd,basis=cc-pvdz': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
+        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz"': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
+        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Cu=cc-vtz"': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Cu":"cc-vtz"}}}',
+        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Ni=cc-pvqz,Cu=cc-vtz"': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Ni":"cc-pvqz","Cu":"cc-vtz"}}}',
     }
     for test in tests:
         converted = molpro_input._convert_keyval_to_json(test)
-        assert re.sub(r'\s+','',converted) == re.sub(r'\s+','',tests[test])
+        assert re.sub(r'\s+', '', converted) == re.sub(r'\s+', '', tests[test])
         jsonschema.validate(instance=json.loads(converted), schema=molpro_input.schema)

@@ -260,6 +260,8 @@ class InputSpecification(UserDict):
                     result[k][k2] = v2
             else:
                 result[k] = v
+        if 'spin' not in self:
+            result['spin'] = (self.open_shell_electrons) % 2 - 2
         return result
 
     @property
@@ -352,6 +354,35 @@ class InputSpecification(UserDict):
         jsonschema.validate(instance=json.loads(json.dumps(dict(self))), schema=schema)
         pass
 
+    @property
+    def ansatz(self) -> str:
+        _method = self.with_defaults['method']
+        _basis = self.with_defaults['basis']['default']
+        if 'elements' in self.with_defaults['basis']:
+            return ''
+        if type(_method) is list:
+            _method = _method[-1]
+        # if _method[:3].lower() == 'df-':
+        #     _method = _method[3:]
+        if _method[:3].lower() != 'df-' and self.with_defaults['density_fitting']:
+            _method = 'DF-' + _method
+        _method = re.sub('[ru]?ks,', '', _method, flags=re.IGNORECASE)
+        result = _method.upper() + '/' + _basis
+        _geometry_method = self['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
+        _geometry_basis = self['geometry_basis'] if 'geometry_basis' in self else self.with_defaults['basis']
+        if self.with_defaults['job_type'][
+            :3] == 'OPT':  # and (_geometry_method != self.with_defaults['method'] or _geometry_basis != self.with_defaults['basis']):
+            if 'elements' in _geometry_basis:
+                return ''
+            _geometry_basis = _geometry_basis['default']
+            if type(_geometry_method) is list:
+                _geometry_method = _geometry_method[-1]
+            if _geometry_method[:3].lower() == 'df-':
+                _geometry_method = _geometry_method[3:]
+            _geometry_method = re.sub('[ru]?ks,', '', _geometry_method, flags=re.IGNORECASE)
+            result += '//' + _geometry_method.upper() + '/' + _geometry_basis
+        return result
+
     def parse(self, input: str, debug=False):
         r"""
         Take a molpro input, and logically parse it
@@ -407,7 +438,7 @@ class InputSpecification(UserDict):
                         break
                     elif canonicalised_input_[j] in ';\n':
                         canonicalised_input_ = canonicalised_input_[:j] + line_end_protected_ + canonicalised_input_[
-                                                                                                j + 1:]
+                            j + 1:]
         canonicalised_input_ = canonicalised_input_.replace(';', '\n').replace(line_end_protected_, ';')
         methods_still_possible = True
         methods_started = False
@@ -512,7 +543,12 @@ class InputSpecification(UserDict):
                     key = re.sub(' *=.*$', '', field)
                     value = re.sub('.*= *', '', field)
                     # print('field, key=', key, 'value=', value)
-                    variables[key] = value.replace('!', ',')  # unprotect
+                    if key == 'charge':
+                        self['charge'] = int(value)
+                    elif key == 'spin':
+                        self['spin'] = int(value)
+                    else:
+                        variables[key] = value.replace('!', ',')  # unprotect
             elif command in _parameter_commands.values():
                 spec_field = [k for k, v in _parameter_commands.items() if v == command][0]
                 fields = re.sub('^ *' + command.lower() + ' *,*', '', line.strip().lower(), flags=re.IGNORECASE).split(
@@ -669,19 +705,29 @@ class InputSpecification(UserDict):
             else:
                 _input += 'geometry=' + '{' + _geometry + '}' + '\n'
 
-        if 'basis' in self:
-            _input += 'basis=' + self['basis']['default']
-            if 'elements' in self['basis']:
-                for e, b in self['basis']['elements'].items():
-                    _input += ',' + e + '=' + b
-            _input += '\n'
+        _job_type = defaulted_spec['job_type']
+        if _job_type[:3] == 'OPT':
+            if 'geometry_basis' in self:
+                _input += self.input_from_basis(self['geometry_basis'])
+            elif 'basis' in self:
+                _input += self.input_from_basis(self['basis'])
+        else:
+            if 'basis' in self:
+                _input += self.input_from_basis(self['basis'])
 
         if 'hamiltonian' in self and self['hamiltonian'][:2] == 'DK':
             _input += 'dkho=' + self['hamiltonian'][2] if len(self['hamiltonian']) > 2 else '1' + '\n'
 
+        if 'charge' in self:
+            _input += 'charge=' + str(self['charge']) + '\n'
+
+        if 'spin' in self:
+            # print('spin=' + self['spin'])
+            _input += 'spin=' + str(self['spin']) + '\n'
+
         if 'variables' in self:
             for k, v in self['variables'].items():
-                if v != '' and (k != 'charge' or v != '0'):
+                if v != '':
                     _input += k + '=' + v + '\n'
 
         if 'properties' in self:
@@ -698,14 +744,62 @@ class InputSpecification(UserDict):
         if 'core_correlation' in self:
             _input += 'core,' + self['core_correlation'] + '\n'
 
-        _job_type = defaulted_spec['job_type']
         _job_type_commands = defaulted_spec['job_type_commands'][_job_type]
-        if _job_type != 'SP':
+        if len(_job_type_commands) > 0:
             _input += '\nproc ' + self.procname + '\n'
-        _method = self.with_defaults['method']
-        if type(_method) is str:
-            _method = [_method]
-        for step in _method:
+        _method = self.with_defaults['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
+        _input += self.input_from_method(_method)
+
+        if len(_job_type_commands) > 0:
+            _input += 'endproc\n\n'
+            for step in _job_type_commands:
+                _step = JobStep(step)
+                for option in _step.options:
+                    if re.match(r'^proc=.*$', option):
+                        _index = step.options.index(option)
+                try:
+                    _step.options[_index] = 'proc=' + self.procname
+                except NameError:
+                    _step.options.append('proc=' + self.procname)
+                _input += _step.dump() + '\n'
+
+        if _job_type[:3] == 'OPT' and (self.with_defaults['method'] != self.with_defaults['geometry_method']
+                                       or self.with_defaults['geometry_basis'] != self.with_defaults['basis']
+        ):
+            if 'geometry_basis' in self and 'basis' in self and self.with_defaults['geometry_basis'] != \
+                    self.with_defaults['basis']:
+                _input += self.input_from_basis(self['basis'])
+            _input += self.input_from_method(self.with_defaults['method'])
+
+        if 'extrapolate' in self:
+            _input += 'extrapolate,' + self['extrapolate'] + '\n'
+
+        if 'orbitals' in self:
+            for k in self['orbitals']:
+                if _local_orbital_types[k]['command'].strip(): _input += '{' + _local_orbital_types[k][
+                    'command'] + '}\n'
+
+        if 'epilogue' in self:
+            if type(self['epilogue']) is list:
+                for epilogue in self['epilogue']:
+                    _input += epilogue + '\n'
+            else:
+                _input += self['epilogue'] + '\n'
+        return _input.rstrip('\n') + '\n'
+
+    def input_from_basis(self, basis):
+        _input = 'basis=' + basis['default']
+        if 'elements' in basis:
+            for e, b in basis['elements'].items():
+                _input += ',' + e + '=' + b
+        _input += '\n'
+        return _input
+
+    def input_from_method(self, method) -> str:
+        _input = ''
+        if type(method) is str:
+            method = [method]
+        for step in method:
             _input += '{'
             if 'density_fitting' in self and self['density_fitting'] and step.lower()[:4] != 'pno-' and \
                     step.lower()[:4] != 'ldf-':
@@ -729,32 +823,7 @@ class InputSpecification(UserDict):
                             for option in directive['options']:
                                 _input += ',' + str(option)
             _input += '}\n'
-
-        if len(_job_type_commands) > 0:
-            _input += 'endproc\n\n'
-            for step in _job_type_commands:
-                _step = JobStep(step)
-                for option in _step.options:
-                    if re.match(r'^proc=.*$', option):
-                        _index = step.options.index(option)
-                try:
-                    _step.options[_index] = 'proc=' + self.procname
-                except NameError:
-                    _step.options.append('proc=' + self.procname)
-                _input += _step.dump() + '\n'
-
-        if 'orbitals' in self:
-            for k in self['orbitals']:
-                if _local_orbital_types[k]['command'].strip(): _input += '{' + _local_orbital_types[k][
-                    'command'] + '}\n'
-
-        if 'epilogue' in self:
-            if type(self['epilogue']) is list:
-                for epilogue in self['epilogue']:
-                    _input += epilogue + '\n'
-            else:
-                _input += self['epilogue'] + '\n'
-        return _input.rstrip('\n') + '\n'
+        return _input
 
     def set_job_type(self, new_job_type):
         if self['job_type'] == new_job_type: return
@@ -923,6 +992,8 @@ class InputSpecification(UserDict):
         :return:
         :rtype: int
         """
+        if 'spin' in self:
+            return self['spin']
         # TODO set up a cache if input has not changed and geometry file has not changed
         if 'geometry' not in self: return 0
         # print('enter open_shell_electrons')
@@ -947,9 +1018,7 @@ class InputSpecification(UserDict):
                 except ValueError:
                     atomic_number = 0
                 total_nuclear_charge += atomic_number
-        charge = int(self['variables']['charge']) if 'variables' in self and 'charge' in self['variables'] and \
-                                                     self['variables']['charge'] != '' and self['variables'][
-                                                         'charge'] != '-' else 0
+        charge = self['charge'] if 'charge' in self else 0
         total_electrons = total_nuclear_charge - charge
         # print('total_nuclear_charge',total_nuclear_charge,'total_electrons',total_electrons)
         electrons = total_electrons % 2
@@ -961,7 +1030,7 @@ class InputSpecification(UserDict):
         return electrons
 
     @property
-    def spin(self):
+    def spin_old(self):
         r"""
         Evaluate 2*S
         :return: 2*S, or if unspecified, minus the electron count %2
@@ -973,8 +1042,8 @@ class InputSpecification(UserDict):
         # print('calculated spin',spin)
         return spin
 
-    @spin.setter
-    def spin(self, value):
+    @spin_old.setter
+    def spin_old(self, value):
         if value is None:
             if 'variables' in self and 'spin' in self['variables']:
                 del self['variables']['spin']

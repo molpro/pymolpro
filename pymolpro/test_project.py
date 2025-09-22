@@ -10,7 +10,7 @@ import shutil
 
 class TestProject(unittest.TestCase):
     def setUp(self):
-        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)))
+        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)),method='mp2')
         self.projects = []
 
     def tearDown(self):
@@ -19,6 +19,7 @@ class TestProject(unittest.TestCase):
         pass
 
     def new_project(self, *args, **kwargs):
+        self.projects.append(pymolpro.Project(*args, **kwargs))
         self.projects.append(pymolpro.Project(*args, **kwargs))
         return self.projects[-1]
 
@@ -143,10 +144,11 @@ class TestProject(unittest.TestCase):
             'B3LYP/cc-pVTZ',
             'CCSD(T)-F12A/cc-pVTZ//B3LYP/cc-pVDZ',
             'DF-MP2/aug-cc-pvdz',
-            'UmP2/aug-cc-pvdz',
+            'UMP2/aug-cc-pvdz',
             'HF/cc-pvdz',
         ]:
             p1 = self.new_project('test_ansatz' + ansatz.replace('/', '_'), ansatz=ansatz, geometry='He')
+            # print(p1.input_specification)
             self.assertEqual(ansatz, p1.ansatz, open(p1.filename('inp'), 'r').read())
 
     def test_force_constants(self):

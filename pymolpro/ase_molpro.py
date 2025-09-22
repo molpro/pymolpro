@@ -50,8 +50,8 @@ class ASEMolpro(BaseCalculator):
                 'utf-8')).hexdigest()[-8:]
         Path(self.project_location).mkdir(parents=True, exist_ok=True)
         project = Project(self.molpro_project_name, location=self.project_location, geometry=geom_string,
-                          method=self.method, basis=self.basis, func='energy', **self.kwargs,
-                          postamble='{force;varsav}' if 'forces' in properties else None)
+                          method=self.method, basis=self.basis,  **self.kwargs,
+                          epilogue='{force;varsav}' if 'forces' in properties else None)
         self.projects[self.molpro_project_name] = project
         project.run(wait=True)
         if project.status == 'failed': raise CalculationFailed

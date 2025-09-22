@@ -83,8 +83,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
     def test_run_database(self):
         if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
-            results = database.run(db, ansatz='df-mp2/aug-cc-pVDZ', func="energy")
-            results2 = database.run(db, ansatz='df-mp2/aug-cc-pVDZ', func="energy")
+            results = database.run(db, ansatz='df-mp2/aug-cc-pVDZ', job_type='SP')
+            results2 = database.run(db, ansatz='df-mp2/aug-cc-pVDZ', job_type='SP')
             # del results['projects']
             # del results2['projects']
             self.assertEqual(results.molecule_energies, results2.molecule_energies)
@@ -92,7 +92,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             results2.molecule_energies['HF'] = 12345.0
             self.assertNotEqual(results.molecule_energies, results2.molecule_energies)
             self.assertNotEqual(results, results2)
-            database.run(db, method='df-mp2', basis='aug-cc-pVDZ', func="energy", clean=True)
+            database.run(db, method='df-mp2', basis='aug-cc-pVDZ', job_type='SP', clean=True)
             # print(results)
 
     def test_run_opt(self):
@@ -127,7 +127,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             db.add_molecule('H2', 'H;H,H,0.7'
                             # , preamble='angstrom'
                             )
-            results = database.run(db, postamble='put,xml')
+            results = database.run(db, epilogue='put,xml')
             p_ = results.projects['H2']
             m = p_.xpath('//molecule')[-1]
             # print(m)
@@ -141,9 +141,9 @@ F          0.0000000000        0.0000000000        3.6683721829"""
         if pymolpro.Project('test').local_molpro_root:
             db = database.load('sample')
             results = [
-                database.run(db, method='df-mp2', basis='aug-cc-pVDZ', func="energy"),
-                database.run(db, method='df-mp2', basis='aug-cc-pVTZ', func="energy"),
-                database.run(db, method='df-mp2', basis='aug-cc-pVQZ', func="energy"),
+                database.run(db, method='df-mp2', basis='aug-cc-pVDZ', job_type='SP'),
+                database.run(db, method='df-mp2', basis='aug-cc-pVTZ', job_type='SP'),
+                database.run(db, method='df-mp2', basis='aug-cc-pVQZ', job_type='SP'),
             ]
             outputs = database.analyse(results, results[-1])
             # print(outputs)
@@ -171,14 +171,14 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertFalse(result.failed)
             shutil.rmtree(result.project_directory)
 
-            result = database.run(db, method='hf', preamble='memory,1,k', basis='minao', check_energy=False)
+            result = database.run(db, method='hf', prologue='memory,1,k', basis='minao', check_energy=False)
             self.assertTrue(result.failed)
             self.assertEqual(len(result.failed), len(db.molecules))
             self.assertEqual(result.failed['HF'].status, 'failed')
             shutil.rmtree(result.project_directory)
 
             try:
-                result = database.run(db, method='hf', preamble='charge=-10', basis='cc-pvdz')
+                result = database.run(db, method='hf', prologue='charge=-10', basis='cc-pvdz')
             except Exception:
                 pass
             self.assertTrue(result.failed)

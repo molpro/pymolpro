@@ -13,7 +13,6 @@ class TestASE(unittest.TestCase):
             atoms.calc = pymolpro.ASEMolpro(method='df-hf', basis='cc-pVDZ')
 
             with ase.optimize.BFGS(atoms) as opt:
-                opt.run(fmax=0.0001)
-                assert opt.converged()
+                assert opt.run(fmax=0.0001)
 
             atoms.calc.clean()
