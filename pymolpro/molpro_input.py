@@ -112,31 +112,40 @@ properties = {
 
 _initial_orbital_methods = ['HF', 'KS']
 
-_supported_methods = []
+_supported_methods = None
+_procedures_registry = None
 
-if not '_procedures_registry' in locals():
-    try:
-        _procedures_registry = pymolpro.procedures_registry()
-        if not _procedures_registry:
-            raise ValueError
-    except Exception as e:
-        _procedures_registry = {}
-for keyfound in _procedures_registry.keys():
-    if _procedures_registry[keyfound]['class'] == 'PROG':
-        _supported_methods.append(_procedures_registry[keyfound]['name'])
+
 
 
 def supported_methods():
     r"""
     Returns a list of supported methods.
     """
-    return _supported_methods
+    from pymolpro.registry import procedures_registry
+    global _supported_methods
+    if _supported_methods is not None: return _supported_methods
 
+    _procedures_registry = procedures_registry()
+    _supported_methods = []
+    for keyfound in _procedures_registry.keys():
+        if _procedures_registry[keyfound]['class'] == 'PROG':
+            _supported_methods.append(_procedures_registry[keyfound]['name'])
+
+    return _supported_methods
 
 def procedures_registry():
     r"""
     Returns a dictionary with procedure names as keys and procedures as values.
     """
+    global _procedures_registry
+    if _procedures_registry is not None: return _procedures_registry
+    try:
+        _procedures_registry = procedures_registry()
+        if not _procedures_registry:
+            raise ValueError
+    except Exception as e:
+        _procedures_registry = {}
     return _procedures_registry
 
 
@@ -262,6 +271,9 @@ class InputSpecification(UserDict):
                 result[k] = v
         if 'spin' not in self:
             result['spin'] = (self.open_shell_electrons) % 2 - 2
+        for key in ['method','basis']:
+            if 'geometry_'+key not in result and key in result:
+                result['geometry_'+key] = result[key]
         return result
 
     @property
@@ -322,7 +334,7 @@ class InputSpecification(UserDict):
 
     def __init__(self, input=None, allowed_methods=[], debug=False, specification=None, directory=None):
         super(InputSpecification, self).__init__()
-        self.allowed_methods = list(set(allowed_methods).union(set(_supported_methods)))
+        self.allowed_methods = list(set(allowed_methods).union(set(supported_methods())))
         self.directory = directory
         self.procname = 'ansatz'
         # print('self.allowed_methods',self.allowed_methods)
@@ -864,9 +876,9 @@ class InputSpecification(UserDict):
         #                                                                                                 self.hartree_fock_methods]:
         #                 del methods[0]
         if type(methods) is str:
-            return methods.replace('\n', ';').split(';')[0]
+            return methods.replace('\n', ';').split(';')[0].split(',')[0]
         else:
-            return methods[-1].replace('\n', ';').split(';')[0]
+            return methods[-1].replace('\n', ';').split(';')[0].split(',')[0]
 
     @method.setter
     def method(self, method):
@@ -958,6 +970,7 @@ class InputSpecification(UserDict):
                 self['variables']['dkho']) != '1' else 'DK'
         return result
 
+    _last_density_functional = 'LDA'
     @property
     def density_functional(self):
         if 'method' not in self or not self['method']:
@@ -967,7 +980,8 @@ class InputSpecification(UserDict):
         if js.command not in ['ks', 'rks', 'uks']:
             return None
         if not js.options:
-            return 'LDA'
+            return self._last_density_functional
+        self._last_density_functional = js.options[0].upper()
         return js.options[0].upper()
 
     @density_functional.setter

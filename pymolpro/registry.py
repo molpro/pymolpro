@@ -3,7 +3,6 @@ import shutil
 import tempfile
 import pathlib
 
-from pymolpro import Project
 from pysjef import __version__ as pysjef_version
 from packaging.version import Version
 
@@ -12,6 +11,7 @@ _registry_project_directory = None
 
 
 def ensure_registry_project():
+    from .project import Project
     global _registry_project
     global _registry_project_directory
     if _registry_project is None:

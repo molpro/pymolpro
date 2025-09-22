@@ -179,8 +179,8 @@ class Project(pysjef.project.Project):
         possible_arguments_matching_schema = [k for k in schema['properties'] if k not in inspect.signature(self.__init__).parameters]
         if not hasattr(self, '__initialized'):
             try:
-                super().__init__(name=name,
-                                 **{k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema})
+                super().__init__(name=name, suffix='molpro',
+                                 **{k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema+['suffix']})
                 self.__initialized = True
             except Exception:
                 raise FileNotFoundError("Cannot open project " + name)
