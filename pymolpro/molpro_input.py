@@ -973,7 +973,6 @@ class InputSpecification(UserDict):
     _last_density_functional = 'LDA'
     @property
     def density_functional(self):
-        global _last_density_functional
         if 'method' not in self or not self['method']:
             return None
         methods = self['method'] if type(self['method']) is list else [self['method']]
@@ -981,8 +980,8 @@ class InputSpecification(UserDict):
         if js.command not in ['ks', 'rks', 'uks']:
             return None
         if not js.options:
-            return _last_density_functional
-        _last_density_functional = js.options[0].upper()
+            return self._last_density_functional
+        self._last_density_functional = js.options[0].upper()
         return js.options[0].upper()
 
     @density_functional.setter
