@@ -410,7 +410,7 @@ class InputSpecification(UserDict):
         if debug:
             print('InputSpecification.parse() input=', input)
 
-        print('allowed_methods', self.allowed_methods)
+        # print('allowed_methods', self.allowed_methods)
         precursor_methods = ['LOCALI', 'CASSCF', 'OCC', 'CORE', 'CLOSED', 'FROZEN', 'WF',
                              'LOCAL', 'DFIT',
                              'DIRECT', 'EXPLICIT', 'THRESH', 'GTHRESH', 'PRINT', 'GRID']
@@ -466,7 +466,7 @@ class InputSpecification(UserDict):
                 if command == df_prefix.lower() + 'hf': command = df_prefix.lower() + 'rhf'
                 if command == df_prefix.lower() + 'ks': command = df_prefix.lower() + 'rks'
                 if command == df_prefix.lower() + 'ldf-ks': command = df_prefix.lower() + 'ldf-rks'
-            print('command', command,'line',line,'group',group)
+            # print('command', command,'line',line,'group',group)
             for m in _initial_orbital_methods:
                 if m.lower() in command.lower() and not any([s + m.lower() in command.lower() for s in ['r', 'u']]):
                     loc = command.lower().index(m.lower())
@@ -595,7 +595,7 @@ class InputSpecification(UserDict):
                                                  for method in self.allowed_methods]):
                 step = {}
                 method_with_options = re.sub('^{', '', re.sub('}$', '', group))
-                print('matched for method; line=',line,'command=',command,'group=',group)
+                # print('matched for method; line=',line,'command=',command,'group=',group)
                 method_ = command
                 if command[:3] == 'df-':
                     self['density_fitting'] = True
@@ -667,7 +667,7 @@ class InputSpecification(UserDict):
         # print('before deduce_job_type', self)
         # self.deduce_job_type()
         # print('after deduce_job_type', self)
-        print('final self',self)
+        # print('final self',self)
         self.validate()
         return self
 
@@ -876,9 +876,9 @@ class InputSpecification(UserDict):
         #                                                                                                 self.hartree_fock_methods]:
         #                 del methods[0]
         if type(methods) is str:
-            return methods.replace('\n', ';').split(';')[0]
+            return methods.replace('\n', ';').split(';')[0].split(',')[0]
         else:
-            return methods[-1].replace('\n', ';').split(';')[0]
+            return methods[-1].replace('\n', ';').split(';')[0].split(',')[0]
 
     @method.setter
     def method(self, method):
@@ -970,8 +970,10 @@ class InputSpecification(UserDict):
                 self['variables']['dkho']) != '1' else 'DK'
         return result
 
+    _last_density_functional = 'LDA'
     @property
     def density_functional(self):
+        global _last_density_functional
         if 'method' not in self or not self['method']:
             return None
         methods = self['method'] if type(self['method']) is list else [self['method']]
@@ -979,7 +981,8 @@ class InputSpecification(UserDict):
         if js.command not in ['ks', 'rks', 'uks']:
             return None
         if not js.options:
-            return 'LDA'
+            return _last_density_functional
+        _last_density_functional = js.options[0].upper()
         return js.options[0].upper()
 
     @density_functional.setter
