@@ -112,31 +112,40 @@ properties = {
 
 _initial_orbital_methods = ['HF', 'KS']
 
-_supported_methods = []
+_supported_methods = None
+_procedures_registry = None
 
-if not '_procedures_registry' in locals():
-    try:
-        _procedures_registry = pymolpro.procedures_registry()
-        if not _procedures_registry:
-            raise ValueError
-    except Exception as e:
-        _procedures_registry = {}
-for keyfound in _procedures_registry.keys():
-    if _procedures_registry[keyfound]['class'] == 'PROG':
-        _supported_methods.append(_procedures_registry[keyfound]['name'])
+
 
 
 def supported_methods():
     r"""
     Returns a list of supported methods.
     """
-    return _supported_methods
+    from pymolpro.registry import procedures_registry
+    global _supported_methods
+    if _supported_methods is not None: return _supported_methods
 
+    _procedures_registry = procedures_registry()
+    _supported_methods = []
+    for keyfound in _procedures_registry.keys():
+        if _procedures_registry[keyfound]['class'] == 'PROG':
+            _supported_methods.append(_procedures_registry[keyfound]['name'])
+
+    return _supported_methods
 
 def procedures_registry():
     r"""
     Returns a dictionary with procedure names as keys and procedures as values.
     """
+    global _procedures_registry
+    if _procedures_registry is not None: return _procedures_registry
+    try:
+        _procedures_registry = procedures_registry()
+        if not _procedures_registry:
+            raise ValueError
+    except Exception as e:
+        _procedures_registry = {}
     return _procedures_registry
 
 
@@ -262,6 +271,9 @@ class InputSpecification(UserDict):
                 result[k] = v
         if 'spin' not in self:
             result['spin'] = (self.open_shell_electrons) % 2 - 2
+        for key in ['method','basis']:
+            if 'geometry_'+key not in result and key in result:
+                result['geometry_'+key] = result[key]
         return result
 
     @property
@@ -322,7 +334,7 @@ class InputSpecification(UserDict):
 
     def __init__(self, input=None, allowed_methods=[], debug=False, specification=None, directory=None):
         super(InputSpecification, self).__init__()
-        self.allowed_methods = list(set(allowed_methods).union(set(_supported_methods)))
+        self.allowed_methods = list(set(allowed_methods).union(set(supported_methods())))
         self.directory = directory
         self.procname = 'ansatz'
         # print('self.allowed_methods',self.allowed_methods)
@@ -398,7 +410,7 @@ class InputSpecification(UserDict):
         if debug:
             print('InputSpecification.parse() input=', input)
 
-        # print('allowed_methods', self.allowed_methods)
+        print('allowed_methods', self.allowed_methods)
         precursor_methods = ['LOCALI', 'CASSCF', 'OCC', 'CORE', 'CLOSED', 'FROZEN', 'WF',
                              'LOCAL', 'DFIT',
                              'DIRECT', 'EXPLICIT', 'THRESH', 'GTHRESH', 'PRINT', 'GRID']
@@ -454,7 +466,7 @@ class InputSpecification(UserDict):
                 if command == df_prefix.lower() + 'hf': command = df_prefix.lower() + 'rhf'
                 if command == df_prefix.lower() + 'ks': command = df_prefix.lower() + 'rks'
                 if command == df_prefix.lower() + 'ldf-ks': command = df_prefix.lower() + 'ldf-rks'
-            # print('command', command,'line',line,'group',group)
+            print('command', command,'line',line,'group',group)
             for m in _initial_orbital_methods:
                 if m.lower() in command.lower() and not any([s + m.lower() in command.lower() for s in ['r', 'u']]):
                     loc = command.lower().index(m.lower())
@@ -583,7 +595,7 @@ class InputSpecification(UserDict):
                                                  for method in self.allowed_methods]):
                 step = {}
                 method_with_options = re.sub('^{', '', re.sub('}$', '', group))
-                # print('matched for method; line=',line,'command=',command,'group=',group)
+                print('matched for method; line=',line,'command=',command,'group=',group)
                 method_ = command
                 if command[:3] == 'df-':
                     self['density_fitting'] = True
@@ -655,7 +667,7 @@ class InputSpecification(UserDict):
         # print('before deduce_job_type', self)
         # self.deduce_job_type()
         # print('after deduce_job_type', self)
-        # print('final self',self)
+        print('final self',self)
         self.validate()
         return self
 

@@ -10,7 +10,7 @@ import shutil
 
 class TestProject(unittest.TestCase):
     def setUp(self):
-        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)),method='mp2')
+        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)),method='mp2', record_as_recent=False)
         self.projects = []
 
     def tearDown(self):
