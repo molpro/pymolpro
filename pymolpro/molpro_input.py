@@ -364,13 +364,14 @@ class InputSpecification(UserDict):
             _method = _method[-1]
         # if _method[:3].lower() == 'df-':
         #     _method = _method[3:]
-        if _method[:3].lower() != 'df-' and self.with_defaults['density_fitting'] :
-            _method = 'DF-'+_method
-        _method = re.sub('[ru]?ks,','',_method, flags=re.IGNORECASE)
+        if _method[:3].lower() != 'df-' and self.with_defaults['density_fitting']:
+            _method = 'DF-' + _method
+        _method = re.sub('[ru]?ks,', '', _method, flags=re.IGNORECASE)
         result = _method.upper() + '/' + _basis
         _geometry_method = self['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
         _geometry_basis = self['geometry_basis'] if 'geometry_basis' in self else self.with_defaults['basis']
-        if self.with_defaults['job_type'][:3] == 'OPT': # and (_geometry_method != self.with_defaults['method'] or _geometry_basis != self.with_defaults['basis']):
+        if self.with_defaults['job_type'][
+            :3] == 'OPT':  # and (_geometry_method != self.with_defaults['method'] or _geometry_basis != self.with_defaults['basis']):
             if 'elements' in _geometry_basis:
                 return ''
             _geometry_basis = _geometry_basis['default']
@@ -378,7 +379,7 @@ class InputSpecification(UserDict):
                 _geometry_method = _geometry_method[-1]
             if _geometry_method[:3].lower() == 'df-':
                 _geometry_method = _geometry_method[3:]
-            _geometry_method = re.sub('[ru]?ks,','',_geometry_method, flags=re.IGNORECASE)
+            _geometry_method = re.sub('[ru]?ks,', '', _geometry_method, flags=re.IGNORECASE)
             result += '//' + _geometry_method.upper() + '/' + _geometry_basis
         return result
 

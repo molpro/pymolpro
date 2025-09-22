@@ -13,7 +13,7 @@ import pytest
 @pytest.fixture
 def methods():
     molpro_input._supported_methods = ['RHF', 'CCSD', 'RKS', 'CASSCF', 'MRCI', 'UHF', 'UKS', 'OCC', 'OPTG',
-                                      'FREQUENCIES', 'THERMO']
+                                       'FREQUENCIES', 'THERMO']
     return molpro_input._supported_methods
     # yield supported_methods
 
@@ -31,7 +31,7 @@ def test_create_input(methods):
         {'geometry': 'F\nH,F,1.7',
          'basis': {'default': 'cc-pVTZ', 'elements': {}},
          # 'steps': [{'command': 'rks', 'options': ['b3lyp']}, {'command': 'ccsd'}],
-            'method': ['rks,b3lyp','ccsd'],
+         'method': ['rks,b3lyp', 'ccsd'],
          'hamiltonian': 'AE',
          },
     ]:
@@ -216,7 +216,7 @@ def test_method_options(methods):
         if specification.method is not None:
             options = {'option1': 'value1', 'option2': 'value2'}
             specification.method_options = options
-            assert specification.method_options == [k+'='+v for k,v in options.items()]
+            assert specification.method_options == [k + '=' + v for k, v in options.items()]
 
 
 def test_job_type(methods):
@@ -227,7 +227,7 @@ def test_job_type(methods):
         'proc ansatz;rhf;ccsd;endproc;optg,proc=ansatz;frequencies,proc=ansatz': 'OPT+FREQ',
         'proc ansatz;rhf;ccsd;endproc;{optg,proc=ansatz};frequencies,proc=ansatz': 'OPT+FREQ',
         'proc ansatz;rhf;ccsd;mrci;endproc;{optg,proc=ansatz};frequencies,proc=ansatz': 'OPT+FREQ',
-        'proc ansatz;rhf;ccsd;{optg};mrci;endproc;frequencies,proc=ansatz': 'OPT+FREQ', # TODO really?
+        'proc ansatz;rhf;ccsd;{optg};mrci;endproc;frequencies,proc=ansatz': 'OPT+FREQ',  # TODO really?
     }.items():
         specification = InputSpecification(test)
         assert specification['job_type'] == outcome
@@ -328,15 +328,15 @@ def test_input_from_json():
 
 def test_keyval():
     tests = {
-        'method=ccsd' : '{"method" :\n"ccsd"}',
-        'geometry="F;H,F,1.732"':'{"geometry":"F;H,F,1.732"}',
-        'geometry="F;H,F,1.732", method=ccsd"':'{"geometry":"F;H,F,1.732","method":"ccsd"}',
-        'geometry="F;H,F,1.732", method=ccsd,basis=cc-pvdz':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
-        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz"':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
-        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Cu=cc-vtz"':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Cu":"cc-vtz"}}}',
-        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Ni=cc-pvqz,Cu=cc-vtz"':'{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Ni":"cc-pvqz","Cu":"cc-vtz"}}}',
+        'method=ccsd': '{"method" :\n"ccsd"}',
+        'geometry="F;H,F,1.732"': '{"geometry":"F;H,F,1.732"}',
+        'geometry="F;H,F,1.732", method=ccsd"': '{"geometry":"F;H,F,1.732","method":"ccsd"}',
+        'geometry="F;H,F,1.732", method=ccsd,basis=cc-pvdz': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
+        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz"': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz"}}',
+        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Cu=cc-vtz"': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Cu":"cc-vtz"}}}',
+        'geometry="F;H,F,1.732", method=ccsd,basis="cc-pvdz,Ni=cc-pvqz,Cu=cc-vtz"': '{"geometry":"F;H,F,1.732", "method":"ccsd", "basis":{"default" : "cc-pvdz","elements":{"Ni":"cc-pvqz","Cu":"cc-vtz"}}}',
     }
     for test in tests:
         converted = molpro_input._convert_keyval_to_json(test)
-        assert re.sub(r'\s+','',converted) == re.sub(r'\s+','',tests[test])
+        assert re.sub(r'\s+', '', converted) == re.sub(r'\s+', '', tests[test])
         jsonschema.validate(instance=json.loads(converted), schema=molpro_input.schema)
