@@ -542,7 +542,12 @@ class InputSpecification(UserDict):
                     key = re.sub(' *=.*$', '', field)
                     value = re.sub('.*= *', '', field)
                     # print('field, key=', key, 'value=', value)
-                    variables[key] = value.replace('!', ',')  # unprotect
+                    if key == 'charge':
+                        self['charge'] = int(value)
+                    elif key == 'spin':
+                        self['spin'] = int(value)
+                    else:
+                        variables[key] = value.replace('!', ',')  # unprotect
             elif command in _parameter_commands.values():
                 spec_field = [k for k, v in _parameter_commands.items() if v == command][0]
                 fields = re.sub('^ *' + command.lower() + ' *,*', '', line.strip().lower(), flags=re.IGNORECASE).split(
@@ -712,17 +717,17 @@ class InputSpecification(UserDict):
         if 'hamiltonian' in self and self['hamiltonian'][:2] == 'DK':
             _input += 'dkho=' + self['hamiltonian'][2] if len(self['hamiltonian']) > 2 else '1' + '\n'
 
-        if 'variables' in self:
-            for k, v in self['variables'].items():
-                if v != '' and (k != 'charge' or v != '0'):
-                    _input += k + '=' + v + '\n'
+        if 'charge' in self:
+            _input += 'charge=' + str(self['charge']) + '\n'
 
         if 'spin' in self:
             # print('spin=' + self['spin'])
-            _input += 'spin=' + self['spin'] + '\n'
+            _input += 'spin=' + str(self['spin']) + '\n'
 
-        if 'charge' in self:
-            _input += 'charge=' + self['charge'] + '\n'
+        if 'variables' in self:
+            for k, v in self['variables'].items():
+                if v != '':
+                    _input += k + '=' + v + '\n'
 
         if 'properties' in self:
             for p in self['properties']:

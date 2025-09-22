@@ -108,6 +108,9 @@ def test_recreate_input(methods):
         'geometry={Ne};basis=cc-pV(T+d)Z-PP;gprint,basis;{df-rhf}',
         'geometry={Ne;He,Ne,2};basis={default=cc-pV(T+d)Z-PP,He=vdz(s)};gprint,basis;{df-rhf}',
         'geometry={Ne};basis=cc-pV(T+d)Z-PP;gexpec,sm;{df-rhf}',
+        'geometry={Ne};basis=cc-pV(T+d)Z-PP;charge=1;gexpec,sm;{df-rhf}',
+        'geometry={N};spin=3;{df-rhf}',
+        'geometry={N};charge=1;spin=2;{df-rhf}',
     ]:
         specification = InputSpecification(input)
         regenerated_input = specification.molpro_input()
@@ -131,7 +134,7 @@ def test_variables(methods):
     # print('recreated input', create_input(specification))
     # print('parsed recreated input', InputSpecification(create_input(specification)))
     assert InputSpecification(specification.molpro_input()) == specification
-    assert specification['variables']['spin'] == '2'
+    assert specification['spin'] == 2
     assert specification['variables']['occ'] == '[3,1,1]'
 
 
