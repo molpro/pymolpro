@@ -1,5 +1,5 @@
 {
-  "$id": "https://www.molpro.net/molpro-input.json",
+  "$id": "https://www.molpro.net/schema/molpro_input.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "JSON schema for simplified Molpro input",
   "description": "Structured input for Molpro that covers the case of a single ansatz, with a given basis set at a given geometry. All fields are optional, with reasonable defaults, although at least geometry, method and basis will normally be specified",

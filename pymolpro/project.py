@@ -156,60 +156,37 @@ class Project(pysjef.project.Project):
 
     * Values of Molpro variables.
 
-    :param str name: The base filename of the filesystem bundle carrying the project. If the bundle does not yet exist, it is created.
-    :param str geometry: The geometry.
-        If specified, the input for the job will be constructed, without the need for a subsequent call to :py:meth:`write_input()`.
-        Any format recognised by Molpro can be used. This includes xyz, with or without the two header lines, or Z matrix, and lines can be separated either with newline or `;`. The geometry can be specified either as a string, or a filename or url reference, in which case the contents of the reference are resolved now.
-    :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
-    :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
-    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
-    :param str func: This should be one of
-
-        * `energy` for a single geometry
-        * `opt` for a geometry optimisation
-
-    :param str extrapolate: If specified, carry out basis-set extrapolation. Anything that can appear after `extrapolate,basis=` in Molpro input is accepted.
-    :param int spin: The spin multiplicity minus one
-    :param int charge: Electrical charge of molecule
 
     """
 
-    def __init__(self, name=None, geometry=None, specification={}, ansatz=None, files=[],
-                 **kwargs):
-        possible_arguments_matching_schema = [k for k in schema['properties'] if k not in inspect.signature(self.__init__).parameters]
+    def __init__(self, name: str = None, input: str | dict = None, specification: str | dict = None, ansatz: str = None,
+                 files: list[str] = None, **kwargs):
+        r"""
+
+        :param name: The base filename of the filesystem bundle carrying the project. If the bundle does not yet exist, it is created.
+        :param input:General specification of the input. If it looks like JSON or is a dictionary, it is treated as if it had been passed as the specification parameter. If it has the form method/basis or method/basis//geometry_method/geometry_basis, it is treated as if it had been passed as the ansatz parameter. Otherwise, it is treated as the desired contents of the Molpro input file. If input is specified, all other arguments are ignored.
+        :param specification: Either a dictionary or a JSON string conforming to the JSON schema https://www.molpro.net/schema/molpro_input.json
+        :param ansatz: A string of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
+        :param files: External files to be copied into the project directory. If one of these is a molpro-output xml file, it is used to construct the input file.
+        :param kwargs: Any of the top-level keywords in the JSON schema https://www.molpro.net/schema/molpro_input.json, or any of the arguments accepted by the parent sjef.Project class constructor.
+"""
+        # print('Project(): name',name,'input',input,'specification',specification,'ansatz',ansatz,'files',files,'kwargs',kwargs)
+        possible_arguments_matching_schema = [k for k in schema['properties'] if
+                                              k not in inspect.signature(self.__init__).parameters]
         if not hasattr(self, '__initialized'):
             try:
                 super().__init__(name=name, suffix='molpro',
-                                 **{k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema+['suffix']})
+                                 **{k: v for k, v in kwargs.items() if
+                                    k not in possible_arguments_matching_schema + ['suffix']})
                 self.__initialized = True
             except Exception:
                 raise FileNotFoundError("Cannot open project " + name)
 
-        if ansatz is not None:
-            _parsed_ansatz = self.parse_ansatz(ansatz)
-            _kwargs = {k: v for k, v in kwargs.items()}
-            for k,v in _parsed_ansatz.items():
-               if k != 'ansatz' and v is not None:  _kwargs[k] = v
-            if 'geometry_method' in _parsed_ansatz and _parsed_ansatz['geometry_method'] is not None and 'job_type' not in _kwargs:
-                _kwargs['job_type'] = 'OPT'
-            self.__init__(name=name, geometry=geometry, files=files, **_kwargs )
-            return
-
         self.local_molpro_root_ = None
 
-        _input = copy.deepcopy(specification)
-        if geometry is not None:  # construct input
-            _input['geometry'] = geometry
-            for key in [k for k in kwargs if k in schema['properties']]:
-                if kwargs[key] is not None:
-                    _input[key] = kwargs[key]
-            for key in ['basis','geometry_basis']:
-                if key in _input and type(_input[key]) is str:
-                    _input[key] = {"default": _input[key]}
-            self.input_specification = InputSpecification(specification=_input)
-            self.write_input(self.input_specification.molpro_input())
-            self.property_set({'input_specification':json.dumps(dict(self.input_specification))})
-        if files is not None and len(files) > 0:
+        self.input(input, specification, ansatz, **kwargs)
+
+        if files is not None and isinstance(files, list) and len(files) > 0:
             project_directory = pathlib.Path(self.filename('', '', -1))
             run_directory = project_directory
             project_name = str(project_directory.stem)
@@ -232,6 +209,65 @@ class Project(pysjef.project.Project):
                             self.run_directory_new()
                             rundir = True
                         shutil.copyfile(file, pathlib.Path(self.filename('')) / path.name)
+
+    def input(self, input: str | dict = None, specification: str | dict = None, ansatz: str = None, **kwargs):
+        r"""
+        Defines the input for running Molpro.
+
+        :param input:General specification of the input. If it looks like JSON or is a dictionary, it is treated as if it had been passed as the specification parameter. If it has the form method/basis or method/basis//geometry_method/geometry_basis, it is treated as if it had been passed as the ansatz parameter. Otherwise, it is treated as the desired contents of the Molpro input file. If input is specified, all other arguments are ignored.
+        :param specification: Either a dictionary or a JSON string conforming to the JSON schema https://www.molpro.net/schema/molpro_input.json
+        :param ansatz: A string of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
+        :param kwargs: Any of the top-level keywords in the JSON schema https://www.molpro.net/schema/molpro_input.json
+        """
+
+        if input is not None and (isinstance(input, dict) or re.match(r'^{.*}$', input)):
+            self.input(specification=input, **kwargs)
+            return
+        elif input is not None and re.match(r'^[\w][\w\d/]*[\w\d]$', input):
+            self.input(ansatz=input, **kwargs)
+            return
+        elif input is not None:
+            self.write_input(input)
+            return
+
+        if specification is not None and type(specification) is str:
+            try:
+                self.input(specification=json.loads(specification), **kwargs)
+                return
+            except:
+                pass
+
+        if specification is not None and isinstance(specification, dict):
+            self.input_specification = InputSpecification(specification=specification)
+            self.write_input(self.input_specification.molpro_input())
+            self.property_set({'input_specification': json.dumps(dict(self.input_specification))})
+
+        if ansatz is not None:
+            _parsed_ansatz = self.parse_ansatz(ansatz)
+            _kwargs = {k: v for k, v in kwargs.items()}
+            for k, v in _parsed_ansatz.items():
+                if k != 'ansatz' and v is not None:  _kwargs[k] = v
+            if 'geometry_method' in _parsed_ansatz and _parsed_ansatz[
+                'geometry_method'] is not None and 'job_type' not in _kwargs:
+                _kwargs['job_type'] = 'OPT'
+            print('ansatz processing', _kwargs)
+            self.input(**_kwargs)
+            return
+
+        if specification is not None and isinstance(specification, dict):
+            _input = copy.deepcopy(specification)
+        else:
+            _input = {}
+        for key in [k for k in kwargs if k in schema['properties']]:
+            if kwargs[key] is not None:
+                _input[key] = kwargs[key]
+        for key in ['basis', 'geometry_basis']:
+            if key in _input and type(_input[key]) is str:
+                _input[key] = {"default": _input[key]}
+        if _input:
+            self.input_specification = InputSpecification(specification=_input)
+            self.write_input(self.input_specification.molpro_input())
+            self.property_set({'input_specification': json.dumps(dict(self.input_specification))})
 
     # def set_method(self,method,basis="cc-pVTZ",geometry_method=None, geometry_basis=None):
     #     pass
