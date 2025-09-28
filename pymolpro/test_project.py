@@ -10,7 +10,9 @@ import shutil
 
 class TestProject(unittest.TestCase):
     def setUp(self):
-        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)),method='mp2', record_as_recent=False)
+        print('setUp')
+        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)), record_as_recent=False)
+        print('setUp done')
         self.projects = []
 
     def tearDown(self):
@@ -44,7 +46,9 @@ class TestProject(unittest.TestCase):
 
     def test_copy(self):
         shutil.rmtree(os.path.dirname(os.path.abspath(__file__))+'/copied.molpro',ignore_errors=True)
+        print('before copy')
         newproject = self.project.copy('copied', location=os.path.dirname(os.path.abspath(__file__)))
+        print('after copy')
         newproject.erase()
 
     def test_corrupt_project(self):

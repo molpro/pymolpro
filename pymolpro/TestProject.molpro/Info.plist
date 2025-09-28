@@ -11,6 +11,8 @@
 		<string>3</string>
 		<key>project_hash</key>
 		<string>17038499297151771845</string>
+		<key>input_specification</key>
+		<string>{"method": ["hf", "mp2"]}</string>
 		<key>backend</key>
 		<string>local</string>
 	</dict>
