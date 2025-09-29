@@ -21,20 +21,19 @@ class Database:
     * Description and external URLs that serve to further define the provenance of the data.
     * Specification of recommended subsets of the reactions
 
-    :param list molecules: Initial molecules to be added with default options to :py:meth:`add_molecule()`.
-    :param list reactions: Initial reactions to be added with default options to :py:meth:`add_reaction()`.
-    :param str description: Text describing the database
-    :param str method: A string specifying the ansatz that was used to compute the energies.
-      In the Molpro context, this will be a valid fragment of Molpro input.
-    :param str basis: A string specifying the orbital basis set that was used to compute the energies.
-    :param str options: A string specifying any additional options used to compute energies.
-    :param str project_directory: The path of the directory where support files that were generated
-      in calculating energies can be found.
-
     """
 
-    def __init__(self, molecules={}, reactions={}, description=None, method=None, basis=None, options=None,
-                 project_directory=None):
+    def __init__(self, molecules:dict[str,str]={}, reactions:dict[str,dict[str,int]]={}, description:str=None,
+                 project_directory: str = None):
+        r"""
+
+        :param molecules: Initial molecules to be added with default options to :py:meth:`add_molecule()`.
+        :param reactions: Initial reactions to be added with default options to :py:meth:`add_reaction()`.
+        :param description: Text describing the database
+        :param project_directory: The path of the directory where support files that were generated
+          in calculating energies can be found.
+
+        """
         self.molecules = {}  #: Dictionary of molecules
         self.reactions = {}  #: Dictionary of reactions involving the :py:data:`molecules` together with stoichiometric factors
         for key, value in molecules.items():
@@ -47,9 +46,10 @@ class Database:
         self.subsets = {}  #: A dictionary defining named subsets of the database reactions
         self.molecule_energies = {}  #: A dictionary with molecule keys giving the molecular energy/Hartree reference values associated with the Database. The dictionary could be empty or only partly filled.
         self.reaction_energies = {}  #: A dictionary with reaction keys giving the reaction energy/Hartree reference values associated with the Database. The dictionary could be empty or only partly filled. A database might have either, both or none of :py:data:`molecule_energies` or :py:data:`reaction_energies`.
-        self.method = None  #: A string specifying the ansatz used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.
-        self.basis = None  #: A string specifying the orbital basis-set used to compute the energies.
-        self.options = None  #: Any additional options used to compute reference values.
+        self.description = description
+        # self.method = None  #: A string specifying the ansatz used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.
+        # self.basis = None  #: A string specifying the orbital basis-set used to compute the energies.
+        # self.options = None  #: Any additional options used to compute reference values.
         self.project_directory = None  #: A string giving the path of the directory where support files generated in calculating energies can be found.
         self.projects = {}  #: A dictionary with molecule handles pointing to filesystem project bundles for each Molpro job that has been run.
         self.failed = {}  #: Subset of :py:data:`projects` corresponding to jobs that did not complete successfully.
@@ -278,8 +278,7 @@ class Database:
                     for reagent, stoichiometry in reaction['stoichiometry'].items():
                         if not self.molecule_energies[reagent]:
                             raise ValueError(
-                                "Missing database molecule energy for " + reagent + ", method=" + str(
-                                    self.method) + ", basis=" + self.basis + ", project directory=" + self.project_directory + str(
+                                "Missing database molecule energy for " + reagent + ", project directory=" + self.project_directory + str(
                                     self.molecule_energies))
                         self.reaction_energies[reaction_name] += stoichiometry * self.molecule_energies[reagent]
 
@@ -317,10 +316,10 @@ class Database:
             for name, subset in self.subsets.items():
                 result += name + ': ' + str(subset) + '\n'
             result += '\n'
-        if self.method is not None and self.method != "":
-            result += _header('Method', rst) + str(self.method) + '\n'
-        if self.preamble is not None and self.preamble != "":
-            result += _header('Preamble', rst) + str(self.preamble) + '\n'
+        if self.specification.method is not None and self.specification.method != "":
+            result += _header('Method', rst) + str(self.specification.method) + '\n'
+        # if self.preamble is not None and self.preamble != "":
+        #     result += _header('Preamble', rst) + str(self.preamble) + '\n'
         return result
 
 
@@ -370,7 +369,7 @@ def library(expression=None):
     return result
 
 
-def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=None, backend="local",
+def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
         clean=False, prologue="", check=False, check_energy=True, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
@@ -381,6 +380,7 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
     :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
     :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the
     method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
+    :param specification: A JSON string, or a dict, giving the method used to compute the energies in the database, conforming to the JSON schema https://www.molpro.net/schema/molpro_input.json.
     :param str func: This should be one of
 
         * `energy` for a single geometry
@@ -394,7 +394,7 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
     :param str prologue: Any valid molpro input to be placed before the geometry specification.
     :param bool check: Whether to check for status of jobs instead of running them.
     :param bool check_energy: Whether to throw an exception if any job did not set the Molpro ENERGY variable
-    :param kwargs: Any other options to pass to :py:meth:`project.Project.run()`, including `func`, `extrapolate`, `preamble`, `postamble`.
+    :param kwargs: Any other options to pass to :py:meth:`project.Project()`, including any top-level keywords from the JSON schema https://www.molpro.net/schema/molpro_input.json.
     :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
     :rtype: Database
     """
@@ -415,29 +415,31 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
     newdb.project_directory = os.path.realpath(
         os.path.join(location,
                      hashlib.sha256(
-                         ((str(ansatz) if ansatz is not None else str(method) + str(basis)) + str(prologue) +
+                         ((str(ansatz) if ansatz is not None else '')  +
+                         (str(specification) if specification is not None else '')  +
                           str(tuple(sorted(kwargs.items())))).encode('utf-8')).hexdigest()[-8:]))
     if not os.path.exists(newdb.project_directory):
         os.makedirs(newdb.project_directory)
     newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
-        method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
-            method[0] # TODO implement this for ansatz too
+        # method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
+        #     method[0] # TODO implement this for ansatz too
         initial_ = prologue + '\n' + db.preamble
-        if 'preamble' in molecule:
-            initial_ += '\n' + molecule['preamble']
-        if re.match('^(\n+;+ +)*$', initial_):
-            initial_ = None
+        _kwargs = copy.deepcopy(kwargs)
+        if 'preamble' in molecule and not re.match('^(\n+;+ +)*$', molecule['preamble']):
+            if 'prologue' in _kwargs:
+                _kwargs['prologue'] += '\n' + molecule['preamble']
+            else:
+                _kwargs['prologue'] = molecule['preamble']
+        for k in ['spin','charge']:
+            if k in molecule:
+                _kwargs[k] = molecule[k]
         try:
             newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
                                                     ansatz=ansatz,
-                                                    method=method_,
-                                                    basis=basis,
+                                                    specification=specification,
                                                     location=newdb.project_directory,
-                                                    prologue=initial_,
-                                                    spin=molecule['spin'] if 'spin' in molecule else None,
-                                                    charge=molecule['charge'] if 'charge' in molecule else None,
-                                                    # **kwargs,
+                                                    **_kwargs,
                                                     )
         except Exception:
             raise FileNotFoundError(
@@ -483,7 +485,7 @@ def run(db, ansatz=None, method="hf", basis="cc-pVTZ", location=".", parallel=No
             if not check:
                 raise ValueError(
                     "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
-        if 'func' in kwargs and kwargs['func'][:3].lower() == 'opt':
+        if 'job_type' in kwargs and kwargs['job_type'][:3].lower() == 'opt' or (specification is not None and 'job_type' in specification and specification['job_type'][:3].lower() == 'opt'):
             try:
                 Angstrom = 1.88972612462577
                 newdb.molecules[molecule_name]['geometry'] = '\n'.join(
