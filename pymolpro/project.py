@@ -173,6 +173,9 @@ class Project(pysjef.project.Project):
         # print('Project(): name',name,'input',input,'specification',specification,'ansatz',ansatz,'files',files,'kwargs',kwargs)
         possible_arguments_matching_schema = [k for k in schema['properties'] if
                                               k not in inspect.signature(self.__init__).parameters]
+        # print('possible_arguments_matching_schema',possible_arguments_matching_schema)
+        # print('remaining arguments',{k: v for k, v in kwargs.items() if
+        #                             k not in possible_arguments_matching_schema + ['suffix']})
         if not hasattr(self, '__initialized'):
             try:
                 super().__init__(name=name, suffix='molpro',
@@ -250,7 +253,7 @@ class Project(pysjef.project.Project):
             if 'geometry_method' in _parsed_ansatz and _parsed_ansatz[
                 'geometry_method'] is not None and 'job_type' not in _kwargs:
                 _kwargs['job_type'] = 'OPT'
-            print('ansatz processing', _kwargs)
+            # print('ansatz processing', _kwargs)
             self.input(**_kwargs)
             return
 
