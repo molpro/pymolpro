@@ -47,9 +47,9 @@ class Database:
         self.molecule_energies = {}  #: A dictionary with molecule keys giving the molecular energy/Hartree reference values associated with the Database. The dictionary could be empty or only partly filled.
         self.reaction_energies = {}  #: A dictionary with reaction keys giving the reaction energy/Hartree reference values associated with the Database. The dictionary could be empty or only partly filled. A database might have either, both or none of :py:data:`molecule_energies` or :py:data:`reaction_energies`.
         self.description = description
-        # self.method = None  #: A string specifying the ansatz used to compute the energies. In the Molpro context, this will be a valid fragment of Molpro input.
-        # self.basis = None  #: A string specifying the orbital basis-set used to compute the energies.
-        # self.options = None  #: Any additional options used to compute reference values.
+        self.method = None  #: A string specifying the ansatz used to compute the energies.
+        self.basis = None  #: A string specifying the orbital basis-set used to compute the energies.
+        self.input_specifcation = None #: A string containing JSON describing the Molpro input used to construct the energies
         self.project_directory = None  #: A string giving the path of the directory where support files generated in calculating energies can be found.
         self.projects = {}  #: A dictionary with molecule handles pointing to filesystem project bundles for each Molpro job that has been run.
         self.failed = {}  #: Subset of :py:data:`projects` corresponding to jobs that did not complete successfully.
@@ -316,8 +316,8 @@ class Database:
             for name, subset in self.subsets.items():
                 result += name + ': ' + str(subset) + '\n'
             result += '\n'
-        if self.specification.method is not None and self.specification.method != "":
-            result += _header('Method', rst) + str(self.specification.method) + '\n'
+        if self.method is not None and self.method != "":
+            result += _header('Method', rst) + str(self.method) + '\n'
         # if self.preamble is not None and self.preamble != "":
         #     result += _header('Preamble', rst) + str(self.preamble) + '\n'
         return result
@@ -497,11 +497,13 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
                         "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
             if check:
                 print('got geometry', newdb.molecules[molecule_name]['geometry'])
+        newdb.method = newdb.projects[molecule_name].input_specification.with_defaults['method']
+        newdb.basis = newdb.projects[molecule_name].input_specification.with_defaults['basis']['default']
+        newdb.specification = json.dumps(newdb.projects[molecule_name].input_specification)
+        if check:
+            print("after getting molecule_energies")
     if check:
         print("after getting molecule_energies")
-    newdb.method = method
-    newdb.basis = basis
-    newdb.options = sorted(kwargs.items())
     newdb.calculate_reaction_energies(check)
     if clean:
         newdb.projects = {}
