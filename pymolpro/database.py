@@ -126,6 +126,8 @@ class Database:
             self.molecules[_name]['SMILES'] = SMILES
         if preamble is not None:
             self.molecules[_name]['preamble'] = preamble
+        elif hasattr(self,'preamble') and self.preamble is not None:
+            self.molecules[_name]['preamble'] = self.preamble
         return self.molecules[_name]
 
     def add_reaction(self, name, stoichiometry, energy=None, description=None):
@@ -370,7 +372,7 @@ def library(expression=None):
 
 
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
-        clean=False, prologue="", check=False, check_energy=True, **kwargs):
+        clean=False, check=False, check_energy=True, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -391,7 +393,6 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     :param int parallel: The number of simultaneous jobs to be launched. The default is the number of cores on the local machine.
     :param str backend: The sjef backend to be used for running jobs.
     :param bool clean: Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of :py:meth:`run()` will use cached results when possible. If there are errors, this parameter is ignored.
-    :param str prologue: Any valid molpro input to be placed before the geometry specification.
     :param bool check: Whether to check for status of jobs instead of running them.
     :param bool check_energy: Whether to throw an exception if any job did not set the Molpro ENERGY variable
     :param kwargs: Any other options to pass to :py:meth:`project.Project()`, including any top-level keywords from the JSON schema https://www.molpro.net/schema/molpro_input.json.
@@ -424,8 +425,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     for molecule_name, molecule in db.molecules.items():
         # method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
         #     method[0] # TODO implement this for ansatz too
-        initial_ = prologue + '\n' + db.preamble
-        _kwargs = copy.deepcopy(kwargs)
+        _kwargs = {k:v for k,v in kwargs.items() if k not in ('func')}
         if 'preamble' in molecule and not re.match('^(\n+;+ +)*$', molecule['preamble']):
             if 'prologue' in _kwargs:
                 _kwargs['prologue'] += '\n' + molecule['preamble']
@@ -485,7 +485,8 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
             if not check:
                 raise ValueError(
                     "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
-        if 'job_type' in kwargs and kwargs['job_type'][:3].lower() == 'opt' or (specification is not None and 'job_type' in specification and specification['job_type'][:3].lower() == 'opt'):
+        # if 'job_type' in kwargs and kwargs['job_type'][:3].lower() == 'opt' or (specification is not None and 'job_type' in specification and specification['job_type'][:3].lower() == 'opt'):
+        if newdb.projects[molecule_name].input_specification.with_defaults['job_type'][:3] == 'OPT':
             try:
                 Angstrom = 1.88972612462577
                 newdb.molecules[molecule_name]['geometry'] = '\n'.join(
@@ -499,7 +500,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
                 print('got geometry', newdb.molecules[molecule_name]['geometry'])
         newdb.method = newdb.projects[molecule_name].input_specification.with_defaults['method']
         newdb.basis = newdb.projects[molecule_name].input_specification.with_defaults['basis']['default']
-        newdb.specification = json.dumps(newdb.projects[molecule_name].input_specification)
+        newdb.specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
         if check:
             print("after getting molecule_energies")
     if check:

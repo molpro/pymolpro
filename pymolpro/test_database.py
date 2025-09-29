@@ -98,8 +98,8 @@ F          0.0000000000        0.0000000000        3.6683721829"""
     def test_run_opt(self):
         if pymolpro.Project('test').local_molpro_root:
             db = database.run(database.load('sample'), method='hf', basis='minao')
-            db_opt = database.run(db, method='hf', basis='minao', func='opt')
-            db_opt_test = database.run(db_opt, method='hf', basis='minao', func='energy')
+            db_opt = database.run(db, method='hf', basis='minao', job_type='OPT')
+            db_opt_test = database.run(db_opt, method='hf', basis='minao')
             # print('H2 db', db.project_directory, db.molecules['H2']['geometry'])
             # print('H2 db_opt', db_opt.project_directory, db_opt.molecules['H2']['geometry'])
             # print('H2 db_opt_test', db_opt_test.project_directory, db_opt_test.molecules['H2']['geometry'])
@@ -116,7 +116,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             # print(db)
             db2 = database.load(db.dump())
             # print(db2)
-            results = database.run(db2)
+            results = database.run(db2, basis='vtz')
             # print(results)
             self.assertAlmostEqual(results.molecule_energies['H2'], -1.13207566548333)
 
@@ -171,6 +171,7 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             self.assertFalse(result.failed)
             shutil.rmtree(result.project_directory)
 
+            print('try prologue small memory')
             result = database.run(db, method='hf', prologue='memory,1,k', basis='minao', check_energy=False)
             self.assertTrue(result.failed)
             self.assertEqual(len(result.failed), len(db.molecules))
