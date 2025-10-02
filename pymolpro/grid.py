@@ -63,6 +63,7 @@ def evaluateBasis(molecule, points):
     basisAtPoints = np.empty((0, len(points)), dtype=np.float64)
     nbasis = 0
     iatom = 0
+    Angstrom = 1.88972612462577
     for atom in atoms:
         nuclearCoordinates = [np.float64(atom.get('x3')) * Angstrom, np.float64(atom.get('y3')) * Angstrom,
                               np.float64(atom.get('z3')) * Angstrom]
@@ -147,7 +148,7 @@ def evaluateBasis(molecule, points):
     return basisAtPoints  # end basis evaluation
 
 
-def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False):
+def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False, directory=None):
     """
     Evaluate the molecular orbitals on a grid
 
@@ -158,6 +159,7 @@ def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False):
     :param values:
     :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
     """
+    from .orbital import Orbital
     basisAtPoints = evaluateBasis(molecule, points)  # evaluate the basis set at the nuclei
     orbitalSets = molecule.xpath('molpro-output:orbitals', namespaces=namespaces)
     if len(orbitalSets) != 1:
@@ -168,9 +170,11 @@ def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False):
     if ID:
         search += '[@ID="' + ID + '"]'
     for orbital in orbitalSets[0].xpath(search, namespaces=namespaces):
-        occ = np.float64(orbital.get('occupation'))
+        orb = Orbital(orbital, directory=directory)
+        if hasattr(orb, 'occupation'): occ = orb.occupation
         if occ >= minocc:
-            mos = np.array(re.sub(' +', ' ', orbital.text.lstrip().rstrip().replace('\n', '')).split(" "))
+            orb = Orbital(orbital, directory=directory)
+            mos = orb.coefficients
             mopoint = np.zeros(len(points), dtype=np.float64)
             for ic in range(len(basisAtPoints)):
                 for ipoint in range(len(points)):

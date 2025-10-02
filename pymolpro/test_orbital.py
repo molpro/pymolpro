@@ -1,4 +1,7 @@
 import unittest
+
+from ase.io.vasp_parsers.vasp_outcar_parsers import search_lines
+
 import pymolpro
 import math
 import numpy as np
@@ -157,6 +160,44 @@ class TestOrbital(unittest.TestCase):
             plt.loglog(scales, coulomberrors)
             plt.legend(['norm', 'second moment', 'lda', 'coulomb'])
             plt.show()
+
+    def test_evaluateOrbitals(self):
+        p = pymolpro.Project("evaluate_charge_density")
+        p.write_input('''
+        basis,cc-pVDZ
+        geometry={f;h,f,1.732}
+        set,sewprop=0
+        gexpec,delta,f
+        gexpec,delta,h
+        rhf
+        {casscf;closed,2;state,3;natorb,2251.2,state=1.1};!put,xml
+        {casscf;closed,2;state,3;natorb,2252.2,state=2.1};!put,xml
+        {casscf;closed,2;state,3;natorb,2253.2,state=3.1};!put,xml
+        ''')
+        # p.write_input('basis,vdz(p);set,sewprop=0;geometry={Ne;He,Ne,10};gexpec,delta,Ne;gexpec,delta,He;rhf;ks')
+        p.run(wait=True)
+        assert p.status == 'completed'
+        atoms = p.geometry()
+        points = [atom['xyz'] for atom in atoms]
+
+        results = []
+        for state in range(0,len(p.xpath('//orbitals'))+0):
+            orbitalsAtPoints = p.evaluateOrbitals(points, instance=state)
+            results.append([0.0 for point in points])
+            for orbital in orbitalsAtPoints:
+                for ipoint in range(len(orbital['values'])):
+                    results[-1][ipoint] += orbital['values'][ipoint] ** 2 * orbital['occ']
+
+            for atom in atoms:
+                search_ = '(//property[@name="DELTA(' + atom['elementType'].upper() + ')"])[' + str(state + 1) + ']'
+                # print('search_', search_, 'value', p.xpath_search(search_, 'value'))
+                value = float(p.xpath_search(search_, 'value')[0])
+                # print(state + 1, atom['elementType'], value)
+                # print(state + 1, atom['elementType'], results[state][atoms.index(atom)], value,
+                #       results[state][atoms.index(atom)] - value)
+
+                self.assertAlmostEqual(results[state][atoms.index(atom)], value, 4,
+                                       'Atom ' + atom['elementType'] + ', state ' + str(state + 1))
 
 
 if __name__ == '__main__':
