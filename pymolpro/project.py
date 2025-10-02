@@ -856,7 +856,7 @@ class Project(pysjef.project.Project):
                                          ID=ID, values=values)
         molecule = self.xpath('//*/molecule')[instance]
         import pymolpro.grid
-        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values)
+        return pymolpro.grid.evaluateOrbitals(molecule, points, minocc=minocc, ID=ID, values=values, directory=self.filename())
 
     def pairs(self, instance=-1):
         """

@@ -123,7 +123,8 @@ class Orbital:
         except:
           pass
         coefficients_text = self.node.text
-        if coefficients_text is not None and coefficients_text.strip() != '':
+        if coefficients_text is not None and coefficients_text.strip().replace('\n', '').strip() != '':
+            coefficients_text = coefficients_text.strip().replace('\n', '').strip()
             self.coefficients = coefficients_text.split()
             self.coefficients = np.array([float(c) for c in self.coefficients])
         elif self.attribute('sidecar_offset') not in (None, '') and directory is not None:
