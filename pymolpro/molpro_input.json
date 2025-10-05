@@ -73,7 +73,7 @@
       ]
     },
     "hamiltonian": {
-      "description": "The Hamiltonian to be used - Schrödinger all-electron, pseudopotential or scalar-relativistic.",
+      "description": "The Hamiltonian to be used - Schroedinger all-electron, pseudopotential or scalar-relativistic.",
       "default": "PP",
       "enum": [
         "AE",
@@ -219,7 +219,7 @@
     },
     "angstrom": {
       "type": "boolean",
-      "description": "Whether geometry is expressed in Ångstrom instead of Bohr."
+      "description": "Whether geometry is expressed in Angstrom instead of Bohr."
     },
     "orientation": {
       "description": "Weighting of geometry to define centroid and principal axes.",
