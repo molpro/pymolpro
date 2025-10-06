@@ -426,6 +426,11 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         # method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
         #     method[0] # TODO implement this for ansatz too
         _kwargs = {k:v for k,v in kwargs.items() if k not in ('func')}
+        if hasattr(db,'preamble') and not re.match('^(\n+;+ +)*$', db.preamble):
+            if 'prologue' in _kwargs:
+                _kwargs['prologue'] += '\n' + db.preamble
+            else:
+                _kwargs['prologue'] = db.preamble
         if 'preamble' in molecule and not re.match('^(\n+;+ +)*$', molecule['preamble']):
             if 'prologue' in _kwargs:
                 _kwargs['prologue'] += '\n' + molecule['preamble']
@@ -498,8 +503,12 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
                         "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
             if check:
                 print('got geometry', newdb.molecules[molecule_name]['geometry'])
-        newdb.method = newdb.projects[molecule_name].input_specification.with_defaults['method']
-        newdb.basis = newdb.projects[molecule_name].input_specification.with_defaults['basis']['default']
+        newdb.method = kwargs.get('method',newdb.projects[molecule_name].input_specification.with_defaults['method'])
+        if isinstance(newdb.method, list):
+            newdb.method = newdb.method[-1]
+        newdb.basis = kwargs.get('basis',newdb.projects[molecule_name].input_specification.with_defaults['basis']['default'])
+        if check:
+            print("after getting molecule_energies")
         newdb.specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
         if check:
             print("after getting molecule_energies")
@@ -691,7 +700,6 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
         import matplotlib.pyplot as plt
     except ModuleNotFoundError or ImportError:
         return None
-    fig, pane = plt.subplots(nrows=1, ncols=1, sharey=True, figsize=(6, 6))
     deviations = 'reaction energy deviations' if reactions else 'molecule energy deviations'
     if deviations not in analysis:
         return None
@@ -702,6 +710,7 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
     data = analysis[deviations][methods_pruned].to_numpy()
     if data.size == 0:
         return None
+    fig, pane = plt.subplots(nrows=1, ncols=1, sharey=True, figsize=(6, 6))
     pane.violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method='silverman')
     pane.set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
     pane.set_title(title if title else analysis['results'][-1]['basis'])
