@@ -159,8 +159,8 @@ class Project(pysjef.project.Project):
 
     """
 
-    def __init__(self, name: str = None, input: str | dict = None, specification: str | dict = None, ansatz: str = None,
-                 files: list[str] = None, **kwargs):
+    def __init__(self, name: str = None, input: str | dict | None = None, specification: str | dict | None = None, ansatz: str | None = None,
+                 files: list[str] | None = None, **kwargs):
         r"""
 
         :param name: The base filename of the filesystem bundle carrying the project. If the bundle does not yet exist, it is created.
