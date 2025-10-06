@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 1.15.8 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 1.16.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=5346e7aa"></script>
+      <script src="../_static/documentation_options.js?v=e2aa0a4e"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -61,7 +61,6 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molpro_variables.html">Extract results held in Molpro variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="monitor_geometry_optimisation.html">Monitor progress of geometry optimisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="orbital.html">Generation and use of an orbital-based grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_Bak2000_atomisations.html">Thermochemical benchmark: atomisation of closed shell molecules with core correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_Bak2000_reactions.html">Thermochemical Benchmark: closed shell reactions with core correlation</a></li>
@@ -115,14 +114,15 @@
 
 p = Project(&quot;evaluate_charge_density&quot;)
 p.write_input(&#39;&#39;&#39;
-basis,cc-pVQZ
+basis,cc-pVDZ
 geometry={f;h,f,1.732}
 set,sewprop=0
 gexpec,delta,f
 gexpec,delta,h
-{casscf;closed,2;state,3;natorb,2251.2,state=1.1};put,xml
-{casscf;closed,2;state,3;natorb,2252.2,state=2.1};put,xml
-{casscf;closed,2;state,3;natorb,2253.2,state=3.1};put,xml
+rhf
+{casscf;closed,2;state,3;natorb,2251.2,state=1.1}
+{casscf;closed,2;state,3;natorb,2252.2,state=2.1}
+{casscf;closed,2;state,3;natorb,2253.2,state=3.1}
 &#39;&#39;&#39;)
 p.run(wait=True)
 assert p.status == &#39;completed&#39;
@@ -166,9 +166,10 @@ print(&#39;Calculated densities at the nuclei\n&#39;, np.array(results))
 a1 F [0.0, 0.0, -0.08725992951335484]
 a2 H [0.0, 0.0, 1.644740070486644]
 Calculated densities at the nuclei
- [[4.40214461e+02 3.42402191e-01]
- [4.39554369e+02 2.14828887e-01]
- [4.42399757e+02 4.06209932e-01]]
+ [[4.28636637e+02 3.39348454e-01]
+ [4.29484632e+02 2.80599128e-01]
+ [4.28693250e+02 1.75420682e-01]
+ [4.31473378e+02 3.58104652e-01]]
 </pre></div></div>
 </div>
 </section>
@@ -180,9 +181,8 @@ Calculated densities at the nuclei
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for state in range(len(p.xpath(&#39;//orbitals&#39;))):
     for atom in atoms:
-        value = float(
-            p.xpath(&#39;//property[@name=&quot;DELTA(&#39; + atom[&#39;elementType&#39;] + &#39;)&quot; and @stateNumber=&quot;&#39; + str(state + 1) + &#39;&quot;]&#39;)[
-                0].xpath(&#39;@value&#39;)[0])
+        search_ = &#39;(//property[@name=&quot;DELTA(&#39; + atom[&#39;elementType&#39;].upper() + &#39;)&quot;])[&#39; + str(state + 1) + &#39;]&#39;
+        value = float(p.xpath_search(search_, &#39;value&#39;)[0])
         print(state+1, atom[&#39;elementType&#39;],results[state][atoms.index(atom)],value,results[state][atoms.index(atom)]-value)
 </pre></div>
 </div>
@@ -192,13 +192,23 @@ Calculated densities at the nuclei
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1 F 440.2144610686323 440.214461088477 -1.9844662801915547e-08
-1 H 0.34240219096060126 0.342402151500937 3.945966425833447e-08
-2 F 439.5543685301112 439.554369380541 -8.50429785259621e-07
-2 H 0.21482888674378783 0.2148289453077 -5.856391216418899e-08
-3 F 442.3997566224122 442.399756622169 2.432329893053975e-10
-3 H 0.4062099317051013 0.406209931733528 -2.842670543401482e-11
+1 F 428.636637409104 428.63664514377 -7.734665985026368e-06
+1 H 0.33934845419587656 0.339348457122595 -2.926718423168495e-09
+2 F 429.4846324205379 429.484605946402 2.647413589329517e-05
+2 H 0.2805991278930762 0.280599140980421 -1.308734481897389e-08
+3 F 428.693249783628 428.693250939239 -1.1556110166566214e-06
+3 H 0.17542068187713988 0.175420624927375 5.6949764876135234e-08
+4 F 431.4733780183073 431.473358358035 1.9660272300825454e-05
+4 H 0.35810465239098177 0.358104654722505 -2.3315232522413964e-09
 </pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </section>
 </section>

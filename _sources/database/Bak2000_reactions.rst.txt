@@ -41,6 +41,3 @@ Reactions
 | 12: F2 + H2 -> 2HF (12), energy = -0.21517047327109462
 | 13: 2CH2 -> C2H4 (13), energy = -0.32211011850205307
 
-Preamble
-^^^^^^^^
-angstrom

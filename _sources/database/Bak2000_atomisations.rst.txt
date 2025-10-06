@@ -49,6 +49,3 @@ Reactions
 | CH4: CH4 -> C + 4H (CH4), energy = 0.6700934075726814
 | C2H4: C2H4 -> 2C + 4H (C2H4), energy = 0.8988079695441819
 
-Preamble
-^^^^^^^^
-angstrom

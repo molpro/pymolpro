@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extract pair correlation energies &mdash; pymolpro 1.15.8 documentation</title>
+  <title>Extract pair correlation energies &mdash; pymolpro 1.16.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=5346e7aa"></script>
+      <script src="../_static/documentation_options.js?v=e2aa0a4e"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Thermochemical benchmark: atomisation of closed shell molecules with core correlation" href="thermochemical_benchmark_Bak2000_atomisations.html" />
-    <link rel="prev" title="Generation and use of an orbital-based grid" href="orbital.html" /> 
+    <link rel="prev" title="Monitor progress of geometry optimisation" href="monitor_geometry_optimisation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,7 +56,6 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molpro_variables.html">Extract results held in Molpro variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="monitor_geometry_optimisation.html">Monitor progress of geometry optimisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="orbital.html">Generation and use of an orbital-based grid</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Extract pair correlation energies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_Bak2000_atomisations.html">Thermochemical benchmark: atomisation of closed shell molecules with core correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_Bak2000_reactions.html">Thermochemical Benchmark: closed shell reactions with core correlation</a></li>
@@ -105,7 +104,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
 </pre></div>
 </div>
 </div>
@@ -113,7 +112,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>p=Project(&quot;pair_correlation_energies&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>p=Project(&quot;pair_correlation_energies&quot;)
 p.write_input(&quot;geometry={f;h,f,1.732};rhf;mp2;ccsd&quot;)
 p.run(wait=True)
 </pre></div>
@@ -123,7 +122,7 @@ p.run(wait=True)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>for method in [&quot;MP2&quot;, &quot;CCSD&quot;]:
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for method in [&quot;MP2&quot;, &quot;CCSD&quot;]:
     pair_energies=[float(s) for s in p.xpath(&#39;//jobstep[@command=&quot;&#39;+method+&#39;&quot;]/pair/@energy&#39;)]
     first_orbitals=p.xpath(&#39;//jobstep[@command=&quot;&#39;+method+&#39;&quot;]/pair/@orbital1&#39;)
     second_orbitals=p.xpath(&#39;//jobstep[@command=&quot;&#39;+method+&#39;&quot;]/pair/@orbital2&#39;)
@@ -145,7 +144,7 @@ CCSD -0.20679572000000007 -0.206795741784683 2.1784682918690734e-08
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>for method in [&quot;MP2&quot;, &quot;CCSD&quot;]:
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for method in [&quot;MP2&quot;, &quot;CCSD&quot;]:
     pair_energies=[float(s) for s in p.xpath(&#39;//jobstep[@command=&quot;&#39;+method+&#39;&quot;]/pair/@energy&#39;)]
     print(method)
     for i in range(len(pair_energies)):
@@ -230,7 +229,7 @@ CCSD
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -240,7 +239,7 @@ CCSD
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="orbital.html" class="btn btn-neutral float-left" title="Generation and use of an orbital-based grid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="monitor_geometry_optimisation.html" class="btn btn-neutral float-left" title="Monitor progress of geometry optimisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="thermochemical_benchmark_Bak2000_atomisations.html" class="btn btn-neutral float-right" title="Thermochemical benchmark: atomisation of closed shell molecules with core correlation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

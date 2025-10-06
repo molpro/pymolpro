@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.15.8 documentation</title>
+  <title>Thermochemical benchmark: atomisation of closed shell molecules with core correlation &mdash; pymolpro 1.16.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=5346e7aa"></script>
+      <script src="../_static/documentation_options.js?v=e2aa0a4e"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -56,7 +56,6 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molpro_variables.html">Extract results held in Molpro variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="monitor_geometry_optimisation.html">Monitor progress of geometry optimisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="orbital.html">Generation and use of an orbital-based grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pair_correlation_energies.html">Extract pair correlation energies</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Thermochemical benchmark: atomisation of closed shell molecules with core correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thermochemical_benchmark_Bak2000_reactions.html">Thermochemical Benchmark: closed shell reactions with core correlation</a></li>
@@ -124,11 +123,7 @@ parallel = None  # how many jobs to run at once
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = {&quot;HF&quot;: [&quot;hf&quot;, &quot;uhf&quot;],
-&quot;MP2&quot;: [&quot;mp2&quot;, &quot;ump2&quot;],
-# &quot;MP3&quot;: [&quot;mp3&quot;, &quot;ump3&quot;],
-# &quot;MP4&quot;: [&quot;mp4&quot;, &quot;ump4&quot;],
-&quot;CCSD&quot;: [&quot;ccsd&quot;, &quot;uccsd&quot;], &quot;CCSD(T)&quot;: [&quot;ccsd(t)&quot;, &quot;uccsd(t)&quot;], }
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = [&#39;UHF&#39;, &#39;UMP2&#39;, &#39;UCCSD&#39;, &#39;UCCSD(T)&#39; ]
 bases = [&#39;cc-pCVDZ&#39;, &#39;cc-pCVTZ&#39;, &#39;cc-pCVQZ&#39;, &#39;cc-pCV5Z&#39;]
 </pre></div>
 </div>
@@ -149,9 +144,9 @@ bases = [&#39;cc-pCVDZ&#39;, &#39;cc-pCVTZ&#39;, &#39;cc-pCVQZ&#39;, &#39;cc-pCV
 for method in methods:
     results[method] = {}
     for basis in bases:
-        results[method][basis] = pymolpro.database.run(db, methods[method], basis, location=project_name,
+        results[method][basis] = pymolpro.database.run(db, method=method, basis=basis, location=project_name,
                                                        backend=backend,
-                                                       preamble=&quot;core,small&quot;, parallel=parallel)
+                                                       core_correlation=&quot;small&quot;, parallel=parallel)
 </pre></div>
 </div>
 </div>
@@ -160,7 +155,7 @@ for method in methods:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for method in methods:
-    for result in pymolpro.database.basis_extrapolate(results[method].values(), results[&#39;HF&#39;].values()):
+    for result in pymolpro.database.basis_extrapolate(results[method].values(), results[&#39;UHF&#39;].values()):
         results[method][result.basis] = result
     for basis in results[method]:
         if basis not in bases: bases.append(basis)
@@ -168,7 +163,7 @@ for method in methods:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
@@ -182,7 +177,7 @@ method_errors
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -196,42 +191,21 @@ method_errors
         vertical-align: top;
     }
 
-    .dataframe thead tr th {
-        text-align: left;
+    .dataframe thead th {
+        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
-      <th>UHF</th>
-      <th>UMP2</th>
-      <th>UCCSD</th>
-      <th>UCCSD(T)</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>cc-pCV[45]Z</th>
-      <th>cc-pCV[45]Z</th>
-      <th>cc-pCV[45]Z</th>
-      <th>cc-pCV[45]Z</th>
+      <th>UHF/cc-pCV[45]Z</th>
+      <th>UMP2/cc-pCV[45]Z</th>
+      <th>UCCSD/cc-pCV[45]Z</th>
+      <th>UCCSD(T)/cc-pCV[45]Z</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>MSD</th>
-      <td>-405.05</td>
-      <td>30.04</td>
-      <td>-28.48</td>
-      <td>0.08</td>
-    </tr>
-    <tr>
-      <th>STDEVD</th>
-      <td>143.84</td>
-      <td>32.64</td>
-      <td>16.43</td>
-      <td>1.12</td>
-    </tr>
     <tr>
       <th>MAD</th>
       <td>405.05</td>
@@ -253,6 +227,20 @@ method_errors
       <td>32.62</td>
       <td>1.09</td>
     </tr>
+    <tr>
+      <th>MSD</th>
+      <td>-405.05</td>
+      <td>30.04</td>
+      <td>-28.48</td>
+      <td>0.08</td>
+    </tr>
+    <tr>
+      <th>STDEVD</th>
+      <td>143.84</td>
+      <td>32.64</td>
+      <td>16.43</td>
+      <td>1.12</td>
+    </tr>
   </tbody>
 </table>
 </div></div>
@@ -262,7 +250,7 @@ method_errors
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-basis_errors=pymolpro.database.analyse([results[&#39;CCSD(T)&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
+basis_errors=pymolpro.database.analyse([results[&#39;UCCSD(T)&#39;][basis] for basis in bases], db, &#39;kj/mol&#39;)[
     &#39;reaction statistics&#39;]
 with open(project_name + &#39;.basis_errors.tex&#39;, &#39;w&#39;) as tf:
     tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
@@ -286,48 +274,24 @@ basis_errors
         vertical-align: top;
     }
 
-    .dataframe thead tr th {
-        text-align: left;
+    .dataframe thead th {
+        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
-      <th colspan="7" halign="left">UCCSD(T)</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>cc-pCVDZ</th>
-      <th>cc-pCVTZ</th>
-      <th>cc-pCVQZ</th>
-      <th>cc-pCV5Z</th>
-      <th>cc-pCV[23]Z</th>
-      <th>cc-pCV[34]Z</th>
-      <th>cc-pCV[45]Z</th>
+      <th>UCCSD(T)/cc-pCVDZ</th>
+      <th>UCCSD(T)/cc-pCVTZ</th>
+      <th>UCCSD(T)/cc-pCVQZ</th>
+      <th>UCCSD(T)/cc-pCV5Z</th>
+      <th>UCCSD(T)/cc-pCV[23]Z</th>
+      <th>UCCSD(T)/cc-pCV[34]Z</th>
+      <th>UCCSD(T)/cc-pCV[45]Z</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>MSD</th>
-      <td>-103.07</td>
-      <td>-34.00</td>
-      <td>-13.46</td>
-      <td>-6.61</td>
-      <td>-14.66</td>
-      <td>-0.23</td>
-      <td>0.08</td>
-    </tr>
-    <tr>
-      <th>STDEVD</th>
-      <td>37.19</td>
-      <td>13.58</td>
-      <td>5.63</td>
-      <td>3.08</td>
-      <td>8.39</td>
-      <td>2.15</td>
-      <td>1.12</td>
-    </tr>
     <tr>
       <th>MAD</th>
       <td>103.07</td>
@@ -357,6 +321,26 @@ basis_errors
       <td>16.76</td>
       <td>2.10</td>
       <td>1.09</td>
+    </tr>
+    <tr>
+      <th>MSD</th>
+      <td>-103.07</td>
+      <td>-34.00</td>
+      <td>-13.46</td>
+      <td>-6.61</td>
+      <td>-14.66</td>
+      <td>-0.23</td>
+      <td>0.08</td>
+    </tr>
+    <tr>
+      <th>STDEVD</th>
+      <td>37.19</td>
+      <td>13.58</td>
+      <td>5.63</td>
+      <td>3.08</td>
+      <td>8.39</td>
+      <td>2.15</td>
+      <td>1.12</td>
     </tr>
   </tbody>
 </table>

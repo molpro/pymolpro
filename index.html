@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 1.15.8) &mdash; pymolpro 1.15.8 documentation</title>
+  <title>pymolpro (version 1.16.0) &mdash; pymolpro 1.16.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=5346e7aa"></script>
+      <script src="_static/documentation_options.js?v=e2aa0a4e"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -73,7 +73,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 1.15.8)</li>
+      <li class="breadcrumb-item active">pymolpro (version 1.16.0)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,7 +84,7 @@
            <div itemprop="articleBody">
              
   <section id="pymolpro-version-release">
-<h1>pymolpro (version 1.15.8)<a class="headerlink" href="#pymolpro-version-release" title="Link to this heading"></a></h1>
+<h1>pymolpro (version 1.16.0)<a class="headerlink" href="#pymolpro-version-release" title="Link to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -314,7 +314,6 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <li class="toctree-l2"><a class="reference internal" href="examples/geometry_optimisation.html">Optimise and view the structure of ammonia dimer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/molpro_variables.html">Extract results held in Molpro variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/monitor_geometry_optimisation.html">Monitor progress of geometry optimisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/orbital.html">Generation and use of an orbital-based grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/pair_correlation_energies.html">Extract pair correlation energies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/thermochemical_benchmark_Bak2000_atomisations.html">Thermochemical benchmark: atomisation of closed shell molecules with core correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/thermochemical_benchmark_Bak2000_reactions.html">Thermochemical Benchmark: closed shell reactions with core correlation</a></li>
@@ -326,7 +325,7 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <span id="json-schema-for-simplified-molpro-input"></span><h3>JSON schema for simplified Molpro input<a class="headerlink" href="#json-schema-for-simplified-molpro-input" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <tbody>
-<tr class="row-odd"><td colspan="5"><p><a class="reference external" href="https://www.molpro.net/molpro-input.json">https://www.molpro.net/molpro-input.json</a></p></td>
+<tr class="row-odd"><td colspan="5"><p><a class="reference external" href="https://www.molpro.net/schema/molpro_input.json">https://www.molpro.net/schema/molpro_input.json</a></p></td>
 </tr>
 <tr class="row-even"><td colspan="5"><p>Structured input for Molpro that covers the case of a single ansatz, with a given basis set at a given geometry. All fields are optional, with reasonable defaults, although at least geometry, method and basis will normally be specified</p></td>
 </tr>
@@ -436,7 +435,7 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <li><p>hamiltonian</p></li>
 </ul>
 </td>
-<td colspan="4"><p>The Hamiltonian to be used - Schrödinger all-electron, pseudopotential or scalar-relativistic.</p></td>
+<td colspan="4"><p>The Hamiltonian to be used - Schroedinger all-electron, pseudopotential or scalar-relativistic.</p></td>
 </tr>
 <tr class="row-even"><td><p>enum</p></td>
 <td colspan="3"><p>AE, PP, DK, DK3</p></td>
@@ -632,7 +631,7 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <li><p>angstrom</p></li>
 </ul>
 </td>
-<td colspan="4"><p>Whether geometry is expressed in Ångstrom instead of Bohr.</p></td>
+<td colspan="4"><p>Whether geometry is expressed in Angstrom instead of Bohr.</p></td>
 </tr>
 <tr class="row-odd"><td><p>type</p></td>
 <td colspan="3"><p><em>boolean</em></p></td>
