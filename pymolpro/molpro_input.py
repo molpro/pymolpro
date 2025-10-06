@@ -290,17 +290,19 @@ class InputSpecification(UserDict):
         return result
 
     def _ensure_orbital_method(self):
-        # print('enter ensure_orbital_method',self.get('method',''))
-        if 'method' not in self:
-            self['method'] = self.with_defaults['method']
-            return
-        methods = self['method'].split(';') if type(self['method']) is str else self['method']
+        """
+        Ensure that the 'method' field starts with a valid orbital method.
+        If not present, set to default. If invalid, prepend 'rhf' or 'uhf'.
+        """
+        if 'method' not in self or not self['method']:
+           self['method'] = self.with_defaults['method']
+           return
+        methods = self['method'].split(';') if isinstance(self['method'], str) else self['method']
         if not methods:
             self['method'] = self.with_defaults['method']
             return
-        if methods[0] not in ['hf', 'rhf', 'uhf', 'ks', 'rks', 'uks', 'avas']:
-            self['method'] = ['hf'] + methods
-        # print('exit ensure_orbital_method',self.get('method',''))
+        if methods[0].lower() not in ['hf', 'rhf', 'uhf', 'ks', 'rks', 'uks', 'avas']:
+            self['method'] = ['hf' if methods[0].lower()[0] != 'u' else 'uhf'] + methods
 
     @property
     def job_steps(self):
