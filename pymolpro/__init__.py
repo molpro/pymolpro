@@ -13,7 +13,7 @@ from .registry import local_molpro_root, allowed_methods, basis_registry, regist
 __all__ = ['Project', 'Orbital', 'Pair', 'Single', 'Tuple', 'no_errors', 'element_to_dict', 'Database', 'xyz_to_zmat', 'ASEMolpro']
 
 Settings.set('project_default_suffix', 'molpro')
-pysjef.project_factory.PROJECT_FACTORY["molpro"] = project.Project
+pysjef.project_factory.PROJECT_FACTORY["molpro"] = Project
 
 RootXml.TAG_TO_NAME['molpro'] = node_xml.tag_to_name
 RootXml.SPECIAL_NODES['molpro'] = {'property': node_xml.PropertyXml,
