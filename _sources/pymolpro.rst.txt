@@ -10,6 +10,7 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 Submodules
 ----------
@@ -22,6 +23,7 @@ pymolpro.molpro_input module
    :undoc-members:
    :show-inheritance:
    :inherited-members:
+   :special-members: __init__
 
 
 pymolpro.database module
@@ -31,6 +33,7 @@ pymolpro.database module
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 pymolpro.grid module
 -------------------------
@@ -39,6 +42,7 @@ pymolpro.grid module
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 pymolpro.node\_xml module
 -------------------------

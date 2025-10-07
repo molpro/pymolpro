@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro &mdash; pymolpro 1.16.1 documentation</title>
+  <title>pymolpro &mdash; pymolpro 1.16.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=46d28e57"></script>
+      <script src="_static/documentation_options.js?v=712a043d"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pymolpro package" href="pymolpro.html" />
-    <link rel="prev" title="pymolpro (version 1.16.1)" href="index.html" /> 
+    <link rel="prev" title="pymolpro (version 1.16.2)" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -95,12 +95,14 @@
 <li class="toctree-l2"><a class="reference internal" href="pymolpro.html#module-contents">Module contents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#json-schema-for-simplified-molpro-input">JSON schema for simplified Molpro input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro"><code class="docutils literal notranslate"><span class="pre">ASEMolpro</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro.__init__"><code class="docutils literal notranslate"><span class="pre">ASEMolpro.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro.calculate"><code class="docutils literal notranslate"><span class="pre">ASEMolpro.calculate()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro.clean"><code class="docutils literal notranslate"><span class="pre">ASEMolpro.clean()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro.implemented_properties"><code class="docutils literal notranslate"><span class="pre">ASEMolpro.implemented_properties</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Database.__init__"><code class="docutils literal notranslate"><span class="pre">Database.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Database.add_molecule"><code class="docutils literal notranslate"><span class="pre">Database.add_molecule()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Database.add_reaction"><code class="docutils literal notranslate"><span class="pre">Database.add_reaction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Database.add_reference"><code class="docutils literal notranslate"><span class="pre">Database.add_reference()</span></code></a></li>
@@ -128,6 +130,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.Orbital"><code class="docutils literal notranslate"><span class="pre">Orbital</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Orbital.ID"><code class="docutils literal notranslate"><span class="pre">Orbital.ID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Orbital.__init__"><code class="docutils literal notranslate"><span class="pre">Orbital.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Orbital.attribute"><code class="docutils literal notranslate"><span class="pre">Orbital.attribute()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Orbital.axes"><code class="docutils literal notranslate"><span class="pre">Orbital.axes</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Orbital.centroid"><code class="docutils literal notranslate"><span class="pre">Orbital.centroid</span></code></a></li>
@@ -146,6 +149,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Project.__init__"><code class="docutils literal notranslate"><span class="pre">Project.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Project.ansatz"><code class="docutils literal notranslate"><span class="pre">Project.ansatz</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Project.basis_registry"><code class="docutils literal notranslate"><span class="pre">Project.basis_registry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Project.builtins"><code class="docutils literal notranslate"><span class="pre">Project.builtins</span></code></a></li>
@@ -183,6 +187,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.Single"><code class="docutils literal notranslate"><span class="pre">Single</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.Tuple"><code class="docutils literal notranslate"><span class="pre">Tuple</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Tuple.__init__"><code class="docutils literal notranslate"><span class="pre">Tuple.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Tuple.energy"><code class="docutils literal notranslate"><span class="pre">Tuple.energy</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Tuple.orbitals"><code class="docutils literal notranslate"><span class="pre">Tuple.orbitals</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.Tuple.spins"><code class="docutils literal notranslate"><span class="pre">Tuple.spins</span></code></a></li>
@@ -196,6 +201,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pymolpro.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pymolpro.html#module-pymolpro.molpro_input">pymolpro.molpro_input module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification"><code class="docutils literal notranslate"><span class="pre">InputSpecification</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.__init__"><code class="docutils literal notranslate"><span class="pre">InputSpecification.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.ansatz"><code class="docutils literal notranslate"><span class="pre">InputSpecification.ansatz</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.basis_hamiltonian"><code class="docutils literal notranslate"><span class="pre">InputSpecification.basis_hamiltonian</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.basis_quality"><code class="docutils literal notranslate"><span class="pre">InputSpecification.basis_quality</span></code></a></li>
@@ -231,6 +237,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.JobStep"><code class="docutils literal notranslate"><span class="pre">JobStep</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.JobStep.__init__"><code class="docutils literal notranslate"><span class="pre">JobStep.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.JobStep.command"><code class="docutils literal notranslate"><span class="pre">JobStep.command</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.JobStep.directives"><code class="docutils literal notranslate"><span class="pre">JobStep.directives</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.JobStep.dump"><code class="docutils literal notranslate"><span class="pre">JobStep.dump()</span></code></a></li>
@@ -251,6 +258,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pymolpro.html#module-pymolpro.database">pymolpro.database module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.database.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.database.Database.__init__"><code class="docutils literal notranslate"><span class="pre">Database.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.database.Database.add_molecule"><code class="docutils literal notranslate"><span class="pre">Database.add_molecule()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.database.Database.add_reaction"><code class="docutils literal notranslate"><span class="pre">Database.add_reaction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.database.Database.add_reference"><code class="docutils literal notranslate"><span class="pre">Database.add_reference()</span></code></a></li>
@@ -331,7 +339,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="pymolpro (version 1.16.1)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="pymolpro (version 1.16.2)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pymolpro.html" class="btn btn-neutral float-right" title="pymolpro package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

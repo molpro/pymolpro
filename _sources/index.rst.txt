@@ -16,8 +16,8 @@ The project is stored as a bundle implemented as a directory in the file system.
 The class is a Python binding of the
 `sjef <https://molpro.github.io/sjef/>`_ library with additional Molpro-specific customisation,
 and the project bundle can be accessed
-also through a command-line interface and the `gmolpro <https://www.molpro.net/manual/doku.php?id=gmolpro_graphical_user_interface>`_
-graphical user interface.
+also through a command-line interface and the `gmolpro <https://www.molpro.net/manual/doku.php?id=gmolpro_graphical_user_interface>`_ and `iMolpro <https://github.com/molpro/iMolpro>`_
+graphical user interfaces.
 
 Normally all that is required to instantiate a class, on either a new or existing bundle,
 is to pass a single argument which is the path of the bundle, with or without the compulsory
