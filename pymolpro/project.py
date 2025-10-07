@@ -184,8 +184,11 @@ class Project(pysjef.project.Project):
             try:
                 kwargs_ = {k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema + ['suffix']}
                 if not name:
+                    from pysjef import __version__ as pysjef_version
+                    from packaging.version import Version
                     _name = self._anonymous_name(input, specification, ansatz, **kwargs)
-                    kwargs_['record_as_recent'] = False
+                    if Version(pysjef_version) >= Version("1.42.1"):
+                        kwargs_['record_as_recent'] = False
                     kwargs_['location'] = (pathlib.Path(tempfile.gettempdir()) / 'pymolpro_projects').as_posix()
                     os.makedirs(kwargs_['location'], exist_ok=True)
                     atexit.register(self._unconditionally_destroy)

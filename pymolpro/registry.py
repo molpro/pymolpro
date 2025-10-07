@@ -1,40 +1,22 @@
-import atexit
-import shutil
-import tempfile
 import pathlib
 
-from pysjef import __version__ as pysjef_version
-from packaging.version import Version
-
 _registry_project = None
-_registry_project_directory = None
 
 
-def ensure_registry_project():
+def _ensure_registry_project():
     from .project import Project
     global _registry_project
-    global _registry_project_directory
     if _registry_project is None:
-        _registry_project_directory = tempfile.mkdtemp()
+        _registry_project = Project()
 
-        if Version(pysjef_version) < Version("1.42.1"):
-            _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix())
-        else:
-            _registry_project = Project((pathlib.Path(_registry_project_directory) / 'registry_project').as_posix(), record_as_recent=False)
-        atexit.register(_registry_project_delete)
 
-def _registry_project_delete():
-    _registry_project.erase()
-    shutil.rmtree(_registry_project_directory, ignore_errors=True)
-
-def local_molpro_root():
+def local_molpro_root() -> pathlib.Path:
     r"""
     Get the directory of the Molpro installation in the local backend
 
     :return: directory
-    :rtype: pathlib.Path
     """
-    ensure_registry_project()
+    _ensure_registry_project()
     return _registry_project.local_molpro_root
 
 
@@ -45,7 +27,7 @@ def procedures_registry():
     :return:
     :rtype: dict
     """
-    ensure_registry_project()
+    _ensure_registry_project()
     return _registry_project.procedures_registry()
 
 
@@ -56,7 +38,7 @@ def basis_registry():
     :return:
     :rtype: dict
     """
-    ensure_registry_project()
+    _ensure_registry_project()
     return _registry_project.basis_registry()
 
 
@@ -67,7 +49,7 @@ def registry(set=None):
     :param set: If present, obtain as a dictionary the specified registry set. If absent, obtain a list of all sets
     :return:
     """
-    ensure_registry_project()
+    _ensure_registry_project()
     return _registry_project.registry(set)
 
 
