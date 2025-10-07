@@ -6,6 +6,11 @@ import json
 import os.path
 import re
 
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 __all__ = ['Database', 'load', 'run', 'analyse', 'basis_extrapolate', 'units']
 
 
@@ -451,7 +456,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
                 "pymolpro project " + molecule_name + " in directory " + newdb.project_directory + " cannot be opened and might be corrupt")
     if check:
         for k, p in newdb.projects.items():
-            print("Project", k, "status:", p.status)
+            logger.info("Project %s status: %s", k, p.status)
     else:
         with Pool(processes=__parallel) as pool:
             pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
@@ -459,25 +464,11 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     newdb.failed = {}
     for molecule in db.molecules:
         project = newdb.projects[molecule]
-        if check:
-            print("checking for failure of", molecule, project.filename())
-        if check:
-            print("status", project.status)
-        if check:
-            print("no_errors", pymolpro.no_errors([project]))
         if project.status != 'completed' or not pymolpro.no_errors([project]):
-            if check:
-                print("failed")
+            logger.warning("Runtime failure of %s %s; status=%s, no_errors=%s", molecule, project.filename(),project.status,pymolpro.no_errors([project]))
             newdb.failed[molecule] = project
-        else:
-            if check:
-                print("not failed")
-    if check:
-        print("after storing failed")
 
     newdb.molecule_energies = {}
-    if check:
-        print('constructing newdb and getting run results')
     for molecule_name in db.molecules:
         try:
             newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
@@ -502,18 +493,12 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
                     raise ValueError(
                         "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
             if check:
-                print('got geometry', newdb.molecules[molecule_name]['geometry'])
+                logger.info('got geometry: %s', newdb.molecules[molecule_name]['geometry'])
         newdb.method = kwargs.get('method',newdb.projects[molecule_name].input_specification.with_defaults['method'])
         if isinstance(newdb.method, list):
             newdb.method = newdb.method[-1]
         newdb.basis = kwargs.get('basis',newdb.projects[molecule_name].input_specification.with_defaults['basis']['default'])
-        if check:
-            print("after getting molecule_energies")
         newdb.input_specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
-        if check:
-            print("after getting molecule_energies")
-    if check:
-        print("after getting molecule_energies")
     newdb.calculate_reaction_energies(check)
     if clean:
         newdb.projects = {}
@@ -687,7 +672,6 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
     :param str title:
     :return:
     """
-    # print("analysis keys",analysis.keys())
     if reference_method:
         ref_meth = reference_method
     else:
