@@ -49,7 +49,7 @@ class Database:
         self.description = description
         self.method = None  #: A string specifying the ansatz used to compute the energies.
         self.basis = None  #: A string specifying the orbital basis-set used to compute the energies.
-        self.input_specifcation = None #: A string containing JSON describing the Molpro input used to construct the energies
+        self.input_specification = None #: A string containing JSON describing the Molpro input used to construct the energies
         self.project_directory = None  #: A string giving the path of the directory where support files generated in calculating energies can be found.
         self.projects = {}  #: A dictionary with molecule handles pointing to filesystem project bundles for each Molpro job that has been run.
         self.failed = {}  #: Subset of :py:data:`projects` corresponding to jobs that did not complete successfully.
@@ -509,7 +509,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         newdb.basis = kwargs.get('basis',newdb.projects[molecule_name].input_specification.with_defaults['basis']['default'])
         if check:
             print("after getting molecule_energies")
-        newdb.specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
+        newdb.input_specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
         if check:
             print("after getting molecule_energies")
     if check:
