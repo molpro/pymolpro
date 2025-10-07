@@ -19,10 +19,10 @@ and the project bundle can be accessed
 also through a command-line interface and the `gmolpro <https://www.molpro.net/manual/doku.php?id=gmolpro_graphical_user_interface>`_
 graphical user interface.
 
-For technical reasons, :py:meth:`Project` invokes the submodular class :py:meth:`pymolpro.project.Project`.
 Normally all that is required to instantiate a class, on either a new or existing bundle,
 is to pass a single argument which is the path of the bundle, with or without the compulsory
 suffix `.molpro`.
+If the project name is omitted, a temporary project is created in the system's temporary directory.
 Simply running Molpro and inspecting the output can be achieved as::
 
   from pymolpro import Project
