@@ -168,7 +168,7 @@ class Project(pysjef.project.Project):
         r"""
 
         :param name: The base filename of the filesystem bundle carrying the project. If the bundle does not yet exist, it is created.
-        :param input:General specification of the input. If it looks like JSON or is a dictionary, it is treated as if it had been passed as the specification parameter. If it has the form method/basis or method/basis//geometry_method/geometry_basis, it is treated as if it had been passed as the ansatz parameter. Otherwise, it is treated as the desired contents of the Molpro input file. If input is specified, all other arguments are ignored.
+        :param input: General specification of the input. If it looks like JSON or is a dictionary, it is treated as if it had been passed as the specification parameter. If it has the form method/basis or method/basis//geometry_method/geometry_basis, it is treated as if it had been passed as the ansatz parameter. Otherwise, it is treated as the desired contents of the Molpro input file. If input is specified, all other arguments are ignored.
         :param specification: Either a dictionary or a JSON string conforming to the JSON schema https://www.molpro.net/schema/molpro_input.json
         :param ansatz: A string of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
         :param files: External files to be copied into the project directory. If one of these is a molpro-output xml file, it is used to construct the input file.
