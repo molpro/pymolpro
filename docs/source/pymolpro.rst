@@ -4,6 +4,8 @@ pymolpro package
 Module contents
 ---------------
 
+.. jsonschema:: molpro_input.json
+
 .. automodule:: pymolpro
    :members:
    :undoc-members:
@@ -12,17 +14,18 @@ Module contents
 Submodules
 ----------
 
-pymolpro.project module
------------------------
+pymolpro.molpro_input module
+----------------------------
 
-.. automodule:: pymolpro.project
+.. automodule:: pymolpro.molpro_input
    :members:
    :undoc-members:
    :show-inheritance:
    :inherited-members:
 
+
 pymolpro.database module
--------------------------
+------------------------
 
 .. automodule:: pymolpro.database
    :members:
