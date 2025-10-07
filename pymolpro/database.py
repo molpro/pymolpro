@@ -385,8 +385,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     :param Database db:  The database that defines molecules and reactions.
     :param str method: The computational method for constructed input. Anything accepted as Molpro input, including parameters and directives, can be given.  If the method needs a preceding Hartree-Fock calculation, this is prepended automatically.
     :param str basis: The orbital basis set for constructed input. Anything that can appear after `basis=` in Molpro input is accepted.
-    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the
-    method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
+    :param str ansatz: String of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
     :param specification: A JSON string, or a dict, giving the method used to compute the energies in the database, conforming to the JSON schema https://www.molpro.net/schema/molpro_input.json.
     :param str func: This should be one of
 

@@ -1,9 +1,11 @@
+import atexit
 import copy
 
 import math
 import os
 import pwd
 import pathlib
+import tempfile
 
 import pysjef
 import subprocess
@@ -11,6 +13,8 @@ import re
 import json
 import numpy as np
 import shutil
+
+from pandas.core.window.doc import kwargs_scipy
 from scipy.special import factorial2
 import inspect
 
@@ -178,9 +182,20 @@ class Project(pysjef.project.Project):
         #                             k not in possible_arguments_matching_schema + ['suffix']})
         if not hasattr(self, '__initialized'):
             try:
-                super().__init__(name=name, suffix='molpro',
-                                 **{k: v for k, v in kwargs.items() if
-                                    k not in possible_arguments_matching_schema + ['suffix']})
+                kwargs_ = {k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema + ['suffix']}
+                if not name:
+                    from pysjef import __version__ as pysjef_version
+                    from packaging.version import Version
+                    _name = self._anonymous_name(input, specification, ansatz, **kwargs)
+                    if Version(pysjef_version) >= Version("1.42.1"):
+                        kwargs_['record_as_recent'] = False
+                    kwargs_['location'] = (pathlib.Path(tempfile.gettempdir()) / 'pymolpro_projects').as_posix()
+                    os.makedirs(kwargs_['location'], exist_ok=True)
+                    atexit.register(self._unconditionally_destroy)
+                else:
+                    _name = name
+
+                super().__init__(name=_name, suffix='molpro', **kwargs_)
                 self.__initialized = True
             except Exception:
                 raise FileNotFoundError("Cannot open project " + name)
@@ -212,6 +227,14 @@ class Project(pysjef.project.Project):
                             self.run_directory_new()
                             rundir = True
                         shutil.copyfile(file, pathlib.Path(self.filename('')) / path.name)
+
+    def _unconditionally_destroy(self):
+        try:
+            self.erase()
+            shutil.rmtree(self.filename(), ignore_errors=True)
+        except:
+            pass
+
 
     def input(self, input: str | dict = None, specification: str | dict = None, ansatz: str = None, **kwargs):
         r"""
@@ -1157,3 +1180,11 @@ class Project(pysjef.project.Project):
             result['energies']) @ np.diag(result['real_zero_imag']) @ np.diag(
             result['energies']) @ mass_weighted_normal_coordinates @ sqrt_mass_matrix
         return result
+
+    def _anonymous_name(self, input: str | dict | None = None, specification: str | dict | None = None,
+                        ansatz: str = None, **kwargs) -> str:
+        import hashlib
+        project_name = hashlib.sha256((str(input) + str(specification) + str(ansatz) +
+                                       str(tuple(sorted(kwargs.items())))).encode(
+            'utf-8')).hexdigest()[-8:]
+        return project_name
