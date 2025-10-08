@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.16.4 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.16.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=1edb10e9"></script>
+      <script src="_static/documentation_options.js?v=baa394f0"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -1219,6 +1219,8 @@ This class provides additional convenience operations:</p>
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">InputSpecification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specification</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserDict</span></code></p>
+<p>A declarative specification of a Molpro input. Almost any simple input - no loops or logic - that requests a single quantum-mechanical method, possibly with geometry optimisation using a different method, can be represented. The class can be instantiated from a procedural Molpro input, or from a JSON string or dictionary.    If both an input and a specification are provided, the specification is ignored.</p>
+<p>The class is a dictionary with some extra methods, with all the data contained in the dictionary, which is constrained to conform with the molpro_input JSON schema, <a class="reference external" href="https://www.molpro.net/schema/molpro_input.json">https://www.molpro.net/schema/molpro_input.json</a> .</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specification</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.__init__" title="Link to this definition"></a></dt>
@@ -1282,11 +1284,6 @@ This class provides additional convenience operations:</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">D[k]</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">in</span> <span class="pre">D,</span> <span class="pre">else</span> <span class="pre">d.</span>&#160; <span class="pre">d</span> <span class="pre">defaults</span> <span class="pre">to</span> <span class="pre">None.</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.get" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.hartree_fock_methods">
-<span class="sig-name descname"><span class="pre">hartree_fock_methods</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['RHF',</span> <span class="pre">'RKS',</span> <span class="pre">'UHF',</span> <span class="pre">'UKS',</span> <span class="pre">'LDF-RHF',</span> <span class="pre">'LDF-UHF']</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.hartree_fock_methods" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1454,20 +1451,20 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.hamiltonians">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">hamiltonians</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.hamiltonians" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">hamiltonians</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pymolpro.molpro_input.hamiltonians" title="Link to this definition"></a></dt>
+<dd><p>Returns a dictionary containing the supported hamiltonians.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.job_types">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">job_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.job_types" title="Link to this definition"></a></dt>
-<dd><p>Return the supported job types.
-rtype: dict</p>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">job_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.job_types" title="Link to this definition"></a></dt>
+<dd><p>Return the supported job types.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.local_orbital_types">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">local_orbital_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.local_orbital_types" title="Link to this definition"></a></dt>
-<dd><p>Return the supported local orbital types.</p>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">local_orbital_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pymolpro.molpro_input.local_orbital_types" title="Link to this definition"></a></dt>
+<dd><p>Return a dictionary containing the supported local orbital types.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1477,7 +1474,7 @@ rtype: dict</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.procedures_registry">
-<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">procedures_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.procedures_registry" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">procedures_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.procedures_registry" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary with procedure names as keys and procedures as values.</p>
 </dd></dl>
 
