@@ -30,10 +30,11 @@ extensions = [
     'sphinx.ext.autodoc',
     'nbsphinx',
     'sphinx-jsonschema',
+    'IPython.sphinxext.ipython_console_highlighting',
 ]
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['_build', '**.ipynb_checkpoints']
 
 variables_to_export = ["release"]
 __frozen_locals = dict(locals())

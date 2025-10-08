@@ -1,4 +1,5 @@
 #!env python
+from __future__ import annotations
 import logging
 from pymolpro.defbas import periodic_table
 import os
@@ -116,8 +117,6 @@ _supported_methods = None
 _procedures_registry = None
 
 
-
-
 def supported_methods():
     r"""
     Returns a list of supported methods.
@@ -133,6 +132,7 @@ def supported_methods():
             _supported_methods.append(_procedures_registry[keyfound]['name'])
 
     return _supported_methods
+
 
 def procedures_registry():
     r"""
@@ -246,7 +246,8 @@ class InputSpecification(UserDict):
     hartree_fock_methods = ['RHF', 'RKS', 'UHF', 'UKS', 'LDF-RHF', 'LDF-UHF']
 
     @classmethod
-    def default_instance(cls):
+    def default_instance(cls) -> 'InputSpecification':
+        """Factory method for creating a default instance generated from the schema."""
         self = cls()
         for k, v in schema['properties'].items():
             if 'default' in v:
@@ -259,7 +260,8 @@ class InputSpecification(UserDict):
         return self
 
     @property
-    def with_defaults(self):
+    def with_defaults(self) -> InputSpecification:
+        """A copy of this specification with all defaults filled in from the schema."""
         result = self.default_instance()
         for k, v in self.items():
             if k in result and type(result[k]) is str and type(v) is list and len(v) == 1:
@@ -271,13 +273,14 @@ class InputSpecification(UserDict):
                 result[k] = v
         if 'spin' not in self:
             result['spin'] = (self.open_shell_electrons) % 2 - 2
-        for key in ['method','basis']:
-            if 'geometry_'+key not in result and key in result:
-                result['geometry_'+key] = result[key]
+        for key in ['method', 'basis']:
+            if 'geometry_' + key not in result and key in result:
+                result['geometry_' + key] = result[key]
         return result
 
     @property
-    def without_defaults(self):
+    def without_defaults(self) -> InputSpecification:
+        """A copy of this specification with any values equal to the schema default removed."""
         result = type(self)()
         di = self.default_instance()
         for k, v in self.items():
@@ -295,8 +298,8 @@ class InputSpecification(UserDict):
         If not present, set to default. If invalid, prepend 'rhf' or 'uhf'.
         """
         if 'method' not in self or not self['method']:
-           self['method'] = self.with_defaults['method']
-           return
+            self['method'] = self.with_defaults['method']
+            return
         methods = self['method'].split(';') if isinstance(self['method'], str) else self['method']
         if not methods:
             self['method'] = self.with_defaults['method']
@@ -305,7 +308,7 @@ class InputSpecification(UserDict):
             self['method'] = ['hf' if methods[0].lower()[0] != 'u' else 'uhf'] + methods
 
     @property
-    def job_steps(self):
+    def job_steps(self) -> list[JobStep]:
         r"""
         Returns the job steps in this input
         """
@@ -334,7 +337,14 @@ class InputSpecification(UserDict):
             else:
                 self['job_type_commands'].append(job_step.dump(braces=False))
 
-    def __init__(self, input=None, allowed_methods=[], debug=False, specification=None, directory=None):
+    def __init__(self, input:str=None, allowed_methods:list[str]=[], debug:bool=False, specification:dict=None, directory:str=None):
+        """
+
+        :param input: Either a text string or a file name containing Molpro procedural input.
+        :param allowed_methods: A list of allowed methods to be appended to the defaults.
+        :param specification: Initial data to be included in the specification.
+        :param directory: The directory where any auxiliary files are located. If not specified, the current working directory will be used.
+        """
         super(InputSpecification, self).__init__()
         self.allowed_methods = list(set(allowed_methods).union(set(supported_methods())))
         self.directory = directory
@@ -352,12 +362,12 @@ class InputSpecification(UserDict):
             self._ensure_orbital_method()
             # print('InputSpecification() input=',input,'specification=',specification, '_specification=',_specification)
         if input is not None:
-            self.parse(input)
+            # self.parse(input, debug=debug)
             try:
-                self.parse(input)
+                self.parse(input, debug=debug)
             except Exception as e:
                 print('Warning: InputSpecification.parse() has thrown an exception', e,
-                      '\nPlease report, with a copy of the input, at https://github.com/molpro/iMolpro/issues/new')
+                      '\nIf unexpected, please report, with a copy of the input, at https://github.com/molpro/iMolpro/issues/new')
                 self.clear()
         if False and self.data:
             for field in ['hamiltonian']:
@@ -365,11 +375,13 @@ class InputSpecification(UserDict):
                     self[field] = self.with_defaults[field]
 
     def validate(self):
+        """ Validate the specification according to the schema."""
         jsonschema.validate(instance=json.loads(json.dumps(dict(self))), schema=schema)
         pass
 
     @property
     def ansatz(self) -> str:
+        """A string of the form method/basis, or method/basis//geometry_method/geometry_basis summarising the ansatz where possible, otherwise an empty string."""
         _method = self.with_defaults['method']
         _basis = self.with_defaults['basis']['default']
         if 'elements' in self.with_defaults['basis']:
@@ -397,13 +409,11 @@ class InputSpecification(UserDict):
             result += '//' + _geometry_method.upper() + '/' + _geometry_basis
         return result
 
-    def parse(self, input: str, debug=False):
+    def parse(self, input: str, debug=False) -> 'InputSpecification':
         r"""
-        Take a molpro input, and logically parse it
+        Take a procedural molpro input, and logically parse it. If it is impossible to do so, an empty specification is returned.
 
         :param input: Either text that is the input, or a file name containing it.
-        :return:
-        :rtype: InputSpecification
         """
         if (os.path.isfile(input) and os.access(input, os.R_OK)):
             with open(input, 'r') as f:
@@ -685,12 +695,9 @@ class InputSpecification(UserDict):
     #                                'proc' not in option] if 'options' in step else []
     #             step['options'].append('proc=' + self.procname)
 
-    def molpro_input(self):
+    def molpro_input(self) -> str:
         r"""
-        Create a Molpro input from a declarative specification
-        :param self:
-        :return:
-        :rtype: str
+        Create the procedural Molpro input from the declarative specification
         """
         _input = ''
         defaulted_spec = self.with_defaults
@@ -722,12 +729,12 @@ class InputSpecification(UserDict):
         _job_type = defaulted_spec['job_type']
         if _job_type[:3] == 'OPT':
             if 'geometry_basis' in self:
-                _input += self.input_from_basis(self['geometry_basis'])
+                _input += self._input_from_basis(self['geometry_basis'])
             elif 'basis' in self:
-                _input += self.input_from_basis(self['basis'])
+                _input += self._input_from_basis(self['basis'])
         else:
             if 'basis' in self:
-                _input += self.input_from_basis(self['basis'])
+                _input += self._input_from_basis(self['basis'])
 
         if 'hamiltonian' in self and self['hamiltonian'][:2] == 'DK':
             _input += 'dkho=' + self['hamiltonian'][2] if len(self['hamiltonian']) > 2 else '1' + '\n'
@@ -762,7 +769,7 @@ class InputSpecification(UserDict):
         if len(_job_type_commands) > 0:
             _input += '\nproc ' + self.procname + '\n'
         _method = self.with_defaults['geometry_method'] if 'geometry_method' in self else self.with_defaults['method']
-        _input += self.input_from_method(_method)
+        _input += self._input_from_method(_method)
 
         if len(_job_type_commands) > 0:
             _input += 'endproc\n\n'
@@ -782,8 +789,8 @@ class InputSpecification(UserDict):
         ):
             if 'geometry_basis' in self and 'basis' in self and self.with_defaults['geometry_basis'] != \
                     self.with_defaults['basis']:
-                _input += self.input_from_basis(self['basis'])
-            _input += self.input_from_method(self.with_defaults['method'])
+                _input += self._input_from_basis(self['basis'])
+            _input += self._input_from_method(self.with_defaults['method'])
 
         if 'extrapolate' in self:
             _input += 'extrapolate,' + self['extrapolate'] + '\n'
@@ -801,7 +808,7 @@ class InputSpecification(UserDict):
                 _input += self['epilogue'] + '\n'
         return _input.rstrip('\n') + '\n'
 
-    def input_from_basis(self, basis):
+    def _input_from_basis(self, basis) -> str:
         _input = 'basis=' + basis['default']
         if 'elements' in basis:
             for e, b in basis['elements'].items():
@@ -809,7 +816,7 @@ class InputSpecification(UserDict):
         _input += '\n'
         return _input
 
-    def input_from_method(self, method) -> str:
+    def _input_from_method(self, method) -> str:
         _input = ''
         if type(method) is str:
             method = [method]
@@ -858,60 +865,32 @@ class InputSpecification(UserDict):
         self['steps'] = new_steps
 
     @property
-    def method(self):
+    def method(self) -> str:
         r"""
-        Evaluate the single method implemented by the job
-        :return: If the input implements a single method, its command name. Otherwise, None
-        :rtype: str
+        The single method implemented by the job, represented as the Molpro input command name that implements it.
         """
         methods = []
         defaulted_spec = self.with_defaults
         if 'method' in defaulted_spec:
             methods = defaulted_spec['method']
-        # if 'steps' in self:
-        #     for i in range(len(self['steps'])):
-        #         command = self['steps'][i]['command'].lower()
-        #         if command not in [s['command'].lower() for t in _default_job_type_commands.values() for s in t]:
-        #             methods.append(command)
-        #             if command not in [m.lower() for m in self.hartree_fock_methods] and methods[0] in [m.lower() for m
-        #                                                                                                 in
-        #                                                                                                 self.hartree_fock_methods]:
-        #                 del methods[0]
         if type(methods) is str:
             return methods.replace('\n', ';').split(';')[0].split(',')[0]
         else:
             return methods[-1].replace('\n', ';').split(';')[0].split(',')[0]
 
     @method.setter
-    def method(self, method):
-        r"""
-        Adjust the steps of specification so that they perform a specific single method
-        :param method:
-        :type method: str
-        """
+    def method(self, method: str):
         if method is None or method == '' or (self.method is not None and method.lower() == self.method.lower()): return
-        # new_steps = []
-        # if method.lower() not in [m.lower() for m in self.hartree_fock_methods]:
-        #     new_steps.append({'command': ('rhf' if method[0].lower() != 'u' else 'uhf')})  # TODO df
-        # new_steps.append({'command': method.lower()})
-        # if 'steps' in self and self['job_type'] is not None:
-        #     for step in self['steps']:
-        #         if 'command' in step and any(
-        #                 [step_['command'] == step['command'] for step_ in
-        #                  _default_job_type_commands[self['job_type']]]):
-        #             new_steps.append(step)
-        # self['steps'] = new_steps
         if method.lower() not in [m.lower() for m in self.hartree_fock_methods]:
-            # new_steps.append({'command': ('rhf' if method[0].lower() != 'u' else 'uhf')})  # TODO df
             self['method'] = ['rhf' if method[0].lower() != 'u' else 'uhf', method.lower()]
         else:
             self['method'] = method.lower()
 
     @property
-    def method_options(self, command=None):
-        r"""Get the options for a single-method job
+    def method_options(self) -> str:
+        r"""The options for a single-method job
         """
-        _command = command if command is not None else self.method.split(',')[0].split(';')[0]
+        _command = self.method.split(',')[0].split(';')[0]
         if 'method' not in self:
             return []
         for step in self['method'] if type(self['method']) is list else [self['method']]:
@@ -921,14 +900,11 @@ class InputSpecification(UserDict):
         return []
 
     @method_options.setter
-    def method_options(self, options, command=None):
-        r"""
-        Set the options for a single-method job
-        """
+    def method_options(self, options):
         if 'method' not in self:
-            self['method'] = 'hf'
-        _command = command if command is not None else self.method.split(',')[0].split(';')[0]
-        if type(self['method']) is not list:
+            self['method'] = self.with_defaults['method']
+        _command = self.method.split(',')[0].split(';')[0]
+        if not isinstance(self['method'], list):
             self['method'] = [self['method']]
         for index, step in enumerate(self['method']):
             js = JobStep(step)
@@ -938,15 +914,9 @@ class InputSpecification(UserDict):
         if len(self['method']) == 1:
             self['method'] = self['method'][0]
 
-    @method_options.deleter
-    def method_options(self):
-        if 'steps' in self:
-            for step in self['steps']:
-                if self.method == step['command']:
-                    del step['options']
-
     @property
-    def basis_quality(self):
+    def basis_quality(self) -> int:
+        r"""The cardinal number of the basis set used in the job. If not a correlation-consistent basis set, returns 0."""
         quality_letters = {2: 'D', 3: 'T', 4: 'Q', 5: '5', 6: '6', 7: '7'}
         if 'basis' in self:
             bases = [self['basis']['default']]
@@ -962,7 +932,8 @@ class InputSpecification(UserDict):
         return 0
 
     @property
-    def basis_hamiltonian(self):
+    def basis_hamiltonian(self) -> str:
+        """The hamiltonian for which the orbital basis set is designed"""
         result = 'AE'
         for v, k in _hamiltonians.items():
             if k and 'basis' in self and 'default' in self['basis'] and k['basis_string'] in \
@@ -973,8 +944,10 @@ class InputSpecification(UserDict):
         return result
 
     _last_density_functional = 'LDA'
+
     @property
-    def density_functional(self):
+    def density_functional(self) -> str:
+        """For a Kohn-Sham calculation, the name of the density functional used"""
         if 'method' not in self or not self['method']:
             return None
         methods = self['method'] if type(self['method']) is list else [self['method']]
@@ -1002,17 +975,14 @@ class InputSpecification(UserDict):
         self['method'] = methods if len(methods) > 1 else methods[0]
 
     @property
-    def open_shell_electrons(self):
+    def open_shell_electrons(self) -> int:
         r"""
-        Evaluate the number of open-shell electrons in the molecule's normal state.  This will typically be 0 or 1, but for some special cases (eg atoms) might be higher.
-        :return:
-        :rtype: int
+        The number of open-shell electrons in the molecule's normal state.  This will typically be 0 or 1, but for some special cases (eg atoms) might be higher.
         """
         if 'spin' in self:
             return self['spin']
         # TODO set up a cache if input has not changed and geometry file has not changed
         if 'geometry' not in self: return 0
-        # print('enter open_shell_electrons')
         try:
             with open(pathlib.Path(self.directory if self.directory is not None else '.') / self['geometry'],
                       'r') as f:
@@ -1036,7 +1006,6 @@ class InputSpecification(UserDict):
                 total_nuclear_charge += atomic_number
         charge = self['charge'] if 'charge' in self else 0
         total_electrons = total_nuclear_charge - charge
-        # print('total_nuclear_charge',total_nuclear_charge,'total_electrons',total_electrons)
         electrons = total_electrons % 2
         # implementing default spin > 1 is tricky because of handling of input files that do not contain spin specification
         # if atomic_number == total_nuclear_charge:
@@ -1045,36 +1014,8 @@ class InputSpecification(UserDict):
         # print('Electrons: ' + str(electrons))
         return electrons
 
-    @property
-    def spin_old(self):
-        r"""
-        Evaluate 2*S
-        :return: 2*S, or if unspecified, minus the electron count %2
-        :rtype: int
-        """
-        # print('spin',self['variables'],self.open_shell_electrons)
-        spin = int(self['variables']['spin']) if 'variables' in self and 'spin' in self[
-            'variables'] else (self.open_shell_electrons) % 2 - 2
-        # print('calculated spin',spin)
-        return spin
-
-    @spin_old.setter
-    def spin_old(self, value):
-        if value is None:
-            if 'variables' in self and 'spin' in self['variables']:
-                del self['variables']['spin']
-            return
-        try:
-            value_ = int(value)
-            if value_ % 2 != self.open_shell_electrons % 2: raise ValueError
-        except ValueError:
-            value_ = self.open_shell_electrons % 2
-        # print('in spin setter, value=', value,value_, 'electrons', self.open_shell_electrons)
-        if 'variables' not in self:
-            self['variables'] = {}
-        self['variables']['spin'] = str(value_)
-
     def polish(self):
+        """Ensure that the job specification is valid and complete"""
         self._clean_coupled_cluster_property_input()
 
     def _clean_coupled_cluster_property_input(self):
