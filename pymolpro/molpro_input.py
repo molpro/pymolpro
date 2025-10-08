@@ -243,7 +243,11 @@ def _convert_keyval_to_json(string):
 
 
 class InputSpecification(UserDict):
-    hartree_fock_methods = ['RHF', 'RKS', 'UHF', 'UKS', 'LDF-RHF', 'LDF-UHF']
+    """ A declarative specification of a Molpro input. Almost any simple input - no loops or logic - that requests a single quantum-mechanical method, possibly with geometry optimisation using a different method, can be represented. The class can be instantiated from a procedural Molpro input, or from a JSON string or dictionary.    If both an input and a specification are provided, the specification is ignored.
+
+    The class is a dictionary with some extra methods, with all the data contained in the dictionary, which is constrained to conform with the molpro_input JSON schema, https://www.molpro.net/schema/molpro_input.json ."""
+
+    _hartree_fock_methods = ['RHF', 'RKS', 'UHF', 'UKS', 'LDF-RHF', 'LDF-UHF']
 
     @classmethod
     def default_instance(cls) -> 'InputSpecification':
@@ -881,7 +885,7 @@ class InputSpecification(UserDict):
     @method.setter
     def method(self, method: str):
         if method is None or method == '' or (self.method is not None and method.lower() == self.method.lower()): return
-        if method.lower() not in [m.lower() for m in self.hartree_fock_methods]:
+        if method.lower() not in [m.lower() for m in self._hartree_fock_methods]:
             self['method'] = ['rhf' if method[0].lower() != 'u' else 'uhf', method.lower()]
         else:
             self['method'] = method.lower()
