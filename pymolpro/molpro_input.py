@@ -41,7 +41,8 @@ _hamiltonians = {
 assert (set(_hamiltonians.keys()).issubset(set(schema['properties']['hamiltonian']['enum'])))
 
 
-def hamiltonians():
+def hamiltonians() -> dict[str, dict[str, str]]:
+    """ Returns a dictionary containing the supported hamiltonians."""
     return _hamiltonians
 
 
@@ -53,9 +54,9 @@ _local_orbital_types = {
 }
 
 
-def local_orbital_types():
+def local_orbital_types()->dict[str,dict[str,str]]:
     r"""
-    Return the supported local orbital types.
+    Return a dictionary containing the supported local orbital types.
     """
     return _local_orbital_types
 
@@ -76,10 +77,9 @@ _job_types = {
 assert (set(_job_types.keys()).issubset(set([a['const'] for a in schema['properties']['job_type']['anyOf']])))
 
 
-def job_types():
+def job_types() -> dict:
     r"""
     Return the supported job types.
-    rtype: dict
     """
     return _job_types
 
@@ -134,7 +134,7 @@ def supported_methods():
     return _supported_methods
 
 
-def procedures_registry():
+def procedures_registry()->dict:
     r"""
     Returns a dictionary with procedure names as keys and procedures as values.
     """
@@ -341,7 +341,8 @@ class InputSpecification(UserDict):
             else:
                 self['job_type_commands'].append(job_step.dump(braces=False))
 
-    def __init__(self, input:str=None, allowed_methods:list[str]=[], debug:bool=False, specification:dict=None, directory:str=None):
+    def __init__(self, input: str = None, allowed_methods: list[str] = [], debug: bool = False,
+                 specification: dict = None, directory: str = None):
         """
 
         :param input: Either a text string or a file name containing Molpro procedural input.
