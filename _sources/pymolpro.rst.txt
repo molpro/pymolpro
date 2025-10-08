@@ -3,9 +3,6 @@ pymolpro package
 
 Module contents
 ---------------
-
-.. jsonschema:: molpro_input.json
-
 .. automodule:: pymolpro
    :members:
    :undoc-members:

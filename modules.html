@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro &mdash; pymolpro 1.16.2 documentation</title>
+  <title>pymolpro &mdash; pymolpro 1.16.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=712a043d"></script>
+      <script src="_static/documentation_options.js?v=1edb10e9"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pymolpro package" href="pymolpro.html" />
-    <link rel="prev" title="pymolpro (version 1.16.2)" href="index.html" /> 
+    <link rel="prev" title="JSON schema for input" href="schema.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,6 +46,7 @@
 
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schema.html">JSON schema for input</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">pymolpro</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pymolpro.html">pymolpro package</a></li>
 </ul>
@@ -92,8 +93,7 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pymolpro.html">pymolpro package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pymolpro.html#module-contents">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pymolpro.html#json-schema-for-simplified-molpro-input">JSON schema for simplified Molpro input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pymolpro.html#module-pymolpro">Module contents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro"><code class="docutils literal notranslate"><span class="pre">ASEMolpro</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro.__init__"><code class="docutils literal notranslate"><span class="pre">ASEMolpro.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.ASEMolpro.calculate"><code class="docutils literal notranslate"><span class="pre">ASEMolpro.calculate()</span></code></a></li>
@@ -212,8 +212,6 @@
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.fromkeys"><code class="docutils literal notranslate"><span class="pre">InputSpecification.fromkeys()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.get"><code class="docutils literal notranslate"><span class="pre">InputSpecification.get()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.hartree_fock_methods"><code class="docutils literal notranslate"><span class="pre">InputSpecification.hartree_fock_methods</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.input_from_basis"><code class="docutils literal notranslate"><span class="pre">InputSpecification.input_from_basis()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.input_from_method"><code class="docutils literal notranslate"><span class="pre">InputSpecification.input_from_method()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.items"><code class="docutils literal notranslate"><span class="pre">InputSpecification.items()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.job_steps"><code class="docutils literal notranslate"><span class="pre">InputSpecification.job_steps</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.keys"><code class="docutils literal notranslate"><span class="pre">InputSpecification.keys()</span></code></a></li>
@@ -228,7 +226,6 @@
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.set_job_step"><code class="docutils literal notranslate"><span class="pre">InputSpecification.set_job_step()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.set_job_type"><code class="docutils literal notranslate"><span class="pre">InputSpecification.set_job_type()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.setdefault"><code class="docutils literal notranslate"><span class="pre">InputSpecification.setdefault()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.spin_old"><code class="docutils literal notranslate"><span class="pre">InputSpecification.spin_old</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.update"><code class="docutils literal notranslate"><span class="pre">InputSpecification.update()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.validate"><code class="docutils literal notranslate"><span class="pre">InputSpecification.validate()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pymolpro.html#pymolpro.molpro_input.InputSpecification.values"><code class="docutils literal notranslate"><span class="pre">InputSpecification.values()</span></code></a></li>
@@ -339,7 +336,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="pymolpro (version 1.16.2)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="schema.html" class="btn btn-neutral float-left" title="JSON schema for input" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pymolpro.html" class="btn btn-neutral float-right" title="pymolpro package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

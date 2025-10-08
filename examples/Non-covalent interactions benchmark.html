@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.16.2 documentation</title>
+  <title>Non-covalent interactions benchmark &mdash; pymolpro 1.16.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=712a043d"></script>
+      <script src="../_static/documentation_options.js?v=1edb10e9"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -47,6 +47,7 @@
 
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">JSON schema for input</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../databases.html">Database library</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
@@ -103,8 +104,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pymolpro
-import pandas as pd
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymolpro</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
@@ -112,9 +113,9 @@ import pandas as pd
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>backend = &#39;local&#39;  # If preferred, change this to one of the backends in your ~/.sjef/molpro/backends.xml that is ssh-accessible
-project_name = &#39;Non-covalent interactions benchmark&#39;
-parallel = None  # how many jobs to run at once
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;local&#39;</span>  <span class="c1"># If preferred, change this to one of the backends in your ~/.sjef/molpro/backends.xml that is ssh-accessible</span>
+<span class="n">project_name</span> <span class="o">=</span> <span class="s1">&#39;Non-covalent interactions benchmark&#39;</span>
+<span class="n">parallel</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># how many jobs to run at once</span>
 </pre></div>
 </div>
 </div>
@@ -122,8 +123,8 @@ parallel = None  # how many jobs to run at once
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>methods = {&quot;HF&quot;: &quot;df-hf&quot;, &quot;MP2&quot;: &quot;df-mp2&quot;, &quot;LMP2&quot;: &quot;df-lmp2&quot;, }
-bases = [&#39;aug-cc-pVDZ&#39;, &#39;aug-cc-pVTZ&#39;, &#39;aug-cc-pVQZ&#39;]
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">methods</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HF&quot;</span><span class="p">:</span> <span class="s2">&quot;df-hf&quot;</span><span class="p">,</span> <span class="s2">&quot;MP2&quot;</span><span class="p">:</span> <span class="s2">&quot;df-mp2&quot;</span><span class="p">,</span> <span class="s2">&quot;LMP2&quot;</span><span class="p">:</span> <span class="s2">&quot;df-lmp2&quot;</span><span class="p">,</span> <span class="p">}</span>
+<span class="n">bases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aug-cc-pVDZ&#39;</span><span class="p">,</span> <span class="s1">&#39;aug-cc-pVTZ&#39;</span><span class="p">,</span> <span class="s1">&#39;aug-cc-pVQZ&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -131,7 +132,7 @@ bases = [&#39;aug-cc-pVDZ&#39;, &#39;aug-cc-pVTZ&#39;, &#39;aug-cc-pVQZ&#39;]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>db = pymolpro.database.load(&quot;GMTKN55_S22&quot;).subset(&#39;small&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;GMTKN55_S22&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -139,12 +140,12 @@ bases = [&#39;aug-cc-pVDZ&#39;, &#39;aug-cc-pVTZ&#39;, &#39;aug-cc-pVQZ&#39;]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>results = {}
-for method in methods:
-    results[method] = {}
-    for basis in bases:
-        results[method][basis] = pymolpro.database.run(db, method=methods[method], basis=basis, location=project_name,
-                                                       backend=backend, parallel=parallel)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">basis</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="n">basis</span><span class="p">]</span> <span class="o">=</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">methods</span><span class="p">[</span><span class="n">method</span><span class="p">],</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">project_name</span><span class="p">,</span>
+                                                       <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -152,11 +153,11 @@ for method in methods:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for method in methods:
-    for result in pymolpro.database.basis_extrapolate(results[method].values(),results[&#39;HF&#39;].values()):
-        results[method][result.basis]=result
-    for basis in results[method]:
-        if basis not in bases: bases.append(basis)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">basis_extrapolate</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;HF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="n">result</span><span class="o">.</span><span class="n">basis</span><span class="p">]</span><span class="o">=</span><span class="n">result</span>
+    <span class="k">for</span> <span class="n">basis</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">basis</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span> <span class="n">bases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -164,13 +165,13 @@ for method in methods:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-method_errors = pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db, &#39;kJ/mol&#39;)[
-                    &#39;reaction statistics&#39;]
-with open(project_name + &#39;.method_errors.tex&#39;, &#39;w&#39;) as tf:
-    tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
-    tf.write(method_errors.style.format(precision=2).to_latex(hrules=True,multicol_align=&#39;c&#39;,caption=&#39;Method errors&#39;))
-method_errors
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">method_errors</span> <span class="o">=</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">analyse</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="s1">&#39;aug-cc-pVQZ&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">],</span> <span class="n">db</span><span class="p">,</span> <span class="s1">&#39;kJ/mol&#39;</span><span class="p">)[</span>
+                    <span class="s1">&#39;reaction statistics&#39;</span><span class="p">]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">project_name</span> <span class="o">+</span> <span class="s1">&#39;.method_errors.tex&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tf</span><span class="p">:</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">ifx</span><span class="se">\\</span><span class="s1">toprule</span><span class="se">\\</span><span class="s1">undefined</span><span class="se">\\</span><span class="s1">def</span><span class="se">\\</span><span class="s1">toprule{</span><span class="se">\\</span><span class="s1">hline</span><span class="se">\\</span><span class="s1">hline}</span><span class="se">\n\\</span><span class="s1">def</span><span class="se">\\</span><span class="s1">midrule{</span><span class="se">\\</span><span class="s1">hline}</span><span class="se">\n\\</span><span class="s1">def</span><span class="se">\\</span><span class="s1">bottomrule{</span><span class="se">\\</span><span class="s1">hline</span><span class="se">\\</span><span class="s1">hline}</span><span class="se">\\</span><span class="s1">fi&#39;</span><span class="p">)</span> <span class="c1"># or \usepackage{booktabs}</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">method_errors</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span><span class="n">hrules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">multicol_align</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="n">caption</span><span class="o">=</span><span class="s1">&#39;Method errors&#39;</span><span class="p">))</span>
+<span class="n">method_errors</span>
 </pre></div>
 </div>
 </div>
@@ -241,9 +242,9 @@ method_errors
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for key, table in pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db).items():
-    print(key)
-    print(table)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">analyse</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="s1">&#39;aug-cc-pVQZ&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">],</span> <span class="n">db</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -289,10 +290,10 @@ Figure(600x600)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-method_errors = pymolpro.database.analyse([results[method][&#39;aug-cc-pVQZ&#39;] for method in methods], db, &#39;kJ/mol&#39;)[
-                    &#39;reaction energy deviations&#39;]
-method_errors
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">method_errors</span> <span class="o">=</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">analyse</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="s1">&#39;aug-cc-pVQZ&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">],</span> <span class="n">db</span><span class="p">,</span> <span class="s1">&#39;kJ/mol&#39;</span><span class="p">)[</span>
+                    <span class="s1">&#39;reaction energy deviations&#39;</span><span class="p">]</span>
+<span class="n">method_errors</span>
 </pre></div>
 </div>
 </div>
@@ -351,13 +352,13 @@ method_errors
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.set_option(&#39;display.precision&#39;, 2)
-basis_errors = pymolpro.database.analyse([results[&#39;LMP2&#39;][basis] for basis in bases], db, &#39;kJ/mol&#39;)[
-    &#39;reaction statistics&#39;]
-with open(project_name + &#39;.basis_errors.tex&#39;, &#39;w&#39;) as tf:
-    tf.write(&#39;\\ifx\\toprule\\undefined\\def\\toprule{\\hline\\hline}\n\\def\\midrule{\\hline}\n\\def\\bottomrule{\\hline\\hline}\\fi&#39;) # or \usepackage{booktabs}
-    tf.write(basis_errors.style.format(precision=2).to_latex(hrules=True,multicol_align=&#39;c&#39;,caption=&#39;Basis errors&#39;))
-basis_errors
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">basis_errors</span> <span class="o">=</span> <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">analyse</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;LMP2&#39;</span><span class="p">][</span><span class="n">basis</span><span class="p">]</span> <span class="k">for</span> <span class="n">basis</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">],</span> <span class="n">db</span><span class="p">,</span> <span class="s1">&#39;kJ/mol&#39;</span><span class="p">)[</span>
+    <span class="s1">&#39;reaction statistics&#39;</span><span class="p">]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">project_name</span> <span class="o">+</span> <span class="s1">&#39;.basis_errors.tex&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tf</span><span class="p">:</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">ifx</span><span class="se">\\</span><span class="s1">toprule</span><span class="se">\\</span><span class="s1">undefined</span><span class="se">\\</span><span class="s1">def</span><span class="se">\\</span><span class="s1">toprule{</span><span class="se">\\</span><span class="s1">hline</span><span class="se">\\</span><span class="s1">hline}</span><span class="se">\n\\</span><span class="s1">def</span><span class="se">\\</span><span class="s1">midrule{</span><span class="se">\\</span><span class="s1">hline}</span><span class="se">\n\\</span><span class="s1">def</span><span class="se">\\</span><span class="s1">bottomrule{</span><span class="se">\\</span><span class="s1">hline</span><span class="se">\\</span><span class="s1">hline}</span><span class="se">\\</span><span class="s1">fi&#39;</span><span class="p">)</span> <span class="c1"># or \usepackage{booktabs}</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">basis_errors</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span><span class="n">hrules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">multicol_align</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="n">caption</span><span class="o">=</span><span class="s1">&#39;Basis errors&#39;</span><span class="p">))</span>
+<span class="n">basis_errors</span>
 </pre></div>
 </div>
 </div>
@@ -440,24 +441,24 @@ basis_errors
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-methods_pruned = [method for method in methods if method != &#39;HF&#39;]
-bases_pruned = [&#39;aug-cc-pVTZ&#39;, &#39;aug-cc-pVQZ&#39;, &#39;aug-cc-pV[34]Z&#39;]
-fig, panes = plt.subplots(nrows=1, ncols=len(bases_pruned), sharey=True, figsize=(18, 6))
+<span class="n">methods_pruned</span> <span class="o">=</span> <span class="p">[</span><span class="n">method</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span> <span class="k">if</span> <span class="n">method</span> <span class="o">!=</span> <span class="s1">&#39;HF&#39;</span><span class="p">]</span>
+<span class="n">bases_pruned</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aug-cc-pVTZ&#39;</span><span class="p">,</span> <span class="s1">&#39;aug-cc-pVQZ&#39;</span><span class="p">,</span> <span class="s1">&#39;aug-cc-pV[34]Z&#39;</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">panes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bases_pruned</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-for pane in range(len(bases_pruned)):
-    data = []
-    for method in methods_pruned:
-        data.append(
-            pymolpro.database.analyse(results[method][bases_pruned[pane]],
-                                      db,&#39;kJ/mol&#39;)[&#39;reaction energy deviations&#39;].to_numpy()[:, 0]
-        )
-    panes[pane].violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method=&#39;silverman&#39;)
-    panes[pane].set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
-    panes[pane].set_title(bases_pruned[pane])
-panes[0].set_ylabel(&#39;Error / kJ/mol&#39;)
-plt.savefig(project_name + &quot;.violin.pdf&quot;)
+<span class="k">for</span> <span class="n">pane</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bases_pruned</span><span class="p">)):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods_pruned</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">pymolpro</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="n">bases_pruned</span><span class="p">[</span><span class="n">pane</span><span class="p">]],</span>
+                                      <span class="n">db</span><span class="p">,</span><span class="s1">&#39;kJ/mol&#39;</span><span class="p">)[</span><span class="s1">&#39;reaction energy deviations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">panes</span><span class="p">[</span><span class="n">pane</span><span class="p">]</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">showmeans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">showextrema</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bw_method</span><span class="o">=</span><span class="s1">&#39;silverman&#39;</span><span class="p">)</span>
+    <span class="n">panes</span><span class="p">[</span><span class="n">pane</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">methods_pruned</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">methods_pruned</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=-</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">panes</span><span class="p">[</span><span class="n">pane</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">bases_pruned</span><span class="p">[</span><span class="n">pane</span><span class="p">])</span>
+<span class="n">panes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Error / kJ/mol&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">project_name</span> <span class="o">+</span> <span class="s2">&quot;.violin.pdf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -472,7 +473,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>basis_errors.to_latex(float_format=&#39;%.2f&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basis_errors</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span><span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -489,7 +490,7 @@ plt.savefig(project_name + &quot;.violin.pdf&quot;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(basis_errors.style.format(precision=3).to_latex(hrules=True,multicol_align=&#39;c&#39;))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">basis_errors</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span><span class="n">hrules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">multicol_align</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

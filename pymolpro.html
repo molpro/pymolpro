@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.16.2 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.16.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=712a043d"></script>
+      <script src="_static/documentation_options.js?v=1edb10e9"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -48,10 +48,10 @@
 
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schema.html">JSON schema for input</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pymolpro</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pymolpro package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#json-schema-for-simplified-molpro-input">JSON schema for simplified Molpro input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pymolpro">Module contents</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.ASEMolpro"><code class="docutils literal notranslate"><span class="pre">ASEMolpro</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.Orbital"><code class="docutils literal notranslate"><span class="pre">Orbital</span></code></a></li>
@@ -170,400 +170,9 @@
              
   <section id="pymolpro-package">
 <h1>pymolpro package<a class="headerlink" href="#pymolpro-package" title="Link to this heading"></a></h1>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
-<section id="json-schema-for-simplified-molpro-input">
-<h3>JSON schema for simplified Molpro input<a class="headerlink" href="#json-schema-for-simplified-molpro-input" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<tbody>
-<tr class="row-odd"><td colspan="5"><p><a class="reference external" href="https://www.molpro.net/schema/molpro_input.json">https://www.molpro.net/schema/molpro_input.json</a></p></td>
-</tr>
-<tr class="row-even"><td colspan="5"><p>Structured input for Molpro that covers the case of a single ansatz, with a given basis set at a given geometry. All fields are optional, with reasonable defaults, although at least geometry, method and basis will normally be specified</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="4"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="5"><p>properties</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>geometry</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The geometry, in any form that Molpro will accept. If the value is the name of a readable file, that file will be the source of the geometry specification; otherwise, the value will be interpreted directly, with or without enclosing {}.</p></td>
-</tr>
-<tr class="row-even"><td><p>type</p></td>
-<td colspan="3"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>He</p></td>
-</tr>
-<tr class="row-even"><td rowspan="18"><ul class="simple">
-<li><p>job_type</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The job type - single point, optimisation, frequencies etc.</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>SP</p></td>
-</tr>
-<tr class="row-even"><td rowspan="16"><p>anyOf</p></td>
-<td colspan="3"><p><em>Single point</em></p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p>Calculate at a single geometry</p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="2"></td>
-</tr>
-<tr class="row-odd"><td><p>const</p></td>
-<td colspan="2"><p>SP</p></td>
-</tr>
-<tr class="row-even"><td colspan="3"><p><em>Geometry optimisation</em></p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p>Optimise the geometry</p></td>
-</tr>
-<tr class="row-even"><td><p>const</p></td>
-<td colspan="2"><p>OPT</p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p><em>Hessian</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="3"><p>Calculate harmonic force constants and normal modes</p></td>
-</tr>
-<tr class="row-odd"><td><p>const</p></td>
-<td colspan="2"><p>FREQ</p></td>
-</tr>
-<tr class="row-even"><td colspan="3"><p><em>Optimise + vib frequencies</em></p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p>Optimise the geometry and then calculate normal modes</p></td>
-</tr>
-<tr class="row-even"><td><p>const</p></td>
-<td colspan="2"><p>OPT+FREQ</p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p><em>Non-covalent complex</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="3"></td>
-</tr>
-<tr class="row-odd"><td><p>const</p></td>
-<td colspan="2"><p>INTERACT</p></td>
-</tr>
-<tr class="row-even"><td rowspan="5"><ul class="simple">
-<li><p>method</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The quantum-chemical method used</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>hf</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td rowspan="4"><ul class="simple">
-<li><p>geometry_method</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The quantum-chemical method used to optimise the geometry</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>hamiltonian</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The Hamiltonian to be used - Schroedinger all-electron, pseudopotential or scalar-relativistic.</p></td>
-</tr>
-<tr class="row-even"><td><p>enum</p></td>
-<td colspan="3"><p>AE, PP, DK, DK3</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>PP</p></td>
-</tr>
-<tr class="row-even"><td rowspan="8"><ul class="simple">
-<li><p>basis</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Specification of the orbital basis set</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="4"><p>properties</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>default</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="2"><p>cc-pVTZ-PP</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>elements</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td><p>additionalProperties</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>additionalProperties</p></td>
-<td colspan="3"><p>False</p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>extrapolate</p></li>
-</ul>
-</td>
-<td colspan="4"><p>If specified, carry out basis-set extrapolation. Anything that can appear after <cite>extrapolate,basis=</cite> in Molpro input is accepted.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="8"><ul class="simple">
-<li><p>geometry_basis</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Specification of the orbital basis set for the geometry optimisation</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="4"><p>properties</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>default</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="2"><p>cc-pVTZ-PP</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>elements</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td><p>additionalProperties</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>additionalProperties</p></td>
-<td colspan="3"><p>False</p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>core_correlation</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Specification of core correlation</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>spin</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Spin multiplicity minus 1, ie twice the spin quantum number</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>integer</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><ul class="simple">
-<li><p>charge</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Overall electrical charge</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>integer</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="3"><p>0</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>properties</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="3"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>uniqueItems</p></td>
-<td colspan="3"><p>True</p></td>
-</tr>
-<tr class="row-even"><td rowspan="4"><ul class="simple">
-<li><p>orbitals</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Types of localised orbitals to be calculated.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>enum</p></td>
-<td colspan="2"><p>ibo, pipek, nbo, boys</p></td>
-</tr>
-<tr class="row-odd"><td><p>uniqueItems</p></td>
-<td colspan="3"><p>True</p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>variables</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Variables to be defined at the start of the job</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>parameter</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Items for gparam in Molpro input</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>threshold</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Items for gthresh in Molpro input</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>print</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Items for gprint in Molpro input</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>job_type_commands</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Commands for the job_type drivers</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>angstrom</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Whether geometry is expressed in Angstrom instead of Bohr.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>boolean</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><ul class="simple">
-<li><p>orientation</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Weighting of geometry to define centroid and principal axes.</p></td>
-</tr>
-<tr class="row-odd"><td><p>enum</p></td>
-<td colspan="3"><p>mass, charge, none</p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="3"><p>mass</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>symmetry</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Whether to use molecular symmetry.</p></td>
-</tr>
-<tr class="row-even"><td><p>enum</p></td>
-<td colspan="3"><p>automatic, none</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>automatic</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><ul class="simple">
-<li><p>density_fitting</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Whether density fitting algorithms are to be used where possible.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>boolean</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="3"><p>False</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="4"><ul class="simple">
-<li><p>prologue</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Arbitrary Molpro commands to appear at the start of the job</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td rowspan="4"><ul class="simple">
-<li><p>epilogue</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Arbitrary Molpro commands to appear at the end of the job</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>additionalProperties</p></td>
-<td colspan="4"><p>False</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<dl class="py class" id="module-pymolpro">
+<section id="module-pymolpro">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pymolpro" title="Link to this heading"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.ASEMolpro">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.</span></span><span class="sig-name descname"><span class="pre">ASEMolpro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ASEMolpro'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc-pVDZ'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.ASEMolpro" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCalculator</span></code></p>
@@ -1608,27 +1217,40 @@ This class provides additional convenience operations:</p>
 <span id="pymolpro-molpro-input-module"></span><h2>pymolpro.molpro_input module<a class="headerlink" href="#module-pymolpro.molpro_input" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">InputSpecification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">InputSpecification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specification</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserDict</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specification</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – Either a text string or a file name containing Molpro procedural input.</p></li>
+<li><p><strong>allowed_methods</strong> – A list of allowed methods to be appended to the defaults.</p></li>
+<li><p><strong>specification</strong> – Initial data to be included in the specification.</p></li>
+<li><p><strong>directory</strong> – The directory where any auxiliary files are located. If not specified, the current working directory will be used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.ansatz">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ansatz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.ansatz" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>A string of the form method/basis, or method/basis//geometry_method/geometry_basis summarising the ansatz where possible, otherwise an empty string.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.basis_hamiltonian">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">basis_hamiltonian</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.basis_hamiltonian" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">basis_hamiltonian</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.basis_hamiltonian" title="Link to this definition"></a></dt>
+<dd><p>The hamiltonian for which the orbital basis set is designed</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.basis_quality">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">basis_quality</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.basis_quality" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">basis_quality</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.basis_quality" title="Link to this definition"></a></dt>
+<dd><p>The cardinal number of the basis set used in the job. If not a correlation-consistent basis set, returns 0.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.clear">
@@ -1642,13 +1264,15 @@ This class provides additional convenience operations:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.default_instance">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.default_instance" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pymolpro.molpro_input.InputSpecification" title="pymolpro.molpro_input.InputSpecification"><span class="pre">InputSpecification</span></a></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.default_instance" title="Link to this definition"></a></dt>
+<dd><p>Factory method for creating a default instance generated from the schema.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.density_functional">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">density_functional</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.density_functional" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">density_functional</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.density_functional" title="Link to this definition"></a></dt>
+<dd><p>For a Kohn-Sham calculation, the name of the density functional used</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.fromkeys">
@@ -1666,23 +1290,13 @@ This class provides additional convenience operations:</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.input_from_basis">
-<span class="sig-name descname"><span class="pre">input_from_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.input_from_basis" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.input_from_method">
-<span class="sig-name descname"><span class="pre">input_from_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.input_from_method" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.items">
 <span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">items</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.items" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.job_steps">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_steps</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.job_steps" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_steps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pymolpro.molpro_input.JobStep" title="pymolpro.molpro_input.JobStep"><span class="pre">JobStep</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.job_steps" title="Link to this definition"></a></dt>
 <dd><p>Returns the job steps in this input</p>
 </dd></dl>
 
@@ -1693,48 +1307,35 @@ This class provides additional convenience operations:</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.method">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.method" title="Link to this definition"></a></dt>
-<dd><p>Evaluate the single method implemented by the job
-:return: If the input implements a single method, its command name. Otherwise, None
-:rtype: str</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.method" title="Link to this definition"></a></dt>
+<dd><p>The single method implemented by the job, represented as the Molpro input command name that implements it.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.method_options">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">method_options</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.method_options" title="Link to this definition"></a></dt>
-<dd><p>Get the options for a single-method job</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">method_options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.method_options" title="Link to this definition"></a></dt>
+<dd><p>The options for a single-method job</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.molpro_input">
-<span class="sig-name descname"><span class="pre">molpro_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.molpro_input" title="Link to this definition"></a></dt>
-<dd><p>Create a Molpro input from a declarative specification
-:param self:
-:return:
-:rtype: str</p>
+<span class="sig-name descname"><span class="pre">molpro_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.molpro_input" title="Link to this definition"></a></dt>
+<dd><p>Create the procedural Molpro input from the declarative specification</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.open_shell_electrons">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">open_shell_electrons</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.open_shell_electrons" title="Link to this definition"></a></dt>
-<dd><p>Evaluate the number of open-shell electrons in the molecule’s normal state.  This will typically be 0 or 1, but for some special cases (eg atoms) might be higher.
-:return:
-:rtype: int</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">open_shell_electrons</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.open_shell_electrons" title="Link to this definition"></a></dt>
+<dd><p>The number of open-shell electrons in the molecule’s normal state.  This will typically be 0 or 1, but for some special cases (eg atoms) might be higher.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.parse">
-<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.parse" title="Link to this definition"></a></dt>
-<dd><p>Take a molpro input, and logically parse it</p>
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pymolpro.molpro_input.InputSpecification" title="pymolpro.molpro_input.InputSpecification"><span class="pre">InputSpecification</span></a></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.parse" title="Link to this definition"></a></dt>
+<dd><p>Take a procedural molpro input, and logically parse it. If it is impossible to do so, an empty specification is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>input</strong> – Either text that is the input, or a file name containing it.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pymolpro.molpro_input.InputSpecification" title="pymolpro.molpro_input.InputSpecification">InputSpecification</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1742,7 +1343,8 @@ This class provides additional convenience operations:</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.polish">
 <span class="sig-name descname"><span class="pre">polish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.polish" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ensure that the job specification is valid and complete</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.pop">
@@ -1771,14 +1373,6 @@ This class provides additional convenience operations:</p>
 <span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">D.get(k,d),</span> <span class="pre">also</span> <span class="pre">set</span> <span class="pre">D[k]=d</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">D</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.setdefault" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.spin_old">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spin_old</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.spin_old" title="Link to this definition"></a></dt>
-<dd><p>Evaluate 2*S
-:return: 2*S, or if unspecified, minus the electron count %2
-:rtype: int</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <span class="optional">]</span><em class="sig-param"><span class="n"><span class="pre">**F</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None.</span>&#160; <span class="pre">Update</span> <span class="pre">D</span> <span class="pre">from</span> <span class="pre">mapping/iterable</span> <span class="pre">E</span> <span class="pre">and</span> <span class="pre">F.</span></span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.update" title="Link to this definition"></a></dt>
@@ -1790,7 +1384,8 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.validate" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Validate the specification according to the schema.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.values">
@@ -1799,19 +1394,21 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.with_defaults">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_defaults</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.with_defaults" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">with_defaults</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pymolpro.molpro_input.InputSpecification" title="pymolpro.molpro_input.InputSpecification"><span class="pre">InputSpecification</span></a></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.with_defaults" title="Link to this definition"></a></dt>
+<dd><p>A copy of this specification with all defaults filled in from the schema.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.InputSpecification.without_defaults">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">without_defaults</span></span><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.without_defaults" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">without_defaults</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pymolpro.molpro_input.InputSpecification" title="pymolpro.molpro_input.InputSpecification"><span class="pre">InputSpecification</span></a></em><a class="headerlink" href="#pymolpro.molpro_input.InputSpecification.without_defaults" title="Link to this definition"></a></dt>
+<dd><p>A copy of this specification with any values equal to the schema default removed.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.JobStep">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">JobStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">card</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.JobStep" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymolpro.molpro_input.</span></span><span class="sig-name descname"><span class="pre">JobStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">card</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.molpro_input.JobStep" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.molpro_input.JobStep.__init__">

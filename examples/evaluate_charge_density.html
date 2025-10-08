@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 1.16.2 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 1.16.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=712a043d"></script>
+      <script src="../_static/documentation_options.js?v=1edb10e9"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -47,6 +47,7 @@
 
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">JSON schema for input</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../databases.html">Database library</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
@@ -110,22 +111,22 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymolpro</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span>
 
-p = Project(&quot;evaluate_charge_density&quot;)
-p.write_input(&#39;&#39;&#39;
-basis,cc-pVDZ
-geometry={f;h,f,1.732}
-set,sewprop=0
-gexpec,delta,f
-gexpec,delta,h
-rhf
-{casscf;closed,2;state,3;natorb,2251.2,state=1.1}
-{casscf;closed,2;state,3;natorb,2252.2,state=2.1}
-{casscf;closed,2;state,3;natorb,2253.2,state=3.1}
-&#39;&#39;&#39;)
-p.run(wait=True)
-assert p.status == &#39;completed&#39;
+<span class="n">p</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;evaluate_charge_density&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">basis,cc-pVDZ</span>
+<span class="s1">geometry={f;h,f,1.732}</span>
+<span class="s1">set,sewprop=0</span>
+<span class="s1">gexpec,delta,f</span>
+<span class="s1">gexpec,delta,h</span>
+<span class="s1">rhf</span>
+<span class="s1">{casscf;closed,2;state,3;natorb,2251.2,state=1.1}</span>
+<span class="s1">{casscf;closed,2;state,3;natorb,2252.2,state=2.1}</span>
+<span class="s1">{casscf;closed,2;state,3;natorb,2253.2,state=3.1}</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;completed&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -136,24 +137,24 @@ assert p.status == &#39;completed&#39;
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-atoms = p.geometry()
-print(str(len(atoms)) + &#39; atoms:&#39;)
-for atom in atoms:
-    print(atom[&#39;id&#39;], atom[&#39;elementType&#39;], atom[&#39;xyz&#39;])
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; atoms:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">atom</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;elementType&#39;</span><span class="p">],</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;xyz&#39;</span><span class="p">])</span>
 
-points = [atom[&#39;xyz&#39;] for atom in atoms]
+<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="p">[</span><span class="s1">&#39;xyz&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
 
-results = []
-for state in range(len(p.xpath(&#39;//orbitals&#39;))):
-    orbitalsAtPoints = p.evaluateOrbitals(points, instance=state)
-    results.append([0.0 for point in points])
-    for orbital in orbitalsAtPoints:
-        for ipoint in range(len(orbital[&#39;values&#39;])):
-            results[-1][ipoint] += orbital[&#39;values&#39;][ipoint] ** 2 * orbital[&#39;occ&#39;]
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//orbitals&#39;</span><span class="p">))):</span>
+    <span class="n">orbitalsAtPoints</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">evaluateOrbitals</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.0</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">orbital</span> <span class="ow">in</span> <span class="n">orbitalsAtPoints</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">orbital</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">])):</span>
+            <span class="n">results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">ipoint</span><span class="p">]</span> <span class="o">+=</span> <span class="n">orbital</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="n">ipoint</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">orbital</span><span class="p">[</span><span class="s1">&#39;occ&#39;</span><span class="p">]</span>
 
-print(&#39;Calculated densities at the nuclei\n&#39;, np.array(results))
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculated densities at the nuclei</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -179,11 +180,11 @@ Calculated densities at the nuclei
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for state in range(len(p.xpath(&#39;//orbitals&#39;))):
-    for atom in atoms:
-        search_ = &#39;(//property[@name=&quot;DELTA(&#39; + atom[&#39;elementType&#39;].upper() + &#39;)&quot;])[&#39; + str(state + 1) + &#39;]&#39;
-        value = float(p.xpath_search(search_, &#39;value&#39;)[0])
-        print(state+1, atom[&#39;elementType&#39;],results[state][atoms.index(atom)],value,results[state][atoms.index(atom)]-value)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//orbitals&#39;</span><span class="p">))):</span>
+    <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+        <span class="n">search_</span> <span class="o">=</span> <span class="s1">&#39;(//property[@name=&quot;DELTA(&#39;</span> <span class="o">+</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;elementType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;)&quot;])[&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath_search</span><span class="p">(</span><span class="n">search_</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;elementType&#39;</span><span class="p">],</span><span class="n">results</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">atoms</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">atom</span><span class="p">)],</span><span class="n">value</span><span class="p">,</span><span class="n">results</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">atoms</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">atom</span><span class="p">)]</span><span class="o">-</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

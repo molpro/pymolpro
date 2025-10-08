@@ -6,21 +6,21 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 1.16.2) &mdash; pymolpro 1.16.2 documentation</title>
+  <title>pymolpro (version 1.16.4) &mdash; pymolpro 1.16.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=712a043d"></script>
+      <script src="_static/documentation_options.js?v=1edb10e9"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pymolpro" href="modules.html" /> 
+    <link rel="next" title="JSON schema for input" href="schema.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,6 +45,7 @@
 
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">JSON schema for input</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">pymolpro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="databases.html">Database library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
@@ -73,7 +74,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 1.16.2)</li>
+      <li class="breadcrumb-item active">pymolpro (version 1.16.4)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,7 +85,7 @@
            <div itemprop="articleBody">
              
   <section id="pymolpro-version-release">
-<h1>pymolpro (version 1.16.2)<a class="headerlink" href="#pymolpro-version-release" title="Link to this heading"></a></h1>
+<h1>pymolpro (version 1.16.4)<a class="headerlink" href="#pymolpro-version-release" title="Link to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -165,6 +166,10 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">JSON schema for input</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#json-schema-for-simplified-molpro-input">JSON schema for simplified Molpro input</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">pymolpro</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pymolpro.html">pymolpro package</a></li>
 </ul>
@@ -321,397 +326,6 @@ and then, in an msys command window, <code class="docutils literal notranslate">
 </li>
 </ul>
 </div>
-<section id="json-schema-for-simplified-molpro-input">
-<span id="json-schema-for-simplified-molpro-input"></span><h3>JSON schema for simplified Molpro input<a class="headerlink" href="#json-schema-for-simplified-molpro-input" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<tbody>
-<tr class="row-odd"><td colspan="5"><p><a class="reference external" href="https://www.molpro.net/schema/molpro_input.json">https://www.molpro.net/schema/molpro_input.json</a></p></td>
-</tr>
-<tr class="row-even"><td colspan="5"><p>Structured input for Molpro that covers the case of a single ansatz, with a given basis set at a given geometry. All fields are optional, with reasonable defaults, although at least geometry, method and basis will normally be specified</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="4"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="5"><p>properties</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>geometry</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The geometry, in any form that Molpro will accept. If the value is the name of a readable file, that file will be the source of the geometry specification; otherwise, the value will be interpreted directly, with or without enclosing {}.</p></td>
-</tr>
-<tr class="row-even"><td><p>type</p></td>
-<td colspan="3"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>He</p></td>
-</tr>
-<tr class="row-even"><td rowspan="18"><ul class="simple">
-<li><p>job_type</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The job type - single point, optimisation, frequencies etc.</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>SP</p></td>
-</tr>
-<tr class="row-even"><td rowspan="16"><p>anyOf</p></td>
-<td colspan="3"><p><em>Single point</em></p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p>Calculate at a single geometry</p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="2"></td>
-</tr>
-<tr class="row-odd"><td><p>const</p></td>
-<td colspan="2"><p>SP</p></td>
-</tr>
-<tr class="row-even"><td colspan="3"><p><em>Geometry optimisation</em></p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p>Optimise the geometry</p></td>
-</tr>
-<tr class="row-even"><td><p>const</p></td>
-<td colspan="2"><p>OPT</p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p><em>Hessian</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="3"><p>Calculate harmonic force constants and normal modes</p></td>
-</tr>
-<tr class="row-odd"><td><p>const</p></td>
-<td colspan="2"><p>FREQ</p></td>
-</tr>
-<tr class="row-even"><td colspan="3"><p><em>Optimise + vib frequencies</em></p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p>Optimise the geometry and then calculate normal modes</p></td>
-</tr>
-<tr class="row-even"><td><p>const</p></td>
-<td colspan="2"><p>OPT+FREQ</p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p><em>Non-covalent complex</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="3"></td>
-</tr>
-<tr class="row-odd"><td><p>const</p></td>
-<td colspan="2"><p>INTERACT</p></td>
-</tr>
-<tr class="row-even"><td rowspan="5"><ul class="simple">
-<li><p>method</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The quantum-chemical method used</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>hf</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td rowspan="4"><ul class="simple">
-<li><p>geometry_method</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The quantum-chemical method used to optimise the geometry</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>hamiltonian</p></li>
-</ul>
-</td>
-<td colspan="4"><p>The Hamiltonian to be used - Schroedinger all-electron, pseudopotential or scalar-relativistic.</p></td>
-</tr>
-<tr class="row-even"><td><p>enum</p></td>
-<td colspan="3"><p>AE, PP, DK, DK3</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>PP</p></td>
-</tr>
-<tr class="row-even"><td rowspan="8"><ul class="simple">
-<li><p>basis</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Specification of the orbital basis set</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="4"><p>properties</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>default</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="2"><p>cc-pVTZ-PP</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>elements</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td><p>additionalProperties</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>additionalProperties</p></td>
-<td colspan="3"><p>False</p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>extrapolate</p></li>
-</ul>
-</td>
-<td colspan="4"><p>If specified, carry out basis-set extrapolation. Anything that can appear after <cite>extrapolate,basis=</cite> in Molpro input is accepted.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="8"><ul class="simple">
-<li><p>geometry_basis</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Specification of the orbital basis set for the geometry optimisation</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td colspan="4"><p>properties</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>default</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="2"><p>cc-pVTZ-PP</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="2"><ul class="simple">
-<li><p>elements</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td><p>additionalProperties</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>additionalProperties</p></td>
-<td colspan="3"><p>False</p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>core_correlation</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Specification of core correlation</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>string</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>spin</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Spin multiplicity minus 1, ie twice the spin quantum number</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>integer</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><ul class="simple">
-<li><p>charge</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Overall electrical charge</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>integer</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="3"><p>0</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>properties</p></li>
-</ul>
-</td>
-<td><p>type</p></td>
-<td colspan="3"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>uniqueItems</p></td>
-<td colspan="3"><p>True</p></td>
-</tr>
-<tr class="row-even"><td rowspan="4"><ul class="simple">
-<li><p>orbitals</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Types of localised orbitals to be calculated.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>enum</p></td>
-<td colspan="2"><p>ibo, pipek, nbo, boys</p></td>
-</tr>
-<tr class="row-odd"><td><p>uniqueItems</p></td>
-<td colspan="3"><p>True</p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>variables</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Variables to be defined at the start of the job</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>parameter</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Items for gparam in Molpro input</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>threshold</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Items for gthresh in Molpro input</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>print</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Items for gprint in Molpro input</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>job_type_commands</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Commands for the job_type drivers</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>object</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="2"><ul class="simple">
-<li><p>angstrom</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Whether geometry is expressed in Angstrom instead of Bohr.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>boolean</em></p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><ul class="simple">
-<li><p>orientation</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Weighting of geometry to define centroid and principal axes.</p></td>
-</tr>
-<tr class="row-odd"><td><p>enum</p></td>
-<td colspan="3"><p>mass, charge, none</p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="3"><p>mass</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="3"><ul class="simple">
-<li><p>symmetry</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Whether to use molecular symmetry.</p></td>
-</tr>
-<tr class="row-even"><td><p>enum</p></td>
-<td colspan="3"><p>automatic, none</p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td colspan="3"><p>automatic</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><ul class="simple">
-<li><p>density_fitting</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Whether density fitting algorithms are to be used where possible.</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="3"><p><em>boolean</em></p></td>
-</tr>
-<tr class="row-even"><td><p>default</p></td>
-<td colspan="3"><p>False</p></td>
-</tr>
-<tr class="row-odd"><td rowspan="4"><ul class="simple">
-<li><p>prologue</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Arbitrary Molpro commands to appear at the start of the job</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td rowspan="4"><ul class="simple">
-<li><p>epilogue</p></li>
-</ul>
-</td>
-<td colspan="4"><p>Arbitrary Molpro commands to appear at the end of the job</p></td>
-</tr>
-<tr class="row-even"><td rowspan="3"><p>oneOf</p></td>
-<td><p>type</p></td>
-<td colspan="2"><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td colspan="2"><p><em>array</em></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>type</p></td>
-<td><p><em>string</em></p></td>
-</tr>
-<tr class="row-odd"><td><p>additionalProperties</p></td>
-<td colspan="4"><p>False</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 </section>
 </section>
 <section id="indices-and-tables">
@@ -727,7 +341,7 @@ and then, in an msys command window, <code class="docutils literal notranslate">
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-right" title="pymolpro" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="schema.html" class="btn btn-neutral float-right" title="JSON schema for input" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

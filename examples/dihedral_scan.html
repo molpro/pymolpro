@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Potential energy surface for twisting of ethene &mdash; pymolpro 1.16.2 documentation</title>
+  <title>Potential energy surface for twisting of ethene &mdash; pymolpro 1.16.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=712a043d"></script>
+      <script src="../_static/documentation_options.js?v=1edb10e9"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -47,6 +47,7 @@
 
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">JSON schema for input</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../databases.html">Database library</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
@@ -103,8 +104,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project, all_completed, no_errors
-import numpy
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymolpro</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span><span class="p">,</span> <span class="n">all_completed</span><span class="p">,</span> <span class="n">no_errors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 </pre></div>
 </div>
 </div>
@@ -112,34 +113,34 @@ import numpy
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>root = &#39;dihedral_scan&#39;
-projects = []
-import os
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;dihedral_scan&#39;</span>
+<span class="n">projects</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-if not os.path.isdir(root): os.mkdir(root)
-grid = numpy.linspace(0, 90, 18, endpoint=False)
-for i, D in enumerate(grid):
-    p = Project(f&#39;d{i}&#39;, location=root)
-    projects.append(p)
-    p.write_input(
-        f&quot;&quot;&quot;geometry={{
-        H1
-        C1 H1 rch
-        C2 C1 rcc H1 A
-        H2 C2 rch C1 A H1 D
-        H3 C2 rch C1 A H2 180
-        H4 C1 rch C2 A H1 180}}
-    rch = 2.05; rcc = 2.65; A = 121.5; D ={D}+.01;
-    basis = cc-pVTZ
-    rhf
-    set, mcocc=[3,2,2,2], mcclosed=[3,1,1,2], mcsym=1
-    casscf,so_sci
-    {{optg; inactive, D}}
-    set,mcsym=[1,4]
-    casscf,so_sci
-    {{mrci; wf, sym=1;}}
-    {{mrci; wf, sym=4;}}
-    put,xml&quot;&quot;&quot;)
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">root</span><span class="p">):</span> <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">D</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;d</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">projects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;&quot;&quot;geometry=</span><span class="se">{{</span>
+<span class="s2">        H1</span>
+<span class="s2">        C1 H1 rch</span>
+<span class="s2">        C2 C1 rcc H1 A</span>
+<span class="s2">        H2 C2 rch C1 A H1 D</span>
+<span class="s2">        H3 C2 rch C1 A H2 180</span>
+<span class="s2">        H4 C1 rch C2 A H1 180</span><span class="se">}}</span>
+<span class="s2">    rch = 2.05; rcc = 2.65; A = 121.5; D =</span><span class="si">{</span><span class="n">D</span><span class="si">}</span><span class="s2">+.01;</span>
+<span class="s2">    basis = cc-pVTZ</span>
+<span class="s2">    rhf</span>
+<span class="s2">    set, mcocc=[3,2,2,2], mcclosed=[3,1,1,2], mcsym=1</span>
+<span class="s2">    casscf,so_sci</span>
+<span class="s2">    </span><span class="se">{{</span><span class="s2">optg; inactive, D</span><span class="se">}}</span>
+<span class="s2">    set,mcsym=[1,4]</span>
+<span class="s2">    casscf,so_sci</span>
+<span class="s2">    </span><span class="se">{{</span><span class="s2">mrci; wf, sym=1;</span><span class="se">}}</span>
+<span class="s2">    </span><span class="se">{{</span><span class="s2">mrci; wf, sym=4;</span><span class="se">}}</span>
+<span class="s2">    put,xml&quot;&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -147,13 +148,13 @@ for i, D in enumerate(grid):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from multiprocessing.dummy import Pool
-from operator import methodcaller
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">methodcaller</span>
 
-with Pool(processes=8) as pool:
-    pool.map(methodcaller(&#39;run&#39;, backend=&#39;local&#39;, wait=True),
-             projects, 1)
-assert all_completed(projects) and no_errors(projects)
+<span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">methodcaller</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+             <span class="n">projects</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">all_completed</span><span class="p">(</span><span class="n">projects</span><span class="p">)</span> <span class="ow">and</span> <span class="n">no_errors</span><span class="p">(</span><span class="n">projects</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -161,20 +162,20 @@ assert all_completed(projects) and no_errors(projects)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-e1 = [p.energy(command=&#39;MRCI&#39;, stateSymmetry=&#39;1&#39;) for p in projects]
-e2 = [p.energy(command=&#39;MRCI&#39;, stateSymmetry=&#39;4&#39;) for p in projects]
-cc = [p.variable(&#39;RCC&#39;) for p in projects]
-fig, ax = plt.subplots()
-ax.plot(grid, e1, grid, e2)
-ax.legend([r&#39;$X\;{}^1A_1$&#39;, r&#39;$V\;{}^1B_1$&#39;], loc=&#39;center left&#39;)
-plt.xlabel(&#39;HCCH dihedral angle (degrees)&#39;)
-ax.set_ylabel(r&#39;Energy $(E_h)$&#39;)
-ax2 = ax.twinx()
-ax2.plot(grid, cc, color=&quot;black&quot;)
-ax2.set_ylabel(r&quot;C-C bond length $(\rm\AA)$&quot;)
-plt.show()
+<span class="n">e1</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s1">&#39;MRCI&#39;</span><span class="p">,</span> <span class="n">stateSymmetry</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s1">&#39;MRCI&#39;</span><span class="p">,</span> <span class="n">stateSymmetry</span><span class="o">=</span><span class="s1">&#39;4&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
+<span class="n">cc</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">variable</span><span class="p">(</span><span class="s1">&#39;RCC&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">e1</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="sa">r</span><span class="s1">&#39;$X\;</span><span class="si">{}</span><span class="s1">^1A_1$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$V\;</span><span class="si">{}</span><span class="s1">^1B_1$&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;HCCH dihedral angle (degrees)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Energy $(E_h)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C-C bond length $(\rm\AA)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
