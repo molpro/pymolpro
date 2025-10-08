@@ -116,8 +116,6 @@ _supported_methods = None
 _procedures_registry = None
 
 
-
-
 def supported_methods():
     r"""
     Returns a list of supported methods.
@@ -133,6 +131,7 @@ def supported_methods():
             _supported_methods.append(_procedures_registry[keyfound]['name'])
 
     return _supported_methods
+
 
 def procedures_registry():
     r"""
@@ -271,9 +270,9 @@ class InputSpecification(UserDict):
                 result[k] = v
         if 'spin' not in self:
             result['spin'] = (self.open_shell_electrons) % 2 - 2
-        for key in ['method','basis']:
-            if 'geometry_'+key not in result and key in result:
-                result['geometry_'+key] = result[key]
+        for key in ['method', 'basis']:
+            if 'geometry_' + key not in result and key in result:
+                result['geometry_' + key] = result[key]
         return result
 
     @property
@@ -295,8 +294,8 @@ class InputSpecification(UserDict):
         If not present, set to default. If invalid, prepend 'rhf' or 'uhf'.
         """
         if 'method' not in self or not self['method']:
-           self['method'] = self.with_defaults['method']
-           return
+            self['method'] = self.with_defaults['method']
+            return
         methods = self['method'].split(';') if isinstance(self['method'], str) else self['method']
         if not methods:
             self['method'] = self.with_defaults['method']
@@ -858,60 +857,32 @@ class InputSpecification(UserDict):
         self['steps'] = new_steps
 
     @property
-    def method(self):
+    def method(self) -> str:
         r"""
-        Evaluate the single method implemented by the job
-        :return: If the input implements a single method, its command name. Otherwise, None
-        :rtype: str
+        The single method implemented by the job, represented as the Molpro input command name that implements it.
         """
         methods = []
         defaulted_spec = self.with_defaults
         if 'method' in defaulted_spec:
             methods = defaulted_spec['method']
-        # if 'steps' in self:
-        #     for i in range(len(self['steps'])):
-        #         command = self['steps'][i]['command'].lower()
-        #         if command not in [s['command'].lower() for t in _default_job_type_commands.values() for s in t]:
-        #             methods.append(command)
-        #             if command not in [m.lower() for m in self.hartree_fock_methods] and methods[0] in [m.lower() for m
-        #                                                                                                 in
-        #                                                                                                 self.hartree_fock_methods]:
-        #                 del methods[0]
         if type(methods) is str:
             return methods.replace('\n', ';').split(';')[0].split(',')[0]
         else:
             return methods[-1].replace('\n', ';').split(';')[0].split(',')[0]
 
     @method.setter
-    def method(self, method):
-        r"""
-        Adjust the steps of specification so that they perform a specific single method
-        :param method:
-        :type method: str
-        """
+    def method(self, method: str):
         if method is None or method == '' or (self.method is not None and method.lower() == self.method.lower()): return
-        # new_steps = []
-        # if method.lower() not in [m.lower() for m in self.hartree_fock_methods]:
-        #     new_steps.append({'command': ('rhf' if method[0].lower() != 'u' else 'uhf')})  # TODO df
-        # new_steps.append({'command': method.lower()})
-        # if 'steps' in self and self['job_type'] is not None:
-        #     for step in self['steps']:
-        #         if 'command' in step and any(
-        #                 [step_['command'] == step['command'] for step_ in
-        #                  _default_job_type_commands[self['job_type']]]):
-        #             new_steps.append(step)
-        # self['steps'] = new_steps
         if method.lower() not in [m.lower() for m in self.hartree_fock_methods]:
-            # new_steps.append({'command': ('rhf' if method[0].lower() != 'u' else 'uhf')})  # TODO df
             self['method'] = ['rhf' if method[0].lower() != 'u' else 'uhf', method.lower()]
         else:
             self['method'] = method.lower()
 
     @property
-    def method_options(self, command=None):
-        r"""Get the options for a single-method job
+    def method_options(self) -> str:
+        r"""The options for a single-method job
         """
-        _command = command if command is not None else self.method.split(',')[0].split(';')[0]
+        _command = self.method.split(',')[0].split(';')[0]
         if 'method' not in self:
             return []
         for step in self['method'] if type(self['method']) is list else [self['method']]:
@@ -921,14 +892,11 @@ class InputSpecification(UserDict):
         return []
 
     @method_options.setter
-    def method_options(self, options, command=None):
-        r"""
-        Set the options for a single-method job
-        """
+    def method_options(self, options):
         if 'method' not in self:
-            self['method'] = 'hf'
-        _command = command if command is not None else self.method.split(',')[0].split(';')[0]
-        if type(self['method']) is not list:
+            self['method'] = self.with_defaults['method']
+        _command = self.method.split(',')[0].split(';')[0]
+        if not isinstance(self['method'], list):
             self['method'] = [self['method']]
         for index, step in enumerate(self['method']):
             js = JobStep(step)
@@ -937,13 +905,6 @@ class InputSpecification(UserDict):
                 self['method'][index] = js.dump().replace('{', '').replace('}', '')
         if len(self['method']) == 1:
             self['method'] = self['method'][0]
-
-    @method_options.deleter
-    def method_options(self):
-        if 'steps' in self:
-            for step in self['steps']:
-                if self.method == step['command']:
-                    del step['options']
 
     @property
     def basis_quality(self):
@@ -973,6 +934,7 @@ class InputSpecification(UserDict):
         return result
 
     _last_density_functional = 'LDA'
+
     @property
     def density_functional(self):
         if 'method' not in self or not self['method']:
