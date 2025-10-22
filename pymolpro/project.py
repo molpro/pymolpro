@@ -3,7 +3,10 @@ import copy
 
 import math
 import os
-import pwd
+try:
+    import pwd
+except ImportError:
+    pass
 import pathlib
 import tempfile
 
@@ -647,7 +650,10 @@ class Project(pysjef.project.Project):
                             shell_num += 1
 
             trexio.write_metadata_author_num(f,1)
-            trexio.write_metadata_author(f,[pwd.getpwuid(os.getuid()).pw_gecos])
+            try:
+                trexio.write_metadata_author(f,[pwd.getpwuid(os.getuid()).pw_gecos])
+            except NameError:
+                pass
             trexio.write_metadata_code_num(f,1)
             trexio.write_metadata_code(f,["pymolpro "+pymolpro.__version__])
 
