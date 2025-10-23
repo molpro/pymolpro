@@ -232,8 +232,9 @@
     },
     "symmetry": {
       "description": "Whether to use molecular symmetry.",
-      "default": "automatic",
+      "default": "",
       "enum": [
+        "",
         "automatic",
         "none"
       ]
