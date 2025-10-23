@@ -18,7 +18,8 @@ with open((pathlib.Path(__file__).parent / 'molpro_input.json').as_posix(), 'r')
 
 _logger = logging.getLogger(__name__)
 _symmetry_commands = {
-    'automatic': '',
+    '': '',
+    'automatic': 'symmetry,auto',
     'none': 'symmetry,nosym'
 }
 assert (set(_symmetry_commands.keys()).issubset(set(schema['properties']['symmetry']['enum'])))
@@ -716,7 +717,7 @@ class InputSpecification(UserDict):
         if 'orientation' in self:
             _input += 'orient,' + _orientation_options[self['orientation']] + '\n'
 
-        if 'symmetry' in self:
+        if 'symmetry' in self and self['symmetry']:
             _input += _symmetry_commands[self['symmetry']] + '\n'
 
         if 'angstrom' in self and self['angstrom']:
