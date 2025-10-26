@@ -14,7 +14,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
 ]
-dependencies = ["numpy", "pysjef>=1.39", "scipy>=1.9.3", "chemcoord", "lxml", "pandas", "quadpy>=0.16.10", "ase>=3.23.0"]
+dependencies = ["numpy", "pysjef>=1.42.3", "scipy>=1.9.3", "chemcoord", "lxml", "pandas", "quadpy>=0.16.10", "ase>=3.23.0"]
 
 [project.urls]
 Homepage = "https://github.com/molpro/pymolpro"
