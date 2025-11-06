@@ -96,3 +96,103 @@ periodic_table = [
     "Nh", "Fl", "Mc", "Lv", "Ts", "Og",
     "Ua", "Ub", "Uc", "Ud", "Ue", "Uf", "Ug", "Uh",
 ]
+
+small_core_ranges = [
+    (1, 4),
+    (11, 12),
+    (19, 30),
+    (37, 48),
+    (55, 80),
+    (87, 112),
+]
+
+
+def element(given) -> str:
+    """
+    Return the properly-cased chemical element symbol corresponding to a given atomic number or case-insensitive chemical element symbol
+    """
+    if isinstance(given, str):
+        return given[0].upper() + given[1:].lower()
+    elif type(given) is int:
+        return periodic_table[given - 1]
+    else:
+        raise ValueError
+
+
+def atomic_number(given) -> int:
+    """
+    Return the atomic number corresponding to a given chemical element symbol
+    """
+    if type(given) is int:
+        return given
+    elif isinstance(given, str):
+        return periodic_table.index(element(given)) + 1
+    else:
+        raise ValueError
+
+
+def core_correlation_segment(element):
+    z = atomic_number(element)
+    core_correlation_boundaries = ([range[0] - 1 for range in small_core_ranges] + [range[1] for range in
+                                                                                    small_core_ranges]) + [9999]
+    core_correlation_boundaries.sort()
+    for segment in range(len(core_correlation_boundaries) - 1):
+        if z > core_correlation_boundaries[segment] and z <= core_correlation_boundaries[segment + 1]:
+            return segment
+
+def elements_from_xyz(xyz: str) -> list[str]:
+    """
+    Extract the unique chemical elements in an xyz file
+    :param xyz: The xyz
+    :return: A list of unique chemical elements
+    """
+    lines = xyz.strip().split('\n')
+    try:
+        if lines and int(lines[0].strip()) == len(lines)-2:
+            lines = lines[2:]
+    except:
+        pass
+    elements=[]
+    for line in lines:
+        print('line',line)
+        elements.append(element(line.strip().split(' ')[0]))
+    elements = list(set(elements))
+    elements.sort()
+    return elements
+
+def element_ranges(elements: list) ->list[str]:
+    """
+    Format a list of chemical elements into ranges of contiguous elements not spanning a core-correlation segment boundary
+    :param elements:
+    """
+    result = []
+    this = []
+    atomic_numbers = list(set([atomic_number(element) for element in elements]))
+    atomic_numbers.sort()
+    for k, atno in enumerate(atomic_numbers):
+        if this and (core_correlation_segment(atno) != core_correlation_segment(this[-1]) or atno != this[-1] + 1):
+            result.append(element(this[0]) + ('-' + element(this[-1]) if len(this) > 1 else ''))
+            this = []
+        this.append(atno)
+    if this:
+        result.append(element(this[0]) + ('-' + element(this[-1]) if len(this) > 1 else ''))
+    return result
+
+
+def mixed_core_correlation_assert(element_range: str, core_correlation: bool = True) -> bool:
+    """
+    Determine whether the given range of chemical elements overlaps with the set of elements for which in the 'mixed' core correlation model, core correlation is active or inactive, depending on option.
+    :param element_range: A single element symbol, or a range given as, e.g., Li-Ne
+    :param core_correlation: If True, then the function answers the question whether, for any element in the range of elements, core correlation is active in mixed core; if false, then the function answers the question whether, for any element in the range of elements, core correlation is inactive in mixed core
+    """
+
+    if isinstance(element_range, str) and '-' in element_range:
+        start, end = element_range.split('-')
+        start = atomic_number(start)
+        end = atomic_number(end)
+        if start > end:
+            return False
+        return any([mixed_core_correlation_assert(element, core_correlation) for element in range(start, end + 1)])
+    else:
+        element = atomic_number(element_range)
+        return not core_correlation ^ any([element >= range[0] and element <= range[1] for range in small_core_ranges])
