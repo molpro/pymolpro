@@ -140,6 +140,7 @@ def core_correlation_segment(element):
         if z > core_correlation_boundaries[segment] and z <= core_correlation_boundaries[segment + 1]:
             return segment
 
+
 def elements_from_xyz(xyz: str) -> list[str]:
     """
     Extract the unique chemical elements in an xyz file
@@ -148,32 +149,35 @@ def elements_from_xyz(xyz: str) -> list[str]:
     """
     lines = xyz.strip().split('\n')
     try:
-        if lines and int(lines[0].strip()) == len(lines)-2:
+        if lines and int(lines[0].strip()) == len(lines) - 2:
             lines = lines[2:]
     except:
         pass
-    elements=[]
+    elements = []
     for line in lines:
-        print('line',line)
         elements.append(element(line.strip().split(' ')[0]))
     elements = list(set(elements))
     elements.sort()
     return elements
 
-def element_ranges(elements: list) ->list[str]:
+
+def element_ranges(elements: list, heavy: bool = True, light: bool = True) -> list[str]:
     """
     Format a list of chemical elements into ranges of contiguous elements not spanning a core-correlation segment boundary
-    :param elements:
+    :param elements: Atomic numbers or chemical element symbols
+    :param heavy: Whether to include 'heavy' elements, ie those for which core correlation is active in the mixed core-correlation scheme
+    :param light: Whether to include 'light' elements, ie those for which core correlation is not active in the mixed core-correlation scheme
     """
     result = []
     this = []
     atomic_numbers = list(set([atomic_number(element) for element in elements]))
     atomic_numbers.sort()
     for k, atno in enumerate(atomic_numbers):
-        if this and (core_correlation_segment(atno) != core_correlation_segment(this[-1]) or atno != this[-1] + 1):
-            result.append(element(this[0]) + ('-' + element(this[-1]) if len(this) > 1 else ''))
-            this = []
-        this.append(atno)
+        if (heavy and core_correlation_segment(atno) % 2 == 0) or (light and core_correlation_segment(atno) % 2 == 1):
+            if this and (core_correlation_segment(atno) != core_correlation_segment(this[-1]) or atno != this[-1] + 1):
+                result.append(element(this[0]) + ('-' + element(this[-1]) if len(this) > 1 else ''))
+                this = []
+            this.append(atno)
     if this:
         result.append(element(this[0]) + ('-' + element(this[-1]) if len(this) > 1 else ''))
     return result

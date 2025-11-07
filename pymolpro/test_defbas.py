@@ -69,3 +69,11 @@ def test_element_ranges_from_xyz():
         'C 0 0 0\n O 0 0 -1\nFe 0 0 2': ['C','O','Fe'],
     }.items():
         assert (element_ranges(elements_from_xyz(xyz)) == ranges)
+
+def test_element_ranges_from_xyz_heavy():
+    for xyz, ranges in {
+        '2\n\nHe 0 0 0\nHe 2 0 0\n': ['He'],
+        '3\n\nFe 0 0 0\nCo 2 0 0\nO 4 0 0\n': ['Fe-Co'],
+        '3\n\nW 0 0 0\nGa 2 0 0\nO 4 0 0\n': ['W'],
+    }.items():
+        assert (element_ranges(elements_from_xyz(xyz),light=False) == ranges)
