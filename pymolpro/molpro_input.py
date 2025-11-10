@@ -1,7 +1,7 @@
 #!env python
 from __future__ import annotations
 import logging
-from pymolpro.defbas import periodic_table
+from .elements import periodic_table
 import os
 import pathlib
 import re
@@ -11,7 +11,6 @@ import json
 from dataclasses import dataclass
 
 import jsonschema
-import pymolpro
 
 with open((pathlib.Path(__file__).parent / 'molpro_input.json').as_posix(), 'r') as f:
     schema = json.load(f)
