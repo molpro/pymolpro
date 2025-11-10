@@ -1,5 +1,6 @@
 import pathlib
 import re
+from .elements import periodic_table
 
 
 class Defbas:
