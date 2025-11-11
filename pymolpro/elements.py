@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 
 
@@ -121,7 +122,7 @@ def elements_from_xyz(xyz: str) -> list[str]:
         pass
     elements = []
     for line in lines:
-        split_ = line.strip().split(' ')[0]
+        split_ = re.sub('[0-9]*$','',line.strip().split(' ')[0])
         instance = element(split_)
         elements.append(instance)
     elements = list(set(elements))

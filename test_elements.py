@@ -79,7 +79,7 @@ def test_elements_from_xyz():
         '2\n\nHe 0 0 0\nHe 2 0 0\n': ['He'],
         'He 0 0 0\n Ne 0 0 3': ['He', 'Ne'],
         'He 0 0 0\n H 0 0 3': ['H', 'He'],
-        'C 0 0 0\n O 0 0 -1\nFe 0 0 2': ['C', 'O', 'Fe'],
+        'C 0 0 0\n O 0 0 -1\nFe1 0 0 2': ['C', 'O', 'Fe'],
     }.items():
         # print (elements_from_xyz(xyz) , [element(instance) for instance in elements])
         assert (elements_from_xyz(xyz) == [element(instance) for instance in elements])
