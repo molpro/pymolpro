@@ -817,7 +817,8 @@ class InputSpecification(UserDict):
         _input = 'basis=' + basis['default']
         if 'elements' in basis:
             for e, b in basis['elements'].items():
-                _input += ',' + e + '=' + b
+                if b:
+                    _input += ',' + e + '=' + b
         _input += '\n'
         return _input
 
