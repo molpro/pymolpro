@@ -1,8 +1,5 @@
 import numpy as np
-import ase
 from ase.calculators.calculator import BaseCalculator, CalculationFailed
-from debugpy.common.util import force_str
-from networkx.drawing import forceatlas2_layout
 
 from pymolpro import Project
 import hashlib
