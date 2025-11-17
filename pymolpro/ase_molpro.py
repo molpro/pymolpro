@@ -1,6 +1,9 @@
 import numpy as np
 import ase
 from ase.calculators.calculator import BaseCalculator, CalculationFailed
+from debugpy.common.util import force_str
+from networkx.drawing import forceatlas2_layout
+
 from pymolpro import Project
 import hashlib
 from ase.units import Bohr, Ha
@@ -49,19 +52,21 @@ class ASEMolpro(BaseCalculator):
                                                        str(tuple(sorted(self.kwargs.items())))).encode(
                 'utf-8')).hexdigest()[-8:]
         Path(self.project_location).mkdir(parents=True, exist_ok=True)
+        forces = 'forces' in properties
         project = Project(self.molpro_project_name, location=self.project_location, geometry=geom_string,
-                          method=self.method, basis=self.basis,  **self.kwargs,
-                          epilogue='{force;varsav}' if 'forces' in properties else None)
+                          method=self.method, basis=self.basis, **self.kwargs,
+                          epilogue='{force;varsav}' if forces else None)
         self.projects[self.molpro_project_name] = project
         project.run(wait=True)
         if project.status == 'failed': raise CalculationFailed
         self.results['energy'] = float(project.variable('ENERGY')) * Ha
-        gradx = project.variable('GRADX')
-        grady = project.variable('GRADY')
-        gradz = project.variable('GRADZ')
-        self.results['forces'] = -np.array(
-            [[float(gradx[i]), float(grady[i]), float(gradz[i])] for i in
-             range(len(gradx))]) * Ha / Bohr
+        if forces:
+            gradx = project.variable('GRADX')
+            grady = project.variable('GRADY')
+            gradz = project.variable('GRADZ')
+            self.results['forces'] = -np.array(
+                [[float(gradx[i]), float(grady[i]), float(gradz[i])] for i in
+                 range(len(gradx))]) * Ha / Bohr
 
     def clean(self):
         """
