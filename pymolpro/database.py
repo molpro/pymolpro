@@ -28,7 +28,7 @@ class Database:
 
     """
 
-    def __init__(self, molecules:dict[str,str]={}, reactions:dict[str,dict[str,int]]={}, description:str=None,
+    def __init__(self, molecules:dict[str,str]=None, reactions:dict[str,dict[str,int]]=None, description:str=None,
                  project_directory: str = None):
         r"""
 
@@ -41,10 +41,12 @@ class Database:
         """
         self.molecules = {}  #: Dictionary of molecules
         self.reactions = {}  #: Dictionary of reactions involving the :py:data:`molecules` together with stoichiometric factors
-        for key, value in molecules.items():
-            self.add_molecule(key, value)
-        for key, value in reactions.items():
-            self.add_reaction(key, value)
+        if molecules is not None:
+            for key, value in molecules.items():
+                self.add_molecule(key, value)
+        if reactions is not None:
+            for key, value in reactions.items():
+                self.add_reaction(key, value)
         self.preamble = ""  #: any Molpro commands that should be executed before geometry specification. Typically `angstrom` could be specified if the geometry specification is in Z-matrix format with numerical values that would, by default, be interpreted as Bohr.
         self.description = "" if description is None else description  #: Text describing the database
         self.references = {}  #: A dictionary of external references to the data. The keys should be a short-form string that you want printed, eg author, year, and the values URLs that lead to the resource.

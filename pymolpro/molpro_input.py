@@ -341,7 +341,7 @@ class InputSpecification(UserDict):
             else:
                 self['job_type_commands'].append(job_step.dump(braces=False))
 
-    def __init__(self, input: str = None, allowed_methods: list[str] = [], debug: bool = False,
+    def __init__(self, input: str = None, allowed_methods=None, debug: bool = False,
                  specification: dict = None, directory: str = None):
         """
 
@@ -351,6 +351,8 @@ class InputSpecification(UserDict):
         :param directory: The directory where any auxiliary files are located. If not specified, the current working directory will be used.
         """
         super(InputSpecification, self).__init__()
+        if allowed_methods is None:
+            allowed_methods = []
         self.allowed_methods = list(set(allowed_methods).union(set(supported_methods())))
         self.directory = directory
         self.procname = 'ansatz'
