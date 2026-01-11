@@ -497,6 +497,8 @@ class InputSpecification(UserDict):
                     if (line.lower() == _orientation_options[orientation_option].lower()):
                         self['orientation'] = orientation_option
                         break
+            elif command.lower() == self.procname:
+                pass
             elif command.lower() == 'angstrom':
                 self['angstrom'] = True
             elif command.lower() == 'proc':
@@ -780,15 +782,17 @@ class InputSpecification(UserDict):
 
         if len(_job_type_commands) > 0:
             _input += 'endproc\n\n'
+            _input += self.procname + '\n\n'
             for step in _job_type_commands:
                 _step = JobStep(step)
-                for option in _step.options:
-                    if re.match(r'^proc=.*$', option):
-                        _index = step.options.index(option)
-                try:
-                    _step.options[_index] = 'proc=' + self.procname
-                except NameError:
-                    _step.options.append('proc=' + self.procname)
+                if 'df-hf' not in step:
+                    for option in _step.options:
+                        if re.match(r'^proc=.*$', option):
+                            _index = step.options.index(option)
+                    try:
+                        _step.options[_index] = 'proc=' + self.procname
+                    except NameError:
+                        _step.options.append('proc=' + self.procname)
                 _input += _step.dump() + '\n'
 
         if _job_type[:3] == 'OPT' and (self.with_defaults['method'] != self.with_defaults['geometry_method']
@@ -1082,6 +1086,10 @@ def canonicalise(input):
         result = re.sub('(\\w+=\\w+)\n(basis={[^\n]*})', '\\2\n\\1', result,
                         flags=re.MULTILINE | re.IGNORECASE | re.DOTALL)
     # print('after 1st hack', result)
+    match = re.search(r'^ *proc +([a-z0-9]+)', result, flags=re.MULTILINE | re.IGNORECASE)
+    if match:
+        procname = match.group(1)
+        result = re.sub('\n' + procname + '\n', '\n', result, flags=re.MULTILINE | re.IGNORECASE)
     result = re.sub('(dkho=\\d)\n(geomtyp=xyz)', '\\2\n\\1', result, flags=re.MULTILINE | re.IGNORECASE)
     # hack for gmolpro-style frequencies:
     # print('after 2nd hack', result)
