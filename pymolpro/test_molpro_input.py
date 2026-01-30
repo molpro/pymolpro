@@ -2,6 +2,7 @@ import json
 import os
 import re
 import string
+import unittest
 
 import jsonschema
 
@@ -9,6 +10,8 @@ from pymolpro import molpro_input
 from pymolpro.molpro_input import equivalent, canonicalise, InputSpecification, _supported_methods
 import pytest
 
+class TestMolproInput(unittest.TestCase):
+    pass
 
 @pytest.fixture
 def methods():
@@ -341,3 +344,13 @@ def test_keyval():
         converted = molpro_input._convert_keyval_to_json(test)
         assert re.sub(r'\s+', '', converted) == re.sub(r'\s+', '', tests[test])
         jsonschema.validate(instance=json.loads(converted), schema=molpro_input.schema)
+
+def test_charge():
+    input='geometry={He};charge=1;rhf'
+    specification = molpro_input.InputSpecification(input)
+    specification['charge'] = 2
+    assert(canonicalise(specification.molpro_input()) == canonicalise(input.replace('charge=1', 'charge=2')))
+    specification['charge'] = 0
+    assert(canonicalise(specification.molpro_input()) == canonicalise(input.replace('charge=1', 'charge=0')))
+    del specification['charge']
+    assert(canonicalise(specification.molpro_input()) == canonicalise(input.replace('charge=1;', '')))

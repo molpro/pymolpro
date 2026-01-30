@@ -696,7 +696,7 @@ def violin_plot(analysis, reactions=True, omitted_methods=[], reference_method=N
     if data.size == 0:
         return None
     fig, pane = plt.subplots(nrows=1, ncols=1, sharey=True, figsize=(6, 6))
-    pane.violinplot(data, showmeans=True, showextrema=True, vert=True, bw_method='silverman')
+    pane.violinplot(data, showmeans=True, showextrema=True, orientation='vertical', bw_method='silverman')
     pane.set_xticks(range(1, len(methods_pruned) + 1), labels=methods_pruned, rotation=-90)
     pane.set_title(title if title else analysis['results'][-1]['basis'])
     pane.set_ylabel('Error relative to ' + str(ref_meth) + ' / ' + analysis['results'][-1]['unit'])

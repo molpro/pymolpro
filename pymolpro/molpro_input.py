@@ -216,7 +216,7 @@ def _convert_keyval_to_json(string):
     split = {}
     result = ''
     for keyval in _split_quote_protected_string(string, ','):
-        key, value = re.split(r'[=:]', keyval, 1)
+        key, value = re.split(r'[=:]', keyval, maxsplit=1)
         key = re.sub(r'["\']', '', key).strip()
         value = re.sub(r'["\']', '', value).strip()
         if key == 'basis' and 'default' not in value:
