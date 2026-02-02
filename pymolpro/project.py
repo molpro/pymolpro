@@ -974,6 +974,9 @@ class Project(pysjef.project.Project):
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
 
     def run_local_molpro(self, options: list):
+        logger.debug(f"run_local_molpro with options: {options}")
+        logger.debug(f"PATH: {os.environ.get('PATH')}")
+        return subprocess.run(['molpro', *options], capture_output=True, text=True)
         def get_first(string):
             result = ''
             quoted = False
@@ -1050,11 +1053,16 @@ class Project(pysjef.project.Project):
             logger.debug('setting local_molpro_root')
             try:
                 run = self.run_local_molpro(['--registry'])
+                logger.debug(f"run.stdout: {run.stdout}")
+                logger.debug(f"run.stderr: {run.stderr}")
+                logger.debug(f"run.returncode: {run.returncode}")
                 if run.stdout:
                     logger.debug('Project.local_molpro_root makes stdout')
-                    self.local_molpro_root_ = pathlib.Path(
-                        re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
-                                                                                                                 '')).parent
+                    out1 = str(run.stdout).split('\n')[0]
+                    path_to_lib = pathlib.Path(
+                        re.sub(r'\\n.*', '', re.sub('.*registry at *', '', out1)).rstrip("'").replace('\\n',
+                                                                                                                 ''))
+                    self.local_molpro_root_ = path_to_lib.parent
                     logger.debug('Project.local_molpro_root sets local_molpro_root to '+str(self.local_molpro_root_))
             except Exception:
                 return None
