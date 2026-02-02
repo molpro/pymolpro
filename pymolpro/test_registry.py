@@ -33,6 +33,9 @@ class TestRegistry(unittest.TestCase):
             assert os.path.exists(pymolpro.local_molpro_root() / 'lib' / 'defbas')
 
     def test_registry(self):
+        # print('registry', pymolpro.registry(), '\n\n')
+        # print('GMB registry', pymolpro.registry('GMB'), '\n\n')
+        # print('EOM registry', pymolpro.registry('EOM'), '\n\n')
         if pymolpro.registry():
             assert 'GMB' in pymolpro.registry()
             assert 'STATES' in pymolpro.registry('GMB')
