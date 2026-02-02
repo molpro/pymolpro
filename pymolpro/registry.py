@@ -1,4 +1,6 @@
 import pathlib
+import logging
+logger = logging.getLogger(__name__)
 
 _registry_project = None
 
@@ -8,6 +10,7 @@ def _ensure_registry_project():
     global _registry_project
     if _registry_project is None:
         _registry_project = Project()
+        logger.debug('pymolpro._ensure_registry_project() creates')
 
 
 def local_molpro_root() -> pathlib.Path:
@@ -17,6 +20,7 @@ def local_molpro_root() -> pathlib.Path:
     :return: directory
     """
     _ensure_registry_project()
+    logger.debug('pymolpro.local_molpro_root() -> ' + str(_registry_project.local_molpro_root))
     return _registry_project.local_molpro_root
 
 
@@ -28,6 +32,7 @@ def procedures_registry():
     :rtype: dict
     """
     _ensure_registry_project()
+    logger.debug('pymolpro.procedures_registry() -> ' + str(_registry_project.procedures_registry()))
     return _registry_project.procedures_registry()
 
 
