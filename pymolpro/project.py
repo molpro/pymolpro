@@ -25,6 +25,8 @@ import pymolpro
 from .molpro_input import schema, InputSpecification
 
 from .elements import periodic_table
+import logging
+logger = logging.getLogger(__name__)
 
 def no_errors(projects, ignore_warning=True):
     """
@@ -1045,12 +1047,15 @@ class Project(pysjef.project.Project):
         :rtype: pathlib.Path
         """
         if self.local_molpro_root_ is None:
+            logger.debug('setting local_molpro_root')
             try:
                 run = self.run_local_molpro(['--registry'])
                 if run.stdout:
+                    logger.debug('Project.local_molpro_root makes stdout')
                     self.local_molpro_root_ = pathlib.Path(
                         re.sub(r'\\n.*', '', re.sub('.*registry at *', '', str(run.stdout))).rstrip("'").replace('\\n',
                                                                                                                  '')).parent
+                    logger.debug('Project.local_molpro_root sets local_molpro_root to '+str(self.local_molpro_root_))
             except Exception:
                 return None
         return self.local_molpro_root_
@@ -1063,10 +1068,12 @@ class Project(pysjef.project.Project):
         :rtype: dict
         """
         entries = {}
+        logger.debug('pymolpro.Project.procedures_registry()')
         try:
             all = ''
             with open(self.local_molpro_root / 'lib' / 'procedures.registry', 'r') as f:
                 for line in f.readlines():
+                    logger.debug('procedures.registry line: '+line)
                     if not re.match('^ *#', line) and line.strip(' ') != '':
                         all += line.replace('}', '').replace('\n', '')
             for record in all.split('{'):
