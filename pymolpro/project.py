@@ -1012,8 +1012,9 @@ class Project(pysjef.project.Project):
                     l0 = str(run.stdout)
                     l1 = l0[l0.find(':\\n') + 1:].rstrip("'").replace('\\n', '')
                     # print('l1',l1)
-                    line = l1.replace('{', '').strip('\\n').strip('"').split('}')
-                    # print('l',l)
+                    linestring = l1.replace('{', '').strip('\\n').strip('"')
+                    linestring=re.sub('^Molpro registry.*$|^Entries.*:$','',linestring,flags=re.MULTILINE).replace('\n','')
+                    line = linestring.split('}')
                     self.registry_cache[set] = {}
                     for li in line:
                         # print('li',li)
