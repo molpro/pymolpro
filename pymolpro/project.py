@@ -976,23 +976,11 @@ class Project(pysjef.project.Project):
     def run_local_molpro(self, options: list):
         logger.debug(f"run_local_molpro with options: {options}")
         logger.debug(f"PATH: {os.environ.get('PATH')}")
-        return subprocess.run(['molpro', *options], capture_output=True, text=True)
-        def get_first(string):
-            result = ''
-            quoted = False
-            for i in range(len(string)):
-                if string[i] == "'":
-                    quoted = not quoted
-                elif string[i] == ' ' and not quoted:
-                    return result
-                else:
-                    result = result + string[i]
-
-        command_ = (self.backend_get('local', 'run_command')).strip(' ')
-        command_ = re.sub('mpiexec', 'mpiexec -n 1', re.sub('  *', ' ', re.sub('{.*?}', '', command_))).strip(' ')
-        split_options = command_.split(' ')[1:] + options
-        run = subprocess.run([shutil.which(command_.split(' ')[0])] + split_options, capture_output=True, shell=False)
-        return run
+        ld_library_path = os.environ.pop('LD_LIBRARY_PATH', None)
+        subprocess_run = subprocess.run(['molpro', *options], capture_output=True, text=True)
+        if ld_library_path is not None:
+            os.environ['LD_LIBRARY_PATH'] = ld_library_path
+        return subprocess_run
 
     def registry(self, set=None):
         """
