@@ -174,8 +174,10 @@ class Project(pysjef.project.Project):
         if not hasattr(self, '__initialized'):
             try:
                 kwargs_ = {k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema + ['suffix']}
-                if name is None and files is not None and isinstance(files, list) and len(files) > 0:
+                if name is None and isinstance(files, list) and len(files) > 0:
                     name = pathlib.Path(files[0]).stem
+                if name is None and isinstance(files, str) and len(files) > 0:
+                    name = pathlib.Path(files).stem
                 if not name:
                     from pysjef import __version__ as pysjef_version
                     from packaging.version import Version
@@ -186,8 +188,9 @@ class Project(pysjef.project.Project):
                     os.makedirs(kwargs_['location'], exist_ok=True)
                     atexit.register(self._unconditionally_destroy)
                 else:
-                    _name = name
+                    _name = pathlib.Path(name).with_suffix('').as_posix()
 
+                print('name',name,'_name',_name)
                 super().__init__(name=_name, suffix='molpro', **kwargs_)
                 self.__initialized = True
             except Exception:
@@ -1202,7 +1205,7 @@ def molpro_project():
     parser.add_argument('--input', '-i', metavar='INPUT', type=str,
                         help='Input for Molpro which will be used to construct the input file')
     parser.add_argument('--verbose', '-v', action='store_true')
-    parser.add_argument('files', metavar='file', type=str, nargs='+', help='files to include in the project')
+    parser.add_argument('files', metavar='file', type=str, nargs='*', help='files to include in the project')
     args = parser.parse_args()
     try:
         project = Project(name=args.name, location=args.location, input=args.input, specification=args.specification,
