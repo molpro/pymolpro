@@ -21,6 +21,9 @@ Homepage = "https://github.com/molpro/pymolpro"
 Issues = "https://github.com/molpro/pymolpro/issues"
 Documentation = "https://molpro.github.io/pymolpro"
 
+[project.scripts]
+molpro_project = 'pymolpro.project.__main__:main'
+
 [build-system]
 requires = ["setuptools>=64", "setuptools_scm>=8", "wheel", ]
 build-backend = "setuptools.build_meta"

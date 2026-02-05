@@ -1,3 +1,4 @@
+import argparse
 import atexit
 import copy
 
@@ -17,14 +18,13 @@ import json
 import numpy as np
 import shutil
 
-from pandas.core.window.doc import kwargs_scipy
 from scipy.special import factorial2
 import inspect
 
 import pymolpro
-from .molpro_input import schema, InputSpecification
+from pymolpro.molpro_input import schema, InputSpecification
 
-from .elements import periodic_table
+from pymolpro.elements import periodic_table
 import logging
 logger = logging.getLogger(__name__)
 
@@ -174,6 +174,8 @@ class Project(pysjef.project.Project):
         if not hasattr(self, '__initialized'):
             try:
                 kwargs_ = {k: v for k, v in kwargs.items() if k not in possible_arguments_matching_schema + ['suffix']}
+                if name is None and files is not None and isinstance(files, list) and len(files) > 0:
+                    name = pathlib.Path(files[0]).stem
                 if not name:
                     from pysjef import __version__ as pysjef_version
                     from packaging.version import Version
@@ -1184,3 +1186,29 @@ class Project(pysjef.project.Project):
                                        str(tuple(sorted(kwargs.items())))).encode(
             'utf-8')).hexdigest()[-8:]
         return project_name
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Create a Molpro project from one or more files')
+    parser.add_argument('--name', '-n', metavar='NAME', type=str,
+                        help='Name of the project to create, resulting in a project bundle NAME.molpro. If not given, a name will be constructed from any files given')
+    parser.add_argument('--location', '-l', metavar='LOCATION', type=str,
+                        help='directory in the file system where the project will be placed')
+    parser.add_argument('--ansatz', '-a', metavar='ANSATZ',
+                        help='method/basis or method/basis//geometry_method/geometry_basis', type=str, )
+    parser.add_argument('--specification', '-s', metavar='SPECIFICATION',
+                        help='specification of the input to Molpro in a json string conforming to https://www.molpro.net/schema/molpro_input.json',
+                        type=str, )
+    parser.add_argument('--input', '-i', metavar='INPUT', type=str,
+                        help='Input for Molpro which will be used to construct the input file')
+    parser.add_argument('--verbose', '-v', action='store_true')
+    parser.add_argument('files', metavar='file', type=str, nargs='+', help='files to include in the project')
+    args = parser.parse_args()
+    try:
+        project = Project(name=args.name, location=args.location, input=args.input, specification=args.specification,
+                          ansatz=args.ansatz, files=args.files)
+        if args.verbose:
+            print('Created Molpro project', project.filename('', '', -1))
+    except Exception as e:
+        print('Error in creating Molpro project', args, ('with files ' + str(args.files)) if args.files else '')
+        print(e)
