@@ -1188,7 +1188,7 @@ class Project(pysjef.project.Project):
         return project_name
 
 
-if __name__ == '__main__':
+def molpro_project():
     parser = argparse.ArgumentParser(description='Create a Molpro project from one or more files')
     parser.add_argument('--name', '-n', metavar='NAME', type=str,
                         help='Name of the project to create, resulting in a project bundle NAME.molpro. If not given, a name will be constructed from any files given')
@@ -1212,3 +1212,5 @@ if __name__ == '__main__':
     except Exception as e:
         print('Error in creating Molpro project', args, ('with files ' + str(args.files)) if args.files else '')
         print(e)
+if __name__ == '__main__':
+    molpro_project()

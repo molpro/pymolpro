@@ -22,7 +22,7 @@ Issues = "https://github.com/molpro/pymolpro/issues"
 Documentation = "https://molpro.github.io/pymolpro"
 
 [project.scripts]
-molpro_project = 'pymolpro.project.__main__:main'
+molpro_project = 'pymolpro.project:molpro_project'
 
 [build-system]
 requires = ["setuptools>=64", "setuptools_scm>=8", "wheel", ]
