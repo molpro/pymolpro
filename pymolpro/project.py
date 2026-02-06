@@ -190,7 +190,6 @@ class Project(pysjef.project.Project):
                 else:
                     _name = pathlib.Path(name).with_suffix('').as_posix()
 
-                print('name',name,'_name',_name)
                 super().__init__(name=_name, suffix='molpro', **kwargs_)
                 self.__initialized = True
             except Exception:
