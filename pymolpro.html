@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.17.3 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.17.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=a487ca7d"></script>
+      <script src="_static/documentation_options.js?v=6f0e5ab0"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -641,7 +641,7 @@ This class provides additional convenience operations:</p>
 <li><p><strong>input</strong> – General specification of the input. If it looks like JSON or is a dictionary, it is treated as if it had been passed as the specification parameter. If it has the form method/basis or method/basis//geometry_method/geometry_basis, it is treated as if it had been passed as the ansatz parameter. Otherwise, it is treated as the desired contents of the Molpro input file. If input is specified, all other arguments are ignored.</p></li>
 <li><p><strong>specification</strong> – Either a dictionary or a JSON string conforming to the JSON schema <a class="reference external" href="https://www.molpro.net/schema/molpro_input.json">https://www.molpro.net/schema/molpro_input.json</a></p></li>
 <li><p><strong>ansatz</strong> – A string of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.</p></li>
-<li><p><strong>files</strong> – External files to be copied into the project directory. If one of these is a molpro-output xml file, it is used to construct the input file.</p></li>
+<li><p><strong>files</strong> – External files to be copied into the project directory. If one of these is a molpro-output xml file, or a plain-text Molpro output file, it is used to construct the input file.</p></li>
 <li><p><strong>kwargs</strong> – Any of the top-level keywords in the JSON schema <a class="reference external" href="https://www.molpro.net/schema/molpro_input.json">https://www.molpro.net/schema/molpro_input.json</a>, or any of the arguments accepted by the parent sjef.Project class constructor.</p></li>
 </ul>
 </dd>
@@ -792,9 +792,20 @@ This class provides additional convenience operations:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pymolpro.Project.input_from_output">
-<span class="sig-name descname"><span class="pre">input_from_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Project.input_from_output" title="Link to this definition"></a></dt>
-<dd><p>Return a list of all defined input in the output stream</p>
+<dt class="sig sig-object py" id="pymolpro.Project.input_from_out">
+<span class="sig-name descname"><span class="pre">input_from_out</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pymolpro.Project.input_from_out" title="Link to this definition"></a></dt>
+<dd><p>Return a list of all defined input in the text output stream</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.Project.input_from_xml">
+<span class="sig-name descname"><span class="pre">input_from_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Project.input_from_xml" title="Link to this definition"></a></dt>
+<dd><p>Return a list of all defined input in the xml output stream</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> – index of occurence of input node in output</p>
