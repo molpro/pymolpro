@@ -162,7 +162,7 @@ class Project(pysjef.project.Project):
         :param input: General specification of the input. If it looks like JSON or is a dictionary, it is treated as if it had been passed as the specification parameter. If it has the form method/basis or method/basis//geometry_method/geometry_basis, it is treated as if it had been passed as the ansatz parameter. Otherwise, it is treated as the desired contents of the Molpro input file. If input is specified, all other arguments are ignored.
         :param specification: Either a dictionary or a JSON string conforming to the JSON schema https://www.molpro.net/schema/molpro_input.json
         :param ansatz: A string of the form method/basis//geometry_method/geometry_basis or method/basis which is parsed to give the same effect as the method and basis parameters. If geometry_method/geometry_basis is specified, the calculation will be preceded by a geometry optimisation at that level of theory.
-        :param files: External files to be copied into the project directory. If one of these is a molpro-output xml file, it is used to construct the input file.
+        :param files: External files to be copied into the project directory. If one of these is a molpro-output xml file, or a plain-text Molpro output file, it is used to construct the input file.
         :param kwargs: Any of the top-level keywords in the JSON schema https://www.molpro.net/schema/molpro_input.json, or any of the arguments accepted by the parent sjef.Project class constructor.
 """
         # print('Project(): name',name,'input',input,'specification',specification,'ansatz',ansatz,'files',files,'kwargs',kwargs)
@@ -1215,7 +1215,10 @@ class Project(pysjef.project.Project):
         return project_name
 
 
-def molpro_project():
+def molpro_project() -> Project:
+    r"""
+    Construct a Project instance from a collection of files and/or input specifications, given on the command line.
+    """
     parser = argparse.ArgumentParser(description='Create a Molpro project from one or more files')
     parser.add_argument('--name', '-n', metavar='NAME', type=str,
                         help='Name of the project to create, resulting in a project bundle NAME.molpro. If not given, a name will be constructed from any files given')
@@ -1239,5 +1242,7 @@ def molpro_project():
     except Exception as e:
         print('Error in creating Molpro project', args, ('with files ' + str(args.files)) if args.files else '')
         print(e)
+    return project
+
 if __name__ == '__main__':
     molpro_project()
