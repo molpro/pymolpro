@@ -1,7 +1,11 @@
+import glob
+import pathlib
 import subprocess
 import unittest
 
 import pytest
+from sympy.multipledispatch.dispatcher import source
+import filecmp
 
 import pymolpro
 import os
@@ -19,8 +23,8 @@ class TestProject(unittest.TestCase):
         pass
 
     def new_project(self, *args, **kwargs):
-        self.projects.append(pymolpro.Project(*args, **kwargs))
-        self.projects.append(pymolpro.Project(*args, **kwargs))
+        # self.projects.append(pymolpro.Project(*args, **kwargs, record_as_recent = False))
+        self.projects.append(pymolpro.Project(*args, **kwargs, record_as_recent = False))
         return self.projects[-1]
 
     # def test_project_from_files(self):
@@ -182,6 +186,18 @@ class TestProject(unittest.TestCase):
                 # print(pp.gradient())
                 # print(pm.gradient())
                 # print((pp.gradient()+pm.gradient())/2)
+
+    def test_construct_with_input(self):
+        for suffix in ['inp','xml','out']:
+            name = 'test_construct_'+suffix
+            source = pathlib.Path(name).with_suffix('.' + suffix)
+            shutil.copyfile(self.project.filename(suffix), source)
+            p = self.new_project(name, files=[source])
+            # subprocess.run(['ls','-lR',name+'.molpro'])
+            # print('desired input',open(self.project.filename('inp'),'r').readlines())
+            # print('achieved input',open(p.filename('inp','',-1),'r').readlines())
+            assert filecmp.cmp(p.filename('inp','',-1),self.project.filename('inp'))
+            os.remove(source)
 
 if __name__ == '__main__':
     unittest.main()

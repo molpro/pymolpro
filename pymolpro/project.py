@@ -204,17 +204,20 @@ class Project(pysjef.project.Project):
             run_directory = project_directory
             project_name = str(project_directory.stem)
             rundir = False
+            suffixes = {pathlib.Path(file).suffix for file in files if os.path.isfile(file) and pathlib.Path(file) == project_name}
+            input_from_output = ''
             for file in files:
                 if (os.path.isfile(file)):
                     path = pathlib.Path(file)
-                    if path.suffix in ['.out', '.xml']:
+                    if path.suffix in ['.out', '.xml'] and path.stem == project_name:
                         if not rundir:
                             self.run_directory_new()
                             rundir = True
                         shutil.copyfile(file, self.filename(path.suffix[1:]))
-                        if path.suffix == '.xml':
-                            input_from_output = self.input_from_output()
-                            self.write_input('\n'.join(input_from_output))
+                        if path.suffix == '.xml' and '.inp' not in suffixes:
+                            input_from_output = self.input_from_xml()
+                        if path.suffix == '.out' and '.xml' not in suffixes and '.inp' not in suffixes:
+                            input_from_output = self.input_from_out()
                     elif path.suffix in ['.inp', '.xyz'] and path.stem != 'optimised':
                         shutil.copyfile(file, pathlib.Path(self.filename('', run=-1)) / path.name)
                     else:
@@ -222,6 +225,7 @@ class Project(pysjef.project.Project):
                             self.run_directory_new()
                             rundir = True
                         shutil.copyfile(file, pathlib.Path(self.filename('')) / path.name)
+            if input_from_output: self.write_input('\n'.join(input_from_output)+'\n')
 
     def _unconditionally_destroy(self):
         try:
@@ -963,9 +967,9 @@ class Project(pysjef.project.Project):
         return [node.xpath('@name')[0] for node in (matches[instance].xpath('molpro-output:variable', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
 
-    def input_from_output(self, instance=-1):
+    def input_from_xml(self, instance=-1):
         """
-        Return a list of all defined input in the output stream
+        Return a list of all defined input in the xml output stream
 
         :param instance: index of occurence of input node in output
         :return:
@@ -974,8 +978,29 @@ class Project(pysjef.project.Project):
         if len(matches) == 0:
             return []
         instance_ = matches[instance]
-        return [node.text for node in (instance_.xpath('molpro-output:p', namespaces={
+        output_ = [node.text for node in (instance_.xpath('molpro-output:p', namespaces={
             'molpro-output': 'http://www.molpro.net/schema/molpro-output'}))]
+        return output_
+
+    def input_from_out(self) -> list[str]:
+        """
+        Return a list of all defined input in the text output stream
+
+        :return:
+        """
+        result = []
+        try:
+            with open(self.filename('out'),'r') as f:
+                active = False
+                for line in f:
+                    if 'Commands initialized (' in line:
+                        if not result[-1].strip(): result.pop(-1)
+                        return result
+                    if active:
+                        result.append(line.strip('\n').strip())
+                    active = active or 'Variables initialized (' in line
+        except:
+            return []
 
     def run_local_molpro(self, options: list):
         logger.debug(f"run_local_molpro with options: {options}")
