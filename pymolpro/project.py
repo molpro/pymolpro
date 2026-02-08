@@ -993,7 +993,7 @@ class Project(pysjef.project.Project):
             with open(self.filename('out'),'r') as f:
                 active = False
                 for line in f:
-                    if 'Commands initialized (' in line:
+                    if re.search('Commands *initialized ' , line):
                         if not result[-1].strip(): result.pop(-1)
                         return result
                     if active:
