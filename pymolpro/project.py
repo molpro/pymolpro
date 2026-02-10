@@ -21,6 +21,9 @@ import shutil
 from scipy.special import factorial2
 import inspect
 
+from urllib.request import urlretrieve
+from urllib.parse import urlsplit
+
 import pymolpro
 from pymolpro.molpro_input import schema, InputSpecification
 
@@ -199,12 +202,28 @@ class Project(pysjef.project.Project):
 
         self.input(input, specification, ansatz, **kwargs)
 
+        self.initialize_from_files(files)
+
+    def initialize_from_files(self, files: str | list[str] | None):
         if files is not None and isinstance(files, list) and len(files) > 0:
+            # print('initialize_from_files',files)
+            for i, file in enumerate(files):
+                if re.match('[a-z]+://', str(file)):
+                    print(urlsplit(file))
+                    name = os.path.join(tempfile.mkdtemp(),  pathlib.Path(urlsplit(file)[2]).name)
+                    filename,headers=urlretrieve(file,name)
+                    return self.initialize_from_files(files[:i]+[filename]+files[i+1:])
+                if pathlib.Path(file).suffix == '.inp':
+                    with open(file, 'r') as f:
+                        for line in f:
+                            if m := re.match(r' *geometry=(\w.*)', str(line)):
+                                if m is not None and m[1] not in files:
+                                    return self.initialize_from_files(files+[m[1]])
             project_directory = pathlib.Path(self.filename('', '', -1))
-            run_directory = project_directory
             project_name = str(project_directory.stem)
             rundir = False
-            suffixes = {pathlib.Path(file).suffix for file in files if os.path.isfile(file) and pathlib.Path(file) == project_name}
+            suffixes = {pathlib.Path(file).suffix for file in files if
+                        os.path.isfile(file) and pathlib.Path(file) == project_name}
             input_from_output = ''
             for file in files:
                 if (os.path.isfile(file)):
@@ -225,7 +244,7 @@ class Project(pysjef.project.Project):
                             self.run_directory_new()
                             rundir = True
                         shutil.copyfile(file, pathlib.Path(self.filename('')) / path.name)
-            if input_from_output: self.write_input('\n'.join(input_from_output)+'\n')
+            if input_from_output: self.write_input('\n'.join(input_from_output) + '\n')
 
     def _unconditionally_destroy(self):
         try:

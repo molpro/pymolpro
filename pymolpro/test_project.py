@@ -192,7 +192,9 @@ class TestProject(unittest.TestCase):
             name = 'test_construct_'+suffix
             source = pathlib.Path(name).with_suffix('.' + suffix)
             shutil.copyfile(self.project.filename(suffix), source)
-            p = self.new_project(name, files=[source])
+            url = 'file://' + str(pathlib.Path(source).resolve())
+            print(url)
+            p = self.new_project(name, files=[url])
             # subprocess.run(['ls','-lR',name+'.molpro'])
             # print('desired input',open(self.project.filename('inp'),'r').readlines())
             # print('achieved input',open(p.filename('inp','',-1),'r').readlines())
