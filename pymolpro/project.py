@@ -209,7 +209,6 @@ class Project(pysjef.project.Project):
             # print('initialize_from_files',files)
             for i, file in enumerate(files):
                 if re.match('[a-z]+://', str(file)):
-                    print(urlsplit(file))
                     name = os.path.join(tempfile.mkdtemp(),  pathlib.Path(urlsplit(file)[2]).name)
                     filename,headers=urlretrieve(file,name)
                     return self.initialize_from_files(files[:i]+[filename]+files[i+1:])
