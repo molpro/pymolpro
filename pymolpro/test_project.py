@@ -14,7 +14,8 @@ import shutil
 
 class TestProject(unittest.TestCase):
     def setUp(self):
-        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)), record_as_recent=False)
+        self.project = pymolpro.Project("TestProject", location=os.path.dirname(os.path.abspath(__file__)),
+                                        record_as_recent=False)
         self.projects = []
 
     def tearDown(self):
@@ -24,7 +25,7 @@ class TestProject(unittest.TestCase):
 
     def new_project(self, *args, **kwargs):
         # self.projects.append(pymolpro.Project(*args, **kwargs, record_as_recent = False))
-        self.projects.append(pymolpro.Project(*args, **kwargs, record_as_recent = False))
+        self.projects.append(pymolpro.Project(*args, **kwargs, record_as_recent=False))
         return self.projects[-1]
 
     # def test_project_from_files(self):
@@ -33,7 +34,7 @@ class TestProject(unittest.TestCase):
     #     subprocess.run(['ls','-lR','test_project_from_files.molpro'])
 
     def test_local_molpro(self):
-        print('local molpro root',self.project.local_molpro_root)
+        print('local molpro root', self.project.local_molpro_root)
 
     def test_pairs_discovery(self):
         pair_energies = 0.0
@@ -47,7 +48,7 @@ class TestProject(unittest.TestCase):
         # print(self.project.properties('correlation energy')) #TODO fix xpath search where attribute has embedded spaces
 
     def test_copy(self):
-        shutil.rmtree(os.path.dirname(os.path.abspath(__file__))+'/copied.molpro',ignore_errors=True)
+        shutil.rmtree(os.path.dirname(os.path.abspath(__file__)) + '/copied.molpro', ignore_errors=True)
         newproject = self.project.copy('copied', location=os.path.dirname(os.path.abspath(__file__)))
         newproject.erase()
 
@@ -55,7 +56,7 @@ class TestProject(unittest.TestCase):
         import os, shutil
         import pysjef
         pname = 'check_empty.molpro'
-        shutil.rmtree(pname,ignore_errors=True)
+        shutil.rmtree(pname, ignore_errors=True)
         os.mkdir(pname)
         with open(pname + '/Info.plist', 'w') as f:
             f.write('')
@@ -68,6 +69,7 @@ class TestProject(unittest.TestCase):
         if proc_reg:
             assert proc_reg['PNO-UCCSD']['gradient'] == -1
             assert 'pairopt' in proc_reg['PNO-UCCSD']['options']
+
     def test_basis_registry(self):
         basis_reg = self.project.basis_registry()
         assert None not in basis_reg.keys()
@@ -83,31 +85,31 @@ class TestProject(unittest.TestCase):
         if self.project.local_molpro_root:
             assert os.path.exists(self.project.local_molpro_root / 'lib' / 'defbas')
             filename = 'test_orbitals_to_molden'
-            shutil.rmtree(filename+'.molpro',ignore_errors=True)
-            p=pymolpro.Project(filename)
+            shutil.rmtree(filename + '.molpro', ignore_errors=True)
+            p = pymolpro.Project(filename)
             p.clean()
             p.write_input('symmetry,nosym;geometry={He;He,He,2};df-hf;{ibba}')
-#             p.write_input("""
-#             symmetry,nosym
-# !geometry={O;H,O,r;H,O,r,H,theta}
-# geometry={He;He,He,2}
-# r=1 angstrom, theta=104
-# basis=cc-pV(D+d)Z-PP
-# {df-rhf}
-# put,xml
-# {ibba}
-# put,xml
-# """)
-            p.run(wait=True,force=True,options='--xml-orbdump')
+            #             p.write_input("""
+            #             symmetry,nosym
+            # !geometry={O;H,O,r;H,O,r,H,theta}
+            # geometry={He;He,He,2}
+            # r=1 angstrom, theta=104
+            # basis=cc-pV(D+d)Z-PP
+            # {df-rhf}
+            # put,xml
+            # {ibba}
+            # put,xml
+            # """)
+            p.run(wait=True, force=True, options='--xml-orbdump')
             file, label = p.orbitals_to_molden(instance=0)
-            print('file ',file, label)
-            with open(file,'r') as f:
+            print('file ', file, label)
+            with open(file, 'r') as f:
                 print(f.read())
             file, label = p.orbitals_to_molden(instance=1)
-            print('file ',file, label)
-            with open(file,'r') as f:
+            print('file ', file, label)
+            with open(file, 'r') as f:
                 print(f.read())
-            self.assertRaises(IndexError, p.orbitals_to_molden,instance=2)
+            self.assertRaises(IndexError, p.orbitals_to_molden, instance=2)
 
     def test_registry(self):
         if self.project.registry():
@@ -159,7 +161,7 @@ class TestProject(unittest.TestCase):
         import numpy as np
         for r in [2.0, 4.0]:
             p = self.new_project('test_hessian')
-            dr=.001
+            dr = .001
             p.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r}}};rhf;frequencies,analytic')
             if p.local_molpro_root is not None:
                 p.run(wait=True)
@@ -171,16 +173,16 @@ class TestProject(unittest.TestCase):
                 except:
                     print(p.out)
                 pp = self.new_project('test_hessianp')
-                pp.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r+dr}}};rhf;forces')
+                pp.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r + dr}}};rhf;forces')
                 pm = self.new_project('test_hessianm')
-                pm.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r-dr}}};rhf;forces')
+                pm.write_input(f'basis,svp;bohr;geometry={{F,0,0,0;H,0,0,{r - dr}}};rhf;forces')
                 pp.run()
                 pm.run()
                 pp.wait()
                 pm.wait()
-                numhess = (pp.gradient()-pm.gradient())/(2*dr)
-                np.testing.assert_almost_equal(numhess, hessian_0[5,:],decimal=6)
-                np.testing.assert_almost_equal(-numhess, hessian_0[2,:],decimal=6)
+                numhess = (pp.gradient() - pm.gradient()) / (2 * dr)
+                np.testing.assert_almost_equal(numhess, hessian_0[5, :], decimal=6)
+                np.testing.assert_almost_equal(-numhess, hessian_0[2, :], decimal=6)
                 # print('numhess', numhess)
                 # print(p.gradient())
                 # print(pp.gradient())
@@ -188,8 +190,8 @@ class TestProject(unittest.TestCase):
                 # print((pp.gradient()+pm.gradient())/2)
 
     def test_construct_with_input(self):
-        for suffix in ['inp','xml','out']:
-            name = 'test_construct_'+suffix
+        for suffix in ['inp', 'xml', 'out']:
+            name = 'test_construct_' + suffix
             source = pathlib.Path(name).with_suffix('.' + suffix)
             shutil.copyfile(self.project.filename(suffix), source)
             url = 'file://' + str(pathlib.Path(source).resolve())
@@ -198,8 +200,58 @@ class TestProject(unittest.TestCase):
             # subprocess.run(['ls','-lR',name+'.molpro'])
             # print('desired input',open(self.project.filename('inp'),'r').readlines())
             # print('achieved input',open(p.filename('inp','',-1),'r').readlines())
-            assert filecmp.cmp(p.filename('inp','',-1),self.project.filename('inp'))
+            assert filecmp.cmp(p.filename('inp', '', -1), self.project.filename('inp'))
             os.remove(source)
+
+    def test_construct_from_ansatz(self):
+        for ansatz in [
+            'B3LYP/cc-pVTZ',
+            'CCSD(T)-F12A/cc-pVTZ//B3LYP/cc-pVDZ',
+            'DF-MP2/aug-cc-pvdz',
+            'UMP2/aug-cc-pvdz',
+            'HF/cc-pvdz',
+        ]:
+            p = self.new_project('test_construct_from_ansatz' + ansatz.replace('/', '_'), ansatz=ansatz, geometry='He')
+            print('ansatz', p.ansatz, open(p.filename('inp'), 'r').read())
+            assert p.ansatz == ansatz
+            assert p.ansatz == ansatz
+
+    def test_construct_from_basis_and_method(self):
+        for ansatz in [
+            'B3LYP/cc-pVTZ',
+            # 'CCSD(T)-F12A/cc-pVTZ//B3LYP/cc-pVDZ',
+            'DF-MP2/aug-cc-pvdz',
+            'UMP2/aug-cc-pvdz',
+            'HF/cc-pvdz',
+        ]:
+            method, basis = ansatz.split('/')
+            # print('method', method, 'basis', basis)
+            p = self.new_project('test_construct_from_basis_and_method' + ansatz.replace('/', '_'), basis=basis, method=method,
+                                 geometry='He')
+            # print('ansatz', p.ansatz, open(p.filename('inp'), 'r').read())
+            assert p.ansatz == ansatz
+
+    def test_construct_from_specification(self):
+        for ansatz in [
+            'B3LYP/cc-pVTZ',
+            'CCSD(T)-F12A/cc-pVTZ//B3LYP/cc-pVDZ',
+            'MP2/aug-cc-pvdz',
+            'UMP2/aug-cc-pvdz',
+            'HF/cc-pvdz',
+        ]:
+            split_ansatz = ansatz.split('/')
+            # print('split_ansatz', split_ansatz, '')
+            if len(split_ansatz) == 2:
+                specification = {'method': split_ansatz[0], 'basis': {'default': split_ansatz[1]},'density_fitting':True}
+            else:
+                specification = {'method': split_ansatz[0], 'basis': {'default': split_ansatz[1]},'density_fitting':True, 'job_type':'OPT', 'geometry_method':split_ansatz[3],'geometry_basis':{'default':split_ansatz[4]}}
+            # print('specification',specification)
+            p = self.new_project('test_construct_from_specification' + ansatz.replace('/', '_'), specification=specification,
+                                 geometry='He')
+            # print('project ansatz', p.ansatz, open(p.filename('inp'), 'r').read())
+            assert p.ansatz == 'DF-'+ansatz
+
+
 
 if __name__ == '__main__':
     unittest.main()
