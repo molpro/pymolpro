@@ -366,6 +366,9 @@ class InputSpecification(UserDict):
             # print('Specification:', _specification)
             for k in _specification:
                 self[k] = deepcopy(_specification[k])
+            if 'method' in self and self['method'] is not None and type(self['method']) is str and self['method'][:3].lower() == 'df-':
+                self['method'] = self['method'][3:]
+                self['density_fitting'] = True
             self._ensure_orbital_method()
             # print('InputSpecification() input=',input,'specification=',specification, '_specification=',_specification)
         if input is not None:
