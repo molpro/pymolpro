@@ -4,6 +4,8 @@ import copy
 
 import math
 import os
+import platform
+
 try:
     import pwd
 except ImportError:
@@ -1024,7 +1026,8 @@ class Project(pysjef.project.Project):
         logger.debug(f"run_local_molpro with options: {options}")
         logger.debug(f"PATH: {os.environ.get('PATH')}")
         ld_library_path = os.environ.pop('LD_LIBRARY_PATH', None)
-        subprocess_run = subprocess.run(['molpro', *options], capture_output=True, text=True)
+        molpro = 'molpro.bat' if platform.uname().system == 'Windows' else 'molpro'
+        subprocess_run = subprocess.run([molpro, *options], capture_output=True, text=True)
         if ld_library_path is not None:
             os.environ['LD_LIBRARY_PATH'] = ld_library_path
         return subprocess_run
