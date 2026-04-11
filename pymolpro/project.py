@@ -217,9 +217,14 @@ class Project(pysjef.project.Project):
                 if pathlib.Path(file).suffix == '.inp':
                     with open(file, 'r') as f:
                         for line in f:
-                            if m := re.match(r' *geometry=(\w.*)', str(line)):
-                                if m is not None and m[1] not in files:
-                                    return self.initialize_from_files(files+[m[1]])
+                            if m := re.match(r' *geometry=(\w.*)| *include[, ]+(\w.*)', str(line), re.IGNORECASE):
+                                if m is not None:
+                                    new_files = copy.deepcopy(files)
+                                    for mg in m.groups():
+                                        if mg is not None and mg not in new_files and os.path.exists(mg):
+                                            new_files.append(mg)
+                                if files != new_files:
+                                    return self.initialize_from_files(new_files)
             project_directory = pathlib.Path(self.filename('', '', -1))
             project_name = str(project_directory.stem)
             rundir = False
@@ -238,7 +243,7 @@ class Project(pysjef.project.Project):
                             input_from_output = self.input_from_xml()
                         if path.suffix == '.out' and '.xml' not in suffixes and '.inp' not in suffixes:
                             input_from_output = self.input_from_out()
-                    elif path.suffix in ['.inp', '.xyz'] and path.stem != 'optimised':
+                    elif (path.suffix in ['.inp', '.xyz', '.dat'] or 'basis' in path.stem or 'timing' in path.stem) and path.stem != 'optimised':
                         shutil.copyfile(file, pathlib.Path(self.filename('', run=-1)) / path.name)
                     else:
                         if not rundir:
