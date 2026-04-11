@@ -186,16 +186,14 @@ class Project(pysjef.project.Project):
                 if not name:
                     from pysjef import __version__ as pysjef_version
                     from packaging.version import Version
-                    _name = self._anonymous_name(input, specification, ansatz, **kwargs)
+                    name = self._anonymous_name(input, specification, ansatz, **kwargs)
                     if Version(pysjef_version) >= Version("1.42.1"):
                         kwargs_['record_as_recent'] = False
                     kwargs_['location'] = (pathlib.Path(tempfile.gettempdir()) / 'pymolpro_projects').as_posix()
                     os.makedirs(kwargs_['location'], exist_ok=True)
                     atexit.register(self._unconditionally_destroy)
-                else:
-                    _name = pathlib.Path(name).with_suffix('').as_posix()
 
-                super().__init__(name=_name, suffix='molpro', **kwargs_)
+                super().__init__(name=name, suffix='molpro', **kwargs_)
                 self.__initialized = True
             except Exception:
                 raise FileNotFoundError("Cannot open project " + name)
