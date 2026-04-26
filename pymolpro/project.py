@@ -5,6 +5,7 @@ import copy
 import math
 import os
 import platform
+from sys import path
 
 try:
     import pwd
@@ -1326,8 +1327,9 @@ def all_input_filenames(file: str) -> set[str]:
                 if m is not None:
                     files = copy.deepcopy(files)
                     for mg in m.groups():
-                        if mg is not None and mg not in files and os.path.exists(mg):
-                            files.add(str(pathlib.Path(file).parent / mg))
+                        if mg is not None:
+                            path = str(pathlib.Path(file).parent / mg)
+                            if os.path.exists(path) and path not in files: files.add(path)
     return files
 
 if __name__ == '__main__':
