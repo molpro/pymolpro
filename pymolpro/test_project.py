@@ -203,6 +203,27 @@ class TestProject(unittest.TestCase):
             assert filecmp.cmp(p.filename('inp', '', -1), self.project.filename('inp'))
             os.remove(source)
 
+    def test_copy_input_files(self):
+        name='test_copy_input_files'
+        inc='inc.inc'
+        with open(inc,'w') as f:
+            f.write('geometry={He;He,He,2};df-hf;{ibba}')
+        inp=pathlib.Path(name).with_suffix('.inp')
+        with open(inp,'w') as f:
+            f.write('include, '+str(inc))
+        p = self.new_project(name,files=[inp])
+        assert filecmp.cmp(p.filename('', inp, -1), inp)
+        assert filecmp.cmp(p.filename('', inc, -1), inc)
+        q = self.new_project(name+'2')
+        q.run_directory_new()
+        shutil.copyfile(inp, q.filename('inp'))
+        shutil.copyfile(inc, q.filename('',inc))
+        assert q.input_from_run(0, False)
+        assert q.input_from_run(0)
+        # os.system('ls -lR '+q.filename(run=-1))
+        assert filecmp.cmp(q.filename('inp', run=-1), inp)
+        assert filecmp.cmp(q.filename('', inc, -1), inc)
+
     def test_construct_from_ansatz(self):
         for ansatz in [
             'B3LYP/cc-pVTZ',

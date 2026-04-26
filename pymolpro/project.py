@@ -205,24 +205,20 @@ class Project(pysjef.project.Project):
         self.initialize_from_files(files)
 
     def initialize_from_files(self, files: str | list[str] | None):
+        # if not isinstance(files, list):
+        #     return self.initialize_from_files([files])
         if files is not None and isinstance(files, list) and len(files) > 0:
-            # print('initialize_from_files',files)
             for i, file in enumerate(files):
+                if isinstance(file, pathlib.Path):
+                    file = str(file)
                 if re.match('[a-z]+://', str(file)):
                     name = os.path.join(tempfile.mkdtemp(),  pathlib.Path(urlsplit(file)[2]).name)
                     filename,headers=urlretrieve(file,name)
                     return self.initialize_from_files(files[:i]+[filename]+files[i+1:])
                 if pathlib.Path(file).suffix == '.inp':
-                    with open(file, 'r') as f:
-                        for line in f:
-                            if m := re.match(r' *geometry=(\w.*)| *include[, ]+(\w.*)', str(line), re.IGNORECASE):
-                                if m is not None:
-                                    new_files = copy.deepcopy(files)
-                                    for mg in m.groups():
-                                        if mg is not None and mg not in new_files and os.path.exists(mg):
-                                            new_files.append(mg)
-                                if files != new_files:
-                                    return self.initialize_from_files(new_files)
+                    new_files = list(set([str(f) for f in files] + list(all_input_filenames(file))))
+                    if set(files) != set(new_files):
+                        return self.initialize_from_files(new_files)
             project_directory = pathlib.Path(self.filename('', '', -1))
             project_name = str(project_directory.stem)
             rundir = False
@@ -241,7 +237,7 @@ class Project(pysjef.project.Project):
                             input_from_output = self.input_from_xml()
                         if path.suffix == '.out' and '.xml' not in suffixes and '.inp' not in suffixes:
                             input_from_output = self.input_from_out()
-                    elif (path.suffix in ['.inp', '.xyz', '.dat'] or 'basis' in path.stem or 'timing' in path.stem) and path.stem != 'optimised':
+                    elif (path.suffix in ['.inp', '.xyz', '.dat', '.inc'] or 'basis' in path.stem or 'timing' in path.stem) and path.stem != 'optimised':
                         shutil.copyfile(file, pathlib.Path(self.filename('', run=-1)) / path.name)
                     else:
                         if not rundir:
@@ -1025,6 +1021,40 @@ class Project(pysjef.project.Project):
         except:
             return []
 
+    def input_from_run(self, run: int, action: bool = True) -> bool:
+        """
+        Copies the input file and any referenced files from a run directory into the main directory.
+
+        Parameters:
+        run: int
+            The run identifier used to locate specific input files.
+        action: bool, optional
+            If False, only compare source and destination files, otherwise copy them if there are differences.
+
+        Returns:
+        bool
+            True if there were differences between the source files and their corresponding
+            targets, False otherwise.
+        """
+        files = all_input_filenames(self.filename('inp', run=run))
+        changed = False
+        for file in files:
+            with open(file, 'r') as f:
+                run_input = f.read()
+            topfile = self.filename('inp', run=-1) \
+                if file == self.filename('inp', run=run) \
+                else self.filename('', pathlib.Path(file).name, run=-1)
+            try:
+                with open(topfile, 'r') as f:
+                    working_input = f.read()
+            except:
+                working_input = None
+            changed = changed or run_input != working_input
+            if action and run_input != working_input:
+                with open(topfile, 'w') as f:
+                    f.write(run_input)
+        return changed
+
     def run_local_molpro(self, options: list):
         logger.debug(f"run_local_molpro with options: {options}")
         logger.debug(f"PATH: {os.environ.get('PATH')}")
@@ -1267,6 +1297,38 @@ def molpro_project() -> Project:
         print('Error in creating Molpro project', args, ('with files ' + str(args.files)) if args.files else '')
         print(e)
     return project
+
+def all_input_filenames(file: str) -> set[str]:
+    """
+    Computes all input filenames referenced within a main file and returns them as a set.
+
+    This function identifies other filenames either included in the input
+    file or referenced through the keyword `geometry`. The function handles
+    relative paths by resolving them against the directory of the input file.
+    Invalid or nonexistent files are ignored without raising errors.
+
+    Parameters:
+    file : str
+        The path to the input file whose referenced filenames need to be computed.
+
+    Returns:
+    set[str]
+        A set containing the input file and all referenced files found in the input file.
+
+    Raises:
+    FileNotFoundError
+        If the specified input file does not exist.
+    """
+    files = {file}
+    with open(file, 'r') as f:
+        for line in f:
+            if m := re.match(r' *geometry=(\w.*)| *include[, ]+(\w.*)', str(line), re.IGNORECASE):
+                if m is not None:
+                    files = copy.deepcopy(files)
+                    for mg in m.groups():
+                        if mg is not None and mg not in files and os.path.exists(mg):
+                            files.add(str(pathlib.Path(file).parent / mg))
+    return files
 
 if __name__ == '__main__':
     molpro_project()
