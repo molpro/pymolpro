@@ -725,6 +725,7 @@ class Project(pysjef.project.Project):
 
     def orbitals_to_molden(self, filename=None, instance=-1, minocc=1.0, ID=None):
         Angstrom = 1.88972612462577
+        if 'orbitals' not in self.xml: return
         molecule_node = self.xpath('//*/molecule')[instance]
         molecule_info = self.molecule(instance)
         orbitalSets = molecule_info['orbitalSets']
