@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.17.9 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.18.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=1494f701"></script>
+      <script src="_static/documentation_options.js?v=256cef93"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -805,6 +805,27 @@ This class provides additional convenience operations:</p>
 <dd class="field-odd"><p></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.Project.input_from_run">
+<span class="sig-name descname"><span class="pre">input_from_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pymolpro.Project.input_from_run" title="Link to this definition"></a></dt>
+<dd><p>Copies the input file and any referenced files from a run directory into the main directory.</p>
+<p>Parameters:
+run: int</p>
+<blockquote>
+<div><p>The run identifier used to locate specific input files.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>action: bool, optional</dt><dd><p>If False, only compare source and destination files, otherwise copy them if there are differences.</p>
+</dd>
+</dl>
+<p>Returns:
+bool</p>
+<blockquote>
+<div><p>True if there were differences between the source files and their corresponding
+targets, False otherwise.</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
