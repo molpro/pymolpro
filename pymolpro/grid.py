@@ -236,6 +236,30 @@ def cubical_grid(points1d, weights1d):
                 points3d[l + npt1 * (k + npt1 * j), 3] = weights1d[j] * weights1d[k] * weights1d[l]
     return points3d
 
+def cuboidal_grid(points1d, weights1d=None):
+    """
+    Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid
+
+    :param points1d:
+    :param weights1d:
+    :return: points and weights (numpy array [npt,4])
+    """
+    npt1=[]
+    npt3=1
+    for i in range(3):
+        npt1.append(len(points1d[i]))
+        npt3*=len(points1d[i])
+    points3d = np.empty([npt3, 4], np.double)
+    for j in range(npt1[0]):
+        for k in range(npt1[1]):
+            for l in range(npt1[2]):
+                points3d[l + npt1[2] * (k + npt1[1] * j), 0] = points1d[0,j]
+                points3d[l + npt1[2] * (k + npt1[1] * j), 1] = points1d[1,k]
+                points3d[l + npt1[2] * (k + npt1[1] * j), 2] = points1d[2,l]
+                if weights1d is not None:
+                    points3d[l + npt1[2] * (k + npt1[1] * j), 3] = weights1d[0,j] * weights1d[1,k] * weights1d[2,l]
+    return points3d
+
 
 # example main program
 if __name__ == "__main__":

@@ -7,6 +7,10 @@ import scipy.special
 
 import pymolpro.grid
 from . import sparse_dump
+from .cube_data import CubeData
+from . elements import element
+from . grid import cuboidal_grid
+
 
 class Orbital:
     """
@@ -29,18 +33,52 @@ class Orbital:
     def ID(self):
         return self.attribute('ID')
 
+
     def grid(self, npt, method='erfinv', scale=1.0, grid_parameters=[],
-             spherical_average=False):
+             spherical_average=False,resolution=None, orbital_cutoff=.001):
         """
         Generate a grid centred on the orbital.
 
         :param npt: Number of desired points in each coordinate.
         :param method: Algorithm for grid generation.
         :param scale: Scale the grid by this factor.
+        :param resolution: Resolution of the grid in Bohr, for the uniform grid method.
         :return: points and weights (numpy array [npt,4])
         """
+        if method == 'uniform':
+            raise NotImplementedError("uniform grid not implemented yet")
+            if resolution is None: resolution = 0.2
+            # first construct a coarse grid to eliminate space where the orbital is everywhere less than orbital_cutoff
+            coarse_resolution = 0.6
+            cutoff = 0.001
+            #initially expand to make a box that contains some orbital amplitude at all
+            for nscale in range(1,100):
+                bounds = np.array([[-nscale*coarse_resolution, nscale*coarse_resolution] for k in range(3)])
+                points = []
+                for i in range(3):
+                    points.append(np.linspace(bounds[i][0],bounds[i][1],round(bounds[i][1]-bounds[i][0])/coarse_resolution)+1)
+                grid = cuboidal_grid([points[0][:], points[1][:], points[2][:]])
+                values = self.evaluate(grid,values=True)
+                if np.max(values) > 0.01:
+                    break
+            # now extend the box in all directions until the orbital value is less than the cutoff on all faces
+            while True:
+                points = []
+                for i in range(3):
+                    points.append(np.linspace(bounds[i][0],bounds[i][1],round(bounds[i][1]-bounds[i][0])/coarse_resolution)+1)
+                # +x
+                grid = cuboidal_grid([points[0][-1], points[1][:], points[2][:]])
+                values = self.evaluate(grid,values=True)
+                if np.max(values) > cutoff:
+                    bounds[0][1] += coarse_resolution
+                    continue
+                points3d = regular_grid(bounds, coarse_resolution)
+                for axis in range(3):
+                    for direction in range(2):
+                        if np.linalg.norm(points3d[:, axis] - self.centroid[axis]) > orbital_cutoff:
+                            bounds[axis][direction] = points3d[np.argmin(np.linalg.norm(points3d[:, axis] - self.centroid[axis], axis=1)), axis]
         # grids for second moment eigenvalues unity
-        if method == 'erfinv':
+        elif method == 'erfinv':
             assert type(npt) is not list
             points = [sp.special.erfinv(2 * (k + 1) / float(npt + 1) - 1) for k in range(npt)]
             weights = [1.0 / npt for k in range(npt)]
@@ -85,6 +123,17 @@ class Orbital:
         points3d[:, :3] = self.__local_to_global(points3d, coordinate_scaling)
         return points3d
 
+    @property
+    def atoms(self):
+        angstrom = 1.8897161646321
+        atom_elements = self.node.xpath('ancestor::*[local-name() = "molecule"]/*[local-name() = "molecule"]//*[local-name() = "atom"]')
+        geometry=[]
+        for atom in atom_elements:
+            type_ = atom.xpath('@elementType')[0]
+            element_ = element(type_)
+            geometry.append({'xyz': tuple([angstrom*float(*atom.xpath('@x3')), angstrom*float(*atom.xpath('@y3')), angstrom*float(*atom.xpath('@z3'))]),'atomic_number': element_.atomic_number, 'charge': element_.atomic_number})
+        return geometry
+
     def evaluate(self, points, values=False):
         """
         Evaluate orbital on a grid of points
@@ -94,7 +143,7 @@ class Orbital:
         :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
         """
         return pymolpro.grid.evaluateOrbitals(self.node.xpath('./parent::*/parent::*')[-1], points, ID=self.ID,
-                                              values=values)
+                                              values=values, directory=self.directory)
 
     def __init__(self, node, directory=None):
         """
@@ -104,6 +153,7 @@ class Orbital:
         :param directory: the directory in which the xml file, and its sidecar, live
         """
         self.node = node
+        self.directory = directory
         try:
             self.energy = float(self.attribute('energy'))  #: energy of the orbital
         except:
@@ -161,3 +211,65 @@ class Orbital:
         :rtype: np.array(3,3)
         """
         return self._second_moment_eigenvectors
+
+    def cube_data(self, resolution:float=.2, border=4.25)->CubeData:
+        """
+        Generates a 3D data cube representation of the molecular system.
+
+        The method computes a 3D data grid based on the atomic coordinates in the
+        molecular system. The grid is defined by a specified resolution and includes
+        an additional border around the atomic region. The computed grid points are
+        evaluated for property values to create the data cube.
+
+        Parameters:
+            resolution: float
+                The spacing between grid points in Bohr.
+            border: float
+                The distance to extend the grid beyond the minimum and maximum atomic
+                coordinates in all dimensions, in Bohr.
+
+        Returns:
+            CubeData
+                An object containing details about the generated data cube, including
+                atomic information, grid properties, and evaluated data.
+        """
+        atoms = self.atoms
+        xyz = np.array([atom['xyz'] for atom in atoms])
+        origin = np.min(xyz,axis=0)-border
+        far_corner = np.max(xyz,axis=0)+border
+        cells = np.diag([resolution,resolution,resolution])
+        dimensions = [int((far_corner[i]-origin[i])/resolution+1) for i in range(3)]
+        points3d = np.empty([dimensions[0]*dimensions[1]*dimensions[2],4],np.double)
+        for i in range(dimensions[0]):
+            for j in range(dimensions[1]):
+                for k in range(dimensions[2]):
+                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,0] = origin[0]+i*resolution
+                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,1] = origin[1]+j*resolution
+                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,2] = origin[2]+k*resolution
+                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,3] = 1.0
+        data = self.evaluate(points3d,values=True)
+
+        return CubeData({
+            'atoms':atoms,
+            'natoms':len(atoms),
+            'origin':origin,
+            'cells':cells,
+            'dimensions':dimensions,
+            'orbitals':True,
+            'data':np.reshape(data,dimensions),
+            'title':[self.attribute('ID'),''],
+            'orbital_identifiers':[self.attribute('ID')],
+        })
+
+def regular_grid(bounds,resolution):
+    points = []
+    for i in range(3):
+        points.append(np.linspace(bounds[i][0],bounds[i][1],round(bounds[i][1]-bounds[i][0])/resolution)+1)
+    points3d = np.ndarray((points[0].size,points[1].size,points[2].size,3),order='F')
+    offset = 0
+    for ix in range(points[0].size):
+        for iy in range(points[1].size):
+            for iz in range(points[2].size):
+                points3d[offset,:] = [points[0][ix],points[1][iy],points[2][iz]]
+                offset += 1
+    return points, points3d
