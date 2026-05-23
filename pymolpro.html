@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.18.2 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.19.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=b6ece1e0"></script>
+      <script src="_static/documentation_options.js?v=f0c121d3"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -89,7 +89,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pymolpro.grid">pymolpro.grid module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.construct_primitives"><code class="docutils literal notranslate"><span class="pre">construct_primitives()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.cubical_grid"><code class="docutils literal notranslate"><span class="pre">cubical_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.cuboidal_grid"><code class="docutils literal notranslate"><span class="pre">cuboidal_grid()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateBasis"><code class="docutils literal notranslate"><span class="pre">evaluateBasis()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.evaluateOrbitals"><code class="docutils literal notranslate"><span class="pre">evaluateOrbitals()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pymolpro.grid.spherical_grid"><code class="docutils literal notranslate"><span class="pre">spherical_grid()</span></code></a></li>
@@ -477,6 +479,11 @@ in calculating energies can be found.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="pymolpro.Orbital.atoms">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">atoms</span></span><a class="headerlink" href="#pymolpro.Orbital.atoms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.Orbital.attribute">
 <span class="sig-name descname"><span class="pre">attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital.attribute" title="Link to this definition"></a></dt>
@@ -505,6 +512,32 @@ The phase of each axis is chosen such that the largest of the coefficients speci
 <dd><p>Centroid of the orbital</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pymolpro.Orbital.cube_data">
+<span class="sig-name descname"><span class="pre">cube_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.25</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CubeData</span></span></span><a class="headerlink" href="#pymolpro.Orbital.cube_data" title="Link to this definition"></a></dt>
+<dd><p>Generates a 3D data cube representation of the molecular system.</p>
+<p>The method computes a 3D data grid based on the atomic coordinates in the
+molecular system. The grid is defined by a specified resolution and includes
+an additional border around the atomic region. The computed grid points are
+evaluated for property values to create the data cube.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>resolution: float</dt><dd><p>The spacing between grid points in Bohr.</p>
+</dd>
+<dt>border: float</dt><dd><p>The distance to extend the grid beyond the minimum and maximum atomic
+coordinates in all dimensions, in Bohr.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>CubeData</dt><dd><p>An object containing details about the generated data cube, including
+atomic information, grid properties, and evaluated data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pymolpro.Orbital.energy">
 <span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#pymolpro.Orbital.energy" title="Link to this definition"></a></dt>
@@ -530,7 +563,7 @@ The phase of each axis is chosen such that the largest of the coefficients speci
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.Orbital.grid">
-<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital.grid" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'erfinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbital_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Orbital.grid" title="Link to this definition"></a></dt>
 <dd><p>Generate a grid centred on the orbital.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -538,6 +571,7 @@ The phase of each axis is chosen such that the largest of the coefficients speci
 <li><p><strong>npt</strong> – Number of desired points in each coordinate.</p></li>
 <li><p><strong>method</strong> – Algorithm for grid generation.</p></li>
 <li><p><strong>scale</strong> – Scale the grid by this factor.</p></li>
+<li><p><strong>resolution</strong> – Resolution of the grid in Bohr, for the uniform grid method.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1888,8 +1922,30 @@ and compute reaction energies.</p>
 <section id="module-pymolpro.grid">
 <span id="pymolpro-grid-module"></span><h2>pymolpro.grid module<a class="headerlink" href="#module-pymolpro.grid" title="Link to this heading"></a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.construct_primitives">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">construct_primitives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cartesianAngularQuantumNumbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lqbase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncompc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normfac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitivesc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_points_powers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.construct_primitives" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pymolpro.grid.cubical_grid">
 <span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">cubical_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights1d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.cubical_grid" title="Link to this definition"></a></dt>
+<dd><p>Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points1d</strong></p></li>
+<li><p><strong>weights1d</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>points and weights (numpy array [npt,4])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pymolpro.grid.cuboidal_grid">
+<span class="sig-prename descclassname"><span class="pre">pymolpro.grid.</span></span><span class="sig-name descname"><span class="pre">cuboidal_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights1d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.grid.cuboidal_grid" title="Link to this definition"></a></dt>
 <dd><p>Take a one-dimensional grid, and construct a 3-dimensional outer-product cubical grid</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
