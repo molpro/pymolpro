@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 import math
 import re
+
 from lxml import etree
 import numpy as np
+
+
+from numpy import dtype, float64, ndarray
+
 
 namespaces = {
     'molpro-output': 'http://www.molpro.net/schema/molpro-output',
@@ -11,7 +16,6 @@ namespaces = {
     'stm': 'http://www.xml-cml.org/schema',
     'xhtml': 'http://www.w3.org/1999/xhtml',
     'xlink': 'http://www.w3.org/1999/xlink'}
-
 
 def evaluateBasis(molecule, points):
     """
@@ -67,6 +71,8 @@ def evaluateBasis(molecule, points):
     for atom in atoms:
         nuclearCoordinates = [np.float64(atom.get('x3')) * Angstrom, np.float64(atom.get('y3')) * Angstrom,
                               np.float64(atom.get('z3')) * Angstrom]
+        relative_points =points[:,:3]-nuclearCoordinates
+        r2vec = np.linalg.norm(relative_points[:, :],axis=1)**2
         query = 'molpro-output:association/molpro-output:atoms[@xlink:href[contains(.,"@id=\'' + atom.get(
             'id') + '\'")]]/..'
         basisGroupAssociation = basisSet.xpath(query, namespaces=namespaces)
@@ -98,20 +104,21 @@ def evaluateBasis(molecule, points):
                 ncompc = int(((lquant + 2) * (lquant + 1)) / 2)  # number of cartesian components
                 primitivesc = np.empty((ncompc, len(alpha), len(points)))
                 lqbase = (lquant * (lquant + 1) * (lquant + 2)) // 6
-                for ip in range(len(points)):
-                    xyz = np.subtract(points[ip, :3], nuclearCoordinates)
-                    r2 = np.dot(xyz, xyz)
-                    for ia in range(len(alpha)):
-                        alph = alpha[ia]
-                        norm = math.sqrt(math.sqrt(2 * alph / math.pi) ** 3 * (4 * alph) ** lquant)
-                        value = norm * math.exp(-alph * r2)
-                        for icomp in range(ncompc):
-                            k = cartesianAngularQuantumNumbers[0, icomp + lqbase]
-                            l = cartesianAngularQuantumNumbers[1, icomp + lqbase]
-                            m = cartesianAngularQuantumNumbers[2, icomp + lqbase]
-                            primitivesc[icomp, ia, ip] = value * xyz[0] ** k * xyz[1] ** l * xyz[2] ** m / math.sqrt(
-                                normfac[icomp + lqbase])
-
+                relative_points_powers = np.empty((lquant+1,len(points), 3))
+                relative_points_powers[0, :, :] = 1.0
+                for l in range(1, lquant + 1):
+                    relative_points_powers[l, :, :] = relative_points_powers[l - 1, :, :] * relative_points[
+                        :, :]
+                spherical_norms = np.empty((len(alpha)))
+                for ia in range(len(alpha)):
+                    alph = alpha[ia]
+                    spherical_norms[ia] = math.sqrt(math.sqrt(2 * alph / math.pi) ** 3 * (4 * alph) ** lquant)
+                spherical_values = np.empty((len(alpha), len(points)))
+                for ia in range(len(alpha)):
+                    spherical_values[ia, :] = spherical_norms[ia] * np.exp(-alpha[ia] * r2vec[:])
+                construct_primitives(alpha, cartesianAngularQuantumNumbers, lqbase, ncompc, normfac, points,
+                                     primitivesc, relative_points_powers, spherical_values)
+                #
                 # transformation to spherical harmonics
                 if molecule.xpath('molpro-output:orbitals', namespaces=namespaces)[0].get(
                         'angular') == 'spherical':  # Molpro 2012.1 does not produced this, but cartesian only. The spherical code here is not finished, but not presently needed
@@ -121,15 +128,16 @@ def evaluateBasis(molecule, points):
                 if ncomp < ncompc and lquant >= len(sphtran):
                     raise Exception("Spherical functions not yet coded")
                 elif ncomp < ncompc:
-                    primitives = np.empty((ncomp, len(alpha), len(points)))
+                    # primitives = np.empty((ncomp, len(alpha), len(points)))
                     # print("primitivesc",primitivesc)
                     # print("sphtran[lquant]",sphtran[lquant])
-                    for ip in range(len(points)):
+                    # for ip in range(len(points)):
                         # print sphtran[lquant]
                         # print primitivesc[:,:,ip]
                         # print sphtran[lquant].shape
                         # print primitivesc[:,:,ip].shape
-                        primitives[:, :, ip] = np.dot(sphtran[lquant], primitivesc[:, :, ip])
+                        # primitives[:, :, ip] = np.dot(sphtran[lquant], primitivesc[:, :, ip])
+                    primitives = sphtran[lquant] @ primitivesc
                     # print "primitives",primitives
                 else:
                     primitives = primitivesc
@@ -146,6 +154,32 @@ def evaluateBasis(molecule, points):
         iatom += 1
     # print outer(basisAtPoints[:,1],basisAtPoints[:,1])
     return basisAtPoints  # end basis evaluation
+
+
+def construct_primitives(alpha, cartesianAngularQuantumNumbers,
+                         lqbase, ncompc, normfac, points,
+                         primitivesc,
+                         relative_points_powers,
+                         spherical_values):
+    for ia in range(len(alpha)):
+        for icomp in range(ncompc):
+            k = cartesianAngularQuantumNumbers[0, icomp + lqbase]
+            l = cartesianAngularQuantumNumbers[1, icomp + lqbase]
+            m = cartesianAngularQuantumNumbers[2, icomp + lqbase]
+            angfac = 1.0 / math.sqrt(normfac[icomp + lqbase])
+
+            primitivesc[icomp, ia, :] = spherical_values[ia, :] * relative_points_powers[k, :, 0] * \
+                                        relative_points_powers[l, :, 1] * relative_points_powers[
+                                            m, :, 2] * angfac
+            # for ip in range(len(points)):
+                # xyz = relative_points[ip, :]
+                # xyz = relative_points_powers[0,ip, :]
+                # primitivesc[icomp, ia, ip] = spherical_values[ia, ip] * xyz[0] ** k * xyz[1] ** l * xyz[
+                #     2] ** m * angfac
+                # primitivesc[icomp, ia, ip] = spherical_values[ia, ip] * relative_points_powers[k, ip, 0] * \
+                #                              relative_points_powers[l, ip, 1] * relative_points_powers[
+                #                                  m, ip, 2] * angfac
+                # pass
 
 
 def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False, directory=None):
@@ -175,10 +209,11 @@ def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False, di
         if occ >= minocc:
             orb = Orbital(orbital, directory=directory)
             mos = orb.coefficients
-            mopoint = np.zeros(len(points), dtype=np.float64)
-            for ic in range(len(basisAtPoints)):
-                for ipoint in range(len(points)):
-                    mopoint[ipoint] += np.float64(mos[ic]) * basisAtPoints[ic][ipoint]
+            # mopoint = np.zeros(len(points), dtype=np.float64)
+            # for ic in range(len(basisAtPoints)):
+            #     for ipoint in range(len(points)):
+            #         mopoint[ipoint] += np.float64(mos[ic]) * basisAtPoints[ic][ipoint]
+            mopoint = basisAtPoints.transpose() @ mos
             orbdict = element_to_dict(orbital)
             orbdict['values'] = mopoint
             orbdict['occ'] = occ
