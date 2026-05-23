@@ -239,15 +239,14 @@ class Orbital:
         far_corner = np.max(xyz,axis=0)+border
         cells = np.diag([resolution,resolution,resolution])
         dimensions = [int((far_corner[i]-origin[i])/resolution+1) for i in range(3)]
-        points3d = np.empty([dimensions[0]*dimensions[1]*dimensions[2],4],np.double)
+        points3d = np.empty([dimensions[0],dimensions[1],dimensions[2],3],np.double)
         for i in range(dimensions[0]):
-            for j in range(dimensions[1]):
-                for k in range(dimensions[2]):
-                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,0] = origin[0]+i*resolution
-                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,1] = origin[1]+j*resolution
-                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,2] = origin[2]+k*resolution
-                    points3d[i*dimensions[1]*dimensions[2]+j*dimensions[2]+k,3] = 1.0
-        data = self.evaluate(points3d,values=True)
+            points3d[i,:,:,0] = origin[0]+i*resolution
+        for j in range(dimensions[1]):
+            points3d[:,j,:,1] = origin[1]+j*resolution
+        for k in range(dimensions[2]):
+            points3d[:,:,k,2] = origin[2]+k*resolution
+        data = self.evaluate(np.reshape(points3d,(dimensions[0]*dimensions[1]*dimensions[2],3)),values=True)
 
         return CubeData({
             'atoms':atoms,
