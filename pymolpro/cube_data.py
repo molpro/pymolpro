@@ -95,19 +95,19 @@ class CubeData:
         if not isinstance(threshold, float):
             return None
         for i0 in range(self.dimensions[0]):
-            if np.any(self.data[i0, :, :] >= threshold):
+            if np.any(np.abs(self.data[i0, :, :]) >= threshold):
                 break
         for i1 in reversed(range(self.dimensions[0])):
-            if np.any(self.data[i1, :, :] >= threshold):
+            if np.any(np.abs(self.data[i1, :, :]) >= threshold):
                 break
         for j0 in range(self.dimensions[1]):
-            if np.any(self.data[:, j0, :] >= threshold):
+            if np.any(np.abs(self.data[:, j0, :]) >= threshold):
                 break
         for j1 in reversed(range(self.dimensions[1])):
-            if np.any(self.data[:, j1, :] >= threshold):
+            if np.any(np.abs(self.data[:, j1, :]) >= threshold):
                 break
         for k0 in range(self.dimensions[2]):
-            if np.any(self.data[:, :, k0] >= threshold):
+            if np.any(np.abs(self.data[:, :, k0]) >= threshold):
                 break
         for k1 in reversed(range(self.dimensions[2])):
             if np.any(self.data[:, :, k1] >= threshold):
