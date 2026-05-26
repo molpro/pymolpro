@@ -212,7 +212,8 @@ class Orbital:
         """
         return self._second_moment_eigenvectors
 
-    def cube_data(self, resolution:float=.2, border=4.25)->CubeData:
+
+    def cube_data(self, resolution:float=.2, border=4.25, bounds=None, threshold=None)->CubeData:
         """
         Generates a 3D data cube representation of the molecular system.
 
@@ -227,16 +228,33 @@ class Orbital:
             border: float
                 The distance to extend the grid beyond the minimum and maximum atomic
                 coordinates in all dimensions, in Bohr.
+            bounds: list[list[float]]
+                Limit edges of the grid to specified values, in Bohr. The shape of bounds should be (3,2), with the first index labelling the cartesian coordinate, and the second corresponding to minimum and maximum extents.
+            threshold: float
+                Trim the sampled region to exclude feasible regions with occupation below this threshold.
 
         Returns:
             CubeData
                 An object containing details about the generated data cube, including
                 atomic information, grid properties, and evaluated data.
         """
+        # print('cube_data',resolution,bounds,threshold)
+        if isinstance(threshold,float):
+            new_bounds = bounds
+            for factor in [8.0,3.0]:
+                rough_cube_data = self.cube_data(resolution=factor*resolution,border=border,bounds=new_bounds,threshold=None)
+                new_bounds = rough_cube_data.bounds(threshold)
+                # print('new_bounds',new_bounds)
+            return self.cube_data(resolution=resolution,border=border,bounds=new_bounds,threshold=None)
+            pass
         atoms = self.atoms
         xyz = np.array([atom['xyz'] for atom in atoms])
         origin = np.min(xyz,axis=0)-border
         far_corner = np.max(xyz,axis=0)+border
+        if bounds is not None:
+            for i in range(3):
+                origin[i] = max(origin[i], bounds[i][0])
+                far_corner[i] = max(origin[i],min(far_corner[i],bounds[i][1]))
         cells = np.diag([resolution,resolution,resolution])
         dimensions = [int((far_corner[i]-origin[i])/resolution+1) for i in range(3)]
         points3d = np.empty([dimensions[0],dimensions[1],dimensions[2],3],np.double)
