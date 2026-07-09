@@ -14,6 +14,6 @@ and the project bundle can be accessed
 also through a command-line interface and the `gmolpro <https://www.molpro.net/manual/doku.php?id=gmolpro_graphical_user_interface>`_ and `iMolpro <https://github.com/molpro/iMolpro>`_
 graphical user interfaces.
 
-pymolpro is on `conda forge <https://conda-forge.org>`_ and can be installed on most systems using ``conda install -c conda-forge pymolpro``.
+pymolpro is on `conda forge <https://conda-forge.org>`_ and `PyPI <https://pypi.org/project/pymolpro/>`_, and can be installed on most systems using ``conda install -c conda-forge pymolpro`` or ``pip install pymolpro``.
 
 Documentation at https://molpro.github.io/pymolpro.
