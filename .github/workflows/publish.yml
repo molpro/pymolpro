@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://test.pypi.org/p/pymolpro
+      url: https://pypi.org/p/pymolpro
     permissions:
       id-token: write   # required for OIDC trusted publishing
     steps:
