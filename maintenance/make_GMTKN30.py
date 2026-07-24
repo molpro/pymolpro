@@ -6,7 +6,31 @@ import shutil
 import lxml
 import sys
 
-subsets = ['MB08-165']
+subsets = ['MB08-165',
+           'W4-08',
+           'G21IP',
+           'G21EA',
+           'PA',
+           'SIE11',
+           'BH76',
+           'RSE43',
+           'G2RC',
+           'AL2X',
+           'NBPRC',
+           'ISO34',
+           'ISOL22',
+           'ALK6',
+           'BSR36',
+           'IDISP',
+           'WATER27',
+           'S22',
+           'ADIM6',
+           'RG6',
+           'HEAVY28',
+           'PCONF',
+           'ACONF',
+           'SCONF',
+           'CYCONF']
 directory = 'GMTKN30'
 
 
@@ -82,34 +106,65 @@ def read_xyz(fil):
     f.close()
     return natoms,geom
 
-def read_charge_and_spin(fil):
+def read_spin(fil):
     """read the spins of the molecules from the README file"""
     spins={}
-    charges={}
     if not os.path.exists(fil):
-        return charges,spins
+        return spins
+    has_spins=False
     f=open(fil,'r')
-    line=f.readline() #first line contains description
-    if 'The following species are open-shell systems' in line:
-        for line in f.readlines():
+    content=f.readlines()
+    f.close()
+
+    for i in range(len(content)):
+        line=content[i]
+        if 'The following species are open-shell systems' in line:
+            has_spins=True
+            ioff=i+1
+            exit
+    if has_spins:
+        for i in range(ioff,len(content)):
+            line=content[i]
+            if 'The following' in line: exit
             data=line.split()
+            if len(data)==0: break
             name=data[0]
             spin=data[1]
             spin=spin.strip('(')
             spin=spin.strip(')')
             spin=int(spin)
             spins[name]=spin
-    elif 'The following species are charged' in line:
-        for line in f.readlines():
+    return spins
+
+def read_charge(fil):
+    """read the charges of the molecules from the README file"""
+    charges={}
+    if not os.path.exists(fil):
+        return charges
+    has_charges=False
+    f=open(fil,'r')
+    content=f.readlines()
+    f.close()
+
+    for i in range(len(content)):
+        line=content[i]
+        if 'The following species are charged' in line:
+            has_charges=True
+            ioff=i+1
+            exit
+    if has_charges:
+        for i in range(ioff,len(content)):
+            line=content[i]
+            if 'The following' in line: exit
             data=line.split()
+            if len(data)==0: break
             name=data[0]
             charge=data[1]
-            charge=spin.strip('(')
-            charge=spin.strip(')')
+            charge=charge.strip('(')
+            charge=charge.strip(')')
             charge=int(charge)
             charges[name]=charge
-    f.close()
-    return charges,spins
+    return charges
 
 
 kcal = 0.00159360144
@@ -129,10 +184,11 @@ for subset in subsets:
     print("molecule_subset: ",molecule_subset)
 
     #get the charges and spins for the molecules
-    charges,spins=read_charge_and_spin(os.path.join(directory, molecule_subset+'structures','README'))
-    
+    spins=read_spin(os.path.join(directory, molecule_subset+'structures','README'))
+    charges=read_charge(os.path.join(directory, molecule_subset+'structures','README'))
+
     for filename in os.listdir(os.path.join(directory, molecule_subset+'structures')):
-        if filename=='README' or '.xyz' in filename: continue        
+        if filename=='README' or '.xyz' in filename: continue
         f = os.path.join(directory, molecule_subset+'structures', filename)
         # if subset[:4]=='BHPE': print("filename",filename,subset,f)
         if not os.path.exists(f):
@@ -151,11 +207,11 @@ for subset in subsets:
             spin=spins[filename]
         if filename in charges:
             charge=charges[filename]
-        
+
         # print(geometry)
         # if subset == 'BHPERI': print('add_molecule',filename)
         db.add_molecule(filename, geometry=geom, charge=charge, spin=spin)
-        
+
     # file = ensure_file(subset + '.html')
     # html_repair(file)
     # root = lxml.etree.parse(file)
