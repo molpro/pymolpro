@@ -1,0 +1,79 @@
+GMTKN30 HEAVY28
+---------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+bih3_nh3
+bih3_hcl
+teh2_2
+sbh3_hbr
+bih3_h2s
+pbh4_bih3
+sbh3_h2s
+teh2_h2o
+sbh3_2
+sbh3_nh3
+bih3
+hbr
+pbh4_hbr
+sbh3_hcl
+teh2_hcl
+bih3_h2o
+bih3_hbr
+bih3_hi
+pbh4_2
+pbh4_h2o
+nh3
+sbh3_hi
+teh2_hi
+teh2_nh3
+pbh4_hi
+bih3_2
+hi
+pbh4
+pbh4_teh2
+hcl
+teh2_hbr
+pbh4_hcl
+teh2_h2s
+sbh3
+h2o
+teh2
+h2s
+sbh3_h2o
+
+Reactions
+^^^^^^^^^
+| 1: bih3_2 -> 2bih3, energy = 0.0020557458576
+| 2: bih3_h2o -> bih3 + h2o, energy = 0.0038565154848
+| 3: bih3_h2s -> bih3 + h2s, energy = 0.002231042016
+| 4: bih3_hcl -> bih3 + hcl, energy = 0.001354561224
+| 5: bih3_hbr -> bih3 + hbr, energy = 0.0018485776704
+| 6: bih3_hi -> bih3 + hi, energy = 0.0022629140448
+| 7: bih3_nh3 -> bih3 + nh3, energy = 0.0010995849935999998
+| 8: pbh4_2 -> 2pbh4, energy = 0.0021035539008000003
+| 9: pbh4_bih3 -> pbh4 + bih3, energy = 0.0010836489792000002
+| 10: pbh4_h2o -> pbh4 + h2o, energy = 0.0007011846336
+| 11: pbh4_hcl -> pbh4 + hcl, energy = 0.001274881152
+| 12: pbh4_hbr -> pbh4 + hbr, energy = 0.0016573454976
+| 13: pbh4_hi -> pbh4 + hi, energy = 0.0020557458576
+| 14: pbh4_teh2 -> pbh4 + teh2, energy = 0.001115521008
+| 15: sbh3_2 -> 2sbh3, energy = 0.002071681872
+| 16: sbh3_h2o -> sbh3 + h2o, energy = 0.002709122448
+| 17: sbh3_h2s -> sbh3 + h2s, energy = 0.0018167056416
+| 18: sbh3_hcl -> sbh3 + hcl, energy = 0.0035059231680000004
+| 19: sbh3_hbr -> sbh3 + hbr, energy = 0.0032987549808
+| 20: sbh3_hi -> sbh3 + hi, energy = 0.0026135063615999998
+| 21: sbh3_nh3 -> sbh3 + nh3, energy = 0.004462084032
+| 22: teh2_2 -> 2teh2, energy = 0.0009242888352
+| 23: teh2_h2o -> teh2 + h2o, energy = 0.0010836489792000002
+| 24: teh2_h2s -> teh2 + h2s, energy = 0.00079680072
+| 25: teh2_hcl -> teh2 + hcl, energy = 0.0019760657856
+| 26: teh2_hbr -> teh2 + hbr, energy = 0.0019760657856
+| 27: teh2_hi -> teh2 + hi, energy = 0.0013386252095999999
+| 28: teh2_nh3 -> teh2 + nh3, energy = 0.0052429487376
+

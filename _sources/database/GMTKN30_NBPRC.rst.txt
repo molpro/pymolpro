@@ -1,0 +1,46 @@
+GMTKN30 NBPRC
+-------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+BF3
+cbut
+BCl3PMe3
+K_F
+K_H
+h2
+BF3PMe3
+nh3-bh3
+H2
+K_Cl
+nh3
+bh3
+bz
+PH3
+nh2-bh2
+PMe3
+BH3
+nh-bh
+BH3PH3
+ch
+BCl3
+
+Reactions
+^^^^^^^^^
+| 1: nh3 + bh3 -> nh3-bh3, energy = -0.0507402698496
+| 2: nh3-bh3 -> nh2-bh2 + h2, energy = -9.56160864e-05
+| 3: nh2-bh2 -> nh-bh + h2, energy = 0.059393525668800004
+| 4: 2nh2-bh2 -> cbut, energy = -0.030182811273600004
+| 5: 3nh2-bh2 -> bz + 3h2, energy = -0.0769231415088
+| 6: 3nh2-bh2 -> ch, energy = -0.07180768088640001
+| 7: bh3 + PH3 -> BH3PH3, energy = -0.038883875136
+| 8: BH3PH3 + h2 -> K_H, energy = 0.064381498176
+| 9: BF3 + PMe3 -> BF3PMe3, energy = -0.023266581024
+| 10: BF3PMe3 + h2 -> K_F, energy = 0.029959707072000002
+| 11: BCl3 + PMe3 -> BCl3PMe3, energy = -0.049082924352
+| 12: BCl3PMe3 + h2 -> K_Cl, energy = 0.028047385344000003
+

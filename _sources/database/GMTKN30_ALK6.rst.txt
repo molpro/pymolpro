@@ -1,0 +1,32 @@
+GMTKN30 ALK6
+------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+na+
+bz
+li2
+bz_k+
+k8
+li+
+bz_na+
+bz_li+
+na8
+k2
+k+
+na2
+li8
+
+Reactions
+^^^^^^^^^
+| 1: bz_li+ -> li+ + bz, energy = 0.061194295296
+| 2: bz_na+ -> na+ + bz, energy = 0.039840036
+| 3: bz_k+ -> k+ + bz, energy = 0.030597147648
+| 4: li8 -> 4li2, energy = 0.132587639808
+| 5: na8 -> 4na2, energy = 0.087010638624
+| 6: k8 -> 4k2, energy = 0.07505862782400001
+

@@ -1,0 +1,31 @@
+GMTKN30 ADIM6
+-------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+AD7
+AM5
+AM3
+AD3
+AD6
+AM6
+AD2
+AM2
+AD4
+AM4
+AD5
+AM7
+
+Reactions
+^^^^^^^^^
+| 1: AD2 -> 2AM2, energy = 0.002071681872
+| 2: AD3 -> 2AM3, energy = 0.0031393948368
+| 3: AD4 -> 2AM4, energy = 0.0044461480176
+| 4: AD5 -> 2AM5, energy = 0.0058644532992
+| 5: AD6 -> 2AM6, energy = 0.007346502638400001
+| 6: AD7 -> 2AM7, energy = 0.008924168064
+

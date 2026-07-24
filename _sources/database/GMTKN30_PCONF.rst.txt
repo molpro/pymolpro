@@ -1,0 +1,34 @@
+GMTKN30 PCONF
+-------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+470
+444
+357
+366
+99
+215
+300
+412
+114
+224
+691
+
+Reactions
+^^^^^^^^^
+| 1: 99 -> 444, energy = 0.00022310420160000002
+| 2: 99 -> 357, energy = 0.001434241296
+| 3: 99 -> 366, energy = 0.0018326416559999999
+| 4: 99 -> 215, energy = 0.0012589451376
+| 5: 99 -> 300, energy = 0.0020876178864000002
+| 6: 99 -> 114, energy = 0.0029800346928000004
+| 7: 99 -> 412, energy = 0.0037768354128000004
+| 8: 99 -> 691, energy = 0.0032987549808
+| 9: 99 -> 470, energy = 0.0039999396144
+| 10: 99 -> 224, energy = 0.0032509469376
+

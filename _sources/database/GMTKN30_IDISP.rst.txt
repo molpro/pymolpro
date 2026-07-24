@@ -1,0 +1,32 @@
+GMTKN30 IDISP
+-------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+octane2
+pc22
+undecan1
+h2
+undecan2
+pxylene
+ant
+F22f
+F14l
+F22l
+octane1
+F14f
+antdimer
+
+Reactions
+^^^^^^^^^
+| 1: 2ant -> antdimer, energy = -0.01434241296
+| 2: pc22 + 2h2 -> 2pxylene, energy = -0.09322568424
+| 3: octane2 -> octane1, energy = -0.003027842736
+| 4: undecan2 -> undecan1, energy = 0.013067531807999999
+| 5: F14f -> F14l, energy = -0.004940164464
+| 6: F22f -> F22l, energy = 0.000637440576
+

@@ -1,0 +1,49 @@
+GMTKN30 PA
+----------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+h2op
+c2h2
+ph3
+p8
+h2
+hclp
+sih4p
+p6p
+p4
+nh3p
+h2sp
+p2
+p6
+nh3
+c2h2p
+sih4
+ph3p
+p8p
+h2p
+hcl
+p4p
+p2p
+h2o
+h2s
+
+Reactions
+^^^^^^^^^
+| 1: p2p -> p2, energy = 0.267406321632
+| 2: p4p -> p4, energy = 0.308202518496
+| 3: p6p -> p6, energy = 0.334178221968
+| 4: p8p -> p8, energy = 0.350114236368
+| 5: nh3p -> nh3, energy = 0.33768414513600004
+| 6: h2op -> h2o, energy = 0.273462007104
+| 7: c2h2p -> c2h2, energy = 0.250832866656
+| 8: sih4p -> sih4, energy = 0.24987670579200003
+| 9: ph3p -> ph3, energy = 0.307086997488
+| 10: h2sp -> h2s, energy = 0.27760537084799997
+| 11: hclp -> hcl, energy = 0.21959827843200003
+| 12: h2p -> h2, energy = 0.169399833072
+

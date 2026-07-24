@@ -1,0 +1,79 @@
+GMTKN30 ISOL22
+--------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+i12e
+i3p
+i23e
+i5p
+i21p
+i19e
+i16p
+i24p
+i5e
+i18e
+i20p
+i24e
+i16e
+i8e
+i14p
+i9p
+i7p
+i6e
+i13e
+i17p
+i9e
+i18p
+i19p
+i11p
+i12p
+i11e
+i23p
+i2p
+i15p
+i15e
+i6p
+i22p
+i7e
+i17e
+i3e
+i10e
+i8p
+i13p
+i20e
+i21e
+i22e
+i14e
+i10p
+i2e
+
+Reactions
+^^^^^^^^^
+| 1: i2e -> i2p, energy = 0.0646842824496
+| 2: i3e -> i3p, energy = 0.0186132648192
+| 3: i5e -> i5p, energy = 0.055680434313599994
+| 4: i6e -> i6p, energy = 0.041258341281600004
+| 5: i7e -> i7p, energy = 0.0299437710576
+| 6: i8e -> i8p, energy = 0.029162906352
+| 7: i9e -> i9p, energy = 0.0355532481264
+| 8: i10e -> i10p, energy = 0.0126053873904
+| 9: i11e -> i11p, energy = 0.060764022907200003
+| 10: i12e -> i12p, energy = 0.0015298573824
+| 11: i13e -> i13p, energy = 0.055903538515199996
+| 12: i14e -> i14p, energy = 0.008286727488
+| 13: i15e -> i15p, energy = 0.0061672375728
+| 14: i16e -> i16p, energy = 0.0359994565296
+| 15: i17e -> i17p, energy = 0.0176411679408
+| 16: i18e -> i18p, energy = 0.041561125555199994
+| 17: i19e -> i19p, energy = 0.027123096508799998
+| 18: i20e -> i20p, energy = 0.0072030785087999994
+| 19: i21e -> i21p, energy = 0.0213223872672
+| 20: i22e -> i22p, energy = 0.0007649286912
+| 21: i23e -> i23p, energy = 0.0439993357584
+| 22: i24e -> i24p, energy = 0.025577303112000002
+

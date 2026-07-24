@@ -1,0 +1,53 @@
+GMTKN30 SIE11
+-------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+na
+but+
+he+
+f2
+li_f2
+he2+
+c2h4
+ethyl
+aceton+
+nh3
+bz
+c2h4_f2
+h2o+
+ch3
+li
+nh3+
+acetyl
+nh3_clf
+nh32+
+mgo
+bz_li
+h2o
+clclf
+he
+clfcl
+clf
+ethyl+
+h2o2+
+naomg
+
+Reactions
+^^^^^^^^^
+| 1: he2+ -> he + he+, energy = 0.0915364667136
+| 2: nh32+ -> nh3 + nh3+, energy = 0.05631787488960001
+| 3: h2o2+ -> h2o + h2o+, energy = 0.05936165364
+| 4: but+ -> ethyl + ethyl+, energy = 0.056222258803200004
+| 5: aceton+ -> ch3 + acetyl, energy = 0.0359675845008
+| 6: clfcl -> clclf, energy = -0.0016095374544000001
+| 7: c2h4_f2 -> c2h4 + f2, energy = 0.0017210895552000002
+| 8: bz_li -> li + bz, energy = 0.01513921368
+| 9: nh3_clf -> nh3 + clf, energy = 0.01673281512
+| 10: naomg -> mgo + na, energy = 0.1108509161664
+| 11: li_f2 -> li + f2, energy = 0.15037223187840001
+

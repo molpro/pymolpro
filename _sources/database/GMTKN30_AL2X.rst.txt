@@ -1,0 +1,33 @@
+GMTKN30 AL2X
+------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+al2me6
+alme2
+al2me4
+al2me5
+al2h6
+alh3
+alcl3
+al2cl6
+al2f6
+al2br6
+alf3
+alme3
+albr3
+
+Reactions
+^^^^^^^^^
+| 1: al2h6 -> 2alh3, energy = 0.057050931551999993
+| 2: al2f6 -> 2alf3, energy = 0.083823435744
+| 3: al2cl6 -> 2alcl3, energy = 0.050039085216
+| 4: al2br6 -> 2albr3, energy = 0.045258280896
+| 5: al2me4 -> 2alme2, energy = 0.060238134432
+| 6: al2me5 -> alme2 + alme3, energy = 0.0478080432
+| 7: al2me6 -> 2alme3, energy = 0.034103070815999996
+

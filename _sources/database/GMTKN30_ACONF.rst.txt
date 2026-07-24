@@ -1,0 +1,46 @@
+GMTKN30 ACONF
+-------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+P_GX
+B_G
+H_tgt
+H_t+g+x-
+H_gtg
+H_x+g-g-
+H_x+g-x+
+P_TT
+B_T
+P_TG
+H_ttt
+H_ggg
+H_tgg
+H_g+x-g-
+H_g+x-t+
+H_g+t+g-
+H_gtt
+P_GG
+
+Reactions
+^^^^^^^^^
+| 1: B_T -> B_G, energy = 0.00095297366112
+| 2: P_TT -> P_TG, energy = 0.00097847128416
+| 3: P_TT -> P_GG, energy = 0.0015314509838399999
+| 4: P_TT -> P_GX, energy = 0.00448280085072
+| 5: H_ttt -> H_gtt, energy = 0.0009481928567999999
+| 6: H_ttt -> H_tgt, energy = 0.00096253526976
+| 7: H_ttt -> H_tgg, energy = 0.0014884237449600002
+| 8: H_ttt -> H_gtg, energy = 0.0018772624963199998
+| 9: H_ttt -> H_g+t+g-, energy = 0.0020748690748800002
+| 10: H_ttt -> H_ggg, energy = 0.0019920018
+| 11: H_ttt -> H_g+x-t+, energy = 0.00419435899008
+| 12: H_ttt -> H_t+g+x-, energy = 0.004366467945600001
+| 13: H_ttt -> H_g+x-g-, energy = 0.00523179352752
+| 14: H_ttt -> H_x+g-g-, energy = 0.004913073239520001
+| 15: H_ttt -> H_x+g-x+, energy = 0.007848487091999999
+

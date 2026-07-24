@@ -1,0 +1,30 @@
+GMTKN30 RG6
+-----------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+rn_2
+xe_2
+ne
+ne_2
+xe
+ar
+kr_2
+rn
+kr
+ar_2
+rnxe
+
+Reactions
+^^^^^^^^^
+| 1: ne_2 -> 2ne, energy = 0.0001274881152
+| 2: ar_2 -> 2ar, energy = 0.00044620840320000005
+| 3: kr_2 -> 2kr, energy = 0.000637440576
+| 4: xe_2 -> 2xe, energy = 0.0008924168064000001
+| 5: rnxe -> rn + xe, energy = 0.001035840936
+| 6: rn_2 -> 2rn, energy = 0.0012589451376
+

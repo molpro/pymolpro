@@ -1,0 +1,70 @@
+GMTKN30 WATER27
+---------------
+References
+^^^^^^^^^^
+| GMTKN30: https://www.chemie.uni-bonn.de/grimme/de/software/gmtkn/gmtkn30
+| L. Goerigk, and S. Grimme in Phys. J. Chem. Theory Comput., 2011: https://doi.org/10.1021/ct100466k
+
+Molecules
+^^^^^^^^^
+H3OpH2O6OHm
+OHmH2O2
+H3OpH2O2
+H3OpH2O62d
+H2O6c
+H3OpH2O63d
+H2O20es
+H2O5
+OHmH2O6
+OHmH2O5
+H2O8s4
+H2O2
+H2O3
+H2O6c2
+OHmH2O4cs
+H2O6b
+H3OpH2O
+H2O6
+H2O
+OHmH2O3
+OHmH2O
+H2O20fc
+OHmH2O4c4
+OHm
+H2O4
+H3OpH2O3
+H2O20
+H2O8d2d
+H2O20fs
+H3Op
+
+Reactions
+^^^^^^^^^
+| 1: H2O2 -> 2H2O, energy = 0.0079839432144
+| 2: H2O3 -> 3H2O, energy = 0.025178902752
+| 3: H2O4 -> 4H2O, energy = 0.043664679456
+| 4: H2O5 -> 5H2O, energy = 0.057210291696
+| 5: H2O6 -> 6H2O, energy = 0.07330566624
+| 6: H2O6c -> 6H2O, energy = 0.07298694595199999
+| 7: H2O6b -> 6H2O, energy = 0.072190145232
+| 8: H2O6c2 -> 6H2O, energy = 0.07059654379199999
+| 9: H2O8d2d -> 8H2O, energy = 0.115695464544
+| 10: H2O8s4 -> 8H2O, energy = 0.115695464544
+| 11: H2O20 -> 20H2O, energy = 0.318879648144
+| 12: H2O20fc -> 20H2O, energy = 0.338799666144
+| 13: H2O20fs -> 20H2O, energy = 0.3426243096
+| 14: H2O20es -> 20H2O, energy = 0.34724575377600003
+| 15: H3OpH2O -> H3Op + H2O, energy = 0.05338564824
+| 16: H3OpH2O2 -> H3Op + 2H2O, energy = 0.09067592193599999
+| 17: H3OpH2O3 -> H3Op + 3H2O, energy = 0.12191051016
+| 18: H3OpH2O63d -> H3Op + 6H2O, energy = 0.187726249632
+| 19: H3OpH2O62d -> H3Op + 6H2O, energy = 0.18310480545600002
+| 20: OHmH2O -> OHm + H2O, energy = 0.042389798304000005
+| 21: OHmH2O2 -> OHm + 2H2O, energy = 0.077130309696
+| 22: OHmH2O3 -> OHm + 3H2O, energy = 0.107727457344
+| 23: OHmH2O4c4 -> OHm + 4H2O, energy = 0.135137402112
+| 24: OHmH2O4cs -> OHm + 4H2O, energy = 0.135137402112
+| 25: OHmH2O5 -> OHm + 5H2O, energy = 0.160475665008
+| 26: OHmH2O6 -> OHm + 6H2O, energy = 0.184379686608
+| 27: H2O8s4 -> H3OpH2O6OHm, energy = 0.04541764104
+
