@@ -37,12 +37,18 @@ def test_create_input(methods):
          'method': ['rks,b3lyp', 'ccsd'],
          'hamiltonian': 'AE',
          },
+        {'geometry': 'F\nH,F,1.7',
+                   'basis': {'default': 'cc-pVTZ', 'elements': {}},
+                   # 'steps': [{'command': 'rks', 'options': ['b3lyp']}, {'command': 'ccsd'}],
+                   'method': ['rks,b3lyp', 'ccsd'],
+                   'hamiltonian': 'DK',
+                   },
     ]:
         specification = InputSpecification(specification=spec)
 
         # print('initial specification',specification)
-        # print('created input',specification.create_input(),'---')
-        # print('new_specification', InputSpecification(specification.create_input()))
+        # print('created input',specification.molpro_input(),'---')
+        # print('new_specification', InputSpecification(specification.molpro_input()))
         assert InputSpecification(specification.molpro_input()).with_defaults == specification.with_defaults
         assert InputSpecification(specification.molpro_input()).without_defaults == specification.without_defaults
 
