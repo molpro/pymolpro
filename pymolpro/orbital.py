@@ -10,6 +10,7 @@ from . import sparse_dump
 from .cube_data import CubeData
 from . elements import element
 from . grid import cuboidal_grid
+from .bounding_box import find_bounding_box
 
 
 class Orbital:
@@ -239,14 +240,47 @@ class Orbital:
                 atomic information, grid properties, and evaluated data.
         """
         # print('cube_data',resolution,bounds,threshold)
-        if isinstance(threshold,float):
-            new_bounds = bounds
-            for factor in [8.0,3.0]:
-                rough_cube_data = self.cube_data(resolution=factor*resolution,border=border,bounds=new_bounds,threshold=None)
-                new_bounds = rough_cube_data.bounds(threshold)
-                # print('new_bounds',new_bounds)
-            return self.cube_data(resolution=resolution,border=border,bounds=new_bounds,threshold=None)
-            pass
+        if isinstance(threshold, float):
+            # Locate the region where |orbital value| >= threshold with an
+            # adaptive bounding-box search, instead of evaluating a dense
+            # grid over the whole atom+border box at a couple of coarse
+            # resolutions (the previous approach). self.evaluate() is
+            # already vectorized over an (N, 3) point array, so this
+            # drives it with big batched probes rather than a fixed dense
+            # grid, which is typically far cheaper -- especially for large
+            # molecules or orbitals that are only non-negligible in a
+            # small part of the atom bounding box.
+            atoms = self.atoms
+            xyz = np.array([atom['xyz'] for atom in atoms])
+            origin = np.min(xyz, axis=0) - border
+            far_corner = np.max(xyz, axis=0) + border
+            if bounds is not None:
+                for i in range(3):
+                    origin[i] = max(origin[i], bounds[i][0])
+                    far_corner[i] = max(origin[i], min(far_corner[i], bounds[i][1]))
+
+            def inside(points):
+                return np.abs(self.evaluate(points, values=True)) >= threshold
+
+            result = find_bounding_box(
+                inside,
+                center=tuple((origin + far_corner) / 2),
+                size=tuple(far_corner - origin),
+                # evaluateOrbitals() redoes a fair amount of XML/basis-set
+                # bookkeeping on every call regardless of how many points
+                # are passed in, so a single growth pass with a shorter
+                # bisection is the better trade for this oracle: it keeps
+                # the call count down (typically ~6-12 calls total, versus
+                # thousands of point-by-point evaluations, and comparable
+                # to the fixed 3 calls the previous coarse-grid approach
+                # always used) while still being tight and adaptive enough
+                # to find disjoint lobes that the old two-factor coarse
+                # grid could miss or measure too loosely.
+                growth_passes=1,
+                refine_steps=3,
+            )
+            new_bounds = [[result.xmin, result.xmax], [result.ymin, result.ymax], [result.zmin, result.zmax]]
+            return self.cube_data(resolution=resolution, border=border, bounds=new_bounds, threshold=None)
         atoms = self.atoms
         xyz = np.array([atom['xyz'] for atom in atoms])
         origin = np.min(xyz,axis=0)-border
