@@ -134,13 +134,13 @@ for subset in subsets:
         with open(f, 'r') as fh:
             geometry = ' '.join(fh.readlines()).replace('\t', ' ')
         try:
-            with open(os.path.join(directory, subset, filename, '.UHF'), 'r') as fh:
+            with open(os.path.join(directory, molecule_subset, filename, '.UHF'), 'r') as fh:
                 spin = int(' '.join(fh.readlines()))
         except FileNotFoundError:
             spin = None
         spin = spin if spin != 0 else None
         try:
-            with open(os.path.join(directory, subset, filename, '.CHRG'), 'r') as fh:
+            with open(os.path.join(directory, molecule_subset, filename, '.CHRG'), 'r') as fh:
                 charge = int(' '.join(fh.readlines()))
         except FileNotFoundError:
             charge = None
