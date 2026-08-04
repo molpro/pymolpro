@@ -749,7 +749,7 @@ class InputSpecification(UserDict):
                 _input += self._input_from_basis(self['basis'])
 
         if 'hamiltonian' in self and self['hamiltonian'][:2] == 'DK':
-            _input += 'dkho=' + self['hamiltonian'][2] if len(self['hamiltonian']) > 2 else '1' + '\n'
+            _input += 'dkho=' + (self['hamiltonian'][2] if len(self['hamiltonian']) > 2 else '1') + '\n'
 
         if 'charge' in self:
             _input += 'charge=' + str(self['charge']) + '\n'
