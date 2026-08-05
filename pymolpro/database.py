@@ -379,7 +379,7 @@ def library(expression=None):
 
 
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
-        clean=False, check=False, check_energy=True, **kwargs):
+        clean=False, check=False, check_energy=True, molecule_inputs=None, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -401,6 +401,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     :param bool clean: Whether to destroy the project bundles on successful completion. This should not normally be done, since later invocations of :py:meth:`run()` will use cached results when possible. If there are errors, this parameter is ignored.
     :param bool check: Whether to check for status of jobs instead of running them.
     :param bool check_energy: Whether to throw an exception if any job did not set the Molpro ENERGY variable
+    :param dict molecule_inputs: A dictionary keyed by molecule name (matching keys in :py:data:`db.molecules`), each value being a dictionary of keyword arguments to pass to :py:meth:`project.Project()` for that molecule only. These are merged with `kwargs`, with `molecule_inputs` taking precedence on any clash; the database's own per-molecule `spin`/`charge`/preamble still take precedence over `molecule_inputs`. Every key of `molecule_inputs` must match a key in :py:data:`db.molecules`.
     :param kwargs: Any other options to pass to :py:meth:`project.Project()`, including any top-level keywords from the JSON schema https://www.molpro.net/schema/molpro_input.json.
     :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
     :rtype: Database
@@ -427,11 +428,18 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
                           str(tuple(sorted(kwargs.items())))).encode('utf-8')).hexdigest()[-8:]))
     if not os.path.exists(newdb.project_directory):
         os.makedirs(newdb.project_directory)
+    if molecule_inputs is not None:
+        unknown = set(molecule_inputs.keys()) - set(db.molecules.keys())
+        if unknown:
+            raise ValueError(
+                "molecule_inputs contains keys not present in db.molecules: " + ", ".join(sorted(unknown)))
     newdb.projects = {}
     for molecule_name, molecule in db.molecules.items():
         # method_ = method if type(method) is str else method[1] if 'spin' in molecule and int(molecule['spin']) > 0 else \
         #     method[0] # TODO implement this for ansatz too
         _kwargs = {k:v for k,v in kwargs.items() if k not in ('func')}
+        if molecule_inputs is not None and molecule_name in molecule_inputs:
+            _kwargs.update(molecule_inputs[molecule_name])
         if hasattr(db,'preamble') and not re.match('^(\n+;+ +)*$', db.preamble):
             if 'prologue' in _kwargs:
                 _kwargs['prologue'] += '\n' + db.preamble

@@ -201,6 +201,28 @@ F          0.0000000000        0.0000000000        3.6683721829"""
             except Exception:
                 pass
 
+    def test_molecule_inputs_unknown_key(self):
+        import pytest
+        db = database.load('sample')
+        with pytest.raises(ValueError) as e_info:
+            database.run(db, method='hf', basis='minao', molecule_inputs={'not-a-molecule': {'charge': 1}})
+        self.assertIn('not-a-molecule', str(e_info.value))
+
+    def test_molecule_inputs(self):
+        if pymolpro.Project('test').local_molpro_root:
+            db = Database()
+            db.add_molecule('H2', 'H 0 0 0\nH 0 0 .7')
+            db.add_molecule('HF', 'H 0 0 0\nF 0 0 1')
+            try:
+                results = database.run(db, method='hf', basis='minao',
+                                       molecule_inputs={'HF': {'basis': 'cc-pvdz'}})
+                self.assertEqual(
+                    results.projects['HF'].input_specification.with_defaults['basis']['default'].upper(), 'CC-PVDZ')
+                self.assertEqual(
+                    results.projects['H2'].input_specification.with_defaults['basis']['default'].upper(), 'MINAO')
+            finally:
+                shutil.rmtree(results.project_directory)
+
     def test_subset(self):
         db = database.load('sample')
         self.assertEqual(len(db.subset('non-covalent')), 1)
