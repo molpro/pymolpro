@@ -308,7 +308,7 @@ class InputSpecification(UserDict):
         if not methods:
             self['method'] = self.with_defaults['method']
             return
-        if methods[0].lower() not in ['hf', 'rhf', 'uhf', 'ks', 'rks', 'uks', 'avas']:
+        if methods[0].lower().split(',')[0] not in ['hf', 'rhf', 'uhf', 'ks', 'rks', 'uks', 'avas']:
             self['method'] = ['hf' if methods[0].lower()[0] != 'u' else 'uhf'] + methods
 
     @property
