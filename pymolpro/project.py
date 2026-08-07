@@ -216,7 +216,7 @@ class Project(pysjef.project.Project):
                     name = os.path.join(tempfile.mkdtemp(),  pathlib.Path(urlsplit(file)[2]).name)
                     filename,headers=urlretrieve(file,name)
                     return self.initialize_from_files(files[:i]+[filename]+files[i+1:])
-                if pathlib.Path(file).suffix == '.inp':
+                if pathlib.Path(file).suffix in ['.inp','.test']:
                     new_files = list(set([str(f) for f in files] + list(all_input_filenames(file))))
                     if set(files) != set(new_files):
                         return self.initialize_from_files(new_files)
@@ -240,6 +240,8 @@ class Project(pysjef.project.Project):
                             input_from_output = self.input_from_out()
                     elif (path.suffix in ['.inp', '.xyz', '.dat', '.inc'] or 'basis' in path.stem or 'timing' in path.stem) and path.stem != 'optimised':
                         shutil.copyfile(file, pathlib.Path(self.filename('', run=-1)) / path.name)
+                    elif (path.suffix in ['.test']):
+                        shutil.copyfile(file, pathlib.Path(self.filename('inp', run=-1)))
                     else:
                         if not rundir:
                             self.run_directory_new()
