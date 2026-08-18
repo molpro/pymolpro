@@ -291,6 +291,15 @@ class Database:
                                     self.molecule_energies))
                         self.reaction_energies[reaction_name] += stoichiometry * self.molecule_energies[reagent]
 
+    def clean(self, keep_run_directories=1):
+        """
+        Remove run directories from each project in :py:data:`projects`.
+
+        :param keep_run_directories: The number of most recent run directories to keep for each project.
+        """
+        for project in self.projects.values():
+            project.clean(keep_run_directories)
+
     def __str__(self, rst=False, geometry=True, title=None):
         result = ''
         if title:
