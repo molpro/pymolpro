@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extract results held in Molpro variables &mdash; pymolpro 1.21.2 documentation</title>
+  <title>Extract results held in Molpro variables &mdash; pymolpro 1.21.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c83bb1dd"></script>
+      <script src="../_static/documentation_options.js?v=6c4335c4"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -114,15 +114,15 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>p=Project(&quot;molpro_variables&quot;)
-p.write_input(&quot;&quot;&quot;
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>p=Project("molpro_variables")
+p.write_input("""
 do i=1,73
 x(i)=i*10, cosine(i)=cos(x(i)), sine(i)=sin(x(i))
 enddo
 put,xml
-&quot;&quot;&quot;)
+""")
 p.run(wait=True)
-assert p.status==&#39;completed&#39; and not p.errors()
+assert p.status=='completed' and not p.errors()
 </pre></div>
 </div>
 </div>
@@ -131,8 +131,8 @@ assert p.status==&#39;completed&#39; and not p.errors()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>values={}
-for name in [&#39;x&#39;,&#39;sine&#39;,&#39;cosine&#39;]:
-    # values[name]=[float(v.text) for v in p.xpath(&#39;//variable[@name=&quot;&#39;+name.upper()+&#39;&quot;]/value&#39;)]
+for name in ['x','sine','cosine']:
+    # values[name]=[float(v.text) for v in p.xpath('//variable[@name="'+name.upper()+'"]/value')]
     values[name]=p.variable(name)
 </pre></div>
 </div>
@@ -142,8 +142,8 @@ for name in [&#39;x&#39;,&#39;sine&#39;,&#39;cosine&#39;]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
-plt.plot(values[&#39;x&#39;],values[&#39;sine&#39;],values[&#39;x&#39;],values[&#39;cosine&#39;])
-plt.legend([&#39;Sine&#39;,&#39;Cosine&#39;]);
+plt.plot(values['x'],values['sine'],values['x'],values['cosine'])
+plt.legend(['Sine','Cosine']);
 </pre></div>
 </div>
 </div>

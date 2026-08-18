@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optimise and view the structure of ammonia dimer &mdash; pymolpro 1.21.2 documentation</title>
+  <title>Optimise and view the structure of ammonia dimer &mdash; pymolpro 1.21.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c83bb1dd"></script>
+      <script src="../_static/documentation_options.js?v=6c4335c4"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -114,7 +114,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>name=&#39;Ammonia_dimer&#39;
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>name='Ammonia_dimer'
 atoms = s22[name]
 </pre></div>
 </div>
@@ -141,7 +141,7 @@ ase.atoms.Atoms
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import ase.visualize
-ase.visualize.view(atoms, viewer=&#39;x3d&#39;)
+ase.visualize.view(atoms, viewer='x3d')
 </pre></div>
 </div>
 </div>
@@ -289,7 +289,7 @@ ase.visualize.view(atoms, viewer=&#39;x3d&#39;)
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import ASEMolpro
 from ase.optimize import BFGS
-atoms.calc = ASEMolpro(ansatz=&#39;df-lmp2/aug-cc-pVTZ&#39;)
+atoms.calc = ASEMolpro(ansatz='df-lmp2/aug-cc-pVTZ')
 with BFGS(atoms) as opt:
     opt.run(fmax=0.0001)
 </pre></div>
@@ -346,7 +346,7 @@ BFGS:   23 17:20:03    -3072.768890        0.000033
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print(&quot;H-bond length:&quot;,closest_interatomic(atoms))
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print("H-bond length:",closest_interatomic(atoms))
 <br/></pre></div>
 </div>
 </div>
@@ -365,14 +365,14 @@ H-bond length: 2.1971031666750096
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>from pymolpro import Project
 p = Project(name)
 import ase.io
-ase.io.write(p.filename() + &#39;/initial.xyz&#39;, s22[name])
-p.write_input(&quot;&quot;&quot;
+ase.io.write(p.filename() + '/initial.xyz', s22[name])
+p.write_input("""
 geometry=initial.xyz
 basis,aug-cc-pvtz
-df-rhf; df-lmp2; optg,gradient=0.00001; put,xyz,final.xyz&quot;&quot;&quot;)
+df-rhf; df-lmp2; optg,gradient=0.00001; put,xyz,final.xyz""")
 p.run(wait=True)
-assert p.status == &#39;completed&#39;
-method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
+assert p.status == 'completed'
+method=p.xpath('//summary/@overall_method')[-1]
 </pre></div>
 </div>
 </div>
@@ -380,7 +380,7 @@ method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>final = ase.io.read(p.filename() + &#39;/final.xyz&#39;)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>final = ase.io.read(p.filename() + '/final.xyz')
 </pre></div>
 </div>
 </div>
@@ -388,7 +388,7 @@ method=p.xpath(&#39;//summary/@overall_method&#39;)[-1]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print(&quot;Initial H-bond length:&quot;,closest_interatomic(s22[name]),&quot;\n&quot;+method+&quot; H-bond length:&quot;,closest_interatomic(final))
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>print("Initial H-bond length:",closest_interatomic(s22[name]),"\n"+method+" H-bond length:",closest_interatomic(final))
 </pre></div>
 </div>
 </div>
@@ -405,7 +405,7 @@ DF-LMP2/aug-cc-pVTZ//DF-LMP2/aug-cc-pVTZ H-bond length: 2.1971082552648555
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>ase.visualize.view(final, viewer=&#39;x3d&#39;)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>ase.visualize.view(final, viewer='x3d')
 </pre></div>
 </div>
 </div>

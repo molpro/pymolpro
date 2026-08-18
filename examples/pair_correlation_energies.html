@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extract pair correlation energies &mdash; pymolpro 1.21.2 documentation</title>
+  <title>Extract pair correlation energies &mdash; pymolpro 1.21.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c83bb1dd"></script>
+      <script src="../_static/documentation_options.js?v=6c4335c4"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -115,8 +115,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">=</span><span class="n">Project</span><span class="p">(</span><span class="s2">&quot;pair_correlation_energies&quot;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">&quot;geometry={f;h,f,1.732};rhf;mp2;ccsd&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">=</span><span class="n">Project</span><span class="p">(</span><span class="s2">"pair_correlation_energies"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">"geometry={f;h,f,1.732};rhf;mp2;ccsd"</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -125,11 +125,11 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;MP2&quot;</span><span class="p">,</span> <span class="s2">&quot;CCSD&quot;</span><span class="p">]:</span>
-    <span class="n">pair_energies</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//jobstep[@command=&quot;&#39;</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">&#39;&quot;]/pair/@energy&#39;</span><span class="p">)]</span>
-    <span class="n">first_orbitals</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//jobstep[@command=&quot;&#39;</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">&#39;&quot;]/pair/@orbital1&#39;</span><span class="p">)</span>
-    <span class="n">second_orbitals</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//jobstep[@command=&quot;&#39;</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">&#39;&quot;]/pair/@orbital2&#39;</span><span class="p">)</span>
-    <span class="n">correlation_energy</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//jobstep[@command=&quot;&#39;</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">&#39;&quot;]/property[@name=&quot;correlation energy&quot;]/@value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"MP2"</span><span class="p">,</span> <span class="s2">"CCSD"</span><span class="p">]:</span>
+    <span class="n">pair_energies</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//jobstep[@command="'</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">'"]/pair/@energy'</span><span class="p">)]</span>
+    <span class="n">first_orbitals</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//jobstep[@command="'</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">'"]/pair/@orbital1'</span><span class="p">)</span>
+    <span class="n">second_orbitals</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//jobstep[@command="'</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">'"]/pair/@orbital2'</span><span class="p">)</span>
+    <span class="n">correlation_energy</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//jobstep[@command="'</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">'"]/property[@name="correlation energy"]/@value'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">pair_energies</span><span class="p">),</span><span class="n">correlation_energy</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">pair_energies</span><span class="p">)</span><span class="o">-</span><span class="n">correlation_energy</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -147,8 +147,8 @@ CCSD -0.20679572000000007 -0.206795741784683 2.1784682918690734e-08
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;MP2&quot;</span><span class="p">,</span> <span class="s2">&quot;CCSD&quot;</span><span class="p">]:</span>
-    <span class="n">pair_energies</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//jobstep[@command=&quot;&#39;</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">&#39;&quot;]/pair/@energy&#39;</span><span class="p">)]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"MP2"</span><span class="p">,</span> <span class="s2">"CCSD"</span><span class="p">]:</span>
+    <span class="n">pair_energies</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//jobstep[@command="'</span><span class="o">+</span><span class="n">method</span><span class="o">+</span><span class="s1">'"]/pair/@energy'</span><span class="p">)]</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pair_energies</span><span class="p">)):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">first_orbitals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">second_orbitals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">pair_energies</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>

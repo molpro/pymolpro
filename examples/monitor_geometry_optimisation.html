@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monitor progress of geometry optimisation &mdash; pymolpro 1.21.2 documentation</title>
+  <title>Monitor progress of geometry optimisation &mdash; pymolpro 1.21.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c83bb1dd"></script>
+      <script src="../_static/documentation_options.js?v=6c4335c4"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -107,15 +107,15 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import pymolpro
-acrolein=pymolpro.Project(&quot;acrolein&quot;)
-acrolein.import_file(&quot;monitor_geometry_optimisation/acrolein.xyz&quot;)
-method=&quot;basis,cc-pVDZ;df-hf;df-mp2&quot;
-acrolein.write_input(f&quot;&quot;&quot;
+acrolein=pymolpro.Project("acrolein")
+acrolein.import_file("monitor_geometry_optimisation/acrolein.xyz")
+method="basis,cc-pVDZ;df-hf;df-mp2"
+acrolein.write_input(f"""
 geometry=acrolein.xyz
 {method}
 optg
 put,xyz,opt.xyz
-&quot;&quot;&quot; )
+""" )
 acrolein.run(force=True)
 </pre></div>
 </div>
@@ -130,25 +130,25 @@ import matplotlib.pyplot as plt
 import ase
 from ase.visualize.plot import plot_atoms
 oldenergies=[]
-while acrolein.status != &#39;completed&#39; and acrolein.status != &#39;killed&#39; and acrolein.status != &#39;running&#39;: time.sleep(1)
+while acrolein.status != 'completed' and acrolein.status != 'killed' and acrolein.status != 'running': time.sleep(1)
 time.sleep(0.3)
 while True:
-    energies = acrolein.energies(preamble=&#39;//jobstep[@command=&quot;OPTG&quot;]//&#39;,method=&quot;MP2&quot;)
+    energies = acrolein.energies(preamble='//jobstep[@command="OPTG"]//',method="MP2")
     if energies != oldenergies:
         oldenergies = energies
         clear_output(wait=True)
-        with open(&quot;acrolein_current.xyz&quot;,&quot;w&quot;) as file:
+        with open("acrolein_current.xyz","w") as file:
             file.write(acrolein.xyz())
         fig, ax = plt.subplots(1,4, figsize=(15,5))
-        atoms = ase.io.read(&quot;acrolein_current.xyz&quot;)
+        atoms = ase.io.read("acrolein_current.xyz")
         plot_atoms(atoms, ax[1])
-        plot_atoms(atoms,ax[2], rotation=&#39;90z,90x&#39;)
-        plot_atoms(atoms,ax[3], rotation=&#39;90x,90z&#39;)
+        plot_atoms(atoms,ax[2], rotation='90z,90x')
+        plot_atoms(atoms,ax[3], rotation='90x,90z')
         ax[0].plot(energies)
         plt.sca(ax[0])
         plt.xticks(range(len(energies)),[])
         plt.show()
-    if acrolein.status == &#39;completed&#39; or acrolein.status == &#39;killed&#39;: break
+    if acrolein.status == 'completed' or acrolein.status == 'killed': break
     time.sleep(1)
 </pre></div>
 </div>
@@ -166,9 +166,9 @@ while True:
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>import ase
 from ase.visualize import view
-with open(&quot;acrolein_current.xyz&quot;,&quot;w&quot;) as file:
+with open("acrolein_current.xyz","w") as file:
     file.write(acrolein.xyz())
-view(ase.io.read(&quot;acrolein_current.xyz&quot;),viewer=&#39;x3d&#39;)
+view(ase.io.read("acrolein_current.xyz"),viewer='x3d')
 </pre></div>
 </div>
 </div>

@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro (version 1.21.2) &mdash; pymolpro 1.21.2 documentation</title>
+  <title>pymolpro (version 1.21.3) &mdash; pymolpro 1.21.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=c83bb1dd"></script>
+      <script src="_static/documentation_options.js?v=6c4335c4"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -74,7 +74,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">pymolpro (version 1.21.2)</li>
+      <li class="breadcrumb-item active">pymolpro (version 1.21.3)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,7 +85,7 @@
            <div itemprop="articleBody">
              
   <section id="pymolpro-version-release">
-<h1>pymolpro (version 1.21.2)<a class="headerlink" href="#pymolpro-version-release" title="Link to this heading"></a></h1>
+<h1>pymolpro (version 1.21.3)<a class="headerlink" href="#pymolpro-version-release" title="Link to this heading"></a></h1>
 <p><strong>pymolpro</strong> is a Python library that provides support
 for working with the <a class="reference external" href="https://www.molpro.net/">Molpro quantum chemistry package</a>.</p>
 <p>The principal feature is
@@ -103,12 +103,12 @@ suffix <cite>.molpro</cite>.
 If the project name is omitted, a temporary project is created in the system’s temporary directory.
 Simply running Molpro and inspecting the output can be achieved as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymolpro</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span>
-<span class="n">p</span><span class="o">=</span><span class="n">Project</span><span class="p">(</span><span class="s2">&quot;Neon&quot;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="n">p</span><span class="o">=</span><span class="n">Project</span><span class="p">(</span><span class="s2">"Neon"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">"""</span>
 <span class="s2">geometry=</span><span class="si">{Ne}</span>
 <span class="s2">rhf</span>
 <span class="s2">ccsd(t)</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="s2">"""</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
 </pre></div>
@@ -128,16 +128,16 @@ These functions can return either a Python dictionary containing all information
 The following is a simple example where a job is created, run and
 analysed.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymolpro</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;Neon&quot;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">&quot;geometry=</span><span class="si">{Ne}</span><span class="s2">; rhf; ccsd(t)&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">"Neon"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s2">"geometry=</span><span class="si">{Ne}</span><span class="s2">; rhf; ccsd(t)"</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;completed&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">errors</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">'completed'</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">errors</span><span class="p">()</span>
 <span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//property[@name=&#39;Energy&#39; or @name=&#39;total energy&#39;]&quot;</span><span class="p">):</span>
-  <span class="n">energies</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;@method&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;@value&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">"//property[@name='Energy' or @name='total energy']"</span><span class="p">):</span>
+  <span class="n">energies</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">"@method"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">"@value"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">energy_values</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">energies</span><span class="p">()</span>
 <span class="n">all_principal_properties_dict</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">principal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">final_energy</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;CCSD(T)&#39;</span><span class="p">)</span>
+<span class="n">final_energy</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'CCSD(T)'</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="installation">

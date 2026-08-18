@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 1.21.2 documentation</title>
+  <title>Evaluate charge density at the atomic nuclei &mdash; pymolpro 1.21.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c83bb1dd"></script>
+      <script src="../_static/documentation_options.js?v=6c4335c4"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -115,8 +115,8 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pymolpro</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;evaluate_charge_density&quot;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">"evaluate_charge_density"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_input</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">basis,cc-pVDZ</span>
 <span class="s1">geometry={f;h,f,1.732}</span>
 <span class="s1">set,sewprop=0</span>
@@ -126,9 +126,9 @@
 <span class="s1">{casscf;closed,2;state,3;natorb,2251.2,state=1.1}</span>
 <span class="s1">{casscf;closed,2;state,3;natorb,2252.2,state=2.1}</span>
 <span class="s1">{casscf;closed,2;state,3;natorb,2253.2,state=3.1}</span>
-<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="s1">'''</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;completed&#39;</span>
+<span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">'completed'</span>
 </pre></div>
 </div>
 </div>
@@ -142,21 +142,21 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">atoms</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; atoms:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span> <span class="o">+</span> <span class="s1">' atoms:'</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">atom</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;elementType&#39;</span><span class="p">],</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;xyz&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">atom</span><span class="p">[</span><span class="s1">'id'</span><span class="p">],</span> <span class="n">atom</span><span class="p">[</span><span class="s1">'elementType'</span><span class="p">],</span> <span class="n">atom</span><span class="p">[</span><span class="s1">'xyz'</span><span class="p">])</span>
 
-<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="p">[</span><span class="s1">&#39;xyz&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
+<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="p">[</span><span class="s1">'xyz'</span><span class="p">]</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//orbitals&#39;</span><span class="p">))):</span>
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//orbitals'</span><span class="p">))):</span>
     <span class="n">orbitalsAtPoints</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">evaluateOrbitals</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">state</span><span class="p">)</span>
     <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.0</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">orbital</span> <span class="ow">in</span> <span class="n">orbitalsAtPoints</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">orbital</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">])):</span>
-            <span class="n">results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">ipoint</span><span class="p">]</span> <span class="o">+=</span> <span class="n">orbital</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="n">ipoint</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">orbital</span><span class="p">[</span><span class="s1">&#39;occ&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">orbital</span><span class="p">[</span><span class="s1">'values'</span><span class="p">])):</span>
+            <span class="n">results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">ipoint</span><span class="p">]</span> <span class="o">+=</span> <span class="n">orbital</span><span class="p">[</span><span class="s1">'values'</span><span class="p">][</span><span class="n">ipoint</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">orbital</span><span class="p">[</span><span class="s1">'occ'</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculated densities at the nuclei</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Calculated densities at the nuclei</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -182,11 +182,11 @@ Calculated densities at the nuclei
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//orbitals&#39;</span><span class="p">))):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">'//orbitals'</span><span class="p">))):</span>
     <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
-        <span class="n">search_</span> <span class="o">=</span> <span class="s1">&#39;(//property[@name=&quot;DELTA(&#39;</span> <span class="o">+</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;elementType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;)&quot;])[&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath_search</span><span class="p">(</span><span class="n">search_</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">atom</span><span class="p">[</span><span class="s1">&#39;elementType&#39;</span><span class="p">],</span><span class="n">results</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">atoms</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">atom</span><span class="p">)],</span><span class="n">value</span><span class="p">,</span><span class="n">results</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">atoms</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">atom</span><span class="p">)]</span><span class="o">-</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">search_</span> <span class="o">=</span> <span class="s1">'(//property[@name="DELTA('</span> <span class="o">+</span> <span class="n">atom</span><span class="p">[</span><span class="s1">'elementType'</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">')"])['</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">']'</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">xpath_search</span><span class="p">(</span><span class="n">search_</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">atom</span><span class="p">[</span><span class="s1">'elementType'</span><span class="p">],</span><span class="n">results</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">atoms</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">atom</span><span class="p">)],</span><span class="n">value</span><span class="p">,</span><span class="n">results</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">atoms</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">atom</span><span class="p">)]</span><span class="o">-</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
