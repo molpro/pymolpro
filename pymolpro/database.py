@@ -387,8 +387,44 @@ def library(expression=None):
     return result
 
 
+def _run_project_with_retry(project, backend, retries, retry_delay):
+    """
+    Run a project, retrying on failure rather than letting one transient remote-connection problem
+    abort a whole parallel batch.
+
+    A launch that fails partway through (e.g. a flaky remote host or session) can leave the project's
+    persisted status stuck at "running"/"waiting": sjef's Project.run() unconditionally refuses to start
+    a new job while that's the case, and there's no way to override it. So a naive retry -- and the
+    wait() inside it -- would silently do nothing and hang forever on a job that never actually
+    restarted. Clear that stuck status before each retry attempt to avoid this.
+    """
+    import time
+    last_exception = None
+    for attempt in range(1, retries + 1):
+        try:
+            project.run(backend=backend, wait=True)
+            return
+        except Exception as e:
+            last_exception = e
+            logger.warning("Launch of %s failed (attempt %d/%d): %s", project.name, attempt, retries, e)
+            if attempt < retries:
+                # Only clear status if it's actually stuck in one of the two states that would block
+                # a retry (see the docstring). A failure can also happen (e.g. a dropped connection
+                # right after a successful submission) after the underlying job has already gone on
+                # to complete correctly in the background; unconditionally clearing status here would
+                # discard that correct "completed" and leave it wrongly reporting "unevaluated" even
+                # though the run genuinely succeeded.
+                if project.status in ('running', 'waiting'):
+                    try:
+                        project.property_delete('_status')
+                    except Exception:
+                        pass
+                time.sleep(retry_delay * (2 ** (attempt - 1)))
+    raise last_exception
+
+
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
-        clean=False, check=False, check_energy=True, molecule_inputs=None, **kwargs):
+        clean=False, check=False, check_energy=True, molecule_inputs=None, retries=3, retry_delay=5, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -411,6 +447,8 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     :param bool check: Whether to check for status of jobs instead of running them.
     :param bool check_energy: Whether to throw an exception if any job did not set the Molpro ENERGY variable
     :param dict molecule_inputs: A dictionary keyed by molecule name (matching keys in :py:data:`db.molecules`), each value being a dictionary of keyword arguments to pass to :py:meth:`project.Project()` for that molecule only. These are merged with `kwargs`, with `molecule_inputs` taking precedence on any clash; the database's own per-molecule `spin`/`charge`/preamble still take precedence over `molecule_inputs`. Every key of `molecule_inputs` must match a key in :py:data:`db.molecules`.
+    :param int retries: How many times to attempt launching each job before giving up, to ride out transient remote connection failures (most relevant for a remote `backend`). 1 disables retrying.
+    :param float retry_delay: Seconds to wait before the first retry of a failed launch; doubles on each subsequent attempt.
     :param kwargs: Any other options to pass to :py:meth:`project.Project()`, including any top-level keywords from the JSON schema https://www.molpro.net/schema/molpro_input.json.
     :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
     :rtype: Database
@@ -423,7 +461,6 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     from shutil import rmtree
     import hashlib
     from multiprocessing.dummy import Pool
-    from operator import methodcaller
     from pymolpro import Project
     import os
     if type(db) is str:
@@ -476,8 +513,10 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         for k, p in newdb.projects.items():
             logger.info("Project %s status: %s", k, p.status)
     else:
+        from functools import partial
         with Pool(processes=__parallel) as pool:
-            pool.map(methodcaller('run', backend=backend, wait=True), newdb.projects.values(), 1)
+            pool.map(partial(_run_project_with_retry, backend=backend, retries=retries, retry_delay=retry_delay),
+                     newdb.projects.values(), 1)
 
     newdb.failed = {}
     for molecule in db.molecules:
