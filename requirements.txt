@@ -1,4 +1,4 @@
-pysjef>=1.45.23
+pysjef>=1.45.25
 pytest
 regex
 lxml
