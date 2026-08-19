@@ -530,6 +530,12 @@ import collections
 
 
 class Units(collections.abc.Mapping):
+    r"""
+    Dictionary-like container intended to hold unit conversion factors, ie values of various energy units expressed in Hartree.
+    Access to the entries is through a case-insensitive value mapping to a defined key.
+    The keys and values can be shown, as well as via standard dictionary functions, in readable format via str().
+    
+    """
     def __init__(self, d):
         self._d = d
         self._s = dict((k.lower(), k) for k in d)
@@ -578,8 +584,8 @@ units = Units({
     'uEh': 1 / 1000.0 / 1000.0,
     'uH': 1 / 1000.0 / 1000.0,
     'cm-1': 1 / 219474.6313632,
-    'K': 1 / 315776.177845143,
-})  #: dictionary of units, giving their values in atomic units
+    'K': 3.1668115634564 / 1000.0 / 1000.0,
+})  #: A dictionary of units, giving their values in atomic units.
 
 
 def analyse(databases, reference_database=None, unit=None, **kwargs):
