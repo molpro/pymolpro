@@ -8,10 +8,19 @@ import re
 
 
 import logging
+import threading
 
 logger = logging.getLogger(__name__)
 
 __all__ = ['Database', 'load', 'run', 'analyse', 'basis_extrapolate', 'units']
+
+# pysjef's Project.run() releases the GIL for the duration of the underlying C++ call, which
+# does chdir()/fork()/execve() to launch the job. chdir() is process-global, not per-thread, so
+# launching several projects concurrently from a thread pool (as run() below does) is a race:
+# one thread can chdir into its run directory, then have another thread's chdir land before the
+# first has forked, causing the first job to be launched in the wrong directory. Serializing just
+# the launch call (not the wait that follows) avoids this while keeping jobs running in parallel.
+_launch_lock = threading.Lock()
 
 
 class Database:
@@ -402,7 +411,11 @@ def _run_project_with_retry(project, backend, retries, retry_delay):
     last_exception = None
     for attempt in range(1, retries + 1):
         try:
-            project.run(backend=backend, wait=True)
+            # Only the launch itself needs to be serialized against other threads (see
+            # _launch_lock above); once submitted, the job can be waited on concurrently.
+            with _launch_lock:
+                project.run(backend=backend, wait=False)
+            project.wait()
             return
         except Exception as e:
             last_exception = e
