@@ -427,11 +427,16 @@ def _run_project_with_retry(project, backend, retries, retry_delay):
                 # to complete correctly in the background; unconditionally clearing status here would
                 # discard that correct "completed" and leave it wrongly reporting "unevaluated" even
                 # though the run genuinely succeeded.
-                if project.status in ('running', 'waiting'):
-                    try:
+                #
+                # project.status itself can raise (e.g. a transient I/O error reading the property
+                # file over a flaky networked filesystem, exactly the kind of condition this whole
+                # retry loop exists to ride out) -- letting that escape here would abort the retry
+                # sequence early instead of just skipping this attempt's status-clearing step.
+                try:
+                    if project.status in ('running', 'waiting'):
                         project.property_delete('_status')
-                    except Exception:
-                        pass
+                except Exception:
+                    pass
                 time.sleep(retry_delay * (2 ** (attempt - 1)))
     raise last_exception
 
