@@ -396,7 +396,7 @@ def library(expression=None):
     return result
 
 
-def _run_project_with_retry(project, backend, retries, retry_delay):
+def _run_project_with_retry(project, backend, retries, retry_delay, backend_parameters=None):
     """
     Run a project, retrying on failure rather than letting one transient remote-connection problem
     abort a whole parallel batch.
@@ -414,7 +414,7 @@ def _run_project_with_retry(project, backend, retries, retry_delay):
             # Only the launch itself needs to be serialized against other threads (see
             # _launch_lock above); once submitted, the job can be waited on concurrently.
             with _launch_lock:
-                project.run(backend=backend, wait=False)
+                project.run(backend=backend, wait=False, backend_parameters=backend_parameters)
             project.wait()
             return
         except Exception as e:
@@ -442,7 +442,8 @@ def _run_project_with_retry(project, backend, retries, retry_delay):
 
 
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
-        clean=False, check=False, check_energy=True, molecule_inputs=None, retries=3, retry_delay=5, **kwargs):
+        clean=False, check=False, check_energy=True, molecule_inputs=None, retries=3, retry_delay=5,
+        backend_parameters=None, **kwargs):
     r"""
     Construct and run a Molpro job for each molecule in a :py:class:`Database`,
     and compute reaction energies.
@@ -467,6 +468,7 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     :param dict molecule_inputs: A dictionary keyed by molecule name (matching keys in :py:data:`db.molecules`), each value being a dictionary of keyword arguments to pass to :py:meth:`project.Project()` for that molecule only. These are merged with `kwargs`, with `molecule_inputs` taking precedence on any clash; the database's own per-molecule `spin`/`charge`/preamble still take precedence over `molecule_inputs`. Every key of `molecule_inputs` must match a key in :py:data:`db.molecules`.
     :param int retries: How many times to attempt launching each job before giving up, to ride out transient remote connection failures (most relevant for a remote `backend`). 1 disables retrying.
     :param float retry_delay: Seconds to wait before the first retry of a failed launch; doubles on each subsequent attempt.
+    :param dict backend_parameters: If given, a dictionary of backend parameter name/value pairs to pass through to :py:meth:`project.Project.run()` for this run only.
     :param kwargs: Any other options to pass to :py:meth:`project.Project()`, including any top-level keywords from the JSON schema https://www.molpro.net/schema/molpro_input.json.
     :return: A new database which is a copy of :py:data:`db` but with the new results overwriting any old ones
     :rtype: Database
@@ -533,7 +535,8 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     else:
         from functools import partial
         with Pool(processes=__parallel) as pool:
-            pool.map(partial(_run_project_with_retry, backend=backend, retries=retries, retry_delay=retry_delay),
+            pool.map(partial(_run_project_with_retry, backend=backend, retries=retries, retry_delay=retry_delay,
+                             backend_parameters=backend_parameters),
                      newdb.projects.values(), 1)
 
     newdb.failed = {}
