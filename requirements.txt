@@ -1,11 +1,11 @@
-pysjef>=1.45.28
+pysjef>=1.45.29
 pytest
 regex
 lxml
 scipy>=1.9.3
 numpy
 sphinx-rtd-theme>=1.0.0
-quadpy>=0.16.10
+quadpy>=0.16.10  # NB: PyPI's `pip install`-based paths use legacy-quadpy instead (pyproject.toml) — quadpy went proprietary upstream of 0.17, but conda-forge still serves the free 0.16.10 build
 pandas<3
 chemcoord==2.1.2
 ase>=3.23.0
