@@ -15,6 +15,12 @@ import jsonschema
 with open((pathlib.Path(__file__).parent / 'molpro_input.json').as_posix(), 'r') as f:
     schema = json.load(f)
 
+# jsonschema.validate(instance, schema) re-resolves the schema's whole $ref/$dynamicRef graph from
+# scratch on every call (tens of milliseconds for this schema), even though that graph never
+# changes. Building the validator once and reusing it for every validate() call, here and
+# throughout this module, cuts each call to well under a millisecond.
+_validator = jsonschema.validators.validator_for(schema)(schema)
+
 _logger = logging.getLogger(__name__)
 _symmetry_commands = {
     '': '',
@@ -205,10 +211,10 @@ def _load_permissive_json(string):
     if _string[0] == '{' and string[-1] == '}': _string = _string[1:-1]
     try:
         result = json.loads('{' + _string + '}')
-        jsonschema.validate(result, schema)
+        _validator.validate(result)
     except json.decoder.JSONDecodeError:
         result = json.loads(_convert_keyval_to_json(_string))
-        jsonschema.validate(result, schema)
+        _validator.validate(result)
     return result
 
 
@@ -386,8 +392,7 @@ class InputSpecification(UserDict):
 
     def validate(self):
         """ Validate the specification according to the schema."""
-        jsonschema.validate(instance=json.loads(json.dumps(dict(self))), schema=schema)
-        pass
+        _validator.validate(json.loads(json.dumps(dict(self))))
 
     @property
     def ansatz(self) -> str:
