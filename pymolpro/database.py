@@ -408,6 +408,21 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
     restarted. Clear that stuck status before each retry attempt to avoid this.
     """
     import time
+    try:
+        needed = project.run_needed()
+    except Exception:
+        # Can't cheaply tell either way (e.g. transient I/O error) -- fall through to the locked
+        # run() call below, which will make the same determination safely.
+        needed = True
+    if not needed:
+        # project.run() would itself discover there's nothing to launch, but that discovery happens
+        # inside the call that _launch_lock serializes (see comment above _launch_lock), so making
+        # every already-up-to-date project go through it anyway would serialize all of them one at a
+        # time for no benefit. run_needed() makes the same check without chdir/fork/execve, so it's
+        # safe to call concurrently from every pool thread, letting the common "nothing to do" case
+        # actually run in parallel.
+        project.wait()
+        return
     last_exception = None
     for attempt in range(1, retries + 1):
         try:
@@ -548,8 +563,9 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
 
     newdb.molecule_energies = {}
     for molecule_name in db.molecules:
+        project = newdb.projects[molecule_name]
         try:
-            newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+            newdb.molecule_energies[molecule_name] = project.variable('energy')
             if check_energy and newdb.molecule_energies[molecule_name] is None:
                 raise ValueError('ENERGY variable is empty')
             if type(newdb.molecule_energies[molecule_name]) is type([]):
@@ -558,25 +574,28 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         except Exception:
             if not check:
                 raise ValueError(
-                    "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
+                    "Failure to get value of ENERGY variable from " + project.filename("xml"))
+        # with_defaults rebuilds and re-validates the whole specification against the schema on
+        # every access, so compute it once per molecule rather than the 3 separate times used below.
+        with_defaults = project.input_specification.with_defaults
         # if 'job_type' in kwargs and kwargs['job_type'][:3].lower() == 'opt' or (specification is not None and 'job_type' in specification and specification['job_type'][:3].lower() == 'opt'):
-        if newdb.projects[molecule_name].input_specification.with_defaults['job_type'][:3] == 'OPT':
+        if with_defaults['job_type'][:3] == 'OPT':
             try:
                 Angstrom = 1.88972612462577
                 newdb.molecules[molecule_name]['geometry'] = '\n'.join(
                     [atom['elementType'] + ' ' + ' '.join([str(c / Angstrom) for c in atom['xyz']]) for atom in
-                     (newdb.projects[molecule_name].geometry())])
+                     (project.geometry())])
             except Exception:
                 if not check:
                     raise ValueError(
-                        "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
+                        "Failure to get geometry from " + project.filename("xml"))
             if check:
                 logger.info('got geometry: %s', newdb.molecules[molecule_name]['geometry'])
-        newdb.method = kwargs.get('method',newdb.projects[molecule_name].input_specification.with_defaults['method'])
+        newdb.method = kwargs.get('method', with_defaults['method'])
         if isinstance(newdb.method, list):
             newdb.method = newdb.method[-1]
-        newdb.basis = kwargs.get('basis',newdb.projects[molecule_name].input_specification.with_defaults['basis']['default'])
-        newdb.input_specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
+        newdb.basis = kwargs.get('basis', with_defaults['basis']['default'])
+        newdb.input_specification = json.dumps(dict(project.input_specification))
     newdb.calculate_reaction_energies(check)
     if clean:
         newdb.projects = {}

@@ -286,8 +286,7 @@ class Project(pysjef.project.Project):
 
         if specification is not None and isinstance(specification, dict):
             self.input_specification = InputSpecification(specification=specification)
-            self.write_input(self.input_specification.molpro_input())
-            self.property_set({'input_specification': json.dumps(dict(self.input_specification))})
+            self._write_input_if_changed()
 
         if ansatz is not None:
             _parsed_ansatz = self.parse_ansatz(ansatz)
@@ -313,8 +312,28 @@ class Project(pysjef.project.Project):
                 _input[key] = {"default": _input[key]}
         if _input:
             self.input_specification = InputSpecification(specification=_input)
-            self.write_input(self.input_specification.molpro_input())
-            self.property_set({'input_specification': json.dumps(dict(self.input_specification))})
+            self._write_input_if_changed()
+
+    def _write_input_if_changed(self):
+        r"""
+        Write self.input_specification to the input file and property store, but only if it
+        differs from what's already there. Project() is reconstructed on every re-run of a
+        Database, even for molecules whose calculation is unchanged and already complete, so
+        unconditionally rewriting identical content here would be wasted, serial disk I/O
+        repeated for every molecule.
+        """
+        text = self.input_specification.molpro_input()
+        specification_json = json.dumps(dict(self.input_specification))
+        try:
+            with open(self.filename('inp'), 'r') as f:
+                existing_text = f.read()
+            existing_json = self.property_get('input_specification').get('input_specification')
+            if existing_text == text and existing_json == specification_json:
+                return
+        except Exception:
+            pass
+        self.write_input(text)
+        self.property_set({'input_specification': specification_json})
 
     # def set_method(self,method,basis="cc-pVTZ",geometry_method=None, geometry_basis=None):
     #     pass
