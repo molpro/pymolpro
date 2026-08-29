@@ -257,6 +257,33 @@ class Project(pysjef.project.Project):
         except:
             pass
 
+    def xpath(self, query, element=None):
+        r"""
+        Specialization of :py:meth:`pysjef.project.Project.xpath` that caches the parsed XML tree
+        per project instance instead of re-reading and re-parsing the output file from disk on
+        every call. Callers like :py:func:`no_errors` and :py:meth:`variable` each query this
+        multiple times per project; the cache is keyed on the output file's mtime, so it's used
+        only while nothing about the output has changed since it was built.
+        """
+        if element is None:
+            element = self._cached_xml_root()
+        return super().xpath(query, element=element)
+
+    def _cached_xml_root(self):
+        try:
+            mtime = os.path.getmtime(self.filename('xml'))
+        except OSError:
+            mtime = None
+        if mtime is not None:
+            cached_mtime, cached_root = getattr(self, '_xml_root_cache', (None, None))
+            if cached_root is not None and cached_mtime == mtime:
+                return cached_root
+        from lxml import etree
+        from io import StringIO
+        root = etree.parse(StringIO(self.xml), etree.XMLParser()).getroot()
+        if mtime is not None:
+            self._xml_root_cache = (mtime, root)
+        return root
 
     def input(self, input: str | dict = None, specification: str | dict = None, ansatz: str = None, **kwargs):
         r"""
