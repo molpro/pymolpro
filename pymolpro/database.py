@@ -556,9 +556,16 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         # left to interrupt.
         pool = Pool(processes=__parallel)
         try:
+            # chunksize=1 would push every molecule through the pool's queue/lock machinery
+            # individually -- fine for a handful of molecules, but measurable overhead once a
+            # database has hundreds. A moderate chunksize (matching Pool.map()'s own default
+            # heuristic) cuts that overhead while still leaving each worker several chunks to
+            # pull from, so a worker landing a chunk of unusually slow jobs doesn't leave others
+            # idle for long.
+            chunksize = max(1, len(newdb.projects) // (__parallel * 4))
             pool.map(partial(_run_project_with_retry, backend=backend, retries=retries, retry_delay=retry_delay,
                              backend_parameters=backend_parameters),
-                     newdb.projects.values(), 1)
+                     newdb.projects.values(), chunksize)
         finally:
             pool.close()
             pool.join()
