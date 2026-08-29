@@ -200,6 +200,7 @@ class Project(pysjef.project.Project):
                 raise FileNotFoundError("Cannot open project " + name)
 
         self.local_molpro_root_ = None
+        self._input_unchanged = False  # overwritten by _write_input_if_changed() when it runs
 
         self.input(input, specification, ansatz, **kwargs)
 
@@ -321,6 +322,11 @@ class Project(pysjef.project.Project):
         Database, even for molecules whose calculation is unchanged and already complete, so
         unconditionally rewriting identical content here would be wasted, serial disk I/O
         repeated for every molecule.
+
+        Also records the outcome in self._input_unchanged, so callers that already need to know
+        "did anything change" (database.run(), deciding whether a relaunch is needed) can use
+        this Python-only determination instead of asking pysjef's run_needed(), which -- unlike
+        run() -- does not release the GIL.
         """
         text = self.input_specification.molpro_input()
         specification_json = json.dumps(dict(self.input_specification))
@@ -329,9 +335,11 @@ class Project(pysjef.project.Project):
                 existing_text = f.read()
             existing_json = self.property_get('input_specification').get('input_specification')
             if existing_text == text and existing_json == specification_json:
+                self._input_unchanged = True
                 return
         except Exception:
             pass
+        self._input_unchanged = False
         self.write_input(text)
         self.property_set({'input_specification': specification_json})
 

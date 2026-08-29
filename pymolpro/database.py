@@ -409,6 +409,25 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
     """
     import time
     try:
+        # Project() construction already determined, in Python, whether the rendered input is
+        # byte-identical to what's on disk (Project._write_input_if_changed()). Combined with the
+        # project already having completed for that input, this is the same "nothing to relaunch"
+        # conclusion project.run_needed() would reach -- but reaching it this way costs nothing
+        # beyond an attribute read and a status() call, and doesn't touch run_needed() at all.
+        # That matters because, unlike run(), pysjef's run_needed() does not release the GIL (see
+        # project_wrapper.pyx): every pool thread calling it "concurrently" actually just
+        # serializes on the GIL while paying real thread-scheduling overhead for no concurrency,
+        # which is measurably worse than not calling it in the first place.
+        if project._input_unchanged and project.status == 'completed':
+            project.wait()
+            return
+    except Exception:
+        pass
+    try:
+        # Anything less certain than the fast path above (input changed, status not yet
+        # 'completed', or the fast-path check itself raised) falls back to run_needed(), which
+        # still makes the correct determination for cases the Python-only check can't cover --
+        # just without the parallelism the fast path gets for the common case.
         needed = project.run_needed()
     except Exception:
         # Can't cheaply tell either way (e.g. transient I/O error) -- fall through to the locked
@@ -418,9 +437,7 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
         # project.run() would itself discover there's nothing to launch, but that discovery happens
         # inside the call that _launch_lock serializes (see comment above _launch_lock), so making
         # every already-up-to-date project go through it anyway would serialize all of them one at a
-        # time for no benefit. run_needed() makes the same check without chdir/fork/execve, so it's
-        # safe to call concurrently from every pool thread, letting the common "nothing to do" case
-        # actually run in parallel.
+        # time for no benefit.
         project.wait()
         return
     last_exception = None
