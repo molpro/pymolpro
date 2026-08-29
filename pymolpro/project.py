@@ -34,6 +34,17 @@ from pymolpro.elements import periodic_table
 import logging
 logger = logging.getLogger(__name__)
 
+# The local Molpro installation location doesn't change during a process's lifetime, but
+# Project.local_molpro_root was cached per-instance rather than per-process -- with a fresh
+# Project() constructed for every molecule in a Database, that meant a fresh 'molpro --registry'
+# subprocess spawn (real process-launch cost) for every instance that happened to need it, and
+# every one of them if Molpro isn't found locally at all (the per-instance cache only ever
+# recorded success, so a miss was retried indefinitely). Cache at module level instead.
+_local_molpro_root_unset = object()
+_local_molpro_root_cache = _local_molpro_root_unset
+# Same reasoning as _local_molpro_root_cache above, for Project.registry().
+_registry_cache = {}
+
 def no_errors(projects, ignore_warning=True):
     """
     Checks that none of the projects have any errors. Projects can by running.
@@ -270,6 +281,29 @@ class Project(pysjef.project.Project):
         return super().xpath(query, element=element)
 
     def _cached_xml_root(self):
+        from lxml import etree
+        from io import StringIO
+        if not getattr(self, '_input_unchanged', False):
+            # A project whose input just changed -- including the very first time it's ever run --
+            # may have had its output written moments ago: wait() reports completion as soon as
+            # the job's status flips, but that's no guarantee the underlying process has finished
+            # flushing its output file to disk. Reading it too early can see a truncated document
+            # (e.g. missing the root element's namespace declaration because the closing tags
+            # haven't been written yet), which pysjef's xpath() turns into a silent None return
+            # rather than a catchable error. Retry a few times with a short backoff, checking for
+            # the closing tag that marks a complete file, before parsing -- this is bounded and
+            # rare (only freshly-launched projects take this path at all; anything already
+            # confirmed unchanged from an earlier, settled run skips straight to the cache below).
+            import time
+            text = self.xml
+            delay = 0.05
+            for _ in range(6):
+                if text.rstrip().endswith('</molpro>'):
+                    break
+                time.sleep(delay)
+                delay = min(delay * 2, 0.5)
+                text = self.xml
+            return etree.parse(StringIO(text), etree.XMLParser()).getroot()
         try:
             mtime = os.path.getmtime(self.filename('xml'))
         except OSError:
@@ -278,8 +312,6 @@ class Project(pysjef.project.Project):
             cached_mtime, cached_root = getattr(self, '_xml_root_cache', (None, None))
             if cached_root is not None and cached_mtime == mtime:
                 return cached_root
-        from lxml import etree
-        from io import StringIO
         root = etree.parse(StringIO(self.xml), etree.XMLParser()).getroot()
         if mtime is not None:
             self._xml_root_cache = (mtime, root)
@@ -1131,9 +1163,7 @@ class Project(pysjef.project.Project):
         :return:
         """
         if set:
-            if not hasattr(self, 'registry_cache'):
-                self.registry_cache = {}
-            if set not in self.registry_cache:
+            if set not in _registry_cache:
                 try:
                     run = self.run_local_molpro(['--registry', set])
                     if not run.stdout:
@@ -1144,7 +1174,7 @@ class Project(pysjef.project.Project):
                     linestring = l1.replace('{', '').strip('\\n').strip('"')
                     linestring=re.sub('^Molpro registry.*$|^Entries.*:$','',linestring,flags=re.MULTILINE).replace('\n','')
                     line = linestring.split('}')
-                    self.registry_cache[set] = {}
+                    _registry_cache[set] = {}
                     for li in line:
                         # print('li',li)
                         name = re.sub('["\'].*', '', re.sub('.*name *= *["\']', '', li))
@@ -1152,15 +1182,15 @@ class Project(pysjef.project.Project):
                             json_ = '{' + re.sub('"type" *: * (.),', '"type": "\\1",',
                                                  re.sub('([*a-zA-Z0-9_-]+)=', '"\\1": ', li)).replace("'", '"') + '}'
                             # print(json_)
-                            self.registry_cache[set][name] = json.loads(json_)
-                            if 'name' in self.registry_cache[set][name]:
-                                del self.registry_cache[set][name]['name']
+                            _registry_cache[set][name] = json.loads(json_)
+                            if 'name' in _registry_cache[set][name]:
+                                del _registry_cache[set][name]['name']
                 except Exception:
                     if set == 'DFUNC':  # to keep unit testing quiet when there's no molpro
-                        self.registry_cache[set] = {'B3LYP': {'set': 'DFUNC'}}
+                        _registry_cache[set] = {'B3LYP': {'set': 'DFUNC'}}
                     else:
                         return None
-            return self.registry_cache[set]
+            return _registry_cache[set]
         else:
             try:
                 run = self.run_local_molpro(['--registry'])
@@ -1179,8 +1209,10 @@ class Project(pysjef.project.Project):
         :return: directory
         :rtype: pathlib.Path
         """
-        if self.local_molpro_root_ is None:
+        global _local_molpro_root_cache
+        if _local_molpro_root_cache is _local_molpro_root_unset:
             logger.debug('setting local_molpro_root')
+            _local_molpro_root_cache = None
             try:
                 run = self.run_local_molpro(['--registry'])
                 logger.debug(f"run.stdout: {run.stdout}")
@@ -1192,11 +1224,11 @@ class Project(pysjef.project.Project):
                     path_to_lib = pathlib.Path(
                         re.sub(r'\\n.*', '', re.sub('.*registry at *', '', out1)).rstrip("'").replace('\\n',
                                                                                                                  ''))
-                    self.local_molpro_root_ = path_to_lib.parent
-                    logger.debug('Project.local_molpro_root sets local_molpro_root to '+str(self.local_molpro_root_))
+                    _local_molpro_root_cache = path_to_lib.parent
+                    logger.debug('Project.local_molpro_root sets local_molpro_root to '+str(_local_molpro_root_cache))
             except Exception:
                 return None
-        return self.local_molpro_root_
+        return _local_molpro_root_cache
 
     def procedures_registry(self):
         r"""

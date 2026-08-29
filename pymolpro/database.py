@@ -473,6 +473,63 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
     raise last_exception
 
 
+def _cached_no_errors(project):
+    r"""
+    Equivalent to pymolpro.no_errors([project]), but persists the result in the project's own
+    property store and reuses it while the project's input is confirmed unchanged
+    (Project._input_unchanged) and its status hasn't moved on since the result was cached. Unlike
+    an in-process cache, this persists across separate invocations of a script that re-runs the
+    same Database: pymolpro.no_errors() re-parses the (potentially large) Molpro output XML from
+    scratch on every call, which is wasted work once a job's output can no longer have changed.
+    """
+    status = project.status
+    if getattr(project, '_input_unchanged', False):
+        try:
+            cached = project.property_get('_pymolpro_no_errors_cache').get('_pymolpro_no_errors_cache')
+            if cached is not None:
+                cache = json.loads(cached)
+                if cache.get('status') == status:
+                    return cache['no_errors']
+        except Exception:
+            pass
+    result = pymolpro.no_errors([project])
+    try:
+        project.property_set({'_pymolpro_no_errors_cache': json.dumps({'status': status, 'no_errors': result})})
+    except Exception:
+        pass
+    return result
+
+
+def _cached_variable(project, name):
+    r"""
+    Equivalent to project.variable(name), but persists the result in the project's own property
+    store and reuses it under the same conditions as _cached_no_errors() above, for the same
+    reason: project.variable() re-parses the Molpro output XML from scratch on every call.
+
+    Exceptions from project.variable() itself are deliberately left to propagate uncaught, so
+    callers see exactly the same failure behaviour as calling project.variable() directly; only
+    the cache lookup/write around it is best-effort.
+    """
+    status = project.status
+    if getattr(project, '_input_unchanged', False):
+        try:
+            cached = project.property_get('_pymolpro_variable_cache_' + name.lower()).get(
+                '_pymolpro_variable_cache_' + name.lower())
+            if cached is not None:
+                cache = json.loads(cached)
+                if cache.get('status') == status:
+                    return cache['value']
+        except Exception:
+            pass
+    result = project.variable(name)
+    try:
+        project.property_set(
+            {'_pymolpro_variable_cache_' + name.lower(): json.dumps({'status': status, 'value': result})})
+    except Exception:
+        pass
+    return result
+
+
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
         clean=False, check=False, check_energy=True, molecule_inputs=None, retries=3, retry_delay=5,
         backend_parameters=None, **kwargs):
@@ -590,15 +647,16 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     newdb.failed = {}
     for molecule in db.molecules:
         project = newdb.projects[molecule]
-        if project.status != 'completed' or not pymolpro.no_errors([project]):
-            logger.warning("Runtime failure of %s %s; status=%s, no_errors=%s", molecule, project.filename(),project.status,pymolpro.no_errors([project]))
+        no_errors_result = _cached_no_errors(project)
+        if project.status != 'completed' or not no_errors_result:
+            logger.warning("Runtime failure of %s %s; status=%s, no_errors=%s", molecule, project.filename(),project.status,no_errors_result)
             newdb.failed[molecule] = project
 
     newdb.molecule_energies = {}
     for molecule_name in db.molecules:
         project = newdb.projects[molecule_name]
         try:
-            newdb.molecule_energies[molecule_name] = project.variable('energy')
+            newdb.molecule_energies[molecule_name] = _cached_variable(project, 'energy')
             if check_energy and newdb.molecule_energies[molecule_name] is None:
                 raise ValueError('ENERGY variable is empty')
             if type(newdb.molecule_energies[molecule_name]) is type([]):
