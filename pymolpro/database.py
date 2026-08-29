@@ -549,10 +549,19 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
             logger.info("Project %s status: %s", k, p.status)
     else:
         from functools import partial
-        with Pool(processes=__parallel) as pool:
+        # Pool's context manager (__exit__) unconditionally calls terminate() rather than
+        # close()+join(), even though pool.map() below has already run every task to completion
+        # -- forcibly tearing down the pool's worker-management machinery this way measurably
+        # costs more than letting it wind down normally, for no benefit since there's nothing
+        # left to interrupt.
+        pool = Pool(processes=__parallel)
+        try:
             pool.map(partial(_run_project_with_retry, backend=backend, retries=retries, retry_delay=retry_delay,
                              backend_parameters=backend_parameters),
                      newdb.projects.values(), 1)
+        finally:
+            pool.close()
+            pool.join()
 
     newdb.failed = {}
     for molecule in db.molecules:
