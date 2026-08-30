@@ -45,6 +45,24 @@ _local_molpro_root_cache = _local_molpro_root_unset
 # Same reasoning as _local_molpro_root_cache above, for Project.registry().
 _registry_cache = {}
 
+# pysjef's generic Node.copy_node() (used by Project.copy(), via pysjef.project.Project's own
+# copy_node() override) builds a scaffold copy by calling self.__class__() with no arguments, then
+# immediately overwrites the scaffold's _project_wrapper with one carrying the real project's
+# state. That's fine for pysjef's own bare Project class, but Project.__init__ below treats a
+# no-name call as a request for a brand-new anonymous project: it creates a real throwaway
+# directory under the system temp dir and registers an atexit handler (self._unconditionally_destroy)
+# bound to *that* object to clean it up on process exit. Since _project_wrapper gets replaced right
+# after construction, the throwaway directory is immediately orphaned (never referenced again, so
+# the atexit handler no longer targets it) -- and because the handler is a bound method, not a
+# snapshot, it fires at process exit against whatever _project_wrapper the object holds *then*,
+# which by that point is the real copied project, possibly already erased. On an already-erased
+# project this wastes the retry budget in check_property_file_locked() (sjef.cpp) retrying a file
+# that is never coming back, tens of seconds per copy(), and if not erased it does an unwanted
+# rmtree of a live project. See Project.copy_node() below, which sets this while constructing the
+# scaffold so __init__ can skip straight past the anonymous-project side effects.
+import threading
+_constructing_copy_scaffold = threading.local()
+
 def no_errors(projects, ignore_warning=True):
     """
     Checks that none of the projects have any errors. Projects can by running.
@@ -183,6 +201,22 @@ class Project(pysjef.project.Project):
         :param kwargs: Any of the top-level keywords in the JSON schema https://www.molpro.net/schema/molpro_input.json, or any of the arguments accepted by the parent sjef.Project class constructor.
 """
         # print('Project(): name',name,'input',input,'specification',specification,'ansatz',ansatz,'files',files,'kwargs',kwargs)
+        if getattr(_constructing_copy_scaffold, 'active', False):
+            # See the comment on _constructing_copy_scaffold above: this call exists only to get an
+            # object of the right class for Node.copy_node() to then overwrite the state of, not to
+            # create a real project. Set up just enough for that overwrite (in Project.copy_node()
+            # below) to work, and skip name/anonymous-project handling, super().__init__() (which is
+            # what would actually create a directory), and self.input()/self.initialize_from_files()
+            # entirely.
+            pysjef.node.Node.__init__(self)
+            self.nodename = "project"
+            self.suffix = "molpro"
+            self.is_project = True
+            self.run_directory = 0
+            self.local_molpro_root_ = None
+            self._input_unchanged = False
+            self.__initialized = True
+            return
         possible_arguments_matching_schema = [k for k in schema['properties'] if
                                               k not in inspect.signature(self.__init__).parameters]
         # print('possible_arguments_matching_schema',possible_arguments_matching_schema)
@@ -222,6 +256,17 @@ class Project(pysjef.project.Project):
         self.input(input, specification, ansatz, **kwargs)
 
         self.initialize_from_files(files)
+
+    def copy_node(self):
+        # pysjef.project.Project.copy_node() (used by copy()) builds its scaffold via
+        # Node.copy_node(self), which constructs self.__class__() with no arguments -- see the
+        # comment on _constructing_copy_scaffold above for why that's unsafe to let run through the
+        # ordinary no-name/anonymous-project path here.
+        _constructing_copy_scaffold.active = True
+        try:
+            return super().copy_node()
+        finally:
+            _constructing_copy_scaffold.active = False
 
     def initialize_from_files(self, files: str | list[str] | None):
         # if not isinstance(files, list):
@@ -307,12 +352,22 @@ class Project(pysjef.project.Project):
             # rare (only freshly-launched projects take this path at all; anything already
             # confirmed unchanged from an earlier, settled run skips straight to the cache below).
             #
-            # Only do this when the output file actually exists: pysjef's self.xml falls back to
-            # a placeholder ('<root/>') when it doesn't, e.g. for a project that has never been
-            # run (or check=True, which never launches anything) -- that placeholder can never
-            # satisfy the completeness check, so retrying for it would burn the full retry budget
-            # on every single such project for no reason.
-            if os.path.exists(self.filename('xml')):
+            # Skip the retry only for a project that has never been run at all (status
+            # 'unevaluated', e.g. check=True, which never launches anything): pysjef's self.xml
+            # falls back to a placeholder ('<root/>') when the output file doesn't exist, and that
+            # placeholder can never satisfy the completeness check, so retrying for it would burn
+            # the full retry budget on every single such project for no reason.
+            #
+            # Any other status -- running, waiting, completed, killed, failed -- means a real run
+            # happened or is happening, so the output file may not just be incomplete but may not
+            # have been created yet at all (status flips to 'completed' as soon as the job exits,
+            # with no guarantee the process has finished flushing, or even started writing, its xml
+            # file). self.xml already returns the same placeholder for "doesn't exist yet" as it
+            # does once a file exists but is truncated, so the same completeness check below
+            # naturally keeps retrying through both cases without needing to distinguish them.
+            if getattr(self, 'status', None) == 'unevaluated':
+                text = self.xml
+            else:
                 import time
                 text = self.xml
                 delay = 0.05
@@ -322,8 +377,6 @@ class Project(pysjef.project.Project):
                     time.sleep(delay)
                     delay = min(delay * 2, 0.5)
                     text = self.xml
-            else:
-                text = self.xml
             return etree.parse(StringIO(text), etree.XMLParser()).getroot()
         try:
             mtime = os.path.getmtime(self.filename('xml'))
