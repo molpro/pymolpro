@@ -300,14 +300,23 @@ class Project(pysjef.project.Project):
             # the closing tag that marks a complete file, before parsing -- this is bounded and
             # rare (only freshly-launched projects take this path at all; anything already
             # confirmed unchanged from an earlier, settled run skips straight to the cache below).
-            import time
-            text = self.xml
-            delay = 0.05
-            for _ in range(6):
-                if text.rstrip().endswith('</molpro>'):
-                    break
-                time.sleep(delay)
-                delay = min(delay * 2, 0.5)
+            #
+            # Only do this when the output file actually exists: pysjef's self.xml falls back to
+            # a placeholder ('<root/>') when it doesn't, e.g. for a project that has never been
+            # run (or check=True, which never launches anything) -- that placeholder can never
+            # satisfy the completeness check, so retrying for it would burn the full retry budget
+            # on every single such project for no reason.
+            if os.path.exists(self.filename('xml')):
+                import time
+                text = self.xml
+                delay = 0.05
+                for _ in range(6):
+                    if text.rstrip().endswith('</molpro>'):
+                        break
+                    time.sleep(delay)
+                    delay = min(delay * 2, 0.5)
+                    text = self.xml
+            else:
                 text = self.xml
             return etree.parse(StringIO(text), etree.XMLParser()).getroot()
         try:
