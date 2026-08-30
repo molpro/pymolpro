@@ -195,11 +195,17 @@ class Project(pysjef.project.Project):
                     name = pathlib.Path(files[0]).stem
                 if name is None and isinstance(files, str) and len(files) > 0:
                     name = pathlib.Path(files).stem
+                from pysjef import __version__ as pysjef_version
+                from packaging.version import Version
+                pysjef_supports_record_as_recent = Version(pysjef_version) >= Version("1.42.1")
+                if 'record_as_recent' in kwargs_ and not pysjef_supports_record_as_recent:
+                    # A caller (e.g. database.run(), constructing many per-molecule projects) may
+                    # pass this explicitly; older pysjef doesn't accept the keyword at all, so drop
+                    # it rather than let super().__init__() below raise on an unexpected argument.
+                    del kwargs_['record_as_recent']
                 if not name:
-                    from pysjef import __version__ as pysjef_version
-                    from packaging.version import Version
                     name = self._anonymous_name(input, specification, ansatz, **kwargs)
-                    if Version(pysjef_version) >= Version("1.42.1"):
+                    if pysjef_supports_record_as_recent:
                         kwargs_['record_as_recent'] = False
                     kwargs_['location'] = (pathlib.Path(tempfile.gettempdir()) / 'pymolpro_projects').as_posix()
                     os.makedirs(kwargs_['location'], exist_ok=True)

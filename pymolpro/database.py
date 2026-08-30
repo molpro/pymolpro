@@ -608,6 +608,13 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         for k in ['spin','charge']:
             if k in molecule:
                 _kwargs[k] = molecule[k]
+        if 'record_as_recent' not in _kwargs:
+            # A Database can construct hundreds of per-molecule projects; recording each in
+            # sjef's global "recent projects" list is both unwanted (nobody wants every molecule
+            # of a large database cluttering that list) and a real, measurable construction cost
+            # (about 30% of it, empirically) that a caller can still opt back into per-molecule
+            # via molecule_inputs, or for the whole database via a record_as_recent kwarg.
+            _kwargs['record_as_recent'] = False
         try:
             newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
                                                     ansatz=ansatz,
