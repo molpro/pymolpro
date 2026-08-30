@@ -608,16 +608,36 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         for k in ['spin','charge']:
             if k in molecule:
                 _kwargs[k] = molecule[k]
-        try:
-            newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
-                                                    ansatz=ansatz,
-                                                    specification=specification,
-                                                    location=newdb.project_directory,
-                                                    **_kwargs,
-                                                    )
-        except Exception:
-            raise FileNotFoundError(
-                "pymolpro project " + molecule_name + " in directory " + newdb.project_directory + " cannot be opened and might be corrupt")
+        if 'record_as_recent' not in _kwargs:
+            # A Database can construct hundreds of per-molecule projects; recording each in
+            # sjef's global "recent projects" list is both unwanted (nobody wants every molecule
+            # of a large database cluttering that list) and a real, measurable construction cost
+            # (about 30% of it, empirically) that a caller can still opt back into per-molecule
+            # via molecule_inputs, or for the whole database via a record_as_recent kwarg.
+            _kwargs['record_as_recent'] = False
+        # sjef's own retry_transient_io_error already absorbs several seconds of transient
+        # filesystem misbehaviour reading a project's property file, but that hasn't been enough
+        # on at least one real machine, where the file has been observed to come back genuinely
+        # readable well outside that window. Retry the whole construction a few times with a real
+        # pause, rather than accepting the first failure as permanent, before giving up.
+        max_construction_attempts = 4
+        for construction_attempt in range(1, max_construction_attempts + 1):
+            try:
+                newdb.projects[molecule_name] = Project(molecule_name, geometry=molecule['geometry'],
+                                                        ansatz=ansatz,
+                                                        specification=specification,
+                                                        location=newdb.project_directory,
+                                                        **_kwargs,
+                                                        )
+                break
+            except Exception as e:
+                if construction_attempt >= max_construction_attempts:
+                    raise FileNotFoundError(
+                        "pymolpro project " + molecule_name + " in directory " + newdb.project_directory + " cannot be opened and might be corrupt") from e
+                logger.warning("Construction of %s failed (attempt %d/%d), retrying after a pause: %s",
+                               molecule_name, construction_attempt, max_construction_attempts, e)
+                import time
+                time.sleep(15)
     if check:
         for k, p in newdb.projects.items():
             logger.info("Project %s status: %s", k, p.status)

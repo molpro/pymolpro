@@ -195,11 +195,17 @@ class Project(pysjef.project.Project):
                     name = pathlib.Path(files[0]).stem
                 if name is None and isinstance(files, str) and len(files) > 0:
                     name = pathlib.Path(files).stem
+                from pysjef import __version__ as pysjef_version
+                from packaging.version import Version
+                pysjef_supports_record_as_recent = Version(pysjef_version) >= Version("1.42.1")
+                if 'record_as_recent' in kwargs_ and not pysjef_supports_record_as_recent:
+                    # A caller (e.g. database.run(), constructing many per-molecule projects) may
+                    # pass this explicitly; older pysjef doesn't accept the keyword at all, so drop
+                    # it rather than let super().__init__() below raise on an unexpected argument.
+                    del kwargs_['record_as_recent']
                 if not name:
-                    from pysjef import __version__ as pysjef_version
-                    from packaging.version import Version
                     name = self._anonymous_name(input, specification, ansatz, **kwargs)
-                    if Version(pysjef_version) >= Version("1.42.1"):
+                    if pysjef_supports_record_as_recent:
                         kwargs_['record_as_recent'] = False
                     kwargs_['location'] = (pathlib.Path(tempfile.gettempdir()) / 'pymolpro_projects').as_posix()
                     os.makedirs(kwargs_['location'], exist_ok=True)
@@ -262,8 +268,14 @@ class Project(pysjef.project.Project):
             if input_from_output: self.write_input('\n'.join(input_from_output) + '\n')
 
     def _unconditionally_destroy(self):
+        # self.erase() -- sjef's Project::erase() -- constructs a brand-new Project object
+        # pointing at this exact bundle purely to look up its backend, while this object (self)
+        # is still fully alive and, being an atexit handler, may already be mid-teardown. Two
+        # sjef Project instances briefly open on the same bundle at once can race with each other
+        # reading and rewriting its property file. shutil.rmtree() below already deletes the whole
+        # bundle regardless, making the backend lookup moot for an anonymous temp project anyway,
+        # so skip erase() entirely rather than risk that race for no benefit.
         try:
-            self.erase()
             shutil.rmtree(self.filename(), ignore_errors=True)
         except:
             pass
@@ -294,14 +306,23 @@ class Project(pysjef.project.Project):
             # the closing tag that marks a complete file, before parsing -- this is bounded and
             # rare (only freshly-launched projects take this path at all; anything already
             # confirmed unchanged from an earlier, settled run skips straight to the cache below).
-            import time
-            text = self.xml
-            delay = 0.05
-            for _ in range(6):
-                if text.rstrip().endswith('</molpro>'):
-                    break
-                time.sleep(delay)
-                delay = min(delay * 2, 0.5)
+            #
+            # Only do this when the output file actually exists: pysjef's self.xml falls back to
+            # a placeholder ('<root/>') when it doesn't, e.g. for a project that has never been
+            # run (or check=True, which never launches anything) -- that placeholder can never
+            # satisfy the completeness check, so retrying for it would burn the full retry budget
+            # on every single such project for no reason.
+            if os.path.exists(self.filename('xml')):
+                import time
+                text = self.xml
+                delay = 0.05
+                for _ in range(6):
+                    if text.rstrip().endswith('</molpro>'):
+                        break
+                    time.sleep(delay)
+                    delay = min(delay * 2, 0.5)
+                    text = self.xml
+            else:
                 text = self.xml
             return etree.parse(StringIO(text), etree.XMLParser()).getroot()
         try:
@@ -1353,8 +1374,17 @@ class Project(pysjef.project.Project):
     def _anonymous_name(self, input: str | dict | None = None, specification: str | dict | None = None,
                         ansatz: str = None, **kwargs) -> str:
         import hashlib
+        import os
+        # Salted with the process id so that two pymolpro processes constructing an anonymous
+        # Project with the same (input, specification, ansatz, kwargs) -- as every process does,
+        # via the module-level registry lookup in registry.py's _ensure_registry_project(), always
+        # called with no arguments at all -- never collide on the same bundle path. Without this,
+        # every pymolpro process on a machine shared the exact same anonymous bundle: concurrent or
+        # back-to-back runs would race on creating, reading and atexit-erasing it, intermittently
+        # leaving it in a half-deleted state (a directory with no Info.plist) that a later process
+        # could never successfully reopen, no matter how long it retried.
         project_name = hashlib.sha256((str(input) + str(specification) + str(ansatz) +
-                                       str(tuple(sorted(kwargs.items())))).encode(
+                                       str(tuple(sorted(kwargs.items()))) + str(os.getpid())).encode(
             'utf-8')).hexdigest()[-8:]
         return project_name
 
