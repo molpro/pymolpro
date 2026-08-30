@@ -408,6 +408,38 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
     restarted. Clear that stuck status before each retry attempt to avoid this.
     """
     import time
+    try:
+        # Project() construction already determined, in Python, whether the rendered input is
+        # byte-identical to what's on disk (Project._write_input_if_changed()). Combined with the
+        # project already having completed for that input, this is the same "nothing to relaunch"
+        # conclusion project.run_needed() would reach -- but reaching it this way costs nothing
+        # beyond an attribute read and a status() call, and doesn't touch run_needed() at all.
+        # That matters because, unlike run(), pysjef's run_needed() does not release the GIL (see
+        # project_wrapper.pyx): every pool thread calling it "concurrently" actually just
+        # serializes on the GIL while paying real thread-scheduling overhead for no concurrency,
+        # which is measurably worse than not calling it in the first place.
+        if project._input_unchanged and project.status == 'completed':
+            project.wait()
+            return
+    except Exception:
+        pass
+    try:
+        # Anything less certain than the fast path above (input changed, status not yet
+        # 'completed', or the fast-path check itself raised) falls back to run_needed(), which
+        # still makes the correct determination for cases the Python-only check can't cover --
+        # just without the parallelism the fast path gets for the common case.
+        needed = project.run_needed()
+    except Exception:
+        # Can't cheaply tell either way (e.g. transient I/O error) -- fall through to the locked
+        # run() call below, which will make the same determination safely.
+        needed = True
+    if not needed:
+        # project.run() would itself discover there's nothing to launch, but that discovery happens
+        # inside the call that _launch_lock serializes (see comment above _launch_lock), so making
+        # every already-up-to-date project go through it anyway would serialize all of them one at a
+        # time for no benefit.
+        project.wait()
+        return
     last_exception = None
     for attempt in range(1, retries + 1):
         try:
@@ -439,6 +471,63 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
                     pass
                 time.sleep(retry_delay * (2 ** (attempt - 1)))
     raise last_exception
+
+
+def _cached_no_errors(project):
+    r"""
+    Equivalent to pymolpro.no_errors([project]), but persists the result in the project's own
+    property store and reuses it while the project's input is confirmed unchanged
+    (Project._input_unchanged) and its status hasn't moved on since the result was cached. Unlike
+    an in-process cache, this persists across separate invocations of a script that re-runs the
+    same Database: pymolpro.no_errors() re-parses the (potentially large) Molpro output XML from
+    scratch on every call, which is wasted work once a job's output can no longer have changed.
+    """
+    status = project.status
+    if getattr(project, '_input_unchanged', False):
+        try:
+            cached = project.property_get('_pymolpro_no_errors_cache').get('_pymolpro_no_errors_cache')
+            if cached is not None:
+                cache = json.loads(cached)
+                if cache.get('status') == status:
+                    return cache['no_errors']
+        except Exception:
+            pass
+    result = pymolpro.no_errors([project])
+    try:
+        project.property_set({'_pymolpro_no_errors_cache': json.dumps({'status': status, 'no_errors': result})})
+    except Exception:
+        pass
+    return result
+
+
+def _cached_variable(project, name):
+    r"""
+    Equivalent to project.variable(name), but persists the result in the project's own property
+    store and reuses it under the same conditions as _cached_no_errors() above, for the same
+    reason: project.variable() re-parses the Molpro output XML from scratch on every call.
+
+    Exceptions from project.variable() itself are deliberately left to propagate uncaught, so
+    callers see exactly the same failure behaviour as calling project.variable() directly; only
+    the cache lookup/write around it is best-effort.
+    """
+    status = project.status
+    if getattr(project, '_input_unchanged', False):
+        try:
+            cached = project.property_get('_pymolpro_variable_cache_' + name.lower()).get(
+                '_pymolpro_variable_cache_' + name.lower())
+            if cached is not None:
+                cache = json.loads(cached)
+                if cache.get('status') == status:
+                    return cache['value']
+        except Exception:
+            pass
+    result = project.variable(name)
+    try:
+        project.property_set(
+            {'_pymolpro_variable_cache_' + name.lower(): json.dumps({'status': status, 'value': result})})
+    except Exception:
+        pass
+    return result
 
 
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
@@ -534,22 +623,40 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
             logger.info("Project %s status: %s", k, p.status)
     else:
         from functools import partial
-        with Pool(processes=__parallel) as pool:
+        # Pool's context manager (__exit__) unconditionally calls terminate() rather than
+        # close()+join(), even though pool.map() below has already run every task to completion
+        # -- forcibly tearing down the pool's worker-management machinery this way measurably
+        # costs more than letting it wind down normally, for no benefit since there's nothing
+        # left to interrupt.
+        pool = Pool(processes=__parallel)
+        try:
+            # chunksize=1 would push every molecule through the pool's queue/lock machinery
+            # individually -- fine for a handful of molecules, but measurable overhead once a
+            # database has hundreds. A moderate chunksize (matching Pool.map()'s own default
+            # heuristic) cuts that overhead while still leaving each worker several chunks to
+            # pull from, so a worker landing a chunk of unusually slow jobs doesn't leave others
+            # idle for long.
+            chunksize = max(1, len(newdb.projects) // (__parallel * 4))
             pool.map(partial(_run_project_with_retry, backend=backend, retries=retries, retry_delay=retry_delay,
                              backend_parameters=backend_parameters),
-                     newdb.projects.values(), 1)
+                     newdb.projects.values(), chunksize)
+        finally:
+            pool.close()
+            pool.join()
 
     newdb.failed = {}
     for molecule in db.molecules:
         project = newdb.projects[molecule]
-        if project.status != 'completed' or not pymolpro.no_errors([project]):
-            logger.warning("Runtime failure of %s %s; status=%s, no_errors=%s", molecule, project.filename(),project.status,pymolpro.no_errors([project]))
+        no_errors_result = _cached_no_errors(project)
+        if project.status != 'completed' or not no_errors_result:
+            logger.warning("Runtime failure of %s %s; status=%s, no_errors=%s", molecule, project.filename(),project.status,no_errors_result)
             newdb.failed[molecule] = project
 
     newdb.molecule_energies = {}
     for molecule_name in db.molecules:
+        project = newdb.projects[molecule_name]
         try:
-            newdb.molecule_energies[molecule_name] = newdb.projects[molecule_name].variable('energy')
+            newdb.molecule_energies[molecule_name] = _cached_variable(project, 'energy')
             if check_energy and newdb.molecule_energies[molecule_name] is None:
                 raise ValueError('ENERGY variable is empty')
             if type(newdb.molecule_energies[molecule_name]) is type([]):
@@ -558,25 +665,28 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         except Exception:
             if not check:
                 raise ValueError(
-                    "Failure to get value of ENERGY variable from " + newdb.projects[molecule_name].filename("xml"))
+                    "Failure to get value of ENERGY variable from " + project.filename("xml"))
+        # with_defaults rebuilds and re-validates the whole specification against the schema on
+        # every access, so compute it once per molecule rather than the 3 separate times used below.
+        with_defaults = project.input_specification.with_defaults
         # if 'job_type' in kwargs and kwargs['job_type'][:3].lower() == 'opt' or (specification is not None and 'job_type' in specification and specification['job_type'][:3].lower() == 'opt'):
-        if newdb.projects[molecule_name].input_specification.with_defaults['job_type'][:3] == 'OPT':
+        if with_defaults['job_type'][:3] == 'OPT':
             try:
                 Angstrom = 1.88972612462577
                 newdb.molecules[molecule_name]['geometry'] = '\n'.join(
                     [atom['elementType'] + ' ' + ' '.join([str(c / Angstrom) for c in atom['xyz']]) for atom in
-                     (newdb.projects[molecule_name].geometry())])
+                     (project.geometry())])
             except Exception:
                 if not check:
                     raise ValueError(
-                        "Failure to get geometry from " + newdb.projects[molecule_name].filename("xml"))
+                        "Failure to get geometry from " + project.filename("xml"))
             if check:
                 logger.info('got geometry: %s', newdb.molecules[molecule_name]['geometry'])
-        newdb.method = kwargs.get('method',newdb.projects[molecule_name].input_specification.with_defaults['method'])
+        newdb.method = kwargs.get('method', with_defaults['method'])
         if isinstance(newdb.method, list):
             newdb.method = newdb.method[-1]
-        newdb.basis = kwargs.get('basis',newdb.projects[molecule_name].input_specification.with_defaults['basis']['default'])
-        newdb.input_specification = json.dumps(dict(newdb.projects[molecule_name].input_specification))
+        newdb.basis = kwargs.get('basis', with_defaults['basis']['default'])
+        newdb.input_specification = json.dumps(dict(project.input_specification))
     newdb.calculate_reaction_energies(check)
     if clean:
         newdb.projects = {}
