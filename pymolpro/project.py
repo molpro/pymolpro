@@ -268,8 +268,14 @@ class Project(pysjef.project.Project):
             if input_from_output: self.write_input('\n'.join(input_from_output) + '\n')
 
     def _unconditionally_destroy(self):
+        # self.erase() -- sjef's Project::erase() -- constructs a brand-new Project object
+        # pointing at this exact bundle purely to look up its backend, while this object (self)
+        # is still fully alive and, being an atexit handler, may already be mid-teardown. Two
+        # sjef Project instances briefly open on the same bundle at once can race with each other
+        # reading and rewriting its property file. shutil.rmtree() below already deletes the whole
+        # bundle regardless, making the backend lookup moot for an anonymous temp project anyway,
+        # so skip erase() entirely rather than risk that race for no benefit.
         try:
-            self.erase()
             shutil.rmtree(self.filename(), ignore_errors=True)
         except:
             pass
@@ -1368,8 +1374,17 @@ class Project(pysjef.project.Project):
     def _anonymous_name(self, input: str | dict | None = None, specification: str | dict | None = None,
                         ansatz: str = None, **kwargs) -> str:
         import hashlib
+        import os
+        # Salted with the process id so that two pymolpro processes constructing an anonymous
+        # Project with the same (input, specification, ansatz, kwargs) -- as every process does,
+        # via the module-level registry lookup in registry.py's _ensure_registry_project(), always
+        # called with no arguments at all -- never collide on the same bundle path. Without this,
+        # every pymolpro process on a machine shared the exact same anonymous bundle: concurrent or
+        # back-to-back runs would race on creating, reading and atexit-erasing it, intermittently
+        # leaving it in a half-deleted state (a directory with no Info.plist) that a later process
+        # could never successfully reopen, no matter how long it retried.
         project_name = hashlib.sha256((str(input) + str(specification) + str(ansatz) +
-                                       str(tuple(sorted(kwargs.items())))).encode(
+                                       str(tuple(sorted(kwargs.items()))) + str(os.getpid())).encode(
             'utf-8')).hexdigest()[-8:]
         return project_name
 
