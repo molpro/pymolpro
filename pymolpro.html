@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pymolpro package &mdash; pymolpro 1.21.9 documentation</title>
+  <title>pymolpro package &mdash; pymolpro 1.21.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=dc5008b8"></script>
+      <script src="_static/documentation_options.js?v=2ec4ad49"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -1803,18 +1803,11 @@ Should by called from an interactive session</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymolpro.Project.xpath">
 <span class="sig-name descname"><span class="pre">xpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymolpro.Project.xpath" title="Link to this definition"></a></dt>
-<dd><p>Run xpath search on an element in the job xml, with support for default namespace</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>query</strong> – Any xpath search expression supported by lxml.etree.Element</p></li>
-<li><p><strong>element</strong> – The root element for the search, defaulting to the job xml root element</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of etree.Element objects or of strings, depending on whether the xpath expression results in an attribute</p>
-</dd>
-</dl>
+<dd><p>Specialization of <code class="xref py py-meth docutils literal notranslate"><span class="pre">pysjef.project.Project.xpath()</span></code> that caches the parsed XML tree
+per project instance instead of re-reading and re-parsing the output file from disk on
+every call. Callers like <a class="reference internal" href="#pymolpro.no_errors" title="pymolpro.no_errors"><code class="xref py py-func docutils literal notranslate"><span class="pre">no_errors()</span></code></a> and <a class="reference internal" href="#pymolpro.Project.variable" title="pymolpro.Project.variable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">variable()</span></code></a> each query this
+multiple times per project; the cache is keyed on the output file’s mtime, so it’s used
+only while nothing about the output has changed since it was built.</p>
 </dd></dl>
 
 <dl class="py method">
