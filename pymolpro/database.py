@@ -705,7 +705,11 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
         newdb.method = kwargs.get('method', with_defaults['method'])
         if isinstance(newdb.method, list):
             newdb.method = newdb.method[-1]
-        newdb.basis = kwargs.get('basis', with_defaults['basis']['default'])
+        _basis = kwargs.get('basis')
+        if _basis is None:
+            _basis = with_defaults['basis']
+        # basis may be given as a string or as a dict (schema form, {'default': ...}); Database.basis is a string
+        newdb.basis = _basis.get('default', with_defaults['basis']['default']) if isinstance(_basis, dict) else _basis
         newdb.input_specification = json.dumps(dict(project.input_specification))
     newdb.calculate_reaction_energies(check)
     if clean:
