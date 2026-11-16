@@ -383,3 +383,59 @@ F          0.0000000000        0.0000000000        3.6683721829"""
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class _FakeProject:
+    def __init__(self, xml, variable):
+        self.props = {}
+        self.xml = xml
+        self.variable_value = variable
+        self.status = 'completed'
+        self._input_unchanged = True
+
+    def filename(self, suffix=''):
+        return self.xml
+
+    def property_get(self, k):
+        return {k: self.props[k]} if k in self.props else {}
+
+    def property_set(self, d):
+        self.props.update(d)
+
+    def property_delete(self, k):
+        self.props.pop(k, None)
+
+    def property_names(self):
+        return list(self.props)
+
+    def variable(self, name):
+        return self.variable_value
+
+
+def test_null_variable_not_cached():
+    from pymolpro.database import _cached_variable
+    p = _FakeProject('/nonexistent.xml', None)
+    assert _cached_variable(p, 'energy') is None
+    assert not p.props
+    p.variable_value = -1.5
+    assert _cached_variable(p, 'energy') == -1.5
+    p.props['_pymolpro_variable_cache_energy'] = '{"status": "completed", "value": null}'
+    p.variable_value = -2.0
+    assert _cached_variable(p, 'energy') == -2.0
+
+
+def test_no_errors_not_cached_without_output(monkeypatch):
+    import pymolpro
+    from pymolpro.database import _cached_no_errors
+    monkeypatch.setattr(pymolpro, 'no_errors', lambda projects: True)
+    p = _FakeProject('/nonexistent.xml', None)
+    assert _cached_no_errors(p)
+    assert not p.props
+
+
+def test_clear_result_caches():
+    from pymolpro.database import _clear_result_caches
+    p = _FakeProject('/nonexistent.xml', None)
+    p.props.update({'_pymolpro_no_errors_cache': 'x', '_pymolpro_variable_cache_energy': 'y', 'other': 'z'})
+    _clear_result_caches(p)
+    assert p.props == {'other': 'z'}

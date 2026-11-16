@@ -418,7 +418,7 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
         # project_wrapper.pyx): every pool thread calling it "concurrently" actually just
         # serializes on the GIL while paying real thread-scheduling overhead for no concurrency,
         # which is measurably worse than not calling it in the first place.
-        if project._input_unchanged and project.status == 'completed':
+        if project._input_unchanged and project.status == 'completed' and _has_output(project):
             project.wait()
             return
     except Exception:
@@ -433,6 +433,18 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
         # Can't cheaply tell either way (e.g. transient I/O error) -- fall through to the locked
         # run() call below, which will make the same determination safely.
         needed = True
+    # A project recorded as completed whose output xml is missing (eg the job was killed after the
+    # status was set) is not a real result: run it again whatever run_needed() says.
+    force = False
+    try:
+        if not needed and project.status == 'completed' and not _has_output(project):
+            needed = True
+            force = True
+    except Exception:
+        pass
+    if needed:
+        # a new run supersedes anything cached from the previous one
+        _clear_result_caches(project)
     if not needed:
         # project.run() would itself discover there's nothing to launch, but that discovery happens
         # inside the call that _launch_lock serializes (see comment above _launch_lock), so making
@@ -446,7 +458,7 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
             # Only the launch itself needs to be serialized against other threads (see
             # _launch_lock above); once submitted, the job can be waited on concurrently.
             with _launch_lock:
-                project.run(backend=backend, wait=False, backend_parameters=backend_parameters)
+                project.run(backend=backend, wait=False, force=force, backend_parameters=backend_parameters)
             project.wait()
             return
         except Exception as e:
@@ -473,6 +485,30 @@ def _run_project_with_retry(project, backend, retries, retry_delay, backend_para
     raise last_exception
 
 
+_CACHE_PREFIX = '_pymolpro_'
+
+
+def _clear_result_caches(project):
+    r"""
+    Remove every result cached in the project's property store by _cached_no_errors() and
+    _cached_variable(), so that nothing computed from a previous run's output can outlive it.
+    """
+    try:
+        for key in project.property_names():
+            if key.startswith(_CACHE_PREFIX + 'no_errors_cache') or key.startswith(_CACHE_PREFIX + 'variable_cache_'):
+                project.property_delete(key)
+    except Exception:
+        pass
+
+
+def _has_output(project):
+    r"""Whether the project's output xml exists, ie whether there is anything to cache results from."""
+    try:
+        return os.path.exists(project.filename('xml'))
+    except Exception:
+        return False
+
+
 def _cached_no_errors(project):
     r"""
     Equivalent to pymolpro.no_errors([project]), but persists the result in the project's own
@@ -493,6 +529,9 @@ def _cached_no_errors(project):
         except Exception:
             pass
     result = pymolpro.no_errors([project])
+    if not _has_output(project):
+        # nothing was produced (eg the job was killed), so this result must not be remembered
+        return result
     try:
         project.property_set({'_pymolpro_no_errors_cache': json.dumps({'status': status, 'no_errors': result})})
     except Exception:
@@ -517,11 +556,14 @@ def _cached_variable(project, name):
                 '_pymolpro_variable_cache_' + name.lower())
             if cached is not None:
                 cache = json.loads(cached)
-                if cache.get('status') == status:
+                if cache.get('status') == status and cache.get('value') is not None:
                     return cache['value']
         except Exception:
             pass
     result = project.variable(name)
+    if result is None or result == []:
+        # never cache a missing value: it may just mean the output was incomplete or absent
+        return result
     try:
         project.property_set(
             {'_pymolpro_variable_cache_' + name.lower(): json.dumps({'status': status, 'value': result})})
