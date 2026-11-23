@@ -1,0 +1,41 @@
+DBOC12
+------
+DBOC12 independent test set: diagonal Born-Oppenheimer corrections to the total atomisation energy, CCSD/cc-pVDZ
+
+References
+^^^^^^^^^^
+| Lab Initio chemical databases: https://labinitio.org/explore/chem_data_bases/
+| DBOC200 paper: https://drive.google.com/uc?export=download&id=1Tiyej6th4CWH4x41DQS313YiJD3wWRod
+
+Molecules
+^^^^^^^^^
+C6H14, energy = -0.00023928328532490928
+C7H16, energy = -0.000275491676529418
+C8H18, energy = -0.00031171122599103556
+C9H20, energy = -0.00034791584953172255
+C10H22, energy = -0.000384120534394071
+C11H24, energy = -0.00042032605185984796
+C12H26, energy = -0.0004565312722393147
+C13H28, energy = -0.0004927793157060035
+Benzvalene, energy = -0.0002630109130489242
+Benzvalene-6Me, energy = -0.000529445480731009
+Adamantane-4Me, energy = -0.0005988799702131211
+Dodecahedrane, energy = -0.0006559537689793428
+C, energy = 0.0
+H, energy = 0.0
+
+Reactions
+^^^^^^^^^
+| C6H14: C6H14 -> 6C + 14H, energy = 0.00023928328532490928
+| C7H16: C7H16 -> 7C + 16H, energy = 0.000275491676529418
+| C8H18: C8H18 -> 8C + 18H, energy = 0.00031171122599103556
+| C9H20: C9H20 -> 9C + 20H, energy = 0.00034791584953172255
+| C10H22: C10H22 -> 10C + 22H, energy = 0.000384120534394071
+| C11H24: C11H24 -> 11C + 24H, energy = 0.00042032605185984796
+| C12H26: C12H26 -> 12C + 26H, energy = 0.0004565312722393147
+| C13H28: C13H28 -> 13C + 28H, energy = 0.0004927793157060035
+| Benzvalene: Benzvalene -> 6C + 6H, energy = 0.0002630109130489242
+| Benzvalene-6Me: Benzvalene-6Me -> 12C + 18H, energy = 0.000529445480731009
+| Adamantane-4Me: Adamantane-4Me -> 14C + 24H, energy = 0.0005988799702131211
+| Dodecahedrane: Dodecahedrane -> 20C + 20H, energy = 0.0006559537689793428
+

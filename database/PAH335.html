@@ -1,0 +1,975 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAH335 &mdash; pymolpro 1.21.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76cd33f7"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="W4-11-GEOM" href="W4-11-GEOM.html" />
+    <link rel="prev" title="Minnesota 2019 pTC13" href="Minnesota_2019_pTC13.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pymolpro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">JSON schema for input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../databases.html">Database library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="A24.html">A24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="A24x8.html">A24x8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AminoAcids.html">AminoAcids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AminoAcids_rel.html">AminoAcids rel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BH28.html">BH28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_atomisations.html">Bak2000 atomisations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_reactions.html">Bak2000 reactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C40.html">C40</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C8H8.html">C8H8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DBOC12.html">DBOC12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DBOC200.html">DBOC200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ACONF.html">GMTKN30 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ADIM6.html">GMTKN30 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_AL2X.html">GMTKN30 AL2X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ALK6.html">GMTKN30 ALK6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BH76.html">GMTKN30 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BHPERI.html">GMTKN30 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BSR36.html">GMTKN30 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_CYCONF.html">GMTKN30 CYCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DARC.html">GMTKN30 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DC9.html">GMTKN30 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G21EA.html">GMTKN30 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G21IP.html">GMTKN30 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G2RC.html">GMTKN30 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_HEAVY28.html">GMTKN30 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_IDISP.html">GMTKN30 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ISO34.html">GMTKN30 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ISOL22.html">GMTKN30 ISOL22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_MB08-165.html">GMTKN30 MB08-165</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_NBPRC.html">GMTKN30 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_O3ADD6.html">GMTKN30 O3ADD6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_PA.html">GMTKN30 PA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_PCONF.html">GMTKN30 PCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_RG6.html">GMTKN30 RG6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_RSE43.html">GMTKN30 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_S22.html">GMTKN30 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_SCONF.html">GMTKN30 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_SIE11.html">GMTKN30 SIE11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_W4-08.html">GMTKN30 W4-08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_WATER27.html">GMTKN30 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ACONF.html">GMTKN55 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ADIM6.html">GMTKN55 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AHB21.html">GMTKN55 AHB21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AL2X6.html">GMTKN55 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALK8.html">GMTKN55 ALK8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALKBDE10.html">GMTKN55 ALKBDE10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_Amino20x4.html">GMTKN55 Amino20x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76.html">GMTKN55 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76RC.html">GMTKN55 BH76RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHDIV10.html">GMTKN55 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHPERI.html">GMTKN55 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHROT27.html">GMTKN55 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BSR36.html">GMTKN55 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BUT14DIOL.html">GMTKN55 BUT14DIOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_C60ISO.html">GMTKN55 C60ISO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CARBHB12.html">GMTKN55 CARBHB12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CDIE20.html">GMTKN55 CDIE20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CHB6.html">GMTKN55 CHB6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DARC.html">GMTKN55 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DC13.html">GMTKN55 DC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DIPCS10.html">GMTKN55 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_FH51.html">GMTKN55 FH51</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21EA.html">GMTKN55 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21IP.html">GMTKN55 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G2RC.html">GMTKN55 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HAL59.html">GMTKN55 HAL59</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVY28.html">GMTKN55 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVYSB11.html">GMTKN55 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ICONF.html">GMTKN55 ICONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IDISP.html">GMTKN55 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IL16.html">GMTKN55 IL16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_INV24.html">GMTKN55 INV24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISO34.html">GMTKN55 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISOL24.html">GMTKN55 ISOL24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MB16-43.html">GMTKN55 MB16-43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MCONF.html">GMTKN55 MCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_NBPRC.html">GMTKN55 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PA26.html">GMTKN55 PA26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PArel.html">GMTKN55 PArel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PCONF21.html">GMTKN55 PCONF21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PNICO23.html">GMTKN55 PNICO23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PX13.html">GMTKN55 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RC21.html">GMTKN55 RC21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RG18.html">GMTKN55 RG18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RSE43.html">GMTKN55 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S22.html">GMTKN55 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S66.html">GMTKN55 S66</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SCONF.html">GMTKN55 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SIE4x4.html">GMTKN55 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_TAUT15.html">GMTKN55 TAUT15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_UPU23.html">GMTKN55 UPU23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_W4-11.html">GMTKN55 W4-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WATER27.html">GMTKN55 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WCPT18.html">GMTKN55 WCPT18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_YBDE18.html">GMTKN55 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Karton_CRBH20.html">Karton CRBH20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_2pIsoE4.html">Minnesota 2019 2pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_3dEE8.html">Minnesota 2019 3dEE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4dAEE5.html">Minnesota 2019 4dAEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4pIsoE4.html">Minnesota 2019 4pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ABDE13.html">Minnesota 2019 ABDE13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AE17.html">Minnesota 2019 AE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AEE15.html">Minnesota 2019 AEE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AL2X6.html">Minnesota 2019 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ASNC2.html">Minnesota 2019 ASNC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHDIV10.html">Minnesota 2019 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHPERI26.html">Minnesota 2019 BHPERI26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHROT27.html">Minnesota 2019 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DC9.html">Minnesota 2019 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGH4.html">Minnesota 2019 DGH4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGL6.html">Minnesota 2019 DGL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DIPCS10.html">Minnesota 2019 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DM79.html">Minnesota 2019 DM79</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EA13.html">Minnesota 2019 EA13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE23.html">Minnesota 2019 EE23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE69.html">Minnesota 2019 EE69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEA11.html">Minnesota 2019 EEA11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEAroT5.html">Minnesota 2019 EEAroT5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EER5.html">Minnesota 2019 EER5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HC7.html">Minnesota 2019 HC7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HEAVYSB11.html">Minnesota 2019 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HTBH38.html">Minnesota 2019 HTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_IP23.html">Minnesota 2019 IP23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ISOL6.html">Minnesota 2019 ISOL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE2.html">Minnesota 2019 LRCTEE2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE9.html">Minnesota 2019 LRCTEE9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGM-BE4.html">Minnesota 2019 MR-MGM-BE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGN-BE17.html">Minnesota 2019 MR-MGN-BE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TM-BE12.html">Minnesota 2019 MR-TM-BE12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TMD-BE3.html">Minnesota 2019 MR-TMD-BE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NCCE30.html">Minnesota 2019 NCCE30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NGD21.html">Minnesota 2019 NGD21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NHTBH38.html">Minnesota 2019 NHTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NaCl.html">Minnesota 2019 NaCl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PA8.html">Minnesota 2019 PA8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PX13.html">Minnesota 2019 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.90.html">Minnesota 2019 S66 0.90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.95.html">Minnesota 2019 S66 0.95</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.00.html">Minnesota 2019 S66 1.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.05.html">Minnesota 2019 S66 1.05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.10.html">Minnesota 2019 S66 1.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.25.html">Minnesota 2019 S66 1.25</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.50.html">Minnesota 2019 S66 1.50</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_2.00.html">Minnesota 2019 S66 2.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_A.html">Minnesota 2019 S66 A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_B.html">Minnesota 2019 S66 B</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SIE4x4.html">Minnesota 2019 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SMAE3.html">Minnesota 2019 SMAE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGM-BE8.html">Minnesota 2019 SR-MGM-BE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGN-BE107.html">Minnesota 2019 SR-MGN-BE107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-TM-BE15.html">Minnesota 2019 SR-TM-BE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMBH22.html">Minnesota 2019 TMBH22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMDBL10.html">Minnesota 2019 TMDBL10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TSG48.html">Minnesota 2019 TSG48</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_WCCR10.html">Minnesota 2019 WCCR10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_YBDE18.html">Minnesota 2019 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pEE5.html">Minnesota 2019 pEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pTC13.html">Minnesota 2019 pTC13</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PAH335</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#molecules">Molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reactions">Reactions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="W4-11-GEOM.html">W4-11-GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-17.html">W4-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-17_TAE0.html">W4-17 TAE0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WCPT27.html">WCPT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_BDE_99.html">Weizmann W411 BDE 99</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_HAT_707.html">Weizmann W411 HAT 707</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_ISOMERIZATION_20.html">Weizmann W411 ISOMERIZATION 20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_SN_13.html">Weizmann W411 SN 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_140.html">Weizmann W411 TAE 140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_MR_16.html">Weizmann W411 TAE MR 16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAEnonMR_124.html">Weizmann W411 TAEnonMR 124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarks_N2minimal.html">benchmarks N2minimal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+<p class="caption">
+    <span class="caption-text">Indices</span>
+</p>
+<ul>
+    <li class="toctree-l1"><a href= "../genindex.html">Everything</a></li>
+    <li class="toctree-l1"><a href= "../py-modindex.html">Module Index</a></li>
+</ul>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymolpro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../databases.html">Database library</a></li>
+      <li class="breadcrumb-item active">PAH335</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/database/PAH335.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pah335">
+<h1>PAH335<a class="headerlink" href="#pah335" title="Link to this heading"></a></h1>
+<p>PAH335 isomerisation energies, G4(MP2); relative to the lowest isomer of each formula</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Lab Initio chemical databases: <a class="reference external" href="https://labinitio.org/explore/chem_data_bases/">https://labinitio.org/explore/chem_data_bases/</a></div>
+<div class="line">PAH335 paper: <a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ibUmqk_BWjwP1e4cQmL9SxMs5POb4a9G">https://drive.google.com/uc?export=download&amp;id=1ibUmqk_BWjwP1e4cQmL9SxMs5POb4a9G</a></div>
+</div>
+</section>
+<section id="molecules">
+<h2>Molecules<a class="headerlink" href="#molecules" title="Link to this heading"></a></h2>
+<p>C17H12_pah022
+C17H12_pah023
+C17H12_pah024
+C17H12_pah025
+C17H12_pah026
+C17H12_pah027
+C17H12_pah028
+C17H12_pah029
+C17H12_pah030
+C17H12_pah031
+C17H12_pah032
+C19H12_pah041
+C19H12_pah042
+C19H12_pah043
+C19H12_pah044
+C19H12_pah045
+C19H12_pah046
+C19H12_pah047
+C19H12_pah048
+C19H12_pah049
+C19H12_pah050
+C19H12_pah051
+C19H12_pah052
+C20H12_pah054
+C20H12_pah055
+C20H12_pah056
+C20H12_pah057
+C20H12_pah058
+C20H12_pah059
+C20H12_pah060
+C20H12_pah061
+C20H12_pah062
+C20H12_pah063
+C20H12_pah064
+C20H12_pah065
+C20H12_pah066
+C20H12_pah067
+C20H12_pah068
+C20H12_pah069
+C20H12_pah070
+C20H12_pah071
+C20H12_pah072
+C20H12_pah073
+C20H12_pah074
+C21H14_pah080
+C21H14_pah081
+C21H14_pah082
+C21H14_pah083
+C21H14_pah084
+C21H14_pah085
+C21H14_pah086
+C21H14_pah087
+C21H14_pah088
+C21H14_pah089
+C21H14_pah090
+C21H14_pah091
+C21H14_pah092
+C21H14_pah093
+C21H14_pah094
+C21H14_pah095
+C21H14_pah096
+C21H14_pah097
+C21H14_pah098
+C21H14_pah099
+C21H14_pah100
+C21H14_pah101
+C21H14_pah102
+C21H14_pah103
+C21H14_pah104
+C21H14_pah105
+C21H14_pah106
+C22H12_pah107
+C22H12_pah108
+C22H12_pah109
+C22H12_pah110
+C22H12_pah111
+C22H12_pah112
+C22H12_pah113
+C22H12_pah114
+C22H12_pah115
+C22H12_pah116
+C22H12_pah117
+C22H12_pah118
+C22H12_pah119
+C22H12_pah120
+C22H12_pah121
+C22H14_pah122
+C22H14_pah123
+C22H14_pah124
+C22H14_pah125
+C22H14_pah126
+C22H14_pah127
+C22H14_pah128
+C22H14_pah129
+C22H14_pah130
+C22H14_pah131
+C22H14_pah132
+C22H14_pah133
+C23H14_pah135
+C23H14_pah136
+C23H14_pah137
+C23H14_pah138
+C23H14_pah139
+C23H14_pah140
+C23H14_pah141
+C23H14_pah142
+C23H14_pah143
+C23H14_pah144
+C23H14_pah145
+C23H14_pah146
+C23H14_pah147
+C23H14_pah148
+C23H14_pah149
+C23H14_pah150
+C23H14_pah151
+C23H14_pah152
+C24H14_pah160
+C24H14_pah161
+C24H14_pah162
+C24H14_pah163
+C24H14_pah164
+C24H14_pah165
+C24H14_pah166
+C24H14_pah167
+C24H14_pah168
+C24H14_pah169
+C24H14_pah170
+C24H14_pah171
+C24H14_pah172
+C24H14_pah173
+C24H14_pah174
+C24H14_pah175
+C24H14_pah176
+C24H14_pah177
+C24H14_pah178
+C24H14_pah179
+C24H14_pah180
+C24H14_pah181
+C24H14_pah182
+C24H14_pah183
+C24H14_pah184
+C24H14_pah185
+C24H14_pah186
+C24H14_pah187
+C24H14_pah188
+C24H14_pah189
+C24H14_pah190
+C24H14_pah191
+C24H14_pah192
+C24H14_pah193
+C24H14_pah194
+C24H14_pah195
+C24H14_pah196
+C24H14_pah197
+C24H14_pah198
+C24H14_pah199
+C24H14_pah200
+C24H14_pah201
+C24H14_pah202
+C24H14_pah203
+C24H14_pah204
+C24H14_pah205
+C24H14_pah206
+C24H14_pah207
+C24H14_pah208
+C24H14_pah209
+C24H14_pah210
+C24H14_pah211
+C24H14_pah212
+C24H14_pah213
+C24H14_pah214
+C24H14_pah215
+C24H14_pah216
+C24H14_pah217
+C24H14_pah218
+C24H14_pah219
+C24H14_pah220
+C24H14_pah221
+C24H14_pah222
+C24H14_pah223
+C24H14_pah224
+C24H14_pah225
+C24H14_pah226
+C24H14_pah227
+C24H14_pah228
+C24H14_pah229
+C24H14_pah230
+C24H14_pah231
+C24H14_pah232
+C24H14_pah233
+C24H14_pah234
+C24H14_pah235
+C24H14_pah236
+C24H14_pah237
+C24H14_pah238
+C24H14_pah239
+C24H14_pah240
+C24H14_pah241
+C24H14_pah242
+C24H14_pah243
+C24H14_pah244
+C25H16_pah245
+C25H16_pah246
+C25H16_pah247
+C25H16_pah248
+C25H16_pah249
+C25H16_pah250
+C25H16_pah251
+C25H16_pah252
+C25H16_pah253
+C25H16_pah254
+C26H14_pah255
+C26H14_pah256
+C26H14_pah257
+C26H14_pah258
+C26H14_pah259
+C26H14_pah260
+C26H14_pah261
+C26H14_pah262
+C26H14_pah263
+C26H14_pah264
+C26H14_pah265
+C26H14_pah266
+C26H14_pah267
+C26H14_pah268
+C26H14_pah269
+C26H14_pah270
+C26H16_pah271
+C26H16_pah272
+C26H16_pah273
+C26H16_pah274
+C26H16_pah275
+C26H16_pah276
+C26H16_pah277
+C26H16_pah278
+C26H16_pah279
+C26H16_pah280
+C26H16_pah281
+C26H16_pah282
+C26H16_pah283
+C26H16_pah284
+C26H16_pah285
+C26H16_pah286
+C26H16_pah287
+C26H16_pah288
+C26H16_pah289
+C26H16_pah290
+C26H16_pah291
+C26H16_pah292
+C26H16_pah293
+C26H16_pah294
+C26H16_pah295
+C26H16_pah296
+C26H16_pah297
+C26H16_pah298
+C26H16_pah299
+C26H16_pah300
+C26H16_pah301
+C26H16_pah302
+C26H16_pah303
+C26H16_pah304
+C26H16_pah305
+C26H16_pah306
+C26H16_pah307
+C28H14_pah311
+C28H14_pah312
+C28H14_pah313
+C28H14_pah314
+C28H14_pah315
+C28H14_pah316
+C28H14_pah317
+C28H14_pah318
+C28H14_pah319
+C28H14_pah320
+C28H16_pah321
+C28H16_pah322
+C28H16_pah323
+C28H16_pah324
+C28H16_pah325
+C28H16_pah326
+C28H16_pah327
+C28H16_pah328
+C28H16_pah329
+C28H16_pah330
+C28H16_pah331
+C28H16_pah332
+C28H16_pah333
+C28H16_pah334
+C28H16_pah335
+C28H16_pah336
+C28H16_pah337
+C28H16_pah338
+C28H16_pah339
+C28H16_pah340
+C28H16_pah341
+C28H16_pah342
+C28H16_pah343
+C28H16_pah344
+C28H16_pah345
+C28H16_pah346
+C28H16_pah347
+C28H16_pah348
+C28H16_pah349
+C28H16_pah350
+C28H16_pah351
+C28H16_pah352
+C28H16_pah353
+C28H16_pah354
+C28H16_pah355
+C28H16_pah356
+C28H16_pah357
+C28H16_pah358
+C28H16_pah359
+C28H16_pah360
+C28H16_pah361
+C28H16_pah362
+C28H16_pah363
+C28H16_pah364
+C28H16_pah365
+C28H16_pah366
+C28H16_pah367
+C28H16_pah368
+C36H16_pah620
+C36H16_pah621
+C36H16_pah622
+C36H16_pah623
+C36H16_pah624
+C36H16_pah625
+C36H16_pah626
+C36H16_pah627
+C36H16_pah628
+C36H16_pah629
+C36H16_pah630
+C36H16_pah631
+C36H16_pah632</p>
+</section>
+<section id="reactions">
+<h2>Reactions<a class="headerlink" href="#reactions" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">C17H12_pah023: C17H12_pah030 -&gt; C17H12_pah023 (C17H12_pah023 relative to C17H12_pah030), energy = 0.029010478195312554</div>
+<div class="line">C17H12_pah025: C17H12_pah030 -&gt; C17H12_pah025 (C17H12_pah025 relative to C17H12_pah030), energy = 0.02147972111051573</div>
+<div class="line">C17H12_pah028: C17H12_pah030 -&gt; C17H12_pah028 (C17H12_pah028 relative to C17H12_pah030), energy = 0.021109124982480763</div>
+<div class="line">C17H12_pah032: C17H12_pah030 -&gt; C17H12_pah032 (C17H12_pah032 relative to C17H12_pah030), energy = 0.013189489535172428</div>
+<div class="line">C17H12_pah026: C17H12_pah030 -&gt; C17H12_pah026 (C17H12_pah026 relative to C17H12_pah030), energy = 0.013176920498969803</div>
+<div class="line">C17H12_pah022: C17H12_pah030 -&gt; C17H12_pah022 (C17H12_pah022 relative to C17H12_pah030), energy = 0.012930491213421375</div>
+<div class="line">C17H12_pah027: C17H12_pah030 -&gt; C17H12_pah027 (C17H12_pah027 relative to C17H12_pah030), energy = 0.012781186298529592</div>
+<div class="line">C17H12_pah024: C17H12_pah030 -&gt; C17H12_pah024 (C17H12_pah024 relative to C17H12_pah030), energy = 0.012680634008908594</div>
+<div class="line">C17H12_pah029: C17H12_pah030 -&gt; C17H12_pah029 (C17H12_pah029 relative to C17H12_pah030), energy = 0.003197867513855662</div>
+<div class="line">C17H12_pah031: C17H12_pah030 -&gt; C17H12_pah031 (C17H12_pah031 relative to C17H12_pah030), energy = 0.0007194821026290312</div>
+<div class="line">C19H12_pah043: C19H12_pah051 -&gt; C19H12_pah043 (C19H12_pah043 relative to C19H12_pah051), energy = 0.03525538478859238</div>
+<div class="line">C19H12_pah044: C19H12_pah051 -&gt; C19H12_pah044 (C19H12_pah044 relative to C19H12_pah051), energy = 0.03497467631340043</div>
+<div class="line">C19H12_pah045: C19H12_pah051 -&gt; C19H12_pah045 (C19H12_pah045 relative to C19H12_pah051), energy = 0.03382860873965201</div>
+<div class="line">C19H12_pah050: C19H12_pah051 -&gt; C19H12_pah050 (C19H12_pah050 relative to C19H12_pah051), energy = 0.03151171639963486</div>
+<div class="line">C19H12_pah047: C19H12_pah051 -&gt; C19H12_pah047 (C19H12_pah047 relative to C19H12_pah051), energy = 0.024378217034817965</div>
+<div class="line">C19H12_pah048: C19H12_pah051 -&gt; C19H12_pah048 (C19H12_pah048 relative to C19H12_pah051), energy = 0.018345460537443046</div>
+<div class="line">C19H12_pah042: C19H12_pah051 -&gt; C19H12_pah042 (C19H12_pah042 relative to C19H12_pah051), energy = 0.01816797051106659</div>
+<div class="line">C19H12_pah041: C19H12_pah051 -&gt; C19H12_pah041 (C19H12_pah041 relative to C19H12_pah051), energy = 0.018107029729478103</div>
+<div class="line">C19H12_pah046: C19H12_pah051 -&gt; C19H12_pah046 (C19H12_pah046 relative to C19H12_pah051), energy = 0.01393601410963135</div>
+<div class="line">C19H12_pah052: C19H12_pah051 -&gt; C19H12_pah052 (C19H12_pah052 relative to C19H12_pah051), energy = 0.01174214597244595</div>
+<div class="line">C19H12_pah049: C19H12_pah051 -&gt; C19H12_pah049 (C19H12_pah049 relative to C19H12_pah051), energy = 0.009347173256018556</div>
+<div class="line">C20H12_pah061: C20H12_pah072 -&gt; C20H12_pah061 (C20H12_pah061 relative to C20H12_pah072), energy = 0.13932281486759054</div>
+<div class="line">C20H12_pah055: C20H12_pah072 -&gt; C20H12_pah055 (C20H12_pah055 relative to C20H12_pah072), energy = 0.07371968260770333</div>
+<div class="line">C20H12_pah058: C20H12_pah072 -&gt; C20H12_pah058 (C20H12_pah058 relative to C20H12_pah072), energy = 0.06671911032272632</div>
+<div class="line">C20H12_pah066: C20H12_pah072 -&gt; C20H12_pah066 (C20H12_pah066 relative to C20H12_pah072), energy = 0.054601797663626266</div>
+<div class="line">C20H12_pah067: C20H12_pah072 -&gt; C20H12_pah067 (C20H12_pah067 relative to C20H12_pah072), energy = 0.05352695462835939</div>
+<div class="line">C20H12_pah054: C20H12_pah072 -&gt; C20H12_pah054 (C20H12_pah054 relative to C20H12_pah072), energy = 0.05162103168417958</div>
+<div class="line">C20H12_pah056: C20H12_pah072 -&gt; C20H12_pah056 (C20H12_pah056 relative to C20H12_pah072), energy = 0.05034432230990085</div>
+<div class="line">C20H12_pah062: C20H12_pah072 -&gt; C20H12_pah062 (C20H12_pah062 relative to C20H12_pah072), energy = 0.04471263233135513</div>
+<div class="line">C20H12_pah060: C20H12_pah072 -&gt; C20H12_pah060 (C20H12_pah060 relative to C20H12_pah072), energy = 0.042328324251705726</div>
+<div class="line">C20H12_pah064: C20H12_pah072 -&gt; C20H12_pah064 (C20H12_pah064 relative to C20H12_pah072), energy = 0.04195848988344062</div>
+<div class="line">C20H12_pah059: C20H12_pah072 -&gt; C20H12_pah059 (C20H12_pah059 relative to C20H12_pah072), energy = 0.039724629358337774</div>
+<div class="line">C20H12_pah057: C20H12_pah072 -&gt; C20H12_pah057 (C20H12_pah057 relative to C20H12_pah072), energy = 0.038497815248984615</div>
+<div class="line">C20H12_pah065: C20H12_pah072 -&gt; C20H12_pah065 (C20H12_pah065 relative to C20H12_pah072), energy = 0.03844906262371383</div>
+<div class="line">C20H12_pah063: C20H12_pah072 -&gt; C20H12_pah063 (C20H12_pah063 relative to C20H12_pah072), energy = 0.035608460441920654</div>
+<div class="line">C20H12_pah068: C20H12_pah072 -&gt; C20H12_pah068 (C20H12_pah068 relative to C20H12_pah072), energy = 0.03144049186115332</div>
+<div class="line">C20H12_pah070: C20H12_pah072 -&gt; C20H12_pah070 (C20H12_pah070 relative to C20H12_pah072), energy = 0.026443347770897695</div>
+<div class="line">C20H12_pah071: C20H12_pah072 -&gt; C20H12_pah071 (C20H12_pah071 relative to C20H12_pah072), energy = 0.023987815152766743</div>
+<div class="line">C20H12_pah069: C20H12_pah072 -&gt; C20H12_pah069 (C20H12_pah069 relative to C20H12_pah072), energy = 0.019774902745577905</div>
+<div class="line">C20H12_pah073: C20H12_pah072 -&gt; C20H12_pah073 (C20H12_pah073 relative to C20H12_pah072), energy = 0.011622549688578553</div>
+<div class="line">C20H12_pah074: C20H12_pah072 -&gt; C20H12_pah074 (C20H12_pah074 relative to C20H12_pah072), energy = 0.004578557096719737</div>
+<div class="line">C21H14_pah104: C21H14_pah100 -&gt; C21H14_pah104 (C21H14_pah104 relative to C21H14_pah100), energy = 0.02476442923813498</div>
+<div class="line">C21H14_pah080: C21H14_pah100 -&gt; C21H14_pah080 (C21H14_pah080 relative to C21H14_pah100), energy = 0.02239383283434298</div>
+<div class="line">C21H14_pah081: C21H14_pah100 -&gt; C21H14_pah081 (C21H14_pah081 relative to C21H14_pah100), energy = 0.021483910789249935</div>
+<div class="line">C21H14_pah082: C21H14_pah100 -&gt; C21H14_pah082 (C21H14_pah082 relative to C21H14_pah100), energy = 0.021152926169247487</div>
+<div class="line">C21H14_pah085: C21H14_pah100 -&gt; C21H14_pah085 (C21H14_pah085 relative to C21H14_pah100), energy = 0.017716627847426884</div>
+<div class="line">C21H14_pah103: C21H14_pah100 -&gt; C21H14_pah103 (C21H14_pah103 relative to C21H14_pah100), energy = 0.017461438324525107</div>
+<div class="line">C21H14_pah099: C21H14_pah100 -&gt; C21H14_pah099 (C21H14_pah099 relative to C21H14_pah100), energy = 0.014840222956450471</div>
+<div class="line">C21H14_pah087: C21H14_pah100 -&gt; C21H14_pah087 (C21H14_pah087 relative to C21H14_pah100), energy = 0.01404532663660569</div>
+<div class="line">C21H14_pah083: C21H14_pah100 -&gt; C21H14_pah083 (C21H14_pah083 relative to C21H14_pah100), energy = 0.013929539151587575</div>
+<div class="line">C21H14_pah098: C21H14_pah100 -&gt; C21H14_pah098 (C21H14_pah098 relative to C21H14_pah100), energy = 0.01207693939129768</div>
+<div class="line">C21H14_pah102: C21H14_pah100 -&gt; C21H14_pah102 (C21H14_pah102 relative to C21H14_pah100), energy = 0.011310228182937575</div>
+<div class="line">C21H14_pah093: C21H14_pah100 -&gt; C21H14_pah093 (C21H14_pah093 relative to C21H14_pah100), energy = 0.011031424107170264</div>
+<div class="line">C21H14_pah105: C21H14_pah100 -&gt; C21H14_pah105 (C21H14_pah105 relative to C21H14_pah100), energy = 0.009095792531966063</div>
+<div class="line">C21H14_pah101: C21H14_pah100 -&gt; C21H14_pah101 (C21H14_pah101 relative to C21H14_pah100), energy = 0.008911827547545829</div>
+<div class="line">C21H14_pah088: C21H14_pah100 -&gt; C21H14_pah088 (C21H14_pah088 relative to C21H14_pah100), energy = 0.008340507720153798</div>
+<div class="line">C21H14_pah090: C21H14_pah100 -&gt; C21H14_pah090 (C21H14_pah090 relative to C21H14_pah100), energy = 0.008323368125332038</div>
+<div class="line">C21H14_pah091: C21H14_pah100 -&gt; C21H14_pah091 (C21H14_pah091 relative to C21H14_pah100), energy = 0.00687373928329599</div>
+<div class="line">C21H14_pah096: C21H14_pah100 -&gt; C21H14_pah096 (C21H14_pah096 relative to C21H14_pah100), energy = 0.006319178170840792</div>
+<div class="line">C21H14_pah084: C21H14_pah100 -&gt; C21H14_pah084 (C21H14_pah084 relative to C21H14_pah100), energy = 0.006003428746235462</div>
+<div class="line">C21H14_pah086: C21H14_pah100 -&gt; C21H14_pah086 (C21H14_pah086 relative to C21H14_pah100), energy = 0.005617597422803378</div>
+<div class="line">C21H14_pah097: C21H14_pah100 -&gt; C21H14_pah097 (C21H14_pah097 relative to C21H14_pah100), energy = 0.005139974047103639</div>
+<div class="line">C21H14_pah092: C21H14_pah100 -&gt; C21H14_pah092 (C21H14_pah092 relative to C21H14_pah100), energy = 0.005051229033915411</div>
+<div class="line">C21H14_pah094: C21H14_pah100 -&gt; C21H14_pah094 (C21H14_pah094 relative to C21H14_pah100), energy = 0.003405827931026361</div>
+<div class="line">C21H14_pah089: C21H14_pah100 -&gt; C21H14_pah089 (C21H14_pah089 relative to C21H14_pah100), energy = 0.0032633788540632814</div>
+<div class="line">C21H14_pah106: C21H14_pah100 -&gt; C21H14_pah106 (C21H14_pah106 relative to C21H14_pah100), energy = 0.0029461059099182402</div>
+<div class="line">C21H14_pah095: C21H14_pah100 -&gt; C21H14_pah095 (C21H14_pah095 relative to C21H14_pah100), energy = 0.002888212167409181</div>
+<div class="line">C22H12_pah116: C22H12_pah120 -&gt; C22H12_pah116 (C22H12_pah116 relative to C22H12_pah120), energy = 0.07782556776722739</div>
+<div class="line">C22H12_pah115: C22H12_pah120 -&gt; C22H12_pah115 (C22H12_pah115 relative to C22H12_pah120), energy = 0.0651978760623238</div>
+<div class="line">C22H12_pah114: C22H12_pah120 -&gt; C22H12_pah114 (C22H12_pah114 relative to C22H12_pah120), energy = 0.06343554483476185</div>
+<div class="line">C22H12_pah117: C22H12_pah120 -&gt; C22H12_pah117 (C22H12_pah117 relative to C22H12_pah120), energy = 0.05324738879282222</div>
+<div class="line">C22H12_pah110: C22H12_pah120 -&gt; C22H12_pah110 (C22H12_pah110 relative to C22H12_pah120), energy = 0.04822853454912569</div>
+<div class="line">C22H12_pah109: C22H12_pah120 -&gt; C22H12_pah109 (C22H12_pah109 relative to C22H12_pah120), energy = 0.0446196976394327</div>
+<div class="line">C22H12_pah119: C22H12_pah120 -&gt; C22H12_pah119 (C22H12_pah119 relative to C22H12_pah120), energy = 0.04445782368833829</div>
+<div class="line">C22H12_pah111: C22H12_pah120 -&gt; C22H12_pah111 (C22H12_pah111 relative to C22H12_pah120), energy = 0.04382289692016328</div>
+<div class="line">C22H12_pah108: C22H12_pah120 -&gt; C22H12_pah108 (C22H12_pah108 relative to C22H12_pah120), energy = 0.04289507352047862</div>
+<div class="line">C22H12_pah118: C22H12_pah120 -&gt; C22H12_pah118 (C22H12_pah118 relative to C22H12_pah120), energy = 0.041541045529559506</div>
+<div class="line">C22H12_pah112: C22H12_pah120 -&gt; C22H12_pah112 (C22H12_pah112 relative to C22H12_pah120), energy = 0.03950295726530967</div>
+<div class="line">C22H12_pah107: C22H12_pah120 -&gt; C22H12_pah107 (C22H12_pah107 relative to C22H12_pah120), energy = 0.03792459102216795</div>
+<div class="line">C22H12_pah113: C22H12_pah120 -&gt; C22H12_pah113 (C22H12_pah113 relative to C22H12_pah120), energy = 0.02619806112500405</div>
+<div class="line">C22H12_pah121: C22H12_pah120 -&gt; C22H12_pah121 (C22H12_pah121 relative to C22H12_pah120), energy = 0.01028185249363192</div>
+<div class="line">C22H14_pah133: C22H14_pah132 -&gt; C22H14_pah133 (C22H14_pah133 relative to C22H14_pah132), energy = 0.0295996993772962</div>
+<div class="line">C22H14_pah122: C22H14_pah132 -&gt; C22H14_pah122 (C22H14_pah122 relative to C22H14_pah132), energy = 0.013437061460375644</div>
+<div class="line">C22H14_pah125: C22H14_pah132 -&gt; C22H14_pah125 (C22H14_pah125 relative to C22H14_pah132), energy = 0.013338032690294356</div>
+<div class="line">C22H14_pah129: C22H14_pah132 -&gt; C22H14_pah129 (C22H14_pah129 relative to C22H14_pah132), energy = 0.013144545708750923</div>
+<div class="line">C22H14_pah124: C22H14_pah132 -&gt; C22H14_pah124 (C22H14_pah124 relative to C22H14_pah132), energy = 0.008396497063238218</div>
+<div class="line">C22H14_pah126: C22H14_pah132 -&gt; C22H14_pah126 (C22H14_pah126 relative to C22H14_pah132), energy = 0.008221292316171327</div>
+<div class="line">C22H14_pah128: C22H14_pah132 -&gt; C22H14_pah128 (C22H14_pah128 relative to C22H14_pah132), energy = 0.008053705166802998</div>
+<div class="line">C22H14_pah131: C22H14_pah132 -&gt; C22H14_pah131 (C22H14_pah131 relative to C22H14_pah132), energy = 0.005676252925082293</div>
+<div class="line">C22H14_pah123: C22H14_pah132 -&gt; C22H14_pah123 (C22H14_pah123 relative to C22H14_pah132), energy = 0.003222624706375983</div>
+<div class="line">C22H14_pah127: C22H14_pah132 -&gt; C22H14_pah127 (C22H14_pah127 relative to C22H14_pah132), energy = 0.0010721768760723783</div>
+<div class="line">C22H14_pah130: C22H14_pah132 -&gt; C22H14_pah130 (C22H14_pah130 relative to C22H14_pah132), energy = 0.0008611694198222548</div>
+<div class="line">C23H14_pah145: C23H14_pah152 -&gt; C23H14_pah145 (C23H14_pah145 relative to C23H14_pah152), energy = 0.032745386346916726</div>
+<div class="line">C23H14_pah144: C23H14_pah152 -&gt; C23H14_pah144 (C23H14_pah144 relative to C23H14_pah152), energy = 0.02727595119935035</div>
+<div class="line">C23H14_pah143: C23H14_pah152 -&gt; C23H14_pah143 (C23H14_pah143 relative to C23H14_pah152), energy = 0.025126265128816595</div>
+<div class="line">C23H14_pah149: C23H14_pah152 -&gt; C23H14_pah149 (C23H14_pah149 relative to C23H14_pah152), energy = 0.0237615725011195</div>
+<div class="line">C23H14_pah141: C23H14_pah152 -&gt; C23H14_pah141 (C23H14_pah141 relative to C23H14_pah152), energy = 0.023326988552416626</div>
+<div class="line">C23H14_pah147: C23H14_pah152 -&gt; C23H14_pah147 (C23H14_pah147 relative to C23H14_pah152), energy = 0.02316359108178251</div>
+<div class="line">C23H14_pah146: C23H14_pah152 -&gt; C23H14_pah146 (C23H14_pah146 relative to C23H14_pah152), energy = 0.022533996631996487</div>
+<div class="line">C23H14_pah142: C23H14_pah152 -&gt; C23H14_pah142 (C23H14_pah142 relative to C23H14_pah152), energy = 0.022105125881567537</div>
+<div class="line">C23H14_pah138: C23H14_pah152 -&gt; C23H14_pah138 (C23H14_pah138 relative to C23H14_pah152), energy = 0.021371170343311242</div>
+<div class="line">C23H14_pah148: C23H14_pah152 -&gt; C23H14_pah148 (C23H14_pah148 relative to C23H14_pah152), energy = 0.019203582918185875</div>
+<div class="line">C23H14_pah139: C23H14_pah152 -&gt; C23H14_pah139 (C23H14_pah139 relative to C23H14_pah152), energy = 0.01709922155395856</div>
+<div class="line">C23H14_pah140: C23H14_pah152 -&gt; C23H14_pah140 (C23H14_pah140 relative to C23H14_pah152), energy = 0.016602173304127495</div>
+<div class="line">C23H14_pah150: C23H14_pah152 -&gt; C23H14_pah150 (C23H14_pah150 relative to C23H14_pah152), energy = 0.015706343814776792</div>
+<div class="line">C23H14_pah136: C23H14_pah152 -&gt; C23H14_pah136 (C23H14_pah136 relative to C23H14_pah152), energy = 0.007447725269882516</div>
+<div class="line">C23H14_pah135: C23H14_pah152 -&gt; C23H14_pah135 (C23H14_pah135 relative to C23H14_pah152), energy = 0.006615502721314791</div>
+<div class="line">C23H14_pah137: C23H14_pah152 -&gt; C23H14_pah137 (C23H14_pah137 relative to C23H14_pah152), energy = 0.004343935087604076</div>
+<div class="line">C23H14_pah151: C23H14_pah152 -&gt; C23H14_pah151 (C23H14_pah151 relative to C23H14_pah152), energy = 0.001010474334714039</div>
+<div class="line">C24H14_pah160: C24H14_pah237 -&gt; C24H14_pah160 (C24H14_pah160 relative to C24H14_pah237), energy = 0.1353490950281365</div>
+<div class="line">C24H14_pah164: C24H14_pah237 -&gt; C24H14_pah164 (C24H14_pah164 relative to C24H14_pah237), energy = 0.1339310792165495</div>
+<div class="line">C24H14_pah162: C24H14_pah237 -&gt; C24H14_pah162 (C24H14_pah162 relative to C24H14_pah237), energy = 0.1108710874634674</div>
+<div class="line">C24H14_pah163: C24H14_pah237 -&gt; C24H14_pah163 (C24H14_pah163 relative to C24H14_pah237), energy = 0.10331595406603518</div>
+<div class="line">C24H14_pah174: C24H14_pah237 -&gt; C24H14_pah174 (C24H14_pah174 relative to C24H14_pah237), energy = 0.10228910189626925</div>
+<div class="line">C24H14_pah166: C24H14_pah237 -&gt; C24H14_pah166 (C24H14_pah166 relative to C24H14_pah237), energy = 0.0955098208244354</div>
+<div class="line">C24H14_pah176: C24H14_pah237 -&gt; C24H14_pah176 (C24H14_pah176 relative to C24H14_pah237), energy = 0.09505276496252178</div>
+<div class="line">C24H14_pah171: C24H14_pah237 -&gt; C24H14_pah171 (C24H14_pah171 relative to C24H14_pah237), energy = 0.09417864562661196</div>
+<div class="line">C24H14_pah175: C24H14_pah237 -&gt; C24H14_pah175 (C24H14_pah175 relative to C24H14_pah237), energy = 0.09201029644171675</div>
+<div class="line">C24H14_pah169: C24H14_pah237 -&gt; C24H14_pah169 (C24H14_pah169 relative to C24H14_pah237), energy = 0.0880514309177749</div>
+<div class="line">C24H14_pah168: C24H14_pah237 -&gt; C24H14_pah168 (C24H14_pah168 relative to C24H14_pah237), energy = 0.08780576339199632</div>
+<div class="line">C24H14_pah167: C24H14_pah237 -&gt; C24H14_pah167 (C24H14_pah167 relative to C24H14_pah237), energy = 0.08524015648712117</div>
+<div class="line">C24H14_pah173: C24H14_pah237 -&gt; C24H14_pah173 (C24H14_pah173 relative to C24H14_pah237), energy = 0.08219768796631614</div>
+<div class="line">C24H14_pah161: C24H14_pah237 -&gt; C24H14_pah161 (C24H14_pah161 relative to C24H14_pah237), energy = 0.07784080296262452</div>
+<div class="line">C24H14_pah177: C24H14_pah237 -&gt; C24H14_pah177 (C24H14_pah177 relative to C24H14_pah237), energy = 0.0743348036218621</div>
+<div class="line">C24H14_pah170: C24H14_pah237 -&gt; C24H14_pah170 (C24H14_pah170 relative to C24H14_pah237), energy = 0.06944163974019181</div>
+<div class="line">C24H14_pah165: C24H14_pah237 -&gt; C24H14_pah165 (C24H14_pah165 relative to C24H14_pah237), energy = 0.0670356215071015</div>
+<div class="line">C24H14_pah210: C24H14_pah237 -&gt; C24H14_pah210 (C24H14_pah210 relative to C24H14_pah237), energy = 0.06554866643634251</div>
+<div class="line">C24H14_pah178: C24H14_pah237 -&gt; C24H14_pah178 (C24H14_pah178 relative to C24H14_pah237), energy = 0.06553952531910424</div>
+<div class="line">C24H14_pah172: C24H14_pah237 -&gt; C24H14_pah172 (C24H14_pah172 relative to C24H14_pah237), energy = 0.06424415283046404</div>
+<div class="line">C24H14_pah209: C24H14_pah237 -&gt; C24H14_pah209 (C24H14_pah209 relative to C24H14_pah237), energy = 0.06389031541736591</div>
+<div class="line">C24H14_pah186: C24H14_pah237 -&gt; C24H14_pah186 (C24H14_pah186 relative to C24H14_pah237), energy = 0.052269670128212</div>
+<div class="line">C24H14_pah203: C24H14_pah237 -&gt; C24H14_pah203 (C24H14_pah203 relative to C24H14_pah237), energy = 0.05188955200305383</div>
+<div class="line">C24H14_pah189: C24H14_pah237 -&gt; C24H14_pah189 (C24H14_pah189 relative to C24H14_pah237), energy = 0.05113160103204707</div>
+<div class="line">C24H14_pah207: C24H14_pah237 -&gt; C24H14_pah207 (C24H14_pah207 relative to C24H14_pah237), energy = 0.049317470140134906</div>
+<div class="line">C24H14_pah198: C24H14_pah237 -&gt; C24H14_pah198 (C24H14_pah198 relative to C24H14_pah237), energy = 0.04928090567118182</div>
+<div class="line">C24H14_pah199: C24H14_pah237 -&gt; C24H14_pah199 (C24H14_pah199 relative to C24H14_pah237), energy = 0.04925195879992729</div>
+<div class="line">C24H14_pah184: C24H14_pah237 -&gt; C24H14_pah184 (C24H14_pah184 relative to C24H14_pah237), energy = 0.04826471813819386</div>
+<div class="line">C24H14_pah193: C24H14_pah237 -&gt; C24H14_pah193 (C24H14_pah193 relative to C24H14_pah237), energy = 0.04815426297156473</div>
+<div class="line">C24H14_pah191: C24H14_pah237 -&gt; C24H14_pah191 (C24H14_pah191 relative to C24H14_pah237), energy = 0.0477025394280401</div>
+<div class="line">C24H14_pah194: C24H14_pah237 -&gt; C24H14_pah194 (C24H14_pah194 relative to C24H14_pah237), energy = 0.04695411045415654</div>
+<div class="line">C24H14_pah208: C24H14_pah237 -&gt; C24H14_pah208 (C24H14_pah208 relative to C24H14_pah237), energy = 0.04690535782888575</div>
+<div class="line">C24H14_pah185: C24H14_pah237 -&gt; C24H14_pah185 (C24H14_pah185 relative to C24H14_pah237), energy = 0.046871840399012085</div>
+<div class="line">C24H14_pah180: C24H14_pah237 -&gt; C24H14_pah180 (C24H14_pah180 relative to C24H14_pah237), energy = 0.046266241381976526</div>
+<div class="line">C24H14_pah201: C24H14_pah237 -&gt; C24H14_pah201 (C24H14_pah201 relative to C24H14_pah237), energy = 0.04607503967974266</div>
+<div class="line">C24H14_pah202: C24H14_pah237 -&gt; C24H14_pah202 (C24H14_pah202 relative to C24H14_pah237), energy = 0.045919640686692034</div>
+<div class="line">C24H14_pah182: C24H14_pah237 -&gt; C24H14_pah182 (C24H14_pah182 relative to C24H14_pah237), energy = 0.04439535938721009</div>
+<div class="line">C24H14_pah183: C24H14_pah237 -&gt; C24H14_pah183 (C24H14_pah183 relative to C24H14_pah237), energy = 0.044342417083205105</div>
+<div class="line">C24H14_pah190: C24H14_pah237 -&gt; C24H14_pah190 (C24H14_pah190 relative to C24H14_pah237), energy = 0.04381566020234964</div>
+<div class="line">C24H14_pah181: C24H14_pah237 -&gt; C24H14_pah181 (C24H14_pah181 relative to C24H14_pah237), energy = 0.04376424141788437</div>
+<div class="line">C24H14_pah206: C24H14_pah237 -&gt; C24H14_pah206 (C24H14_pah206 relative to C24H14_pah237), energy = 0.04339631144904389</div>
+<div class="line">C24H14_pah192: C24H14_pah237 -&gt; C24H14_pah192 (C24H14_pah192 relative to C24H14_pah237), energy = 0.04176728818120675</div>
+<div class="line">C24H14_pah216: C24H14_pah237 -&gt; C24H14_pah216 (C24H14_pah216 relative to C24H14_pah237), energy = 0.04139897733248135</div>
+<div class="line">C24H14_pah204: C24H14_pah237 -&gt; C24H14_pah204 (C24H14_pah204 relative to C24H14_pah237), energy = 0.041389074455473226</div>
+<div class="line">C24H14_pah211: C24H14_pah237 -&gt; C24H14_pah211 (C24H14_pah211 relative to C24H14_pah237), energy = 0.04138107597788974</div>
+<div class="line">C24H14_pah187: C24H14_pah237 -&gt; C24H14_pah187 (C24H14_pah187 relative to C24H14_pah237), energy = 0.040885932127483315</div>
+<div class="line">C24H14_pah218: C24H14_pah237 -&gt; C24H14_pah218 (C24H14_pah218 relative to C24H14_pah237), energy = 0.040478390650610326</div>
+<div class="line">C24H14_pah197: C24H14_pah237 -&gt; C24H14_pah197 (C24H14_pah197 relative to C24H14_pah237), energy = 0.04046886865348713</div>
+<div class="line">C24H14_pah195: C24H14_pah237 -&gt; C24H14_pah195 (C24H14_pah195 relative to C24H14_pah237), energy = 0.038863079058630595</div>
+<div class="line">C24H14_pah179: C24H14_pah237 -&gt; C24H14_pah179 (C24H14_pah179 relative to C24H14_pah237), energy = 0.038604842496649396</div>
+<div class="line">C24H14_pah188: C24H14_pah237 -&gt; C24H14_pah188 (C24H14_pah188 relative to C24H14_pah237), energy = 0.036066278063604136</div>
+<div class="line">C24H14_pah205: C24H14_pah237 -&gt; C24H14_pah205 (C24H14_pah205 relative to C24H14_pah237), energy = 0.03568692169821583</div>
+<div class="line">C24H14_pah196: C24H14_pah237 -&gt; C24H14_pah196 (C24H14_pah196 relative to C24H14_pah237), energy = 0.035291187497775614</div>
+<div class="line">C24H14_pah200: C24H14_pah237 -&gt; C24H14_pah200 (C24H14_pah200 relative to C24H14_pah237), energy = 0.035215773280559866</div>
+<div class="line">C24H14_pah215: C24H14_pah237 -&gt; C24H14_pah215 (C24H14_pah215 relative to C24H14_pah237), energy = 0.0348383213145962</div>
+<div class="line">C24H14_pah221: C24H14_pah237 -&gt; C24H14_pah221 (C24H14_pah221 relative to C24H14_pah237), energy = 0.03467187680488266</div>
+<div class="line">C24H14_pah226: C24H14_pah237 -&gt; C24H14_pah226 (C24H14_pah226 relative to C24H14_pah237), energy = 0.03334108248694415</div>
+<div class="line">C24H14_pah219: C24H14_pah237 -&gt; C24H14_pah219 (C24H14_pah219 relative to C24H14_pah237), energy = 0.03250962169814628</div>
+<div class="line">C24H14_pah217: C24H14_pah237 -&gt; C24H14_pah217 (C24H14_pah217 relative to C24H14_pah237), energy = 0.03124929015891946</div>
+<div class="line">C24H14_pah231: C24H14_pah237 -&gt; C24H14_pah231 (C24H14_pah231 relative to C24H14_pah237), energy = 0.030564468125818877</div>
+<div class="line">C24H14_pah222: C24H14_pah237 -&gt; C24H14_pah222 (C24H14_pah222 relative to C24H14_pah237), energy = 0.028503146188588426</div>
+<div class="line">C24H14_pah213: C24H14_pah237 -&gt; C24H14_pah213 (C24H14_pah213 relative to C24H14_pah237), energy = 0.028404498298392068</div>
+<div class="line">C24H14_pah240: C24H14_pah237 -&gt; C24H14_pah240 (C24H14_pah240 relative to C24H14_pah237), energy = 0.027986292184741104</div>
+<div class="line">C24H14_pah224: C24H14_pah237 -&gt; C24H14_pah224 (C24H14_pah224 relative to C24H14_pah237), energy = 0.02782822703249598</div>
+<div class="line">C24H14_pah233: C24H14_pah237 -&gt; C24H14_pah233 (C24H14_pah233 relative to C24H14_pah237), energy = 0.02654275742086391</div>
+<div class="line">C24H14_pah212: C24H14_pah237 -&gt; C24H14_pah212 (C24H14_pah212 relative to C24H14_pah237), energy = 0.025877360261894657</div>
+<div class="line">C24H14_pah230: C24H14_pah237 -&gt; C24H14_pah230 (C24H14_pah230 relative to C24H14_pah237), energy = 0.02538564433045258</div>
+<div class="line">C24H14_pah214: C24H14_pah237 -&gt; C24H14_pah214 (C24H14_pah214 relative to C24H14_pah237), energy = 0.025088558020208727</div>
+<div class="line">C24H14_pah228: C24H14_pah237 -&gt; C24H14_pah228 (C24H14_pah228 relative to C24H14_pah237), energy = 0.02415006998374608</div>
+<div class="line">C24H14_pah229: C24H14_pah237 -&gt; C24H14_pah229 (C24H14_pah229 relative to C24H14_pah237), energy = 0.022686729465852627</div>
+<div class="line">C24H14_pah227: C24H14_pah237 -&gt; C24H14_pah227 (C24H14_pah227 relative to C24H14_pah237), energy = 0.022223579525780152</div>
+<div class="line">C24H14_pah220: C24H14_pah237 -&gt; C24H14_pah220 (C24H14_pah220 relative to C24H14_pah237), energy = 0.02214169035052063</div>
+<div class="line">C24H14_pah223: C24H14_pah237 -&gt; C24H14_pah223 (C24H14_pah223 relative to C24H14_pah237), energy = 0.020926302637715315</div>
+<div class="line">C24H14_pah225: C24H14_pah237 -&gt; C24H14_pah225 (C24H14_pah225 relative to C24H14_pah237), energy = 0.02015349735119636</div>
+<div class="line">C24H14_pah232: C24H14_pah237 -&gt; C24H14_pah232 (C24H14_pah232 relative to C24H14_pah237), energy = 0.01277928189910495</div>
+<div class="line">C24H14_pah239: C24H14_pah237 -&gt; C24H14_pah239 (C24H14_pah239 relative to C24H14_pah237), energy = 0.01142677742772555</div>
+<div class="line">C24H14_pah241: C24H14_pah237 -&gt; C24H14_pah241 (C24H14_pah241 relative to C24H14_pah237), energy = 0.011401639355320299</div>
+<div class="line">C24H14_pah238: C24H14_pah237 -&gt; C24H14_pah238 (C24H14_pah238 relative to C24H14_pah237), energy = 0.010586937281459263</div>
+<div class="line">C24H14_pah244: C24H14_pah237 -&gt; C24H14_pah244 (C24H14_pah244 relative to C24H14_pah237), energy = 0.009827843670797719</div>
+<div class="line">C24H14_pah236: C24H14_pah237 -&gt; C24H14_pah236 (C24H14_pah236 relative to C24H14_pah237), energy = 0.009522758882970373</div>
+<div class="line">C24H14_pah243: C24H14_pah237 -&gt; C24H14_pah243 (C24H14_pah243 relative to C24H14_pah237), energy = 0.005895258858915904</div>
+<div class="line">C24H14_pah235: C24H14_pah237 -&gt; C24H14_pah235 (C24H14_pah235 relative to C24H14_pah237), energy = 0.0036568277751939274</div>
+<div class="line">C24H14_pah242: C24H14_pah237 -&gt; C24H14_pah242 (C24H14_pah242 relative to C24H14_pah237), energy = 0.0030420876409201015</div>
+<div class="line">C24H14_pah234: C24H14_pah237 -&gt; C24H14_pah234 (C24H14_pah234 relative to C24H14_pah237), energy = 0.0026558754376030886</div>
+<div class="line">C25H16_pah245: C25H16_pah252 -&gt; C25H16_pah245 (C25H16_pah245 relative to C25H16_pah252), energy = 0.01086078991872251</div>
+<div class="line">C25H16_pah249: C25H16_pah252 -&gt; C25H16_pah249 (C25H16_pah249 relative to C25H16_pah252), energy = 0.010473815955635641</div>
+<div class="line">C25H16_pah248: C25H16_pah252 -&gt; C25H16_pah248 (C25H16_pah248 relative to C25H16_pah252), energy = 0.00899790640153956</div>
+<div class="line">C25H16_pah247: C25H16_pah252 -&gt; C25H16_pah247 (C25H16_pah247 relative to C25H16_pah252), energy = 0.007747096859435941</div>
+<div class="line">C25H16_pah254: C25H16_pah252 -&gt; C25H16_pah254 (C25H16_pah254 relative to C25H16_pah252), energy = 0.006985337089579899</div>
+<div class="line">C25H16_pah251: C25H16_pah252 -&gt; C25H16_pah251 (C25H16_pah251 relative to C25H16_pah252), energy = 0.004070082450340829</div>
+<div class="line">C25H16_pah250: C25H16_pah252 -&gt; C25H16_pah250 (C25H16_pah250 relative to C25H16_pah252), energy = 0.0033711678614979116</div>
+<div class="line">C25H16_pah246: C25H16_pah252 -&gt; C25H16_pah246 (C25H16_pah246 relative to C25H16_pah252), energy = 0.0032447157397018085</div>
+<div class="line">C25H16_pah253: C25H16_pah252 -&gt; C25H16_pah253 (C25H16_pah253 relative to C25H16_pah252), energy = 0.0006158827739286095</div>
+<div class="line">C26H14_pah255: C26H14_pah266 -&gt; C26H14_pah255 (C26H14_pah255 relative to C26H14_pah266), energy = 0.05148048700664114</div>
+<div class="line">C26H14_pah256: C26H14_pah266 -&gt; C26H14_pah256 (C26H14_pah256 relative to C26H14_pah266), energy = 0.05116854638088508</div>
+<div class="line">C26H14_pah257: C26H14_pah266 -&gt; C26H14_pah257 (C26H14_pah257 relative to C26H14_pah266), energy = 0.04807313555607506</div>
+<div class="line">C26H14_pah261: C26H14_pah266 -&gt; C26H14_pah261 (C26H14_pah261 relative to C26H14_pah266), energy = 0.03380918386552069</div>
+<div class="line">C26H14_pah259: C26H14_pah266 -&gt; C26H14_pah259 (C26H14_pah259 relative to C26H14_pah266), energy = 0.02945344150148384</div>
+<div class="line">C26H14_pah258: C26H14_pah266 -&gt; C26H14_pah258 (C26H14_pah258 relative to C26H14_pah266), energy = 0.029071038097016107</div>
+<div class="line">C26H14_pah260: C26H14_pah266 -&gt; C26H14_pah260 (C26H14_pah260 relative to C26H14_pah266), energy = 0.026591129166249765</div>
+<div class="line">C26H14_pah269: C26H14_pah266 -&gt; C26H14_pah269 (C26H14_pah269 relative to C26H14_pah266), energy = 0.01658236755011124</div>
+<div class="line">C26H14_pah262: C26H14_pah266 -&gt; C26H14_pah262 (C26H14_pah262 relative to C26H14_pah266), energy = 0.013524663833909087</div>
+<div class="line">C26H14_pah267: C26H14_pah266 -&gt; C26H14_pah267 (C26H14_pah267 relative to C26H14_pah266), energy = 0.011706343263262716</div>
+<div class="line">C26H14_pah268: C26H14_pah266 -&gt; C26H14_pah268 (C26H14_pah268 relative to C26H14_pah266), energy = 0.01026052322007595</div>
+<div class="line">C26H14_pah264: C26H14_pah266 -&gt; C26H14_pah264 (C26H14_pah264 relative to C26H14_pah266), energy = 0.008183585207563453</div>
+<div class="line">C26H14_pah270: C26H14_pah266 -&gt; C26H14_pah270 (C26H14_pah270 relative to C26H14_pah266), energy = 0.007856409386410282</div>
+<div class="line">C26H14_pah263: C26H14_pah266 -&gt; C26H14_pah263 (C26H14_pah263 relative to C26H14_pah266), energy = 0.0036016001918793635</div>
+<div class="line">C26H14_pah265: C26H14_pah266 -&gt; C26H14_pah265 (C26H14_pah265 relative to C26H14_pah266), energy = 0.0020898879286000496</div>
+<div class="line">C26H16_pah307: C26H16_pah306 -&gt; C26H16_pah307 (C26H16_pah307 relative to C26H16_pah306), energy = 0.04139440677386222</div>
+<div class="line">C26H16_pah301: C26H16_pah306 -&gt; C26H16_pah301 (C26H16_pah301 relative to C26H16_pah306), energy = 0.023681587725284618</div>
+<div class="line">C26H16_pah290: C26H16_pah306 -&gt; C26H16_pah290 (C26H16_pah290 relative to C26H16_pah306), energy = 0.022299755502765757</div>
+<div class="line">C26H16_pah288: C26H16_pah306 -&gt; C26H16_pah288 (C26H16_pah288 relative to C26H16_pah306), energy = 0.021838129082232996</div>
+<div class="line">C26H16_pah272: C26H16_pah306 -&gt; C26H16_pah272 (C26H16_pah272 relative to C26H16_pah306), energy = 0.02097886406183538</div>
+<div class="line">C26H16_pah293: C26H16_pah306 -&gt; C26H16_pah293 (C26H16_pah293 relative to C26H16_pah306), energy = 0.019507525066358437</div>
+<div class="line">C26H16_pah277: C26H16_pah306 -&gt; C26H16_pah277 (C26H16_pah277 relative to C26H16_pah306), energy = 0.018699678830426104</div>
+<div class="line">C26H16_pah274: C26H16_pah306 -&gt; C26H16_pah274 (C26H16_pah274 relative to C26H16_pah306), energy = 0.018193108583471836</div>
+<div class="line">C26H16_pah276: C26H16_pah306 -&gt; C26H16_pah276 (C26H16_pah276 relative to C26H16_pah306), energy = 0.017862123963469388</div>
+<div class="line">C26H16_pah298: C26H16_pah306 -&gt; C26H16_pah298 (C26H16_pah298 relative to C26H16_pah306), energy = 0.016296326756530293</div>
+<div class="line">C26H16_pah271: C26H16_pah306 -&gt; C26H16_pah271 (C26H16_pah271 relative to C26H16_pah306), energy = 0.01586745600610134</div>
+<div class="line">C26H16_pah303: C26H16_pah306 -&gt; C26H16_pah303 (C26H16_pah303 relative to C26H16_pah306), energy = 0.014732814828900768</div>
+<div class="line">C26H16_pah286: C26H16_pah306 -&gt; C26H16_pah286 (C26H16_pah286 relative to C26H16_pah306), energy = 0.013967246260195448</div>
+<div class="line">C26H16_pah275: C26H16_pah306 -&gt; C26H16_pah275 (C26H16_pah275 relative to C26H16_pah306), energy = 0.013924206833198581</div>
+<div class="line">C26H16_pah296: C26H16_pah306 -&gt; C26H16_pah296 (C26H16_pah296 relative to C26H16_pah306), energy = 0.013498383121849053</div>
+<div class="line">C26H16_pah285: C26H16_pah306 -&gt; C26H16_pah285 (C26H16_pah285 relative to C26H16_pah306), energy = 0.012960199844445762</div>
+<div class="line">C26H16_pah278: C26H16_pah306 -&gt; C26H16_pah278 (C26H16_pah278 relative to C26H16_pah306), energy = 0.012749573268080563</div>
+<div class="line">C26H16_pah280: C26H16_pah306 -&gt; C26H16_pah280 (C26H16_pah280 relative to C26H16_pah306), energy = 0.012579700839402668</div>
+<div class="line">C26H16_pah284: C26H16_pah306 -&gt; C26H16_pah284 (C26H16_pah284 relative to C26H16_pah306), energy = 0.012199582714244504</div>
+<div class="line">C26H16_pah273: C26H16_pah306 -&gt; C26H16_pah273 (C26H16_pah273 relative to C26H16_pah306), energy = 0.011860980496543492</div>
+<div class="line">C26H16_pah282: C26H16_pah306 -&gt; C26H16_pah282 (C26H16_pah282 relative to C26H16_pah306), energy = 0.011520473879417842</div>
+<div class="line">C26H16_pah305: C26H16_pah306 -&gt; C26H16_pah305 (C26H16_pah305 relative to C26H16_pah306), energy = 0.011471721254147057</div>
+<div class="line">C26H16_pah291: C26H16_pah306 -&gt; C26H16_pah291 (C26H16_pah291 relative to C26H16_pah306), energy = 0.009373073088193662</div>
+<div class="line">C26H16_pah279: C26H16_pah306 -&gt; C26H16_pah279 (C26H16_pah279 relative to C26H16_pah306), energy = 0.009124358523335664</div>
+<div class="line">C26H16_pah294: C26H16_pah306 -&gt; C26H16_pah294 (C26H16_pah294 relative to C26H16_pah306), energy = 0.008416683697139401</div>
+<div class="line">C26H16_pah300: C26H16_pah306 -&gt; C26H16_pah300 (C26H16_pah300 relative to C26H16_pah306), energy = 0.008172539690900541</div>
+<div class="line">C26H16_pah297: C26H16_pah306 -&gt; C26H16_pah297 (C26H16_pah297 relative to C26H16_pah306), energy = 0.00814740161849529</div>
+<div class="line">C26H16_pah292: C26H16_pah306 -&gt; C26H16_pah292 (C26H16_pah292 relative to C26H16_pah306), energy = 0.008006476061071924</div>
+<div class="line">C26H16_pah287: C26H16_pah306 -&gt; C26H16_pah287 (C26H16_pah287 relative to C26H16_pah306), energy = 0.007800039163440936</div>
+<div class="line">C26H16_pah281: C26H16_pah306 -&gt; C26H16_pah281 (C26H16_pah281 relative to C26H16_pah306), energy = 0.006331747207043416</div>
+<div class="line">C26H16_pah302: C26H16_pah306 -&gt; C26H16_pah302 (C26H16_pah302 relative to C26H16_pah306), energy = 0.005278995205102367</div>
+<div class="line">C26H16_pah289: C26H16_pah306 -&gt; C26H16_pah289 (C26H16_pah289 relative to C26H16_pah306), energy = 0.005139212287333783</div>
+<div class="line">C26H16_pah299: C26H16_pah306 -&gt; C26H16_pah299 (C26H16_pah299 relative to C26H16_pah306), energy = 0.004934679789127436</div>
+<div class="line">C26H16_pah295: C26H16_pah306 -&gt; C26H16_pah295 (C26H16_pah295 relative to C26H16_pah306), energy = 0.0020655116159646564</div>
+<div class="line">C26H16_pah304: C26H16_pah306 -&gt; C26H16_pah304 (C26H16_pah304 relative to C26H16_pah306), energy = 0.0017497621913593272</div>
+<div class="line">C26H16_pah283: C26H16_pah306 -&gt; C26H16_pah283 (C26H16_pah283 relative to C26H16_pah306), energy = 4.684822584614655e-05</div>
+<div class="line">C28H14_pah312: C28H14_pah315 -&gt; C28H14_pah312 (C28H14_pah312 relative to C28H14_pah315), energy = 0.10990631871494473</div>
+<div class="line">C28H14_pah311: C28H14_pah315 -&gt; C28H14_pah311 (C28H14_pah311 relative to C28H14_pah315), energy = 0.05974329523026962</div>
+<div class="line">C28H14_pah313: C28H14_pah315 -&gt; C28H14_pah313 (C28H14_pah313 relative to C28H14_pah315), energy = 0.03796839220893467</div>
+<div class="line">C28H14_pah320: C28H14_pah315 -&gt; C28H14_pah320 (C28H14_pah320 relative to C28H14_pah315), energy = 0.027956583553716722</div>
+<div class="line">C28H14_pah319: C28H14_pah315 -&gt; C28H14_pah319 (C28H14_pah319 relative to C28H14_pah315), energy = 0.01943896668707139</div>
+<div class="line">C28H14_pah314: C28H14_pah315 -&gt; C28H14_pah314 (C28H14_pah314 relative to C28H14_pah315), energy = 0.013352506125921622</div>
+<div class="line">C28H14_pah317: C28H14_pah315 -&gt; C28H14_pah317 (C28H14_pah317 relative to C28H14_pah315), energy = 0.011826701306899971</div>
+<div class="line">C28H14_pah316: C28H14_pah315 -&gt; C28H14_pah316 (C28H14_pah316 relative to C28H14_pah315), energy = 0.007453819348041365</div>
+<div class="line">C28H14_pah318: C28H14_pah315 -&gt; C28H14_pah318 (C28H14_pah318 relative to C28H14_pah315), energy = 0.004823843742613382</div>
+<div class="line">C28H16_pah328: C28H16_pah344 -&gt; C28H16_pah328 (C28H16_pah328 relative to C28H16_pah344), energy = 0.048199968557756094</div>
+<div class="line">C28H16_pah358: C28H16_pah344 -&gt; C28H16_pah358 (C28H16_pah358 relative to C28H16_pah344), energy = 0.04787964857453163</div>
+<div class="line">C28H16_pah322: C28H16_pah344 -&gt; C28H16_pah322 (C28H16_pah322 relative to C28H16_pah344), energy = 0.04741345159537973</div>
+<div class="line">C28H16_pah337: C28H16_pah344 -&gt; C28H16_pah337 (C28H16_pah337 relative to C28H16_pah344), energy = 0.04728738035346856</div>
+<div class="line">C28H16_pah323: C28H16_pah344 -&gt; C28H16_pah323 (C28H16_pah323 relative to C28H16_pah344), energy = 0.04123976954058144</div>
+<div class="line">C28H16_pah331: C28H16_pah344 -&gt; C28H16_pah331 (C28H16_pah331 relative to C28H16_pah344), energy = 0.038781189883371064</div>
+<div class="line">C28H16_pah324: C28H16_pah344 -&gt; C28H16_pah324 (C28H16_pah324 relative to C28H16_pah344), energy = 0.037003623460412</div>
+<div class="line">C28H16_pah321: C28H16_pah344 -&gt; C28H16_pah321 (C28H16_pah321 relative to C28H16_pah344), energy = 0.03261284014696177</div>
+<div class="line">C28H16_pah346: C28H16_pah344 -&gt; C28H16_pah346 (C28H16_pah346 relative to C28H16_pah344), energy = 0.029764620367470036</div>
+<div class="line">C28H16_pah340: C28H16_pah344 -&gt; C28H16_pah340 (C28H16_pah340 relative to C28H16_pah344), energy = 0.02824338610706752</div>
+<div class="line">C28H16_pah350: C28H16_pah344 -&gt; C28H16_pah350 (C28H16_pah350 relative to C28H16_pah344), energy = 0.026751860477689387</div>
+<div class="line">C28H16_pah357: C28H16_pah344 -&gt; C28H16_pah357 (C28H16_pah357 relative to C28H16_pah344), energy = 0.025211201343155545</div>
+<div class="line">C28H16_pah330: C28H16_pah344 -&gt; C28H16_pah330 (C28H16_pah330 relative to C28H16_pah344), energy = 0.023783282654560395</div>
+<div class="line">C28H16_pah327: C28H16_pah344 -&gt; C28H16_pah327 (C28H16_pah327 relative to C28H16_pah344), energy = 0.021942490170703273</div>
+<div class="line">C28H16_pah363: C28H16_pah344 -&gt; C28H16_pah363 (C28H16_pah363 relative to C28H16_pah344), energy = 0.02070005998606807</div>
+<div class="line">C28H16_pah335: C28H16_pah344 -&gt; C28H16_pah335 (C28H16_pah335 relative to C28H16_pah344), energy = 0.019433634368682402</div>
+<div class="line">C28H16_pah354: C28H16_pah344 -&gt; C28H16_pah354 (C28H16_pah354 relative to C28H16_pah344), energy = 0.017932967622065997</div>
+<div class="line">C28H16_pah364: C28H16_pah344 -&gt; C28H16_pah364 (C28H16_pah364 relative to C28H16_pah344), energy = 0.017068370283279392</div>
+<div class="line">C28H16_pah334: C28H16_pah344 -&gt; C28H16_pah334 (C28H16_pah334 relative to C28H16_pah344), energy = 0.016128358727277036</div>
+<div class="line">C28H16_pah332: C28H16_pah344 -&gt; C28H16_pah332 (C28H16_pah332 relative to C28H16_pah344), energy = 0.01612569256808254</div>
+<div class="line">C28H16_pah329: C28H16_pah344 -&gt; C28H16_pah329 (C28H16_pah329 relative to C28H16_pah344), energy = 0.015384119432127684</div>
+<div class="line">C28H16_pah349: C28H16_pah344 -&gt; C28H16_pah349 (C28H16_pah349 relative to C28H16_pah344), energy = 0.014999811628235311</div>
+<div class="line">C28H16_pah353: C28H16_pah344 -&gt; C28H16_pah353 (C28H16_pah353 relative to C28H16_pah344), energy = 0.014906115176543019</div>
+<div class="line">C28H16_pah347: C28H16_pah344 -&gt; C28H16_pah347 (C28H16_pah347 relative to C28H16_pah344), energy = 0.014644831575482397</div>
+<div class="line">C28H16_pah333: C28H16_pah344 -&gt; C28H16_pah333 (C28H16_pah333 relative to C28H16_pah344), energy = 0.013918874514809587</div>
+<div class="line">C28H16_pah348: C28H16_pah344 -&gt; C28H16_pah348 (C28H16_pah348 relative to C28H16_pah344), energy = 0.012919445696758463</div>
+<div class="line">C28H16_pah343: C28H16_pah344 -&gt; C28H16_pah343 (C28H16_pah343 relative to C28H16_pah344), energy = 0.011916208079858057</div>
+<div class="line">C28H16_pah359: C28H16_pah344 -&gt; C28H16_pah359 (C28H16_pah359 relative to C28H16_pah344), energy = 0.011779472201168897</div>
+<div class="line">C28H16_pah345: C28H16_pah344 -&gt; C28H16_pah345 (C28H16_pah345 relative to C28H16_pah344), energy = 0.011513998921374067</div>
+<div class="line">C28H16_pah361: C28H16_pah344 -&gt; C28H16_pah361 (C28H16_pah361 relative to C28H16_pah344), energy = 0.011474387413341553</div>
+<div class="line">C28H16_pah325: C28H16_pah344 -&gt; C28H16_pah325 (C28H16_pah325 relative to C28H16_pah344), energy = 0.011398211436355948</div>
+<div class="line">C28H16_pah355: C28H16_pah344 -&gt; C28H16_pah355 (C28H16_pah355 relative to C28H16_pah344), energy = 0.011125120558862557</div>
+<div class="line">C28H16_pah326: C28H16_pah344 -&gt; C28H16_pah326 (C28H16_pah326 relative to C28H16_pah344), energy = 0.010273473136163502</div>
+<div class="line">C28H16_pah339: C28H16_pah344 -&gt; C28H16_pah339 (C28H16_pah339 relative to C28H16_pah344), energy = 0.010094840470132262</div>
+<div class="line">C28H16_pah342: C28H16_pah344 -&gt; C28H16_pah342 (C28H16_pah342 relative to C28H16_pah344), energy = 0.0099104946058271</div>
+<div class="line">C28H16_pah352: C28H16_pah344 -&gt; C28H16_pah352 (C28H16_pah352 relative to C28H16_pah344), energy = 0.009274425197997305</div>
+<div class="line">C28H16_pah356: C28H16_pah344 -&gt; C28H16_pah356 (C28H16_pah356 relative to C28H16_pah344), energy = 0.008830319252171233</div>
+<div class="line">C28H16_pah341: C28H16_pah344 -&gt; C28H16_pah341 (C28H16_pah341 relative to C28H16_pah344), energy = 0.00871872144588732</div>
+<div class="line">C28H16_pah351: C28H16_pah344 -&gt; C28H16_pah351 (C28H16_pah351 relative to C28H16_pah344), energy = 0.008643688108556502</div>
+<div class="line">C28H16_pah365: C28H16_pah344 -&gt; C28H16_pah365 (C28H16_pah365 relative to C28H16_pah344), energy = 0.007393259446337811</div>
+<div class="line">C28H16_pah368: C28H16_pah344 -&gt; C28H16_pah368 (C28H16_pah368 relative to C28H16_pah344), energy = 0.007227957576279049</div>
+<div class="line">C28H16_pah360: C28H16_pah344 -&gt; C28H16_pah360 (C28H16_pah360 relative to C28H16_pah344), energy = 0.006843268892501747</div>
+<div class="line">C28H16_pah362: C28H16_pah344 -&gt; C28H16_pah362 (C28H16_pah362 relative to C28H16_pah344), energy = 0.006549991381107172</div>
+<div class="line">C28H16_pah338: C28H16_pah344 -&gt; C28H16_pah338 (C28H16_pah338 relative to C28H16_pah344), energy = 0.005547134644091694</div>
+<div class="line">C28H16_pah367: C28H16_pah344 -&gt; C28H16_pah367 (C28H16_pah367 relative to C28H16_pah344), energy = 0.004596839331196282</div>
+<div class="line">C28H16_pah336: C28H16_pah344 -&gt; C28H16_pah336 (C28H16_pah336 relative to C28H16_pah344), energy = 0.0035684636418906257</div>
+<div class="line">C28H16_pah366: C28H16_pah344 -&gt; C28H16_pah366 (C28H16_pah366 relative to C28H16_pah344), energy = 0.003115978338596137</div>
+<div class="line">C36H16_pah632: C36H16_pah626 -&gt; C36H16_pah632 (C36H16_pah632 relative to C36H16_pah626), energy = 0.03250771729872164</div>
+<div class="line">C36H16_pah624: C36H16_pah626 -&gt; C36H16_pah624 (C36H16_pah624 relative to C36H16_pah626), energy = 0.027550565596383452</div>
+<div class="line">C36H16_pah621: C36H16_pah626 -&gt; C36H16_pah621 (C36H16_pah621 relative to C36H16_pah626), energy = 0.014839842076565544</div>
+<div class="line">C36H16_pah620: C36H16_pah626 -&gt; C36H16_pah620 (C36H16_pah620 relative to C36H16_pah626), energy = 0.014251001774466822</div>
+<div class="line">C36H16_pah628: C36H16_pah626 -&gt; C36H16_pah628 (C36H16_pah628 relative to C36H16_pah626), energy = 0.011475530052996336</div>
+<div class="line">C36H16_pah630: C36H16_pah626 -&gt; C36H16_pah630 (C36H16_pah630 relative to C36H16_pah626), energy = 0.008998287281424489</div>
+<div class="line">C36H16_pah631: C36H16_pah626 -&gt; C36H16_pah631 (C36H16_pah631 relative to C36H16_pah626), energy = 0.008025520055318324</div>
+<div class="line">C36H16_pah629: C36H16_pah626 -&gt; C36H16_pah629 (C36H16_pah629 relative to C36H16_pah626), energy = 0.005823653440549436</div>
+<div class="line">C36H16_pah627: C36H16_pah626 -&gt; C36H16_pah627 (C36H16_pah627 relative to C36H16_pah626), energy = 0.005042087916677138</div>
+<div class="line">C36H16_pah623: C36H16_pah626 -&gt; C36H16_pah623 (C36H16_pah623 relative to C36H16_pah626), energy = 0.0044208728243595365</div>
+<div class="line">C36H16_pah625: C36H16_pah626 -&gt; C36H16_pah625 (C36H16_pah625 relative to C36H16_pah626), energy = 0.0027849937185936875</div>
+<div class="line">C36H16_pah622: C36H16_pah626 -&gt; C36H16_pah622 (C36H16_pah622 relative to C36H16_pah626), energy = 0.0012180538719998102</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Minnesota_2019_pTC13.html" class="btn btn-neutral float-left" title="Minnesota 2019 pTC13" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="W4-11-GEOM.html" class="btn btn-neutral float-right" title="W4-11-GEOM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marat Sibaev, Peter Knowles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

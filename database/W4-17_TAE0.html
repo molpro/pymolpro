@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>W4-17 TAE0 &mdash; pymolpro 1.21.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76cd33f7"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WCPT27" href="WCPT27.html" />
+    <link rel="prev" title="W4-17" href="W4-17.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pymolpro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">JSON schema for input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../databases.html">Database library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="A24.html">A24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="A24x8.html">A24x8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AminoAcids.html">AminoAcids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AminoAcids_rel.html">AminoAcids rel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BH28.html">BH28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_atomisations.html">Bak2000 atomisations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_reactions.html">Bak2000 reactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C40.html">C40</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C8H8.html">C8H8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DBOC12.html">DBOC12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DBOC200.html">DBOC200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ACONF.html">GMTKN30 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ADIM6.html">GMTKN30 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_AL2X.html">GMTKN30 AL2X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ALK6.html">GMTKN30 ALK6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BH76.html">GMTKN30 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BHPERI.html">GMTKN30 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BSR36.html">GMTKN30 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_CYCONF.html">GMTKN30 CYCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DARC.html">GMTKN30 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DC9.html">GMTKN30 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G21EA.html">GMTKN30 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G21IP.html">GMTKN30 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G2RC.html">GMTKN30 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_HEAVY28.html">GMTKN30 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_IDISP.html">GMTKN30 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ISO34.html">GMTKN30 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ISOL22.html">GMTKN30 ISOL22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_MB08-165.html">GMTKN30 MB08-165</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_NBPRC.html">GMTKN30 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_O3ADD6.html">GMTKN30 O3ADD6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_PA.html">GMTKN30 PA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_PCONF.html">GMTKN30 PCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_RG6.html">GMTKN30 RG6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_RSE43.html">GMTKN30 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_S22.html">GMTKN30 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_SCONF.html">GMTKN30 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_SIE11.html">GMTKN30 SIE11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_W4-08.html">GMTKN30 W4-08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_WATER27.html">GMTKN30 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ACONF.html">GMTKN55 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ADIM6.html">GMTKN55 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AHB21.html">GMTKN55 AHB21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AL2X6.html">GMTKN55 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALK8.html">GMTKN55 ALK8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALKBDE10.html">GMTKN55 ALKBDE10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_Amino20x4.html">GMTKN55 Amino20x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76.html">GMTKN55 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76RC.html">GMTKN55 BH76RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHDIV10.html">GMTKN55 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHPERI.html">GMTKN55 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHROT27.html">GMTKN55 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BSR36.html">GMTKN55 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BUT14DIOL.html">GMTKN55 BUT14DIOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_C60ISO.html">GMTKN55 C60ISO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CARBHB12.html">GMTKN55 CARBHB12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CDIE20.html">GMTKN55 CDIE20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CHB6.html">GMTKN55 CHB6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DARC.html">GMTKN55 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DC13.html">GMTKN55 DC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DIPCS10.html">GMTKN55 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_FH51.html">GMTKN55 FH51</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21EA.html">GMTKN55 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21IP.html">GMTKN55 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G2RC.html">GMTKN55 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HAL59.html">GMTKN55 HAL59</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVY28.html">GMTKN55 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVYSB11.html">GMTKN55 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ICONF.html">GMTKN55 ICONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IDISP.html">GMTKN55 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IL16.html">GMTKN55 IL16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_INV24.html">GMTKN55 INV24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISO34.html">GMTKN55 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISOL24.html">GMTKN55 ISOL24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MB16-43.html">GMTKN55 MB16-43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MCONF.html">GMTKN55 MCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_NBPRC.html">GMTKN55 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PA26.html">GMTKN55 PA26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PArel.html">GMTKN55 PArel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PCONF21.html">GMTKN55 PCONF21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PNICO23.html">GMTKN55 PNICO23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PX13.html">GMTKN55 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RC21.html">GMTKN55 RC21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RG18.html">GMTKN55 RG18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RSE43.html">GMTKN55 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S22.html">GMTKN55 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S66.html">GMTKN55 S66</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SCONF.html">GMTKN55 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SIE4x4.html">GMTKN55 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_TAUT15.html">GMTKN55 TAUT15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_UPU23.html">GMTKN55 UPU23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_W4-11.html">GMTKN55 W4-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WATER27.html">GMTKN55 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WCPT18.html">GMTKN55 WCPT18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_YBDE18.html">GMTKN55 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Karton_CRBH20.html">Karton CRBH20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_2pIsoE4.html">Minnesota 2019 2pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_3dEE8.html">Minnesota 2019 3dEE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4dAEE5.html">Minnesota 2019 4dAEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4pIsoE4.html">Minnesota 2019 4pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ABDE13.html">Minnesota 2019 ABDE13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AE17.html">Minnesota 2019 AE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AEE15.html">Minnesota 2019 AEE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AL2X6.html">Minnesota 2019 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ASNC2.html">Minnesota 2019 ASNC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHDIV10.html">Minnesota 2019 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHPERI26.html">Minnesota 2019 BHPERI26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHROT27.html">Minnesota 2019 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DC9.html">Minnesota 2019 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGH4.html">Minnesota 2019 DGH4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGL6.html">Minnesota 2019 DGL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DIPCS10.html">Minnesota 2019 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DM79.html">Minnesota 2019 DM79</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EA13.html">Minnesota 2019 EA13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE23.html">Minnesota 2019 EE23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE69.html">Minnesota 2019 EE69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEA11.html">Minnesota 2019 EEA11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEAroT5.html">Minnesota 2019 EEAroT5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EER5.html">Minnesota 2019 EER5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HC7.html">Minnesota 2019 HC7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HEAVYSB11.html">Minnesota 2019 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HTBH38.html">Minnesota 2019 HTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_IP23.html">Minnesota 2019 IP23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ISOL6.html">Minnesota 2019 ISOL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE2.html">Minnesota 2019 LRCTEE2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE9.html">Minnesota 2019 LRCTEE9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGM-BE4.html">Minnesota 2019 MR-MGM-BE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGN-BE17.html">Minnesota 2019 MR-MGN-BE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TM-BE12.html">Minnesota 2019 MR-TM-BE12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TMD-BE3.html">Minnesota 2019 MR-TMD-BE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NCCE30.html">Minnesota 2019 NCCE30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NGD21.html">Minnesota 2019 NGD21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NHTBH38.html">Minnesota 2019 NHTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NaCl.html">Minnesota 2019 NaCl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PA8.html">Minnesota 2019 PA8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PX13.html">Minnesota 2019 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.90.html">Minnesota 2019 S66 0.90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.95.html">Minnesota 2019 S66 0.95</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.00.html">Minnesota 2019 S66 1.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.05.html">Minnesota 2019 S66 1.05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.10.html">Minnesota 2019 S66 1.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.25.html">Minnesota 2019 S66 1.25</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.50.html">Minnesota 2019 S66 1.50</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_2.00.html">Minnesota 2019 S66 2.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_A.html">Minnesota 2019 S66 A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_B.html">Minnesota 2019 S66 B</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SIE4x4.html">Minnesota 2019 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SMAE3.html">Minnesota 2019 SMAE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGM-BE8.html">Minnesota 2019 SR-MGM-BE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGN-BE107.html">Minnesota 2019 SR-MGN-BE107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-TM-BE15.html">Minnesota 2019 SR-TM-BE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMBH22.html">Minnesota 2019 TMBH22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMDBL10.html">Minnesota 2019 TMDBL10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TSG48.html">Minnesota 2019 TSG48</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_WCCR10.html">Minnesota 2019 WCCR10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_YBDE18.html">Minnesota 2019 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pEE5.html">Minnesota 2019 pEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pTC13.html">Minnesota 2019 pTC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAH335.html">PAH335</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-11-GEOM.html">W4-11-GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-17.html">W4-17</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">W4-17 TAE0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#molecules">Molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reactions">Reactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subsets-of-reactions">Subsets of reactions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="WCPT27.html">WCPT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_BDE_99.html">Weizmann W411 BDE 99</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_HAT_707.html">Weizmann W411 HAT 707</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_ISOMERIZATION_20.html">Weizmann W411 ISOMERIZATION 20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_SN_13.html">Weizmann W411 SN 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_140.html">Weizmann W411 TAE 140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_MR_16.html">Weizmann W411 TAE MR 16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAEnonMR_124.html">Weizmann W411 TAEnonMR 124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarks_N2minimal.html">benchmarks N2minimal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+<p class="caption">
+    <span class="caption-text">Indices</span>
+</p>
+<ul>
+    <li class="toctree-l1"><a href= "../genindex.html">Everything</a></li>
+    <li class="toctree-l1"><a href= "../py-modindex.html">Module Index</a></li>
+</ul>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymolpro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../databases.html">Database library</a></li>
+      <li class="breadcrumb-item active">W4-17 TAE0</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/database/W4-17_TAE0.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="w4-17-tae0">
+<h1>W4-17 TAE0<a class="headerlink" href="#w4-17-tae0" title="Link to this heading"></a></h1>
+<p>W4-17 FCI/CBS total atomisation energies (TAE0), W4 theory or higher</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Lab Initio chemical databases: <a class="reference external" href="https://labinitio.org/explore/chem_data_bases/">https://labinitio.org/explore/chem_data_bases/</a></div>
+<div class="line">W4-17 paper: <a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ZFZpoe3GVn-7F1yPQkYMm4g5mSxyHEJv">https://drive.google.com/uc?export=download&amp;id=1ZFZpoe3GVn-7F1yPQkYMm4g5mSxyHEJv</a></div>
+</div>
+</section>
+<section id="molecules">
+<h2>Molecules<a class="headerlink" href="#molecules" title="Link to this heading"></a></h2>
+<p>cyclobutene, energy = -1.5094050992842167
+t-butadiene, energy = -1.5293777061021652
+cyclobutane, energy = -1.7224536754823772
+n-pentane, energy = -2.385348846302015
+benzene, energy = -2.080341499144809
+acetic, energy = -1.2180772268677165
+hclo4, energy = -0.5001693408192899
+c2f6, energy = -1.2270189245343173
+c2cl6, energy = -0.8660427012857383
+n2o4, energy = -0.7259938197430145
+cloocl, energy = -0.2270850176608982
+clo3, energy = -0.25481368267584315
+hoclo, energy = -0.3060639049103622
+pf5, energy = -0.8715852470858519
+sf6, energy = -0.7430676655458949
+oxadiazole, energy = -1.0786386946756088
+dioxetan2one, energy = -1.152642358236759
+dioxetane, energy = -1.1305837271369392
+dithiotane, energy = -1.0303701007309154
+borole, energy = -1.6084075885976339
+c2cl4, energy = -0.729209707444173
+c2f4, energy = -0.9147017275826538
+cis-c2f2cl2, energy = -0.8190155228609667
+trans-c2f2cl2, energy = -0.8195924065813925
+cyclopentadiene, energy = -1.7907219674694592
+formic-anhydride, energy = -1.1618087537060675
+furan, energy = -1.5148281249765072
+oxetane, energy = -1.4233697448688805
+pyrrole, energy = -1.6265746449867355
+silole, energy = -1.6704560541736049
+thiophene, energy = -1.469262279070052
+beta-lactim, energy = -1.5023868785528478
+clf5, energy = -0.27863483696569363
+clf3, energy = -0.19429507448000694
+pf3, energy = -0.5707929757312046
+hoclo2, energy = -0.40994918902870975
+h2no, energy = -0.41157625609654064
+nh2oh, energy = -0.5324780163660137
+cyclopropane, energy = -1.2795233111002593
+cyclopropene, energy = -1.0304848400344255
+ch3ph2, energy = -0.8044659417353087
+nh2f, energy = -0.3805105896711765
+cclh3, energy = -0.5917137754045493
+clno, energy = -0.297664031732559
+tetrahedrane, energy = -1.2044359985615134
+n-butane, energy = -1.9442304067544947
+c2cl2, energy = -0.543732029718631
+c2clh3, energy = -0.8230329920852584
+c2clh5, energy = -1.036019417827351
+c2clh, energy = -0.5822079428290237
+ccl2h2, energy = -0.5595564919944014
+ccl2o, energy = -0.5387169659943764
+ccl3h, energy = -0.5255617861266539
+ccl4, energy = -0.48659026296915503
+cf2cl2, energy = -0.6068752994822612
+fno, energy = -0.3349096845330931
+ch2clf, energy = -0.6083159151818882
+chf3, energy = -0.7043463378141056
+clcof, energy = -0.5955431996591994
+formamide, energy = -0.8594260681166548
+cyclobutadiene, energy = -1.246658468651799
+allyl, energy = -1.1556335481352105
+cyclopropyl, energy = -1.108415137537922
+h2ccn, energy = -0.7853012908462439
+oxirene, energy = -0.6968500366514446
+oxirane, energy = -0.9800967561776699
+dioxirane, energy = -0.6197834711271494
+ketene, energy = -0.8176768976533486
+acetaldehyde, energy = -1.0240164117990427
+formic, energy = -0.7646099697799195
+methanol, energy = -0.7664266754188296
+ethanol, energy = -1.2122207415843873
+glyoxal, energy = -0.9736426703552259
+t-hcoh, energy = -0.4864787108685202
+c-hcoh, energy = -0.47945092852852556
+hcnh, energy = -0.5097771638868245
+hocn, energy = -0.6310342972768914
+honc, energy = -0.5367727722404548
+hnco, energy = -0.6704759328584942
+hcno, energy = -0.5613142343801188
+c-n2h2, energy = -0.4361527774678327
+hnnn, energy = -0.5068608732559424
+hnc, energy = -0.4593874864286314
+t-hono, energy = -0.4776660949183682
+c-hono, energy = -0.4769808463001827
+nh2cl, energy = -0.36738887543364446
+t-hooo, energy = -0.35177158134476744
+c-hooo, energy = -0.35242495793420003
+ch3f, energy = -0.6337434197208803
+ch2f2, energy = -0.6629381980584546
+cf4, energy = -0.74182146922166
+sih3f, energy = -0.5795769068554791
+sif4, energy = -0.9018509255895205
+c2h3f, energy = -0.8695167524197945
+c2h5f, energy = -1.080828303050927
+fccf, energy = -0.5995128608403619
+hccf, energy = -0.6136640416066097
+hcof, energy = -0.6207874400328629
+f2co, energy = -0.6534403334901171
+ch2-sing, energy = -0.27229867764963495
+propane, energy = -1.5027661556950063
+propene, energy = -1.2933031827315369
+propyne, energy = -1.0684619558948365
+allene, energy = -1.0667568023565612
+b2h6, energy = -0.9044166239041218
+bhf2, energy = -0.6354167012304028
+bf3, energy = -0.7351602152123227
+c2h6, energy = -1.0617847658711228
+h2cn, energy = -0.5226215914742071
+nccn, energy = -0.7832551066003135
+ch2nh2, energy = -0.7187461204046254
+ch3nh, energy = -0.70790963062867
+ch3nh2, energy = -0.8640825715174405
+cf2, energy = -0.403595500096837
+n2h, energy = -0.3449350311772896
+t-n2h2, energy = -0.44410484864165894
+n2h4, energy = -0.6450261178993751
+fo2, energy = -0.20740722710891313
+foof, energy = -0.23266580989551527
+alf3, energy = -0.6748583368120056
+si2h6, energy = -0.8017249472625669
+p4, energy = -0.4557062671076818
+so2, energy = -0.4054440777645
+so3, energy = -0.5356413152197301
+ocs, energy = -0.5237371124805554
+cs2, energy = -0.4377145068767205
+s2o, energy = -0.3244253806748562
+s3, energy = -0.26130282772991537
+s4-c2v, energy = -0.36358016799768367
+ccl2, energy = -0.2752309042948935
+alcl3, energy = -0.4870045993429416
+clcn, energy = -0.4442801447997994
+oclo, energy = -0.19492932785218786
+cloo, energy = -0.19422814321962603
+cl2o, energy = -0.1544837233648716
+bn3pi, energy = -0.1650174288676754
+cf, energy = -0.2077259473964412
+ch2c, energy = -0.549951856129742
+ch2ch, energy = -0.6741890242081966
+c2h4, energy = -0.8479712609828948
+ch2nh, energy = -0.6604043717726061
+hco, energy = -0.431324165111782
+h2co, energy = -0.5697284499708607
+co2, energy = -0.6086601330924185
+hno, energy = -0.3135888908989007
+no2, energy = -0.3531580145955147
+n2o, energy = -0.41980242671764106
+o3, energy = -0.2268172926193746
+hoo, energy = -0.2644900306051964
+hooh, energy = -0.4017150504004212
+f2o, energy = -0.14249984055381493
+hocl, energy = -0.249765153321398
+ssh, energy = -0.25127907468715655
+b2, energy = -0.10493865466862795
+bh, energy = -0.1298625811533256
+bh3, energy = -0.42200159670158494
+bn, energy = -0.16353537953066974
+bf, energy = -0.28676857870341077
+nh, energy = -0.124842736624758
+nh2, energy = -0.27183653323271917
+hcn, energy = -0.4831958919069807
+hof, energy = -0.23795656666848178
+alh, energy = -0.11289072584245413
+alh3, energy = -0.320170464836356
+alf, energy = -0.2577809685527298
+alcl, energy = -0.1922361414225754
+sih, energy = -0.11258794156930244
+sih4, energy = -0.48470981327273926
+sio, energy = -0.303373905683625
+sif, energy = -0.22409223416100932
+cs, energy = -0.2702588678094551
+h2, energy = -0.16458715647951247
+oh, energy = -0.16216488229429887
+hf, energy = -0.21556646646963257
+h2o, energy = -0.34950866730331787
+ch, energy = -0.12747217899686483
+ch2-trip, energy = -0.28662515457402316
+ch3, energy = -0.46067830359312023
+ch4, energy = -0.6254248202163968
+cch, energy = -0.4096193135311182
+c2h2, energy = -0.6194328788108684
+nh3, energy = -0.44067860555073174
+c2, energy = -0.22959015912086908
+n2, energy = -0.35856032346911604
+co, energy = -0.40820100825161804
+cn, energy = -0.28394790415878707
+no, energy = -0.23872149535854925
+o2, energy = -0.1879812255840752
+of, energy = -0.08154458556406519
+f2, energy = -0.05888357312081706
+ph3, energy = -0.3623212228619477
+hs, energy = -0.13335256830175837
+h2s, energy = -0.2766173375456407
+hcl, energy = -0.1628660669268607
+so, energy = -0.1971284978361318
+clo, energy = -0.10098652310327948
+clf, energy = -0.09606229466097028
+p2, energy = -0.18520835908258074
+s2, energy = -0.16218081830867528
+cl2, energy = -0.09094683404614423
+Al, energy = 0.0
+B, energy = 0.0
+C, energy = 0.0
+Cl, energy = 0.0
+F, energy = 0.0
+H, energy = 0.0
+N, energy = 0.0
+O, energy = 0.0
+P, energy = 0.0
+S, energy = 0.0
+Si, energy = 0.0</p>
+</section>
+<section id="reactions">
+<h2>Reactions<a class="headerlink" href="#reactions" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">cyclobutene: cyclobutene -&gt; 4C + 6H, energy = 1.5094050992842167</div>
+<div class="line">t-butadiene: t-butadiene -&gt; 4C + 6H, energy = 1.5293777061021652</div>
+<div class="line">cyclobutane: cyclobutane -&gt; 4C + 8H, energy = 1.7224536754823772</div>
+<div class="line">n-pentane: n-pentane -&gt; 5C + 12H, energy = 2.385348846302015</div>
+<div class="line">benzene: benzene -&gt; 6C + 6H, energy = 2.080341499144809</div>
+<div class="line">acetic: acetic -&gt; 2C + 2O + 4H, energy = 1.2180772268677165</div>
+<div class="line">hclo4: hclo4 -&gt; H + 4O + Cl, energy = 0.5001693408192899</div>
+<div class="line">c2f6: c2f6 -&gt; 2C + 6F, energy = 1.2270189245343173</div>
+<div class="line">c2cl6: c2cl6 -&gt; 2C + 6Cl, energy = 0.8660427012857383</div>
+<div class="line">n2o4: n2o4 -&gt; 2N + 4O, energy = 0.7259938197430145</div>
+<div class="line">cloocl: cloocl -&gt; 2Cl + 2O, energy = 0.2270850176608982</div>
+<div class="line">clo3: clo3 -&gt; Cl + 3O, energy = 0.25481368267584315</div>
+<div class="line">hoclo: hoclo -&gt; H + 2O + Cl, energy = 0.3060639049103622</div>
+<div class="line">pf5: pf5 -&gt; P + 5F, energy = 0.8715852470858519</div>
+<div class="line">sf6: sf6 -&gt; S + 6F, energy = 0.7430676655458949</div>
+<div class="line">oxadiazole: oxadiazole -&gt; 2C + O + 2H + 2N, energy = 1.0786386946756088</div>
+<div class="line">dioxetan2one: dioxetan2one -&gt; 2C + 3O + 2H, energy = 1.152642358236759</div>
+<div class="line">dioxetane: dioxetane -&gt; 2C + 4H + 2O, energy = 1.1305837271369392</div>
+<div class="line">dithiotane: dithiotane -&gt; 2C + 4H + 2S, energy = 1.0303701007309154</div>
+<div class="line">borole: borole -&gt; 4C + B + 5H, energy = 1.6084075885976339</div>
+<div class="line">c2cl4: c2cl4 -&gt; 2C + 4Cl, energy = 0.729209707444173</div>
+<div class="line">c2f4: c2f4 -&gt; 2C + 4F, energy = 0.9147017275826538</div>
+<div class="line">cis-c2f2cl2: cis-c2f2cl2 -&gt; 2C + 2Cl + 2F, energy = 0.8190155228609667</div>
+<div class="line">trans-c2f2cl2: trans-c2f2cl2 -&gt; 2C + 2Cl + 2F, energy = 0.8195924065813925</div>
+<div class="line">cyclopentadiene: cyclopentadiene -&gt; 5C + 6H, energy = 1.7907219674694592</div>
+<div class="line">formic-anhydride: formic-anhydride -&gt; 3O + 2C + 2H, energy = 1.1618087537060675</div>
+<div class="line">furan: furan -&gt; 4C + O + 4H, energy = 1.5148281249765072</div>
+<div class="line">oxetane: oxetane -&gt; 3C + 6H + O, energy = 1.4233697448688805</div>
+<div class="line">pyrrole: pyrrole -&gt; 4C + N + 5H, energy = 1.6265746449867355</div>
+<div class="line">silole: silole -&gt; 4C + 6H + Si, energy = 1.6704560541736049</div>
+<div class="line">thiophene: thiophene -&gt; 4C + S + 4H, energy = 1.469262279070052</div>
+<div class="line">beta-lactim: beta-lactim -&gt; 3C + 5H + N + O, energy = 1.5023868785528478</div>
+<div class="line">clf5: clf5 -&gt; Cl + 5F, energy = 0.27863483696569363</div>
+<div class="line">clf3: clf3 -&gt; Cl + 3F, energy = 0.19429507448000694</div>
+<div class="line">pf3: pf3 -&gt; P + 3F, energy = 0.5707929757312046</div>
+<div class="line">hoclo2: hoclo2 -&gt; H + 3O + Cl, energy = 0.40994918902870975</div>
+<div class="line">h2no: h2no -&gt; O + N + 2H, energy = 0.41157625609654064</div>
+<div class="line">nh2oh: nh2oh -&gt; N + 3H + O, energy = 0.5324780163660137</div>
+<div class="line">cyclopropane: cyclopropane -&gt; 3C + 6H, energy = 1.2795233111002593</div>
+<div class="line">cyclopropene: cyclopropene -&gt; 3C + 4H, energy = 1.0304848400344255</div>
+<div class="line">ch3ph2: ch3ph2 -&gt; C + P + 5H, energy = 0.8044659417353087</div>
+<div class="line">nh2f: nh2f -&gt; N + 2H + F, energy = 0.3805105896711765</div>
+<div class="line">cclh3: cclh3 -&gt; Cl + C + 3H, energy = 0.5917137754045493</div>
+<div class="line">clno: clno -&gt; Cl + N + O, energy = 0.297664031732559</div>
+<div class="line">tetrahedrane: tetrahedrane -&gt; 4C + 4H, energy = 1.2044359985615134</div>
+<div class="line">n-butane: n-butane -&gt; 4C + 10H, energy = 1.9442304067544947</div>
+<div class="line">c2cl2: c2cl2 -&gt; 2Cl + 2C, energy = 0.543732029718631</div>
+<div class="line">c2clh3: c2clh3 -&gt; 2C + 3H + Cl, energy = 0.8230329920852584</div>
+<div class="line">c2clh5: c2clh5 -&gt; Cl + 2C + 5H, energy = 1.036019417827351</div>
+<div class="line">c2clh: c2clh -&gt; Cl + 2C + H, energy = 0.5822079428290237</div>
+<div class="line">ccl2h2: ccl2h2 -&gt; C + 2H + 2Cl, energy = 0.5595564919944014</div>
+<div class="line">ccl2o: ccl2o -&gt; C + O + 2Cl, energy = 0.5387169659943764</div>
+<div class="line">ccl3h: ccl3h -&gt; H + C + 3Cl, energy = 0.5255617861266539</div>
+<div class="line">ccl4: ccl4 -&gt; 4Cl + C, energy = 0.48659026296915503</div>
+<div class="line">cf2cl2: cf2cl2 -&gt; C + 2Cl + 2F, energy = 0.6068752994822612</div>
+<div class="line">fno: fno -&gt; F + N + O, energy = 0.3349096845330931</div>
+<div class="line">ch2clf: ch2clf -&gt; C + F + 2H + Cl, energy = 0.6083159151818882</div>
+<div class="line">chf3: chf3 -&gt; H + C + 3F, energy = 0.7043463378141056</div>
+<div class="line">clcof: clcof -&gt; C + O + F + Cl, energy = 0.5955431996591994</div>
+<div class="line">formamide: formamide -&gt; C + O + 3H + N, energy = 0.8594260681166548</div>
+<div class="line">cyclobutadiene: cyclobutadiene -&gt; 4C + 4H, energy = 1.246658468651799</div>
+<div class="line">allyl: allyl -&gt; 3C + 5H, energy = 1.1556335481352105</div>
+<div class="line">cyclopropyl: cyclopropyl -&gt; 3C + 5H, energy = 1.108415137537922</div>
+<div class="line">h2ccn: h2ccn -&gt; 2C + 2H + N, energy = 0.7853012908462439</div>
+<div class="line">oxirene: oxirene -&gt; 2C + 2H + O, energy = 0.6968500366514446</div>
+<div class="line">oxirane: oxirane -&gt; O + 2C + 4H, energy = 0.9800967561776699</div>
+<div class="line">dioxirane: dioxirane -&gt; C + 2H + 2O, energy = 0.6197834711271494</div>
+<div class="line">ketene: ketene -&gt; 2C + 2H + O, energy = 0.8176768976533486</div>
+<div class="line">acetaldehyde: acetaldehyde -&gt; 2C + O + 4H, energy = 1.0240164117990427</div>
+<div class="line">formic: formic -&gt; C + 2H + 2O, energy = 0.7646099697799195</div>
+<div class="line">methanol: methanol -&gt; C + 4H + O, energy = 0.7664266754188296</div>
+<div class="line">ethanol: ethanol -&gt; 6H + O + 2C, energy = 1.2122207415843873</div>
+<div class="line">glyoxal: glyoxal -&gt; 2C + 2H + 2O, energy = 0.9736426703552259</div>
+<div class="line">t-hcoh: t-hcoh -&gt; C + 2H + O, energy = 0.4864787108685202</div>
+<div class="line">c-hcoh: c-hcoh -&gt; C + 2H + O, energy = 0.47945092852852556</div>
+<div class="line">hcnh: hcnh -&gt; C + 2H + N, energy = 0.5097771638868245</div>
+<div class="line">hocn: hocn -&gt; C + N + O + H, energy = 0.6310342972768914</div>
+<div class="line">honc: honc -&gt; H + O + N + C, energy = 0.5367727722404548</div>
+<div class="line">hnco: hnco -&gt; C + O + N + H, energy = 0.6704759328584942</div>
+<div class="line">hcno: hcno -&gt; C + H + N + O, energy = 0.5613142343801188</div>
+<div class="line">c-n2h2: c-n2h2 -&gt; 2H + 2N, energy = 0.4361527774678327</div>
+<div class="line">hnnn: hnnn -&gt; H + 3N, energy = 0.5068608732559424</div>
+<div class="line">hnc: hnc -&gt; H + N + C, energy = 0.4593874864286314</div>
+<div class="line">t-hono: t-hono -&gt; 2O + N + H, energy = 0.4776660949183682</div>
+<div class="line">c-hono: c-hono -&gt; 2O + N + H, energy = 0.4769808463001827</div>
+<div class="line">nh2cl: nh2cl -&gt; N + 2H + Cl, energy = 0.36738887543364446</div>
+<div class="line">t-hooo: t-hooo -&gt; 3O + H, energy = 0.35177158134476744</div>
+<div class="line">c-hooo: c-hooo -&gt; 3O + H, energy = 0.35242495793420003</div>
+<div class="line">ch3f: ch3f -&gt; F + C + 3H, energy = 0.6337434197208803</div>
+<div class="line">ch2f2: ch2f2 -&gt; C + 2H + 2F, energy = 0.6629381980584546</div>
+<div class="line">cf4: cf4 -&gt; 4F + C, energy = 0.74182146922166</div>
+<div class="line">sih3f: sih3f -&gt; F + Si + 3H, energy = 0.5795769068554791</div>
+<div class="line">sif4: sif4 -&gt; 4F + Si, energy = 0.9018509255895205</div>
+<div class="line">c2h3f: c2h3f -&gt; 2C + 3H + F, energy = 0.8695167524197945</div>
+<div class="line">c2h5f: c2h5f -&gt; F + 2C + 5H, energy = 1.080828303050927</div>
+<div class="line">fccf: fccf -&gt; 2F + 2C, energy = 0.5995128608403619</div>
+<div class="line">hccf: hccf -&gt; 2C + H + F, energy = 0.6136640416066097</div>
+<div class="line">hcof: hcof -&gt; C + O + H + F, energy = 0.6207874400328629</div>
+<div class="line">f2co: f2co -&gt; O + C + 2F, energy = 0.6534403334901171</div>
+<div class="line">ch2-sing: ch2-sing -&gt; C + 2H, energy = 0.27229867764963495</div>
+<div class="line">propane: propane -&gt; 3C + 8H, energy = 1.5027661556950063</div>
+<div class="line">propene: propene -&gt; 3C + 6H, energy = 1.2933031827315369</div>
+<div class="line">propyne: propyne -&gt; 4H + 3C, energy = 1.0684619558948365</div>
+<div class="line">allene: allene -&gt; 3C + 4H, energy = 1.0667568023565612</div>
+<div class="line">b2h6: b2h6 -&gt; 2B + 6H, energy = 0.9044166239041218</div>
+<div class="line">bhf2: bhf2 -&gt; B + H + 2F, energy = 0.6354167012304028</div>
+<div class="line">bf3: bf3 -&gt; B + 3F, energy = 0.7351602152123227</div>
+<div class="line">c2h6: c2h6 -&gt; 2C + 6H, energy = 1.0617847658711228</div>
+<div class="line">h2cn: h2cn -&gt; C + 2H + N, energy = 0.5226215914742071</div>
+<div class="line">nccn: nccn -&gt; 2N + 2C, energy = 0.7832551066003135</div>
+<div class="line">ch2nh2: ch2nh2 -&gt; C + 4H + N, energy = 0.7187461204046254</div>
+<div class="line">ch3nh: ch3nh -&gt; C + 4H + N, energy = 0.70790963062867</div>
+<div class="line">ch3nh2: ch3nh2 -&gt; C + N + 5H, energy = 0.8640825715174405</div>
+<div class="line">cf2: cf2 -&gt; C + 2F, energy = 0.403595500096837</div>
+<div class="line">n2h: n2h -&gt; H + 2N, energy = 0.3449350311772896</div>
+<div class="line">t-n2h2: t-n2h2 -&gt; 2H + 2N, energy = 0.44410484864165894</div>
+<div class="line">n2h4: n2h4 -&gt; 2N + 4H, energy = 0.6450261178993751</div>
+<div class="line">fo2: fo2 -&gt; F + 2O, energy = 0.20740722710891313</div>
+<div class="line">foof: foof -&gt; 2F + 2O, energy = 0.23266580989551527</div>
+<div class="line">alf3: alf3 -&gt; Al + 3F, energy = 0.6748583368120056</div>
+<div class="line">si2h6: si2h6 -&gt; 2Si + 6H, energy = 0.8017249472625669</div>
+<div class="line">p4: p4 -&gt; 4P, energy = 0.4557062671076818</div>
+<div class="line">so2: so2 -&gt; S + 2O, energy = 0.4054440777645</div>
+<div class="line">so3: so3 -&gt; S + 3O, energy = 0.5356413152197301</div>
+<div class="line">ocs: ocs -&gt; O + C + S, energy = 0.5237371124805554</div>
+<div class="line">cs2: cs2 -&gt; C + 2S, energy = 0.4377145068767205</div>
+<div class="line">s2o: s2o -&gt; 2S + O, energy = 0.3244253806748562</div>
+<div class="line">s3: s3 -&gt; 3S, energy = 0.26130282772991537</div>
+<div class="line">s4-c2v: s4-c2v -&gt; 4S, energy = 0.36358016799768367</div>
+<div class="line">ccl2: ccl2 -&gt; C + 2Cl, energy = 0.2752309042948935</div>
+<div class="line">alcl3: alcl3 -&gt; Al + 3Cl, energy = 0.4870045993429416</div>
+<div class="line">clcn: clcn -&gt; Cl + C + N, energy = 0.4442801447997994</div>
+<div class="line">oclo: oclo -&gt; Cl + 2O, energy = 0.19492932785218786</div>
+<div class="line">cloo: cloo -&gt; Cl + 2O, energy = 0.19422814321962603</div>
+<div class="line">cl2o: cl2o -&gt; O + 2Cl, energy = 0.1544837233648716</div>
+<div class="line">bn3pi: bn3pi -&gt; B + N, energy = 0.1650174288676754</div>
+<div class="line">cf: cf -&gt; C + F, energy = 0.2077259473964412</div>
+<div class="line">ch2c: ch2c -&gt; 2C + 2H, energy = 0.549951856129742</div>
+<div class="line">ch2ch: ch2ch -&gt; 2C + 3H, energy = 0.6741890242081966</div>
+<div class="line">c2h4: c2h4 -&gt; 2C + 4H, energy = 0.8479712609828948</div>
+<div class="line">ch2nh: ch2nh -&gt; C + N + 3H, energy = 0.6604043717726061</div>
+<div class="line">hco: hco -&gt; O + C + H, energy = 0.431324165111782</div>
+<div class="line">h2co: h2co -&gt; O + C + 2H, energy = 0.5697284499708607</div>
+<div class="line">co2: co2 -&gt; C + 2O, energy = 0.6086601330924185</div>
+<div class="line">hno: hno -&gt; N + H + O, energy = 0.3135888908989007</div>
+<div class="line">no2: no2 -&gt; N + 2O, energy = 0.3531580145955147</div>
+<div class="line">n2o: n2o -&gt; 2N + O, energy = 0.41980242671764106</div>
+<div class="line">o3: o3 -&gt; 3O, energy = 0.2268172926193746</div>
+<div class="line">hoo: hoo -&gt; 2O + H, energy = 0.2644900306051964</div>
+<div class="line">hooh: hooh -&gt; 2H + 2O, energy = 0.4017150504004212</div>
+<div class="line">f2o: f2o -&gt; 2F + O, energy = 0.14249984055381493</div>
+<div class="line">hocl: hocl -&gt; O + H + Cl, energy = 0.249765153321398</div>
+<div class="line">ssh: ssh -&gt; 2S + H, energy = 0.25127907468715655</div>
+<div class="line">b2: b2 -&gt; 2B, energy = 0.10493865466862795</div>
+<div class="line">bh: bh -&gt; B + H, energy = 0.1298625811533256</div>
+<div class="line">bh3: bh3 -&gt; B + 3H, energy = 0.42200159670158494</div>
+<div class="line">bn: bn -&gt; B + N, energy = 0.16353537953066974</div>
+<div class="line">bf: bf -&gt; F + B, energy = 0.28676857870341077</div>
+<div class="line">nh: nh -&gt; N + H, energy = 0.124842736624758</div>
+<div class="line">nh2: nh2 -&gt; N + 2H, energy = 0.27183653323271917</div>
+<div class="line">hcn: hcn -&gt; H + C + N, energy = 0.4831958919069807</div>
+<div class="line">hof: hof -&gt; H + O + F, energy = 0.23795656666848178</div>
+<div class="line">alh: alh -&gt; Al + H, energy = 0.11289072584245413</div>
+<div class="line">alh3: alh3 -&gt; Al + 3H, energy = 0.320170464836356</div>
+<div class="line">alf: alf -&gt; Al + F, energy = 0.2577809685527298</div>
+<div class="line">alcl: alcl -&gt; Al + Cl, energy = 0.1922361414225754</div>
+<div class="line">sih: sih -&gt; H + Si, energy = 0.11258794156930244</div>
+<div class="line">sih4: sih4 -&gt; 4H + Si, energy = 0.48470981327273926</div>
+<div class="line">sio: sio -&gt; Si + O, energy = 0.303373905683625</div>
+<div class="line">sif: sif -&gt; F + Si, energy = 0.22409223416100932</div>
+<div class="line">cs: cs -&gt; C + S, energy = 0.2702588678094551</div>
+<div class="line">h2: h2 -&gt; 2H, energy = 0.16458715647951247</div>
+<div class="line">oh: oh -&gt; O + H, energy = 0.16216488229429887</div>
+<div class="line">hf: hf -&gt; F + H, energy = 0.21556646646963257</div>
+<div class="line">h2o: h2o -&gt; O + 2H, energy = 0.34950866730331787</div>
+<div class="line">ch: ch -&gt; C + H, energy = 0.12747217899686483</div>
+<div class="line">ch2-trip: ch2-trip -&gt; C + 2H, energy = 0.28662515457402316</div>
+<div class="line">ch3: ch3 -&gt; C + 3H, energy = 0.46067830359312023</div>
+<div class="line">ch4: ch4 -&gt; 4H + C, energy = 0.6254248202163968</div>
+<div class="line">cch: cch -&gt; 2C + H, energy = 0.4096193135311182</div>
+<div class="line">c2h2: c2h2 -&gt; 2H + 2C, energy = 0.6194328788108684</div>
+<div class="line">nh3: nh3 -&gt; N + 3H, energy = 0.44067860555073174</div>
+<div class="line">c2: c2 -&gt; 2C, energy = 0.22959015912086908</div>
+<div class="line">n2: n2 -&gt; 2N, energy = 0.35856032346911604</div>
+<div class="line">co: co -&gt; C + O, energy = 0.40820100825161804</div>
+<div class="line">cn: cn -&gt; C + N, energy = 0.28394790415878707</div>
+<div class="line">no: no -&gt; N + O, energy = 0.23872149535854925</div>
+<div class="line">o2: o2 -&gt; 2O, energy = 0.1879812255840752</div>
+<div class="line">of: of -&gt; O + F, energy = 0.08154458556406519</div>
+<div class="line">f2: f2 -&gt; 2F, energy = 0.05888357312081706</div>
+<div class="line">ph3: ph3 -&gt; P + 3H, energy = 0.3623212228619477</div>
+<div class="line">hs: hs -&gt; S + H, energy = 0.13335256830175837</div>
+<div class="line">h2s: h2s -&gt; S + 2H, energy = 0.2766173375456407</div>
+<div class="line">hcl: hcl -&gt; Cl + H, energy = 0.1628660669268607</div>
+<div class="line">so: so -&gt; S + O, energy = 0.1971284978361318</div>
+<div class="line">clo: clo -&gt; Cl + O, energy = 0.10098652310327948</div>
+<div class="line">clf: clf -&gt; Cl + F, energy = 0.09606229466097028</div>
+<div class="line">p2: p2 -&gt; 2P, energy = 0.18520835908258074</div>
+<div class="line">s2: s2 -&gt; 2S, energy = 0.16218081830867528</div>
+<div class="line">cl2: cl2 -&gt; 2Cl, energy = 0.09094683404614423</div>
+</div>
+</section>
+<section id="subsets-of-reactions">
+<h2>Subsets of reactions<a class="headerlink" href="#subsets-of-reactions" title="Link to this heading"></a></h2>
+<p>MR: [‘b2’, ‘bn’, ‘c2’, ‘cl2o’, ‘clf3’, ‘clf5’, ‘clo3’, ‘cloo’, ‘cloocl’, ‘f2o’, ‘fo2’, ‘foof’, ‘o3’, ‘oclo’, ‘of’, ‘s3’, ‘s4-c2v’]
+nonMR: [‘acetaldehyde’, ‘acetic’, ‘alcl’, ‘alcl3’, ‘alf’, ‘alf3’, ‘alh’, ‘alh3’, ‘allene’, ‘allyl’, ‘b2h6’, ‘benzene’, ‘beta-lactim’, ‘bf’, ‘bf3’, ‘bh’, ‘bh3’, ‘bhf2’, ‘bn3pi’, ‘borole’, ‘c-hcoh’, ‘c-hono’, ‘c-hooo’, ‘c-n2h2’, ‘c2cl2’, ‘c2cl4’, ‘c2cl6’, ‘c2clh’, ‘c2clh3’, ‘c2clh5’, ‘c2f4’, ‘c2f6’, ‘c2h2’, ‘c2h3f’, ‘c2h4’, ‘c2h5f’, ‘c2h6’, ‘cch’, ‘ccl2’, ‘ccl2h2’, ‘ccl2o’, ‘ccl3h’, ‘ccl4’, ‘cclh3’, ‘cf’, ‘cf2’, ‘cf2cl2’, ‘cf4’, ‘ch’, ‘ch2-sing’, ‘ch2-trip’, ‘ch2c’, ‘ch2ch’, ‘ch2clf’, ‘ch2f2’, ‘ch2nh’, ‘ch2nh2’, ‘ch3’, ‘ch3f’, ‘ch3nh’, ‘ch3nh2’, ‘ch3ph2’, ‘ch4’, ‘chf3’, ‘cis-c2f2cl2’, ‘cl2’, ‘clcn’, ‘clcof’, ‘clf’, ‘clno’, ‘clo’, ‘cn’, ‘co’, ‘co2’, ‘cs’, ‘cs2’, ‘cyclobutadiene’, ‘cyclobutane’, ‘cyclobutene’, ‘cyclopentadiene’, ‘cyclopropane’, ‘cyclopropene’, ‘cyclopropyl’, ‘dioxetan2one’, ‘dioxetane’, ‘dioxirane’, ‘dithiotane’, ‘ethanol’, ‘f2’, ‘f2co’, ‘fccf’, ‘fno’, ‘formamide’, ‘formic’, ‘formic-anhydride’, ‘furan’, ‘glyoxal’, ‘h2’, ‘h2ccn’, ‘h2cn’, ‘h2co’, ‘h2no’, ‘h2o’, ‘h2s’, ‘hccf’, ‘hcl’, ‘hclo4’, ‘hcn’, ‘hcnh’, ‘hcno’, ‘hco’, ‘hcof’, ‘hf’, ‘hnc’, ‘hnco’, ‘hnnn’, ‘hno’, ‘hocl’, ‘hoclo’, ‘hoclo2’, ‘hocn’, ‘hof’, ‘honc’, ‘hoo’, ‘hooh’, ‘hs’, ‘ketene’, ‘methanol’, ‘n-butane’, ‘n-pentane’, ‘n2’, ‘n2h’, ‘n2h4’, ‘n2o’, ‘n2o4’, ‘nccn’, ‘nh’, ‘nh2’, ‘nh2cl’, ‘nh2f’, ‘nh2oh’, ‘nh3’, ‘no’, ‘no2’, ‘o2’, ‘ocs’, ‘oh’, ‘oxadiazole’, ‘oxetane’, ‘oxirane’, ‘oxirene’, ‘p2’, ‘p4’, ‘pf3’, ‘pf5’, ‘ph3’, ‘propane’, ‘propene’, ‘propyne’, ‘pyrrole’, ‘s2’, ‘s2o’, ‘sf6’, ‘si2h6’, ‘sif’, ‘sif4’, ‘sih’, ‘sih3f’, ‘sih4’, ‘silole’, ‘sio’, ‘so’, ‘so2’, ‘so3’, ‘ssh’, ‘t-butadiene’, ‘t-hcoh’, ‘t-hono’, ‘t-hooo’, ‘t-n2h2’, ‘tetrahedrane’, ‘thiophene’, ‘trans-c2f2cl2’]</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="W4-17.html" class="btn btn-neutral float-left" title="W4-17" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="WCPT27.html" class="btn btn-neutral float-right" title="WCPT27" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marat Sibaev, Peter Knowles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

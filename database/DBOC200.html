@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DBOC200 &mdash; pymolpro 1.21.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76cd33f7"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GMTKN30 ACONF" href="GMTKN30_ACONF.html" />
+    <link rel="prev" title="DBOC12" href="DBOC12.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pymolpro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">JSON schema for input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">pymolpro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../databases.html">Database library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="A24.html">A24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="A24x8.html">A24x8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AminoAcids.html">AminoAcids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AminoAcids_rel.html">AminoAcids rel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BH28.html">BH28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_atomisations.html">Bak2000 atomisations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bak2000_reactions.html">Bak2000 reactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C40.html">C40</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C8H8.html">C8H8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DBOC12.html">DBOC12</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DBOC200</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#molecules">Molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reactions">Reactions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ACONF.html">GMTKN30 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ADIM6.html">GMTKN30 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_AL2X.html">GMTKN30 AL2X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ALK6.html">GMTKN30 ALK6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BH76.html">GMTKN30 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BHPERI.html">GMTKN30 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_BSR36.html">GMTKN30 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_CYCONF.html">GMTKN30 CYCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DARC.html">GMTKN30 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_DC9.html">GMTKN30 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G21EA.html">GMTKN30 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G21IP.html">GMTKN30 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_G2RC.html">GMTKN30 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_HEAVY28.html">GMTKN30 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_IDISP.html">GMTKN30 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ISO34.html">GMTKN30 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_ISOL22.html">GMTKN30 ISOL22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_MB08-165.html">GMTKN30 MB08-165</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_NBPRC.html">GMTKN30 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_O3ADD6.html">GMTKN30 O3ADD6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_PA.html">GMTKN30 PA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_PCONF.html">GMTKN30 PCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_RG6.html">GMTKN30 RG6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_RSE43.html">GMTKN30 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_S22.html">GMTKN30 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_SCONF.html">GMTKN30 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_SIE11.html">GMTKN30 SIE11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_W4-08.html">GMTKN30 W4-08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN30_WATER27.html">GMTKN30 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ACONF.html">GMTKN55 ACONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ADIM6.html">GMTKN55 ADIM6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AHB21.html">GMTKN55 AHB21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_AL2X6.html">GMTKN55 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALK8.html">GMTKN55 ALK8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ALKBDE10.html">GMTKN55 ALKBDE10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_Amino20x4.html">GMTKN55 Amino20x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76.html">GMTKN55 BH76</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BH76RC.html">GMTKN55 BH76RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHDIV10.html">GMTKN55 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHPERI.html">GMTKN55 BHPERI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BHROT27.html">GMTKN55 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BSR36.html">GMTKN55 BSR36</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_BUT14DIOL.html">GMTKN55 BUT14DIOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_C60ISO.html">GMTKN55 C60ISO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CARBHB12.html">GMTKN55 CARBHB12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CDIE20.html">GMTKN55 CDIE20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_CHB6.html">GMTKN55 CHB6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DARC.html">GMTKN55 DARC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DC13.html">GMTKN55 DC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_DIPCS10.html">GMTKN55 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_FH51.html">GMTKN55 FH51</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21EA.html">GMTKN55 G21EA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G21IP.html">GMTKN55 G21IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_G2RC.html">GMTKN55 G2RC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HAL59.html">GMTKN55 HAL59</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVY28.html">GMTKN55 HEAVY28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_HEAVYSB11.html">GMTKN55 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ICONF.html">GMTKN55 ICONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IDISP.html">GMTKN55 IDISP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_IL16.html">GMTKN55 IL16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_INV24.html">GMTKN55 INV24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISO34.html">GMTKN55 ISO34</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_ISOL24.html">GMTKN55 ISOL24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MB16-43.html">GMTKN55 MB16-43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_MCONF.html">GMTKN55 MCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_NBPRC.html">GMTKN55 NBPRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PA26.html">GMTKN55 PA26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PArel.html">GMTKN55 PArel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PCONF21.html">GMTKN55 PCONF21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PNICO23.html">GMTKN55 PNICO23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_PX13.html">GMTKN55 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RC21.html">GMTKN55 RC21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RG18.html">GMTKN55 RG18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_RSE43.html">GMTKN55 RSE43</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S22.html">GMTKN55 S22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_S66.html">GMTKN55 S66</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SCONF.html">GMTKN55 SCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_SIE4x4.html">GMTKN55 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_TAUT15.html">GMTKN55 TAUT15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_UPU23.html">GMTKN55 UPU23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_W4-11.html">GMTKN55 W4-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WATER27.html">GMTKN55 WATER27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_WCPT18.html">GMTKN55 WCPT18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMTKN55_YBDE18.html">GMTKN55 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Karton_CRBH20.html">Karton CRBH20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_2pIsoE4.html">Minnesota 2019 2pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_3dEE8.html">Minnesota 2019 3dEE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4dAEE5.html">Minnesota 2019 4dAEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_4pIsoE4.html">Minnesota 2019 4pIsoE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ABDE13.html">Minnesota 2019 ABDE13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AE17.html">Minnesota 2019 AE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AEE15.html">Minnesota 2019 AEE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_AL2X6.html">Minnesota 2019 AL2X6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ASNC2.html">Minnesota 2019 ASNC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHDIV10.html">Minnesota 2019 BHDIV10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHPERI26.html">Minnesota 2019 BHPERI26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_BHROT27.html">Minnesota 2019 BHROT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DC9.html">Minnesota 2019 DC9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGH4.html">Minnesota 2019 DGH4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DGL6.html">Minnesota 2019 DGL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DIPCS10.html">Minnesota 2019 DIPCS10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_DM79.html">Minnesota 2019 DM79</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EA13.html">Minnesota 2019 EA13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE23.html">Minnesota 2019 EE23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EE69.html">Minnesota 2019 EE69</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEA11.html">Minnesota 2019 EEA11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EEAroT5.html">Minnesota 2019 EEAroT5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_EER5.html">Minnesota 2019 EER5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HC7.html">Minnesota 2019 HC7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HEAVYSB11.html">Minnesota 2019 HEAVYSB11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_HTBH38.html">Minnesota 2019 HTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_IP23.html">Minnesota 2019 IP23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_ISOL6.html">Minnesota 2019 ISOL6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE2.html">Minnesota 2019 LRCTEE2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_LRCTEE9.html">Minnesota 2019 LRCTEE9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGM-BE4.html">Minnesota 2019 MR-MGM-BE4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-MGN-BE17.html">Minnesota 2019 MR-MGN-BE17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TM-BE12.html">Minnesota 2019 MR-TM-BE12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_MR-TMD-BE3.html">Minnesota 2019 MR-TMD-BE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NCCE30.html">Minnesota 2019 NCCE30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NGD21.html">Minnesota 2019 NGD21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NHTBH38.html">Minnesota 2019 NHTBH38</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_NaCl.html">Minnesota 2019 NaCl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PA8.html">Minnesota 2019 PA8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_PX13.html">Minnesota 2019 PX13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.90.html">Minnesota 2019 S66 0.90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_0.95.html">Minnesota 2019 S66 0.95</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.00.html">Minnesota 2019 S66 1.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.05.html">Minnesota 2019 S66 1.05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.10.html">Minnesota 2019 S66 1.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.25.html">Minnesota 2019 S66 1.25</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_1.50.html">Minnesota 2019 S66 1.50</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_2.00.html">Minnesota 2019 S66 2.00</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_A.html">Minnesota 2019 S66 A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_S66_B.html">Minnesota 2019 S66 B</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SIE4x4.html">Minnesota 2019 SIE4x4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SMAE3.html">Minnesota 2019 SMAE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGM-BE8.html">Minnesota 2019 SR-MGM-BE8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-MGN-BE107.html">Minnesota 2019 SR-MGN-BE107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_SR-TM-BE15.html">Minnesota 2019 SR-TM-BE15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMBH22.html">Minnesota 2019 TMBH22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TMDBL10.html">Minnesota 2019 TMDBL10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_TSG48.html">Minnesota 2019 TSG48</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_WCCR10.html">Minnesota 2019 WCCR10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_YBDE18.html">Minnesota 2019 YBDE18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pEE5.html">Minnesota 2019 pEE5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minnesota_2019_pTC13.html">Minnesota 2019 pTC13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAH335.html">PAH335</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-11-GEOM.html">W4-11-GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-17.html">W4-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="W4-17_TAE0.html">W4-17 TAE0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WCPT27.html">WCPT27</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_BDE_99.html">Weizmann W411 BDE 99</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_HAT_707.html">Weizmann W411 HAT 707</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_ISOMERIZATION_20.html">Weizmann W411 ISOMERIZATION 20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_SN_13.html">Weizmann W411 SN 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_140.html">Weizmann W411 TAE 140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAE_MR_16.html">Weizmann W411 TAE MR 16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weizmann_W411_TAEnonMR_124.html">Weizmann W411 TAEnonMR 124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarks_N2minimal.html">benchmarks N2minimal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+<p class="caption">
+    <span class="caption-text">Indices</span>
+</p>
+<ul>
+    <li class="toctree-l1"><a href= "../genindex.html">Everything</a></li>
+    <li class="toctree-l1"><a href= "../py-modindex.html">Module Index</a></li>
+</ul>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pymolpro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../databases.html">Database library</a></li>
+      <li class="breadcrumb-item active">DBOC200</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/database/DBOC200.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dboc200">
+<h1>DBOC200<a class="headerlink" href="#dboc200" title="Link to this heading"></a></h1>
+<p>DBOC200 diagonal Born-Oppenheimer corrections to the total atomisation energy, CCSD/CBS (best estimate)</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Lab Initio chemical databases: <a class="reference external" href="https://labinitio.org/explore/chem_data_bases/">https://labinitio.org/explore/chem_data_bases/</a></div>
+<div class="line">DBOC200 paper: <a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Tiyej6th4CWH4x41DQS313YiJD3wWRod">https://drive.google.com/uc?export=download&amp;id=1Tiyej6th4CWH4x41DQS313YiJD3wWRod</a></div>
+</div>
+</section>
+<section id="molecules">
+<h2>Molecules<a class="headerlink" href="#molecules" title="Link to this heading"></a></h2>
+<p>ch2-trip, energy = -1.6140502320648196e-05
+ch3, energy = -1.7715602518776658e-05
+ch4, energy = -7.852651092233744e-05
+c2h2, energy = -0.00011892951630260328
+ch2ch, energy = -4.4820606065533955e-05
+c2h4, energy = -8.031041099690298e-05
+c2h6, energy = -0.00010135411414594909
+cyclopropene, energy = -0.00011507241578983605
+allene, energy = -0.00012643281728001517
+propyne, energy = -0.0001609901223684724
+cyclopropyl, energy = -0.00011792831639308724
+propene, energy = -0.00013294421829206134
+cyclopropane, energy = -0.00016059202214218702
+Cyclopropane-Me, energy = -0.0002020737277283144
+Cyclopropane-2Me_a, energy = -0.00024366303340545345
+Cyclopropane-3Me_b, energy = -0.0002682377368509087
+Cyclopropane-4Me_b, energy = -0.0003173740437590569
+Cyclopropane-5Me, energy = -0.0003662778505399284
+Cyclopropane-6Me, energy = -0.0004161002573331911
+propane, energy = -0.00014179211972148063
+cyclobutadiene, energy = -0.00014066671945204816
+t-butadiene, energy = -0.0001557569214945746
+cyclobutene, energy = -0.00015199542107116452
+cyclobutane, energy = -0.00015721902186756272
+Cyclobutane-Me, energy = -0.00018899592588707872
+Cyclobutane-2Me_b, energy = -0.00024247103362198217
+isobutane, energy = -0.00019463652693141222
+n-butane, energy = -0.00018170342516725954
+cyclopentadiene, energy = -0.00021540742981431712
+neopentane, energy = -0.00025600043522077987
+n-pentane, energy = -0.00022075653053279913
+diisopropyl, energy = -0.00027076073738921614
+cyclohexane_chair_d3d, energy = -0.00023394763233252445
+benzene, energy = -0.0001988006272960682
+1react, energy = -0.00020105302753044982
+1prod, energy = -0.00019604562710665282
+2react, energy = -0.0002261056312512811
+2prod, energy = -0.0002292423317408966
+3react, energy = -0.0002589943358430583
+3prod, energy = -0.00024476183378548236
+4prod, energy = -0.00024204433350601744
+5react, energy = -0.00026063033606862755
+6react, energy = -0.00024713793390361154
+7react, energy = -0.00026148133599552224
+7prod, energy = -0.00023661383266204814
+8react, energy = -0.00028226723907093525
+9react, energy = -0.000283524039091869
+9prod, energy = -0.0002874297394970732
+10react, energy = -0.000299906941369763
+10prod, energy = -0.00029548204074062036
+11react, energy = -0.00027075523748367776
+11prod, energy = -0.00027379033788310885
+12react, energy = -0.0002836114392181836
+12prod, energy = -0.000281123838799021
+13prod, energy = -0.000292681340297332
+14react, energy = -0.000289579240079103
+14prod, energy = -0.00029008294001524446
+15react, energy = -0.00029105024009148234
+15prod, energy = -0.00028810333966612417
+16prod, energy = -0.00026729713683548413
+17react, energy = -0.00030293714174947455
+18prod, energy = -0.0002864876395766618
+20react, energy = -0.00020125692776804717
+20prod, energy = -0.00019515532685059165
+21react, energy = -0.0001805701250681338
+22react, energy = -0.00023042353167523078
+22prod, energy = -0.00024018403311621404
+23react, energy = -0.00024266083330535962
+24react, energy = -0.00023217243193541053
+25react, energy = -0.0002457093338209023
+26react, energy = -0.0002580551355612109
+26prod, energy = -0.00023846003287851148
+27react, energy = -0.00022469793080961758
+27prod, energy = -0.00023991773294618907
+29react, energy = -0.00023999523324253456
+29prod, energy = -0.00025356133490352437
+30react, energy = -0.0002828598390383781
+30prod, energy = -0.0002850953392513856
+31react, energy = -0.0002699580372214091
+31prod, energy = -0.0002666331367439328
+32react, energy = -0.0002723162375084662
+32prod, energy = -0.0002786540384204007
+33react, energy = -0.00028720693961870584
+33prod, energy = -0.00028082273877654977
+34react, energy = -0.00028981313993995685
+34prod, energy = -0.0002944637404669107
+35react, energy = -0.00028589563949503775
+35prod, energy = -0.00027489963797892555
+36react, energy = -0.00029742174087475534
+36prod, energy = -0.00028458183927580495
+37react, energy = -0.0002701531372292652
+38react, energy = -0.0002595131357622377
+39react, energy = -0.000280867938554254
+40react, energy = -0.00027151863732231834
+41react, energy = -0.000256911535327357
+42react, energy = -0.00027853553830884206
+43react, energy = -0.0002339202322144826
+43prod, energy = -0.0002426372336068096
+44react, energy = -0.00023830753276226504
+44prod, energy = -0.00021463012976427614
+45react, energy = -0.0002640417362723704
+45prod, energy = -0.000259860435752991
+46react, energy = -0.00028335183910621435
+46prod, energy = -0.0002707841375067065
+47react, energy = -0.0002832285391463459
+47prod, energy = -0.000271218037395136
+48react, energy = -0.0002741091377747126
+48prod, energy = -0.0002598675357349259
+49react, energy = -0.0002361003326864675
+49prod, energy = -0.0002352975323472507
+50react, energy = -0.00026163733601703126
+51react, energy = -0.00027287003762291133
+51prod, energy = -0.00027444853793577253
+52react, energy = -0.0002658440366541768
+52prod, energy = -0.0002649091365062302
+53react, energy = -0.0002709210371637461
+54react, energy = -0.0002876230394665931
+55react, energy = -0.00027852493842164453
+56react, energy = -0.0002524423349396783
+56prod, energy = -0.00025681483525689215
+57react, energy = -0.0002964135407738342
+58react, energy = -0.00027694193801294293
+58prod, energy = -0.0002709205374493371
+60prod, energy = -0.0002732534377900379
+1, energy = -0.0002534316350189495
+2, energy = -0.0002606014360455989
+3, energy = -0.000277724838139932
+4, energy = -0.00028862773966225165
+5, energy = -0.0003090904425407504
+6, energy = -0.00032013574400652803
+7, energy = -0.0002712560374003754
+8, energy = -0.00029802314107193947
+9, energy = -0.0002470439338906509
+10, energy = -0.000298167141091794
+11, energy = -0.0003038257417577294
+12, energy = -0.00024746963419691774
+14, energy = -0.0003256159447240419
+15, energy = -0.00032347194442843035
+16, energy = -0.0003025373416562627
+17, energy = -0.0002583116356917967
+18, energy = -0.0003171289437443069
+19, energy = -0.00025431243498804095
+20, energy = -0.00027820503854893315
+21, energy = -0.00026710083667511064
+22, energy = -0.0002961178408663715
+23, energy = -0.00029292644031208204
+24, energy = -0.00026979333714156846
+26, energy = -0.00035236784862203817
+27, energy = -0.0002656174367371975
+28, energy = -0.00034442174735504577
+29, energy = -0.0003035632420071962
+30, energy = -0.0003167625437699641
+31, energy = -0.0002979764410083686
+32, energy = -0.00028246533888876506
+33, energy = -0.0003357326461760495
+34, energy = -0.00029243874037814666
+35, energy = -0.00036762295070634477
+36, energy = -0.0002643826363384172
+37, energy = -0.00034946664806967306
+38, energy = -0.0002504262344903054
+39, energy = -0.00036109324993934737
+40, energy = -0.0002512349346589398
+42, energy = -0.0002492934344864686
+43, energy = -0.00024871833442621864
+44, energy = -0.0002432808333908443
+45, energy = -0.000300950541589829
+Tetrahedrane, energy = -0.0002447919335801485
+Triprismane, energy = -0.00026363333629223683
+Cubane, energy = -0.0002730398376844111
+Pentaprismane, energy = -0.0003477886478383129
+Octahedrane, energy = -0.000493933668179009
+Tetrahedrane-Me, energy = -0.00027560343811405244
+Tetrahedrane-2Me, energy = -0.00030401134185949565
+Tetrahedrane-3Me, energy = -0.00032050114417117283
+Tetrahedrane-4Me, energy = -0.0003403786468166331
+Tetrahedrane-Acetylene, energy = -0.00030685894232829446
+Tetrahedrane-2Acetylene, energy = -0.00036674765064279166
+C14H14_cage_D7h, energy = -0.0004056153558685046
+C10H10_min_C3v_symm-fixed, energy = -0.0003454222475882132
+C8H8_min_Cs_D3zero_symm-fixed, energy = -0.00030972344281846747
+Norbornylidene, energy = -0.00025051313452133104
+adamantane_td, energy = -0.00035509954886537296
+diamantane_d3d, energy = -0.000498448368858621
+triamantane_c2v, energy = -0.0006555383474785305
+C7H8_Toluene_Cs, energy = -0.00023885593276170165
+Benzene-2Me_ortho, energy = -0.00029029993985472415
+Benzene-2Me_meta, energy = -0.00028947963998919433
+Benzene-2Me_para, energy = -0.00028658573938070375
+C9H8_Indene_Cs, energy = -0.0003084793424755369
+C9H10_Indane_Cs, energy = -0.00029913044116748036
+C10H8_Naphthalene_D2h, energy = -0.0003060487422546733
+C12H8_Acenaphthylene_C2v, energy = -0.00037084465101724
+C12H8_Biphenylene_D2h, energy = -0.000354422648752999
+C12H10_Acenaphthene_C2v, energy = -0.0003806051524582233
+C12H10_Biphenyl_D2, energy = -0.00037432905142148796
+C13H10_Fluorene_C2v, energy = -0.00041161545686718546
+C14H8_Pyracyclene_D2h, energy = -0.00043120645937792356
+C14H10_Anthracene_D2h, energy = -0.0004181449576722433
+C14H10_Phenanthrene_C2v, energy = -0.00042167105832981264
+C14H12_Pyracene_D2h, energy = -0.00044833146192953315
+C, energy = 0.0
+H, energy = 0.0</p>
+</section>
+<section id="reactions">
+<h2>Reactions<a class="headerlink" href="#reactions" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">ch2-trip: ch2-trip -&gt; C + 2H, energy = 1.6140502320648196e-05</div>
+<div class="line">ch3: ch3 -&gt; C + 3H, energy = 1.7715602518776658e-05</div>
+<div class="line">ch4: ch4 -&gt; 4H + C, energy = 7.852651092233744e-05</div>
+<div class="line">c2h2: c2h2 -&gt; 2H + 2C, energy = 0.00011892951630260328</div>
+<div class="line">ch2ch: ch2ch -&gt; 2C + 3H, energy = 4.4820606065533955e-05</div>
+<div class="line">c2h4: c2h4 -&gt; 2C + 4H, energy = 8.031041099690298e-05</div>
+<div class="line">c2h6: c2h6 -&gt; 2C + 6H, energy = 0.00010135411414594909</div>
+<div class="line">cyclopropene: cyclopropene -&gt; 3C + 4H, energy = 0.00011507241578983605</div>
+<div class="line">allene: allene -&gt; 3C + 4H, energy = 0.00012643281728001517</div>
+<div class="line">propyne: propyne -&gt; 4H + 3C, energy = 0.0001609901223684724</div>
+<div class="line">cyclopropyl: cyclopropyl -&gt; 3C + 5H, energy = 0.00011792831639308724</div>
+<div class="line">propene: propene -&gt; 3C + 6H, energy = 0.00013294421829206134</div>
+<div class="line">cyclopropane: cyclopropane -&gt; 3C + 6H, energy = 0.00016059202214218702</div>
+<div class="line">Cyclopropane-Me: Cyclopropane-Me -&gt; 4C + 8H, energy = 0.0002020737277283144</div>
+<div class="line">Cyclopropane-2Me_a: Cyclopropane-2Me_a -&gt; 5C + 10H, energy = 0.00024366303340545345</div>
+<div class="line">Cyclopropane-3Me_b: Cyclopropane-3Me_b -&gt; 6C + 12H, energy = 0.0002682377368509087</div>
+<div class="line">Cyclopropane-4Me_b: Cyclopropane-4Me_b -&gt; 7C + 14H, energy = 0.0003173740437590569</div>
+<div class="line">Cyclopropane-5Me: Cyclopropane-5Me -&gt; 8C + 16H, energy = 0.0003662778505399284</div>
+<div class="line">Cyclopropane-6Me: Cyclopropane-6Me -&gt; 9C + 18H, energy = 0.0004161002573331911</div>
+<div class="line">propane: propane -&gt; 3C + 8H, energy = 0.00014179211972148063</div>
+<div class="line">cyclobutadiene: cyclobutadiene -&gt; 4C + 4H, energy = 0.00014066671945204816</div>
+<div class="line">t-butadiene: t-butadiene -&gt; 4C + 6H, energy = 0.0001557569214945746</div>
+<div class="line">cyclobutene: cyclobutene -&gt; 4C + 6H, energy = 0.00015199542107116452</div>
+<div class="line">cyclobutane: cyclobutane -&gt; 4C + 8H, energy = 0.00015721902186756272</div>
+<div class="line">Cyclobutane-Me: Cyclobutane-Me -&gt; 5C + 10H, energy = 0.00018899592588707872</div>
+<div class="line">Cyclobutane-2Me_b: Cyclobutane-2Me_b -&gt; 6C + 12H, energy = 0.00024247103362198217</div>
+<div class="line">isobutane: isobutane -&gt; 4C + 10H, energy = 0.00019463652693141222</div>
+<div class="line">n-butane: n-butane -&gt; 4C + 10H, energy = 0.00018170342516725954</div>
+<div class="line">cyclopentadiene: cyclopentadiene -&gt; 5C + 6H, energy = 0.00021540742981431712</div>
+<div class="line">neopentane: neopentane -&gt; 5C + 12H, energy = 0.00025600043522077987</div>
+<div class="line">n-pentane: n-pentane -&gt; 5C + 12H, energy = 0.00022075653053279913</div>
+<div class="line">diisopropyl: diisopropyl -&gt; 6C + 14H, energy = 0.00027076073738921614</div>
+<div class="line">cyclohexane_chair_d3d: cyclohexane_chair_d3d -&gt; 6C + 12H, energy = 0.00023394763233252445</div>
+<div class="line">benzene: benzene -&gt; 6C + 6H, energy = 0.0001988006272960682</div>
+<div class="line">1react: 1react -&gt; 5C + 8H, energy = 0.00020105302753044982</div>
+<div class="line">1prod: 1prod -&gt; 5C + 8H, energy = 0.00019604562710665282</div>
+<div class="line">2react: 2react -&gt; 6C + 10H, energy = 0.0002261056312512811</div>
+<div class="line">2prod: 2prod -&gt; 6C + 10H, energy = 0.0002292423317408966</div>
+<div class="line">3react: 3react -&gt; 6C + 10H, energy = 0.0002589943358430583</div>
+<div class="line">3prod: 3prod -&gt; 6C + 10H, energy = 0.00024476183378548236</div>
+<div class="line">4prod: 4prod -&gt; 6C + 10H, energy = 0.00024204433350601744</div>
+<div class="line">5react: 5react -&gt; 6C + 10H, energy = 0.00026063033606862755</div>
+<div class="line">6react: 6react -&gt; 6C + 10H, energy = 0.00024713793390361154</div>
+<div class="line">7react: 7react -&gt; 6C + 10H, energy = 0.00026148133599552224</div>
+<div class="line">7prod: 7prod -&gt; 6C + 10H, energy = 0.00023661383266204814</div>
+<div class="line">8react: 8react -&gt; 7C + 12H, energy = 0.00028226723907093525</div>
+<div class="line">9react: 9react -&gt; 7C + 12H, energy = 0.000283524039091869</div>
+<div class="line">9prod: 9prod -&gt; 7C + 12H, energy = 0.0002874297394970732</div>
+<div class="line">10react: 10react -&gt; 7C + 12H, energy = 0.000299906941369763</div>
+<div class="line">10prod: 10prod -&gt; 7C + 12H, energy = 0.00029548204074062036</div>
+<div class="line">11react: 11react -&gt; 7C + 12H, energy = 0.00027075523748367776</div>
+<div class="line">11prod: 11prod -&gt; 7C + 12H, energy = 0.00027379033788310885</div>
+<div class="line">12react: 12react -&gt; 7C + 12H, energy = 0.0002836114392181836</div>
+<div class="line">12prod: 12prod -&gt; 7C + 12H, energy = 0.000281123838799021</div>
+<div class="line">13prod: 13prod -&gt; 7C + 12H, energy = 0.000292681340297332</div>
+<div class="line">14react: 14react -&gt; 7C + 12H, energy = 0.000289579240079103</div>
+<div class="line">14prod: 14prod -&gt; 7C + 12H, energy = 0.00029008294001524446</div>
+<div class="line">15react: 15react -&gt; 7C + 12H, energy = 0.00029105024009148234</div>
+<div class="line">15prod: 15prod -&gt; 7C + 12H, energy = 0.00028810333966612417</div>
+<div class="line">16prod: 16prod -&gt; 7C + 12H, energy = 0.00026729713683548413</div>
+<div class="line">17react: 17react -&gt; 7C + 12H, energy = 0.00030293714174947455</div>
+<div class="line">18prod: 18prod -&gt; 7C + 12H, energy = 0.0002864876395766618</div>
+<div class="line">20react: 20react -&gt; 5C + 6H, energy = 0.00020125692776804717</div>
+<div class="line">20prod: 20prod -&gt; 5C + 6H, energy = 0.00019515532685059165</div>
+<div class="line">21react: 21react -&gt; 5C + 6H, energy = 0.0001805701250681338</div>
+<div class="line">22react: 22react -&gt; 6C + 8H, energy = 0.00023042353167523078</div>
+<div class="line">22prod: 22prod -&gt; 6C + 8H, energy = 0.00024018403311621404</div>
+<div class="line">23react: 23react -&gt; 6C + 8H, energy = 0.00024266083330535962</div>
+<div class="line">24react: 24react -&gt; 6C + 8H, energy = 0.00023217243193541053</div>
+<div class="line">25react: 25react -&gt; 6C + 8H, energy = 0.0002457093338209023</div>
+<div class="line">26react: 26react -&gt; 6C + 8H, energy = 0.0002580551355612109</div>
+<div class="line">26prod: 26prod -&gt; 6C + 8H, energy = 0.00023846003287851148</div>
+<div class="line">27react: 27react -&gt; 6C + 8H, energy = 0.00022469793080961758</div>
+<div class="line">27prod: 27prod -&gt; 6C + 8H, energy = 0.00023991773294618907</div>
+<div class="line">29react: 29react -&gt; 6C + 8H, energy = 0.00023999523324253456</div>
+<div class="line">29prod: 29prod -&gt; 6C + 8H, energy = 0.00025356133490352437</div>
+<div class="line">30react: 30react -&gt; 7C + 10H, energy = 0.0002828598390383781</div>
+<div class="line">30prod: 30prod -&gt; 7C + 10H, energy = 0.0002850953392513856</div>
+<div class="line">31react: 31react -&gt; 7C + 10H, energy = 0.0002699580372214091</div>
+<div class="line">31prod: 31prod -&gt; 7C + 10H, energy = 0.0002666331367439328</div>
+<div class="line">32react: 32react -&gt; 7C + 10H, energy = 0.0002723162375084662</div>
+<div class="line">32prod: 32prod -&gt; 7C + 10H, energy = 0.0002786540384204007</div>
+<div class="line">33react: 33react -&gt; 7C + 10H, energy = 0.00028720693961870584</div>
+<div class="line">33prod: 33prod -&gt; 7C + 10H, energy = 0.00028082273877654977</div>
+<div class="line">34react: 34react -&gt; 7C + 10H, energy = 0.00028981313993995685</div>
+<div class="line">34prod: 34prod -&gt; 7C + 10H, energy = 0.0002944637404669107</div>
+<div class="line">35react: 35react -&gt; 7C + 10H, energy = 0.00028589563949503775</div>
+<div class="line">35prod: 35prod -&gt; 7C + 10H, energy = 0.00027489963797892555</div>
+<div class="line">36react: 36react -&gt; 7C + 10H, energy = 0.00029742174087475534</div>
+<div class="line">36prod: 36prod -&gt; 7C + 10H, energy = 0.00028458183927580495</div>
+<div class="line">37react: 37react -&gt; 7C + 10H, energy = 0.0002701531372292652</div>
+<div class="line">38react: 38react -&gt; 7C + 10H, energy = 0.0002595131357622377</div>
+<div class="line">39react: 39react -&gt; 7C + 10H, energy = 0.000280867938554254</div>
+<div class="line">40react: 40react -&gt; 7C + 10H, energy = 0.00027151863732231834</div>
+<div class="line">41react: 41react -&gt; 7C + 10H, energy = 0.000256911535327357</div>
+<div class="line">42react: 42react -&gt; 7C + 10H, energy = 0.00027853553830884206</div>
+<div class="line">43react: 43react -&gt; 6C + 8H, energy = 0.0002339202322144826</div>
+<div class="line">43prod: 43prod -&gt; 6C + 8H, energy = 0.0002426372336068096</div>
+<div class="line">44react: 44react -&gt; 6C + 8H, energy = 0.00023830753276226504</div>
+<div class="line">44prod: 44prod -&gt; 6C + 8H, energy = 0.00021463012976427614</div>
+<div class="line">45react: 45react -&gt; 7C + 10H, energy = 0.0002640417362723704</div>
+<div class="line">45prod: 45prod -&gt; 7C + 10H, energy = 0.000259860435752991</div>
+<div class="line">46react: 46react -&gt; 7C + 10H, energy = 0.00028335183910621435</div>
+<div class="line">46prod: 46prod -&gt; 7C + 10H, energy = 0.0002707841375067065</div>
+<div class="line">47react: 47react -&gt; 7C + 10H, energy = 0.0002832285391463459</div>
+<div class="line">47prod: 47prod -&gt; 7C + 10H, energy = 0.000271218037395136</div>
+<div class="line">48react: 48react -&gt; 7C + 10H, energy = 0.0002741091377747126</div>
+<div class="line">48prod: 48prod -&gt; 7C + 10H, energy = 0.0002598675357349259</div>
+<div class="line">49react: 49react -&gt; 6C + 8H, energy = 0.0002361003326864675</div>
+<div class="line">49prod: 49prod -&gt; 6C + 8H, energy = 0.0002352975323472507</div>
+<div class="line">50react: 50react -&gt; 6C + 8H, energy = 0.00026163733601703126</div>
+<div class="line">51react: 51react -&gt; 7C + 10H, energy = 0.00027287003762291133</div>
+<div class="line">51prod: 51prod -&gt; 7C + 10H, energy = 0.00027444853793577253</div>
+<div class="line">52react: 52react -&gt; 7C + 10H, energy = 0.0002658440366541768</div>
+<div class="line">52prod: 52prod -&gt; 7C + 10H, energy = 0.0002649091365062302</div>
+<div class="line">53react: 53react -&gt; 7C + 10H, energy = 0.0002709210371637461</div>
+<div class="line">54react: 54react -&gt; 7C + 10H, energy = 0.0002876230394665931</div>
+<div class="line">55react: 55react -&gt; 7C + 10H, energy = 0.00027852493842164453</div>
+<div class="line">56react: 56react -&gt; 7C + 10H, energy = 0.0002524423349396783</div>
+<div class="line">56prod: 56prod -&gt; 7C + 10H, energy = 0.00025681483525689215</div>
+<div class="line">57react: 57react -&gt; 7C + 10H, energy = 0.0002964135407738342</div>
+<div class="line">58react: 58react -&gt; 7C + 10H, energy = 0.00027694193801294293</div>
+<div class="line">58prod: 58prod -&gt; 7C + 10H, energy = 0.0002709205374493371</div>
+<div class="line">60prod: 60prod -&gt; 7C + 10H, energy = 0.0002732534377900379</div>
+<div class="line">1: 1 -&gt; 8C + 8H, energy = 0.0002534316350189495</div>
+<div class="line">2: 2 -&gt; 8C + 8H, energy = 0.0002606014360455989</div>
+<div class="line">3: 3 -&gt; 8C + 8H, energy = 0.000277724838139932</div>
+<div class="line">4: 4 -&gt; 8C + 8H, energy = 0.00028862773966225165</div>
+<div class="line">5: 5 -&gt; 8C + 8H, energy = 0.0003090904425407504</div>
+<div class="line">6: 6 -&gt; 8C + 8H, energy = 0.00032013574400652803</div>
+<div class="line">7: 7 -&gt; 8C + 8H, energy = 0.0002712560374003754</div>
+<div class="line">8: 8 -&gt; 8C + 8H, energy = 0.00029802314107193947</div>
+<div class="line">9: 9 -&gt; 8C + 8H, energy = 0.0002470439338906509</div>
+<div class="line">10: 10 -&gt; 8C + 8H, energy = 0.000298167141091794</div>
+<div class="line">11: 11 -&gt; 8C + 8H, energy = 0.0003038257417577294</div>
+<div class="line">12: 12 -&gt; 8C + 8H, energy = 0.00024746963419691774</div>
+<div class="line">14: 14 -&gt; 8C + 8H, energy = 0.0003256159447240419</div>
+<div class="line">15: 15 -&gt; 8C + 8H, energy = 0.00032347194442843035</div>
+<div class="line">16: 16 -&gt; 8C + 8H, energy = 0.0003025373416562627</div>
+<div class="line">17: 17 -&gt; 8C + 8H, energy = 0.0002583116356917967</div>
+<div class="line">18: 18 -&gt; 8C + 8H, energy = 0.0003171289437443069</div>
+<div class="line">19: 19 -&gt; 8C + 8H, energy = 0.00025431243498804095</div>
+<div class="line">20: 20 -&gt; 8C + 8H, energy = 0.00027820503854893315</div>
+<div class="line">21: 21 -&gt; 8C + 8H, energy = 0.00026710083667511064</div>
+<div class="line">22: 22 -&gt; 8C + 8H, energy = 0.0002961178408663715</div>
+<div class="line">23: 23 -&gt; 8C + 8H, energy = 0.00029292644031208204</div>
+<div class="line">24: 24 -&gt; 8C + 8H, energy = 0.00026979333714156846</div>
+<div class="line">26: 26 -&gt; 8C + 8H, energy = 0.00035236784862203817</div>
+<div class="line">27: 27 -&gt; 8C + 8H, energy = 0.0002656174367371975</div>
+<div class="line">28: 28 -&gt; 8C + 8H, energy = 0.00034442174735504577</div>
+<div class="line">29: 29 -&gt; 8C + 8H, energy = 0.0003035632420071962</div>
+<div class="line">30: 30 -&gt; 8C + 8H, energy = 0.0003167625437699641</div>
+<div class="line">31: 31 -&gt; 8C + 8H, energy = 0.0002979764410083686</div>
+<div class="line">32: 32 -&gt; 8C + 8H, energy = 0.00028246533888876506</div>
+<div class="line">33: 33 -&gt; 8C + 8H, energy = 0.0003357326461760495</div>
+<div class="line">34: 34 -&gt; 8C + 8H, energy = 0.00029243874037814666</div>
+<div class="line">35: 35 -&gt; 8C + 8H, energy = 0.00036762295070634477</div>
+<div class="line">36: 36 -&gt; 8C + 8H, energy = 0.0002643826363384172</div>
+<div class="line">37: 37 -&gt; 8C + 8H, energy = 0.00034946664806967306</div>
+<div class="line">38: 38 -&gt; 8C + 8H, energy = 0.0002504262344903054</div>
+<div class="line">39: 39 -&gt; 8C + 8H, energy = 0.00036109324993934737</div>
+<div class="line">40: 40 -&gt; 8C + 8H, energy = 0.0002512349346589398</div>
+<div class="line">42: 42 -&gt; 8C + 8H, energy = 0.0002492934344864686</div>
+<div class="line">43: 43 -&gt; 8C + 8H, energy = 0.00024871833442621864</div>
+<div class="line">44: 44 -&gt; 8C + 8H, energy = 0.0002432808333908443</div>
+<div class="line">45: 45 -&gt; 8C + 8H, energy = 0.000300950541589829</div>
+<div class="line">Tetrahedrane: Tetrahedrane -&gt; 4C + 4H, energy = 0.0002447919335801485</div>
+<div class="line">Triprismane: Triprismane -&gt; 6C + 6H, energy = 0.00026363333629223683</div>
+<div class="line">Cubane: Cubane -&gt; 8C + 8H, energy = 0.0002730398376844111</div>
+<div class="line">Pentaprismane: Pentaprismane -&gt; 10C + 10H, energy = 0.0003477886478383129</div>
+<div class="line">Octahedrane: Octahedrane -&gt; 12C + 12H, energy = 0.000493933668179009</div>
+<div class="line">Tetrahedrane-Me: Tetrahedrane-Me -&gt; 5C + 6H, energy = 0.00027560343811405244</div>
+<div class="line">Tetrahedrane-2Me: Tetrahedrane-2Me -&gt; 6C + 8H, energy = 0.00030401134185949565</div>
+<div class="line">Tetrahedrane-3Me: Tetrahedrane-3Me -&gt; 7C + 10H, energy = 0.00032050114417117283</div>
+<div class="line">Tetrahedrane-4Me: Tetrahedrane-4Me -&gt; 8C + 12H, energy = 0.0003403786468166331</div>
+<div class="line">Tetrahedrane-Acetylene: Tetrahedrane-Acetylene -&gt; 6C + 4H, energy = 0.00030685894232829446</div>
+<div class="line">Tetrahedrane-2Acetylene: Tetrahedrane-2Acetylene -&gt; 8C + 4H, energy = 0.00036674765064279166</div>
+<div class="line">C14H14_cage_D7h: C14H14_cage_D7h -&gt; 14C + 14H, energy = 0.0004056153558685046</div>
+<div class="line">C10H10_min_C3v_symm-fixed: C10H10_min_C3v_symm-fixed -&gt; 10C + 10H, energy = 0.0003454222475882132</div>
+<div class="line">C8H8_min_Cs_D3zero_symm-fixed: C8H8_min_Cs_D3zero_symm-fixed -&gt; 8C + 8H, energy = 0.00030972344281846747</div>
+<div class="line">Norbornylidene: Norbornylidene -&gt; 7C + 6H, energy = 0.00025051313452133104</div>
+<div class="line">adamantane_td: adamantane_td -&gt; 10C + 16H, energy = 0.00035509954886537296</div>
+<div class="line">diamantane_d3d: diamantane_d3d -&gt; 14C + 20H, energy = 0.000498448368858621</div>
+<div class="line">triamantane_c2v: triamantane_c2v -&gt; 18C + 24H, energy = 0.0006555383474785305</div>
+<div class="line">C7H8_Toluene_Cs: C7H8_Toluene_Cs -&gt; 7C + 8H, energy = 0.00023885593276170165</div>
+<div class="line">Benzene-2Me_ortho: Benzene-2Me_ortho -&gt; 8C + 10H, energy = 0.00029029993985472415</div>
+<div class="line">Benzene-2Me_meta: Benzene-2Me_meta -&gt; 8C + 10H, energy = 0.00028947963998919433</div>
+<div class="line">Benzene-2Me_para: Benzene-2Me_para -&gt; 8C + 10H, energy = 0.00028658573938070375</div>
+<div class="line">C9H8_Indene_Cs: C9H8_Indene_Cs -&gt; 9C + 8H, energy = 0.0003084793424755369</div>
+<div class="line">C9H10_Indane_Cs: C9H10_Indane_Cs -&gt; 9C + 10H, energy = 0.00029913044116748036</div>
+<div class="line">C10H8_Naphthalene_D2h: C10H8_Naphthalene_D2h -&gt; 10C + 8H, energy = 0.0003060487422546733</div>
+<div class="line">C12H8_Acenaphthylene_C2v: C12H8_Acenaphthylene_C2v -&gt; 12C + 8H, energy = 0.00037084465101724</div>
+<div class="line">C12H8_Biphenylene_D2h: C12H8_Biphenylene_D2h -&gt; 12C + 8H, energy = 0.000354422648752999</div>
+<div class="line">C12H10_Acenaphthene_C2v: C12H10_Acenaphthene_C2v -&gt; 12C + 10H, energy = 0.0003806051524582233</div>
+<div class="line">C12H10_Biphenyl_D2: C12H10_Biphenyl_D2 -&gt; 12C + 10H, energy = 0.00037432905142148796</div>
+<div class="line">C13H10_Fluorene_C2v: C13H10_Fluorene_C2v -&gt; 10H + 13C, energy = 0.00041161545686718546</div>
+<div class="line">C14H8_Pyracyclene_D2h: C14H8_Pyracyclene_D2h -&gt; 14C + 8H, energy = 0.00043120645937792356</div>
+<div class="line">C14H10_Anthracene_D2h: C14H10_Anthracene_D2h -&gt; 14C + 10H, energy = 0.0004181449576722433</div>
+<div class="line">C14H10_Phenanthrene_C2v: C14H10_Phenanthrene_C2v -&gt; 14C + 10H, energy = 0.00042167105832981264</div>
+<div class="line">C14H12_Pyracene_D2h: C14H12_Pyracene_D2h -&gt; 14C + 12H, energy = 0.00044833146192953315</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DBOC12.html" class="btn btn-neutral float-left" title="DBOC12" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GMTKN30_ACONF.html" class="btn btn-neutral float-right" title="GMTKN30 ACONF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marat Sibaev, Peter Knowles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

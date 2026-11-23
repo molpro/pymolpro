@@ -1,0 +1,57 @@
+AminoAcids
+----------
+Amino acids CCSD(T)/CBS total atomisation energies from W1-F12 theory, all-electron, nonrelativistic
+
+References
+^^^^^^^^^^
+| Lab Initio chemical databases: https://labinitio.org/explore/chem_data_bases/
+| Amino acids paper: https://drive.google.com/uc?export=download&id=1rM6kiD_pVXNiniocOl5_JtaTIYwGJjLo
+| Theor. Chem. Acc. 133, 1483 (2014): https://doi.org/10.1007/s00214-014-1483-4
+
+Molecules
+^^^^^^^^^
+Ala, energy = -2.0186308770736177
+Arg, energy = -4.0445923207603816
+Asn, energy = -2.7434964269987825
+Asp, energy = -2.633490119758458
+Cys, energy = -2.11335454652697
+Gln, energy = -3.2120789937225998
+Glu, energy = -3.1047180648687585
+Gly, energy = -1.5453153140800082
+His, energy = -3.3528896167525155
+Ile, energy = -3.4301314784349515
+Leu, energy = -3.430641430894997
+Lys, energy = -3.6952748856295807
+Met, energy = -3.0502647037445816
+Phe, energy = -4.012082851432515
+Pro, energy = -2.7445003959044962
+Ser, energy = -2.1781981890245623
+Thr, energy = -2.6549559311234754
+Val, energy = -2.96059275084855
+C, energy = 0.0
+H, energy = 0.0
+N, energy = 0.0
+O, energy = 0.0
+S, energy = 0.0
+
+Reactions
+^^^^^^^^^
+| Ala: Ala -> 3C + N + 2O + 7H, energy = 2.0186308770736177
+| Arg: Arg -> 4N + 6C + 2O + 14H, energy = 4.0445923207603816
+| Asn: Asn -> 4C + 3O + 2N + 8H, energy = 2.7434964269987825
+| Asp: Asp -> N + 4C + 4O + 7H, energy = 2.633490119758458
+| Cys: Cys -> 3C + 7H + 2O + N + S, energy = 2.11335454652697
+| Gln: Gln -> 2N + 10H + 5C + 3O, energy = 3.2120789937225998
+| Glu: Glu -> N + 5C + 4O + 9H, energy = 3.1047180648687585
+| Gly: Gly -> N + 5H + 2C + 2O, energy = 1.5453153140800082
+| His: His -> 3N + 6C + 2O + 9H, energy = 3.3528896167525155
+| Ile: Ile -> 13H + N + 6C + 2O, energy = 3.4301314784349515
+| Leu: Leu -> 13H + N + 6C + 2O, energy = 3.430641430894997
+| Lys: Lys -> 2N + 14H + 6C + 2O, energy = 3.6952748856295807
+| Met: Met -> N + 5C + 2O + 11H + S, energy = 3.0502647037445816
+| Phe: Phe -> 9C + 11H + N + 2O, energy = 4.012082851432515
+| Pro: Pro -> N + 9H + 5C + 2O, energy = 2.7445003959044962
+| Ser: Ser -> 7H + N + 3C + 3O, energy = 2.1781981890245623
+| Thr: Thr -> N + 9H + 4C + 3O, energy = 2.6549559311234754
+| Val: Val -> N + 5C + 2O + 11H, energy = 2.96059275084855
+

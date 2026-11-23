@@ -1,0 +1,108 @@
+BH28
+----
+BH28 CCSDT(Q)/CBS barrier heights from W3-F12 theory
+
+References
+^^^^^^^^^^
+| Lab Initio chemical databases: https://labinitio.org/explore/chem_data_bases/
+| BH28 paper: https://drive.google.com/uc?export=download&id=17GoLx5_ld_UNz1fl4kUqtL3HZNxrmXOm
+
+Molecules
+^^^^^^^^^
+BHDIV_1_min
+BHDIV_1_ts
+BHDIV_2_min
+BHDIV_2_ts
+BHDIV_3_min
+BHDIV_3_ts
+BHPERI_1_min
+BHPERI_1_ts
+BHPERI_2_min
+BHPERI_2_ts
+BHPERI_3_min
+BHPERI_3_ts
+BHPERI_4_min
+BHPERI_4_ts
+BHPERI_5_min
+BHPERI_5_ts
+BHPERI_6_min
+BHPERI_6_ts
+CADBH_1_min
+CADBH_1_ts
+CADBH_2_min
+CADBH_2_ts
+CADBH_3_min
+CADBH_3_ts
+CADBH_4_min
+CADBH_4_ts
+CADBH_5_min
+CADBH_5_ts
+CADBH_6_min
+CADBH_6_ts
+CADBH_7_min
+CADBH_7_ts
+CADBH_8_min
+CADBH_8_ts
+CADBH_9_min
+CADBH_9_ts
+CADBH_c2h4
+CRBH_1_min
+CRBH_1_ts
+CRBH_2_min
+CRBH_2_ts
+CRBH_3_min
+CRBH_3_ts
+CRBH_4_min
+CRBH_4_ts
+CRBH_5_min
+CRBH_5_ts
+CRBH_6_min
+CRBH_6_ts
+PXBH_1_min
+PXBH_1_ts
+PXBH_2_min
+PXBH_2_ts
+PXBH_3_min
+PXBH_3_ts
+PXBH_4_min
+PXBH_4_ts
+
+Reactions
+^^^^^^^^^
+| PXBH_1: PXBH_1_min -> PXBH_1_ts (PXBH reaction 1 barrier height), energy = 0.07716626468641699
+| PXBH_2: PXBH_2_min -> PXBH_2_ts (PXBH reaction 2 barrier height), energy = 0.042544283146459916
+| PXBH_3: PXBH_3_min -> PXBH_3_ts (PXBH reaction 3 barrier height), energy = 0.023081321026638055
+| PXBH_4: PXBH_4_min -> PXBH_4_ts (PXBH reaction 4 barrier height), energy = 0.02296705706115965
+| BHPERI_1: BHPERI_1_min -> BHPERI_1_ts (BHPERI reaction 1 barrier height), energy = 0.055494199234012616
+| BHPERI_2: BHPERI_2_min -> BHPERI_2_ts (BHPERI reaction 2 barrier height), energy = 0.04901924119023626
+| BHPERI_3: BHPERI_3_min -> BHPERI_3_ts (BHPERI reaction 3 barrier height), energy = 0.06326414888654423
+| BHPERI_4: BHPERI_4_min -> BHPERI_4_ts (BHPERI reaction 4 barrier height), energy = 0.04540088228342007
+| BHPERI_5: BHPERI_5_min -> BHPERI_5_ts (BHPERI reaction 5 barrier height), energy = 0.058579326301929587
+| BHPERI_6: BHPERI_6_min -> BHPERI_6_ts (BHPERI reaction 6 barrier height), energy = 0.03538374130981312
+| CADBH_1: CADBH_1_min + CADBH_c2h4 -> CADBH_1_ts (CADBH reaction 1 barrier height), energy = 0.04315369096234475
+| CADBH_2: CADBH_2_min + CADBH_c2h4 -> CADBH_2_ts (CADBH reaction 2 barrier height), energy = 0.03142259050656171
+| CADBH_3: CADBH_3_min + CADBH_c2h4 -> CADBH_3_ts (CADBH reaction 3 barrier height), energy = 0.021405449532954764
+| CADBH_4: CADBH_4_min + CADBH_c2h4 -> CADBH_4_ts (CADBH reaction 4 barrier height), energy = 0.017749002637645766
+| CADBH_5: CADBH_5_min + CADBH_c2h4 -> CADBH_5_ts (CADBH reaction 5 barrier height), energy = 0.010169492927578152
+| CADBH_6: CADBH_6_min + CADBH_c2h4 -> CADBH_6_ts (CADBH reaction 6 barrier height), energy = 0.007541421721574811
+| CADBH_7: CADBH_7_min + CADBH_c2h4 -> CADBH_7_ts (CADBH reaction 7 barrier height), energy = 0.020719865740084328
+| CADBH_8: CADBH_8_min + CADBH_c2h4 -> CADBH_8_ts (CADBH reaction 8 barrier height), energy = 0.009521997123200518
+| CADBH_9: CADBH_9_min + CADBH_c2h4 -> CADBH_9_ts (CADBH reaction 9 barrier height), energy = 0.0008379357468416456
+| CRBH_1: CRBH_1_min -> CRBH_1_ts (CRBH reaction 1 barrier height), energy = 0.07316702589467278
+| CRBH_2: CRBH_2_min -> CRBH_2_ts (CRBH reaction 2 barrier height), energy = 0.07891831215708589
+| CRBH_3: CRBH_3_min -> CRBH_3_ts (CRBH reaction 3 barrier height), energy = 0.0679870594596517
+| CRBH_4: CRBH_4_min -> CRBH_4_ts (CRBH reaction 4 barrier height), energy = 0.07107218652756866
+| CRBH_5: CRBH_5_min -> CRBH_5_ts (CRBH reaction 5 barrier height), energy = 0.08028947974282677
+| CRBH_6: CRBH_6_min -> CRBH_6_ts (CRBH reaction 6 barrier height), energy = 0.06745382762075247
+| BHDIV_1: BHDIV_1_min -> BHDIV_1_ts (BHDIV reaction 1 barrier height), energy = 0.09026853272794091
+| BHDIV_2: BHDIV_2_min -> BHDIV_2_ts (BHDIV reaction 2 barrier height), energy = 0.07945154399598511
+| BHDIV_3: BHDIV_3_min -> BHDIV_3_ts (BHDIV reaction 3 barrier height), energy = 0.10390403260836406
+
+Subsets of reactions
+^^^^^^^^^^^^^^^^^^^^
+PXBH: ['PXBH_1', 'PXBH_2', 'PXBH_3', 'PXBH_4']
+BHPERI: ['BHPERI_1', 'BHPERI_2', 'BHPERI_3', 'BHPERI_4', 'BHPERI_5', 'BHPERI_6']
+CADBH: ['CADBH_1', 'CADBH_2', 'CADBH_3', 'CADBH_4', 'CADBH_5', 'CADBH_6', 'CADBH_7', 'CADBH_8', 'CADBH_9']
+CRBH: ['CRBH_1', 'CRBH_2', 'CRBH_3', 'CRBH_4', 'CRBH_5', 'CRBH_6']
+BHDIV: ['BHDIV_1', 'BHDIV_2', 'BHDIV_3']
+

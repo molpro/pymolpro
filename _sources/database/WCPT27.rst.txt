@@ -1,0 +1,86 @@
+WCPT27
+------
+WCPT27 water-catalysed proton-transfer barrier heights, CCSD(T)/CBS from W1 or W2.2 theory
+
+References
+^^^^^^^^^^
+| Lab Initio chemical databases: https://labinitio.org/explore/chem_data_bases/
+| WCPT27 paper: https://drive.google.com/uc?export=download&id=1dWd-1tmMru7AXbMOGx_QixtuhoObtkKe
+| Karton, O'Reilly and Radom, J. Phys. Chem. A 116, 4211 (2012): http://dx.doi.org/10.1021/jp301499y
+
+Molecules
+^^^^^^^^^
+h2o
+prod1
+prod2
+prod3
+prod4
+prod5
+prod6
+prod7
+prod8
+prod9
+ts1
+ts1_1w
+ts1_2w
+ts2
+ts2_1w
+ts2_2w
+ts3
+ts3_1w
+ts3_2w
+ts4
+ts4_1w
+ts4_2w
+ts5
+ts5_1w
+ts5_2w
+ts6
+ts6_1w
+ts6_2w
+ts7
+ts7_1w
+ts7_2w
+ts8
+ts8_1w
+ts8_2w
+ts9
+ts9_1w
+ts9_2w
+
+Reactions
+^^^^^^^^^
+| uncat_1: prod1 -> ts1 (uncat reaction 1 barrier height), energy = 0.058579326301929587
+| uncat_2: prod2 -> ts2 (uncat reaction 2 barrier height), energy = 0.07491907336534166
+| uncat_3: prod3 -> ts3 (uncat reaction 3 barrier height), energy = 0.11171207024938848
+| uncat_4: prod4 -> ts4 (uncat reaction 4 barrier height), energy = 0.07571892112369052
+| uncat_5: prod5 -> ts5 (uncat reaction 5 barrier height), energy = 0.10935061496283476
+| uncat_6: prod6 -> ts6 (uncat reaction 6 barrier height), energy = 0.12946107288703423
+| uncat_7: prod7 -> ts7 (uncat reaction 7 barrier height), energy = 0.0496286490061211
+| uncat_8: prod8 -> ts8 (uncat reaction 8 barrier height), energy = 0.06391164469092188
+| uncat_9: prod9 -> ts9 (uncat reaction 9 barrier height), energy = 0.0975814265185589
+| 1H2O_1: prod1 + h2o -> ts1_1w (1H2O reaction 1 barrier height), energy = 0.008607885399373268
+| 1H2O_2: prod2 + h2o -> ts2_1w (1H2O reaction 2 barrier height), energy = 0.02148162550994037
+| 1H2O_3: prod3 + h2o -> ts3_1w (1H2O reaction 3 barrier height), energy = 0.06044563773807688
+| 1H2O_4: prod4 + h2o -> ts4_1w (1H2O reaction 4 barrier height), energy = 0.013825939822887151
+| 1H2O_5: prod5 + h2o -> ts5_1w (1H2O reaction 5 barrier height), energy = 0.05869359026740799
+| 1H2O_6: prod6 + h2o -> ts6_1w (1H2O reaction 6 barrier height), energy = 0.09502953128954117
+| 1H2O_7: prod7 + h2o -> ts7_1w (1H2O reaction 7 barrier height), energy = 0.00792230160650283
+| 1H2O_8: prod8 + h2o -> ts8_1w (1H2O reaction 8 barrier height), energy = 0.02338602493458047
+| 1H2O_9: prod9 + h2o -> ts9_1w (1H2O reaction 9 barrier height), energy = 0.05682727883126069
+| 2H2O_1: prod1 + 2h2o -> ts1_2w (2H2O reaction 1 barrier height), energy = -0.010169492927578152
+| 2H2O_2: prod2 + 2h2o -> ts2_2w (2H2O reaction 2 barrier height), energy = 0.004265854711193832
+| 2H2O_3: prod3 + 2h2o -> ts3_2w (2H2O reaction 3 barrier height), energy = 0.037783284584859654
+| 2H2O_4: prod4 + 2h2o -> ts4_2w (2H2O reaction 4 barrier height), energy = -0.006513046032269155
+| 2H2O_5: prod5 + 2h2o -> ts5_2w (2H2O reaction 5 barrier height), energy = 0.03332698993120181
+| 2H2O_6: prod6 + 2h2o -> ts6_2w (2H2O reaction 6 barrier height), energy = 0.07884213618010029
+| 2H2O_7: prod7 + 2h2o -> ts7_2w (2H2O reaction 7 barrier height), energy = -0.007389069767603601
+| 2H2O_8: prod8 + 2h2o -> ts8_2w (2H2O reaction 8 barrier height), energy = 0.010017140973606944
+| 2H2O_9: prod9 + 2h2o -> ts9_2w (2H2O reaction 9 barrier height), energy = 0.03256523016134577
+
+Subsets of reactions
+^^^^^^^^^^^^^^^^^^^^
+uncat: ['uncat_1', 'uncat_2', 'uncat_3', 'uncat_4', 'uncat_5', 'uncat_6', 'uncat_7', 'uncat_8', 'uncat_9']
+1H2O: ['1H2O_1', '1H2O_2', '1H2O_3', '1H2O_4', '1H2O_5', '1H2O_6', '1H2O_7', '1H2O_8', '1H2O_9']
+2H2O: ['2H2O_1', '2H2O_2', '2H2O_3', '2H2O_4', '2H2O_5', '2H2O_6', '2H2O_7', '2H2O_8', '2H2O_9']
+
