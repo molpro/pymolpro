@@ -550,7 +550,10 @@ def _cached_variable(project, name):
     the cache lookup/write around it is best-effort.
     """
     status = project.status
-    if getattr(project, '_input_unchanged', False):
+    if not _has_output(project):
+        # no output means any cached value is stale or bogus: discard it
+        _clear_result_caches(project)
+    elif getattr(project, '_input_unchanged', False):
         try:
             cached = project.property_get('_pymolpro_variable_cache_' + name.lower()).get(
                 '_pymolpro_variable_cache_' + name.lower())
@@ -561,7 +564,7 @@ def _cached_variable(project, name):
         except Exception:
             pass
     result = project.variable(name)
-    if result is None or result == []:
+    if result is None or result == [] or not _has_output(project):
         # never cache a missing value: it may just mean the output was incomplete or absent
         return result
     try:
@@ -570,6 +573,55 @@ def _cached_variable(project, name):
     except Exception:
         pass
     return result
+
+
+def _read_energy(project, check_energy):
+    energy = _cached_variable(project, 'energy')
+    if type(energy) is type([]) and energy:
+        energy = energy[0]
+    if check_energy and (energy is None or energy == [] or energy == 0.0 or not _has_output(project)):
+        raise ValueError('ENERGY variable is empty or invalid')
+    return energy
+
+
+def _energy_with_recovery(project, check_energy, backend, retries, retry_delay, backend_parameters):
+    r"""
+    Obtain the ENERGY variable of a project. If that fails, the project may be in an inconsistent state
+    (stale or corrupt cached results, or a recorded status that does not match the output on disk).
+    Recover by discarding the cached results and re-reading; if that is still not enough, rerun the job
+    from scratch (forced) and read again. Only if that also fails is the error propagated.
+    """
+    try:
+        return _read_energy(project, check_energy)
+    except Exception as first:
+        logger.warning("No ENERGY for %s (%s); clearing cached results and retrying", project.name, first)
+    _clear_result_caches(project)
+    try:
+        return _read_energy(project, check_energy)
+    except Exception as second:
+        logger.warning("Still no ENERGY for %s (%s); rerunning job", project.name, second)
+    try:
+        if project.status in ('running', 'waiting'):
+            project.property_delete('_status')
+    except Exception:
+        pass
+    _clear_result_caches(project)
+    last = None
+    for attempt in range(1, retries + 1):
+        try:
+            with _launch_lock:
+                project.run(backend=backend, wait=False, force=True, backend_parameters=backend_parameters)
+            project.wait()
+            break
+        except Exception as e:
+            last = e
+            logger.warning("Forced rerun of %s failed (attempt %d/%d): %s", project.name, attempt, retries, e)
+            import time
+            time.sleep(retry_delay)
+    else:
+        raise last
+    _clear_result_caches(project)
+    return _read_energy(project, check_energy)
 
 
 def run(db, ansatz=None, specification=None, location=".", parallel=None, backend="local",
@@ -718,12 +770,8 @@ def run(db, ansatz=None, specification=None, location=".", parallel=None, backen
     for molecule_name in db.molecules:
         project = newdb.projects[molecule_name]
         try:
-            newdb.molecule_energies[molecule_name] = _cached_variable(project, 'energy')
-            if check_energy and newdb.molecule_energies[molecule_name] is None:
-                raise ValueError('ENERGY variable is empty')
-            if type(newdb.molecule_energies[molecule_name]) is type([]):
-                newdb.molecule_energies[molecule_name] = newdb.molecule_energies[molecule_name][0]
-
+            newdb.molecule_energies[molecule_name] = _energy_with_recovery(
+                project, check_energy and not check, backend, retries, retry_delay, backend_parameters)
         except Exception:
             if not check:
                 raise ValueError(
