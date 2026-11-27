@@ -182,7 +182,7 @@ def construct_primitives(alpha, cartesianAngularQuantumNumbers,
                 # pass
 
 
-def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False, directory=None):
+def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False, directory=None, orbital_set=None):
     """
     Evaluate the molecular orbitals on a grid
 
@@ -191,11 +191,13 @@ def evaluateOrbitals(molecule, points, minocc=1.0e-10, ID=None, values=False, di
     :param minocc: Only orbitals with at least this occupation will be returned
     :param ID: Only the orbital whose ID attribute matches this will be selected
     :param values:
+    :param orbital_set: lxml.etree.Element holding the orbitals node to use. Required if the molecule contains more than one set (eg. UHF alpha and beta).
     :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
     """
     from .orbital import Orbital
     basisAtPoints = evaluateBasis(molecule, points)  # evaluate the basis set at the nuclei
-    orbitalSets = molecule.xpath('molpro-output:orbitals', namespaces=namespaces)
+    orbitalSets = [orbital_set] if orbital_set is not None else molecule.xpath('molpro-output:orbitals',
+                                                                               namespaces=namespaces)
     if len(orbitalSets) != 1:
         raise Exception('something is wrong: there should be just one orbital set')
     result = []
