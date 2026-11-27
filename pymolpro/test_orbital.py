@@ -203,3 +203,31 @@ class TestOrbital(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestEvaluateOrbitalSets(unittest.TestCase):
+    """UHF output has separate alpha and beta <orbitals> nodes in one molecule"""
+
+    def setUp(self):
+        ns = 'http://www.molpro.net/schema/molpro-output'
+        self.molecule = etree.Element('{%s}molecule' % ns)
+        for spin, coefficients in (('alpha', '1.0 0.0'), ('beta', '0.0 2.0')):
+            orbitals_node = etree.SubElement(self.molecule, '{%s}orbitals' % ns, spin=spin)
+            orbital_node = etree.SubElement(orbitals_node, '{%s}orbital' % ns, occupation='1.0',
+                                            ID='1.1' if spin == 'alpha' else '-1.1')
+            orbital_node.text = coefficients
+        self.points = np.zeros((3, 3))
+
+    def evaluate(self, **kwargs):
+        from unittest import mock
+        with mock.patch('pymolpro.grid.evaluateBasis', return_value=np.ones((2, 3))):
+            return pymolpro.grid.evaluateOrbitals(self.molecule, self.points, values=True, **kwargs)
+
+    def test_multiple_sets_without_selection_fails(self):
+        with self.assertRaises(Exception):
+            self.evaluate(ID='1.1')
+
+    def test_selected_set(self):
+        alpha, beta = self.molecule[0], self.molecule[1]
+        np.testing.assert_allclose(self.evaluate(ID='1.1', orbital_set=alpha), np.ones(3))
+        np.testing.assert_allclose(self.evaluate(ID='-1.1', orbital_set=beta), 2 * np.ones(3))

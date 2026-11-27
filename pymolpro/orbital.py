@@ -144,7 +144,8 @@ class Orbital:
         :return: array of dictionaries giving the occupation and values on the grid, or if ID is specified, a single dictionary, or if values==True, a numpy array
         """
         return pymolpro.grid.evaluateOrbitals(self.node.xpath('./parent::*/parent::*')[-1], points, ID=self.ID,
-                                              values=values, directory=self.directory)
+                                              values=values, directory=self.directory,
+                                              orbital_set=self.node.getparent())
 
     def __init__(self, node, directory=None):
         """
